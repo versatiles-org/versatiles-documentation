@@ -1,13 +1,5 @@
-# versatiles
+# How to
 
-versatiles is a stack
-
-<img src="assets/stack.svg">
-
-The stack has 5 parts:
-
-- **generator** [tilemaker with shortbread](https://github.com/versatiles-org/versatiles-generator) 
-- **converter** [*.mbtiles -> *.versatiles](https://github.com/versatiles-org/versatiles-converter)
-- **server** [servers versatiles](https://github.com/versatiles-org/versatiles-server)
-- **cache** [CDN/nginx/...]()
-- **frontend** [MapLibre, styles, 3 fonts, ...](https://github.com/versatiles-org/versatiles-frontend)
+- **Google Cloud**
+   - [Transfer the planet into a Google Bucket](how_to/google_cloud_storage_planet.md)
+   - [Serve tiles as Google Cloud Run](how_to/google_cloud_run_service.md)
