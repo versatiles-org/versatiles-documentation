@@ -53,7 +53,7 @@ CMD versatiles serve \
   - "Allow direct access to your service from the Internet"
   - For "Authentication" select "Allow unauthenticated invocations".
   - When finished click button "CREATE".
-- Check if the service is running correctly: Open the link in "Service details" (something like: https://versatiles-server-google-cloud-build***.run.app). You should see an interactive map.
+- Check if the service is running correctly: Open the link in "Service details" (something like: https://***.run.app). You should see an interactive map.
 
 ## 4. Add a load balancer
 
