@@ -8,6 +8,7 @@
 
 - **local**
   - [Run a local server on Debian](how_to/local_server_debian.md)
+  - [Run a local server using Docker](how_to/local_docker.md)
   - Mac: *Please add a howto*
   - Windows: *Please add a howto*
 - **Debian**
