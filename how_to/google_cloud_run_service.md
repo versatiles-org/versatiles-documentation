@@ -13,12 +13,8 @@ See also the [How to transfer the VersaTiles planet to Google Cloud Storage](goo
 - Create an empty Git repository.
 - Add a file with the filename "Dockerfile" with the following content:
 ```Dockerfile
-# Use the latest docker image of VersaTiles.
-FROM versatiles/versatiles:latest-alpine
-
-# Get the latest version of the frontend.
-# You can skip this part if you only want to host the map tiles without fonts, styles, code, demo etc.
-RUN curl -L "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar" > ./frontend.br.tar
+# Use the latest docker image of VersaTiles including the frontend.
+FROM versatiles/versatiles-frontend:latest-alpine
 
 # Expose necessary port.
 EXPOSE $PORT
@@ -35,7 +31,7 @@ EXPOSE $PORT
 CMD versatiles serve \
     -i "0.0.0.0" \
     -p $PORT \
-    -s frontend.br.tar \
+    -s /frontend.br.tar \
     "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"
 ```
 - Don't forget to update the last line of `Dockerfile` to point to your Google Bucket
