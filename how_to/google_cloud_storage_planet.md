@@ -6,7 +6,7 @@
   1. Using "Transfer data in":
      - In "Bucket details" click on "TRANDFER DATA", "Transfer data in".
      - Select "Source type: URL list" and click on "NEXT STEP".
-     - As "URL of TSV file" set: "https://raw.githubusercontent.com/versatiles-org/versatiles-documentation/main/assets/urllist.tsv" and click on "NEXT STEP".
+     - As "URL of TSV file" set: "https://download.versatiles.org/urllist.tsv" and click on "NEXT STEP".
      - Choose a bucket and folder as destination and click on "NEXT STEP".
      - "Run once", "Starting now" and click on "NEXT STEP".
      - Click on "CREATE".
