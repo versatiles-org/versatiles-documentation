@@ -1,3 +1,7 @@
+# Basics
+
+- [What is a web map?](basics/maps.md)
+
 # How does it work?
 
 - [How does the **server** work?](how_does_it_work/server.md)
