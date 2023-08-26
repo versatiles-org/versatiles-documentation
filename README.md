@@ -1,16 +1,13 @@
-# Basics
+# The Basics
 
-- [What is a web map?](basics/maps.md)
-
-# How does it work?
-
-- [How does the **server** work?](how_does_it_work/server.md)
+- [Introduction to **web maps**](basics/web_maps.md)
+- [How does the **server** work?](basics/versatiles_server.md)
 - *How does **caching** work?*
 - *How does the **frontend** work?*
 
 # How to run the server ...
 
-- **local**
+- **locally**
   - [Run a local server on Debian](how_to/local_server_debian.md)
   - [Run a local server using Docker](how_to/local_docker.md)
   - Mac: *Please add a howto*

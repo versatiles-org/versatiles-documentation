@@ -12,11 +12,11 @@ Our planet is a sphere, but our screens are flat.
 This discrepancy requires the use of special map projections to squeeze our round planet onto a flat map.
 There are many hundreds of these projections.
 
-<p align="center"><img src="../assets/webmap/projections.web.png" ><br>Some <a href="https://en.wikipedia.org/wiki/List_of_map_projections">examples of map projections</a></p>
+<p align="center"><img src="../assets/web_map/projections.web.png" ><br>Some <a href="https://en.wikipedia.org/wiki/List_of_map_projections">examples of map projections</a></p>
 
 Among these many different projections, the Web Mercator projection is the most widely used for web maps.
 
-<p align="center"><img src="../assets/webmap/mercator.png" width="256"><br>The <a href="https://en.wikipedia.org/wiki/Mercator_projection">Mercator projection</a> exaggerates areas far from the equator.</p>
+<p align="center"><img src="../assets/web_map/mercator.png" width="256"><br>The <a href="https://en.wikipedia.org/wiki/Mercator_projection">Mercator projection</a> exaggerates areas far from the equator.</p>
 
 Unfortunately, it enlarges regions near the poles, such as Greenland and Antarctica, and ends at 85° north and south, essentially cutting off the poles.
 On the other hand [it does not distort details](https://en.wikipedia.org/wiki/Conformal_map_projection), and at all points north is always up, west is always to the left, and so on.
@@ -27,7 +27,7 @@ The Web Mercator projection is not without its flaws, but it's a good compromise
 
 The Web Mercator projection projects the Earth onto a square, stored as an image file, usually at a resolution of 256x256 pixels.
 
-<p align="center"><img src="../assets/webmap/0.0.0.png"><br>0/0/0.png</p>
+<p align="center"><img src="../assets/web_map/0.0.0.png"><br>0/0/0.png</p>
 
 This gives an overview of the earth, but as you zoom in, the image becomes blurred as the pixels get larger.
 This is why you want to use a web map frontend such as Leaflet, MapLibre or OpenLayers.
@@ -36,12 +36,12 @@ When you zoom into the map, the frontend knows that the image has become too pix
 
 <table align="center" border="0">
 <tr>
-<td align="center"><img src="../assets/webmap/1.0.0.png"><br>1/0/0.png</td>
-<td align="center"><img src="../assets/webmap/1.1.0.png"><br>1/1/0.png</td>
+<td align="center"><img src="../assets/web_map/1.0.0.png"><br>1/0/0.png</td>
+<td align="center"><img src="../assets/web_map/1.1.0.png"><br>1/1/0.png</td>
 </tr>
 <tr>
-<td align="center"><img src="../assets/webmap/1.0.1.png"><br>1/0/1.png</td>
-<td align="center"><img src="../assets/webmap/1.1.1.png"><br>1/1/1.png</td>
+<td align="center"><img src="../assets/web_map/1.0.1.png"><br>1/0/1.png</td>
+<td align="center"><img src="../assets/web_map/1.1.1.png"><br>1/1/1.png</td>
 </tr>
 </table>
 
