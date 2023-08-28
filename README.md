@@ -1,6 +1,7 @@
 # The Basics
 
 - [Introduction to **web maps**](basics/web_maps.md)
+- [**What is VersaTiles?**](basics/versatiles.md)
 - [How does the **server** work?](basics/versatiles_server.md)
 - *How does **caching** work?*
 - *How does the **frontend** work?*
