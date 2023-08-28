@@ -31,6 +31,10 @@ To ensure the [four essential freedoms of Free Software](https://en.wikipedia.or
 - **Look forward**  
   *Focus on solutions that have a long-term future.*
 
+### Contribute to the project
+
+As an open source project, we encourage you to contribute to the VersaTiles project by submitting bug reports, feature requests, or code contributions to [github.com/versatiles-org](https://github.com/versatiles-org)
+
 ## Key decisions
 
 ### Use vector tiles
