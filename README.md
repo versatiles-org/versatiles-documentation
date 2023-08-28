@@ -5,6 +5,7 @@
 - [How does the **server** work?](basics/versatiles_server.md)
 - *How does **caching** work?*
 - *How does the **frontend** work?*
+- [How to use VersaTiles on **Android and iOS**?](basics/mobile.md)
 
 # How to run the server ...
 
