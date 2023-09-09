@@ -27,5 +27,5 @@ How to:
 - … on **AWS**
 
 # Advanced Guide
-- [How to use VersaTiles in **Android and iOS** apps?](basics/mobile.md)
+- [How to use VersaTiles in **Android and iOS** apps?](guides/what_about_mobile.md)
 - *How to serve tiles with maximum privacy?*
