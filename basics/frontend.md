@@ -1,0 +1,27 @@
+# The VersaTiles frontend
+
+The server only provides vector tiles. But you need more to have an interactive web map. You also need:
+- A JavaScript library like [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), that will handle loading, drawing and user interactions.
+- Styles that define, how the vector tiles should be drawn.
+- Fonts and symbols for labels and markers on the map.
+
+To make it easier for you we prepared and bundled everything in a compact package that is easy to use.
+
+## Downloading the frontend<a id="download"></a>
+
+We release the precompressed frontend as a TAR file [here](https://github.com/versatiles-org/versatiles-frontend/releases/latest).
+
+To download it just run:
+```bash
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+```
+
+## How is it build?
+
+We maintain the frontend in the repo: [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend). A GitHub workflow triggers the [build script](https://github.com/versatiles-org/versatiles-frontend/blob/main/bin/build.sh). It then bundles:
+- the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js)
+- styles from the repo: [versatiles-styles](https://github.com/versatiles-org/versatiles-styles)
+- fonts (glyphs) from the repo: [versatiles-fonts](https://github.com/versatiles-org/versatiles-fonts)
+- symbols (sprites) from the repo: [versatiles-sprites](https://github.com/versatiles-org/versatiles-sprites)
+
+To make it even easier we procompressed all files inside the TAR with brotli. That's why the package has the unusual file extension `.br.tar`. Changing the order to `.tar.br` would be wrong because the TAR container itself is not compressed.

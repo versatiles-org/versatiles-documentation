@@ -12,27 +12,23 @@ The idea to develop a container that can be accessed via HTTP byte range request
 
 ## Installation and setup
 
-You will need [Rust](https://www.rust-lang.org/tools/install). You can install VersaTiles including the server using `cargo``:
-```bash
-cargo install versatiles
-```
+First you need to install VersaTiles. See the instructions in the documentation: [Installing VersaTiles](../guides/install_versatiles.md).
 
-As an alternative we also [release precompiled binaries](https://github.com/versatiles-org/versatiles-rs/releases/tag/v0.5.9).
+You will also need our prepared map tiles. You can find more information on this in the instructions: [Downloading map tiles](../guides/download_tiles.md).
 
-Detailed installation and setup instructions for various operating systems can be found in the [documentation](https://github.com/versatiles-org/versatiles-documentation).
-
-You can start the server by simply adding a versatiles file as arguments:
+You can then start the server by using `versatiles` with the subcommand `server` and then simply adding the versatiles file as argument:
 ```bash
 versatiles server planet.versatiles
 ```
 
-You can download tiles for the whole planet at [download.versatiles.org](https://download.versatiles.org/)
-
 ## Optional frontend
 
-You can extend the VersaTiles server with an optional [frontend](https://github.com/versatiles-org/versatiles-frontend). Download a precompresses TAR file [here](https://github.com/versatiles-org/versatiles-frontend/releases/latest). This frontend includes the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), some map styles, fonts and symbols.
+You can extend the VersaTiles server with an optional frontend. This frontend includes the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), map styles, fonts and symbols. You can [download the frontend](../basics/frontend.md#download):
+```bash
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+```
 
-You can add the frontend by adding the tar file with a `-s` argument:
+You can then add the frontend to the server by adding the tar file with a `-s` argument:
 
 ```bash
 versatiles server -s frontend.br.tar planet.versatiles

@@ -5,7 +5,7 @@ What is it and how does it work:
 - [**VersaTiles**](basics/versatiles.md)
 - [VersaTiles **server**](basics/versatiles_server.md)
 - *VersaTiles caching*
-- *VersaTiles frontend*
+- [VersaTiles **frontend**](basics/frontend.md)
 
 # Beginner's guide
 
