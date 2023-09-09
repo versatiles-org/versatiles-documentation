@@ -44,4 +44,4 @@ To start the server with the frontend, run the following command:
 versatiles serve -s frontend.br.tar planet.versatiles
 ```
 
-The VersaTiles server will now be running locally on your machine. You can access it through your browser by entering the appropriate address and port number (typically, http://localhost:8080).
+The VersaTiles server will now be running locally on your machine. You can access it through your browser by entering the appropriate address and port number (typically, `http://localhost:8080`).

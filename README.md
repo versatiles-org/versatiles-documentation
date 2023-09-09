@@ -19,8 +19,8 @@ How to:
 
 # Deploy a VersaTiles server
 
-- … on [**Debian**](how_to/debian_run_server.md)
-- … in [**Google Cloud**](how_to/google_cloud_run_service.md)
+- … on [**Debian**](guide/debian_run_server.md)
+- … in [**Google Cloud**](guide/google_cloud_run_service.md)
 - … on **Digital Ocean**
 - … on **Kubernetes**
 - … on **Raspberry Pi**

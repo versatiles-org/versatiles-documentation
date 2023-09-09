@@ -16,7 +16,7 @@ use the online map resource and no local map file is needed:
       versatiles serve -s /frontend.br.tar -i 0.0.0.0 \
      '[osm]https://storage.googleapis.com/versatiles/download/planet/planet-20230605.versatiles'
 
-Open http://localhost:8080/ in your browser and start browsing the world map!
+Open `http://localhost:8080/` in your browser and start browsing the world map!
 
 If you want to provide a local cached map file:
 
@@ -26,4 +26,4 @@ If you want to provide a local cached map file:
       versatiles serve -s /frontend.br.tar -i 0.0.0.0 /data/berlin-20230101.versatiles
 
 Until [zoom to bbox in overview mode](https://github.com/versatiles-org/versatiles-frontend/issues/7) is fixed you need to specific the coordinates of the map in the URL, in this case
-open http://localhost:8080/map.html?url=/tiles/berlin-20230101/#9.48/52.5024/13.3249 in your browser.
+open `http://localhost:8080/map.html?url=/tiles/berlin-20230101/#9.48/52.5024/13.3249` in your browser.
