@@ -10,17 +10,17 @@ What is it and how does it work:
 # Beginner's guide
 
 How to:
-- *… **install** VersaTiles?*
-- *… **download** vector tiles?*
-- *… run a VersaTiles **server** …*
-  - *on **Linux/Mac***
+- [… **install** VersaTiles?](guides/install_versatiles.md)
+- [… **download** vector tiles?*](guides/download_tiles.md)
+- … run a VersaTiles **server locally** …
+  - [on **Linux/Mac**](guides/local_linux_mac.md)
   - *on **Windows***
-  - *using **Docker***
+  - [using **Docker**](guides/local_docker.md)
 
 # Deploy a VersaTiles server
 
-- … on [**Debian**](guide/debian_run_server.md)
-- … in [**Google Cloud**](guide/google_cloud_run_service.md)
+- … on [**Debian**](guides/deploy_on_debian.md)
+- … in [**Google Cloud**](guides/deploy_in_google_cloud.md)
 - … on **Digital Ocean**
 - … on **Kubernetes**
 - … on **Raspberry Pi**
