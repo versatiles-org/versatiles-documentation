@@ -1,27 +1,31 @@
-# The Basics
+# Introduction
 
-- [Introduction to **web maps**](basics/web_maps.md)
-- [What is **VersaTiles**?](basics/versatiles.md)
-- [How does the **server** work?](basics/versatiles_server.md)
-- *How does **caching** work?*
-- *How does the **frontend** work?*
-- [How to use VersaTiles on **Android and iOS**?](basics/mobile.md)
+What is it and how does it work:
+- [**Web maps**](basics/web_maps.md)
+- [**VersaTiles**](basics/versatiles.md)
+- [VersaTiles **server**](basics/versatiles_server.md)
+- *VersaTiles caching*
+- *VersaTiles frontend*
 
-# How to run the server ...
+# Beginner's guide
 
-- **locally**
-  - [Run a local server on Debian](how_to/local_server_debian.md)
-  - [Run a local server using Docker](how_to/local_docker.md)
-  - Mac: *Please add a howto*
-  - Windows: *Please add a howto*
-- **Debian**
-  - [Run a VersaTiles server on Debian](how_to/debian_run_server.md)
-- **Google Cloud**
-  - [Transfer the planet into a Google Bucket](how_to/google_cloud_storage_planet.md)
-  - [Serve tiles as Google Cloud Run](how_to/google_cloud_run_service.md)
-- **Digital Ocean**
-  - *Please add a howto*
-- **Kubernetes**
-  - *Please add a howto*
-- **AWS**
-  - *Please add a howto*
+How to:
+- *… **install** VersaTiles?*
+- *… **download** vector tiles?*
+- *… run a VersaTiles **server** …*
+  - *on **Linux/Mac***
+  - *on **Windows***
+  - *using **Docker***
+
+# Deploy a VersaTiles server
+
+- … on [**Debian**](how_to/debian_run_server.md)
+- … in [**Google Cloud**](how_to/google_cloud_run_service.md)
+- … on **Digital Ocean**
+- … on **Kubernetes**
+- … on **Raspberry Pi**
+- … on **AWS**
+
+# Advanced Guide
+- [How to use VersaTiles in **Android and iOS** apps?](basics/mobile.md)
+- *How to serve tiles with maximum privacy?*
