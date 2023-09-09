@@ -1,6 +1,7 @@
 
 You can download tiles for the whole planet at [download.versatiles.org](https://download.versatiles.org/)
 
+# using bbox
 
 
 # How to upload the VersaTiles planet to Google Cloud Storage

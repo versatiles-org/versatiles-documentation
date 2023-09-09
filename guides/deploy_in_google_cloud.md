@@ -6,7 +6,7 @@ See also the [Google documentation: Create buckets](https://cloud.google.com/sto
 
 ## 2. Upload the VersaTiles planet to your bucket
 
-See also the [How to transfer the VersaTiles planet to Google Cloud Storage](google_cloud_storage_planet.md).
+See also the [How to transfer the VersaTiles planet to Google Cloud Storage](../guides/download_tiles.md).
 
 ## 3. Create a Git Repo with a `Dockerfile`
 
