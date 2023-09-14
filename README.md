@@ -11,7 +11,7 @@ What is it and how does it work:
 
 How to:
 - [… **install** VersaTiles?](guides/install_versatiles.md)
-- [… **download** vector tiles?*](guides/download_tiles.md)
+- [… **download** vector tiles?](guides/download_tiles.md)
 - … run a VersaTiles **server locally** …
   - [on **Linux**](guides/local_server_debian.md)
   - [on **Mac**](guides/local_server_mac.md)
