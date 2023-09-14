@@ -35,3 +35,5 @@ Now we have configured docker run. The following arguments are for the VersaTile
 - **`-s /app/frontend.br.tar`** adds the included [frontend](https://github.com/versatiles-org/versatiles-frontend).
 - **`-i 0.0.0.0`** listen on every IP.
 - **`'[osm]/tiles/planet-latest.versatiles'`** use the mounted `*.versatiles` file. Change this if your file has a different name.
+
+For more information, see the documentation on [using the VersaTiles server](https://github.com/versatiles-org/versatiles-documentation/blob/main/basics/versatiles_server.md#usage).
