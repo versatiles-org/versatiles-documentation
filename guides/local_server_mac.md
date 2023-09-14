@@ -8,11 +8,11 @@ In this guide, we will explain how to set up and run a local VersaTiles server. 
 
 ## Step 1: Install the VersaTiles tool
 
-We provide precompiled binaries for multiple plattforms and architectures. See [Installing Versatiles: Downloading the binary](install_versatiles.md#downloading_the_binary).
+We provide precompiled binaries for multiple plattforms and architectures. See [Installing Versatiles: Downloading the binary](install_versatiles.md#downloading-the-binary).
 
-You might prefer to compile it from source using Rust and Cargo: See [Installing Versatiles: Building from source](install_versatiles.md#building_from_source).
+You might prefer to compile it from source using Rust and Cargo: See [Installing Versatiles: Building from source](install_versatiles.md#building-from-source).
 
-But the most convenient way is to install it via [Homebrew for MacOS](install_versatiles.md#homebrew_for_macos)
+But the most convenient way is to install it via [Homebrew for MacOS](install_versatiles.md#homebrew-for-macos)
 
 ## Step 2: Download the VersaTiles planet
 
@@ -22,7 +22,7 @@ The VersaTiles data file is a compact file containing all map tiles for the enti
 wget -c https://download.versatiles.org/planet-latest.versatiles
 ```
 
-If you need only a part of the planet, e.g. only a continent/country/city, you can download this part using the `versatiles` tool. See: [download tiles](download_tiles.md#partial_download)
+If you need only a part of the planet, e.g. only a continent/country/city, you can download this part using the `versatiles` tool. See: [download tiles](download_tiles.md#partial-download)
 
 Once the download is complete, save the `.versatiles` file in a directory of your choice.
 

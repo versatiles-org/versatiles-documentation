@@ -4,8 +4,8 @@ This guide outlines various methods to install VersaTiles on your system:
 
   - Using a Package Manager
     - [Homebrew for MacOS](#homebrew-for-macos)
-  - [Downloading the Released Binary](#downloading-the-released-binary)
-  - [Building from Source using Rust and Cargo](#building-from-source-using-rust-and-cargo)
+  - [Downloading the Released Binary](#downloading-the-binary)
+  - [Building from Source using Rust and Cargo](#building-from-source)
 
 ## Homebrew for MacOS
 
