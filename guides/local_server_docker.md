@@ -21,9 +21,7 @@ docker run -p 8080:8080 --mount src="$(pwd)",dst=/tiles,type=bind,readonly versa
 versatiles serve -s frontend.br.tar -i 0.0.0.0 '[osm]/tiles/planet-latest.versatiles'
 ```
 
-Open `http://localhost:8080/` in your browser. It should look like this:
-
-![Screenshot of the frontend](../assets/screenshots/frontend_index.png)
+Open `http://localhost:8080/` in your browser. It should look like this: [Screenshot of the frontend](../assets/screenshots/frontend_index.png)
 
 ## Explanation
 
