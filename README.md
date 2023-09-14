@@ -13,9 +13,10 @@ How to:
 - [… **install** VersaTiles?](guides/install_versatiles.md)
 - [… **download** vector tiles?*](guides/download_tiles.md)
 - … run a VersaTiles **server locally** …
-  - [on **Linux/Mac**](guides/local_linux_mac.md)
+  - [on **Linux**](guides/local_server_debian.md)
+  - [on **Mac**](guides/local_server_mac.md)
   - *on **Windows***
-  - [using **Docker**](guides/local_docker.md)
+  - [using **Docker**](guides/local_server_docker.md)
 
 # Deploy a VersaTiles server
 

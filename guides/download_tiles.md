@@ -1,6 +1,6 @@
 # How to download tiles?
 
-## Direct Download
+## Direct download
 
 You can download tiles for the whole planet from the official site [download.versatiles.org](https://download.versatiles.org/).
 
@@ -10,7 +10,7 @@ To make downloading easier, you can use `wget`. The `-c` flag can be added to re
 wget -c "https://download.versatiles.org/planet-latest.versatiles"
 ```
 
-## Using VersaTiles for Partial Download
+## Partial download
 
 If you only need tiles for a specific region, like a continent or a country, you can use VersaTiles to download them. Filters can be applied to specify minimum and maximum zoom levels, as well as a geographical bounding box.
 

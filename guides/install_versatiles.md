@@ -16,13 +16,13 @@ brew tap versatiles-org/versatiles
 brew install versatiles
 ```
 
-## Downloading the Released Binary
+## Downloading the binary
 
 For every new release, we provide pre-compiled binaries for various operating systems and architectures. You can download the latest binary from the following link:
 
 [Latest Release on GitHub](https://github.com/versatiles-org/versatiles-rs/releases/latest)
 
-## Building from Source using Rust and Cargo
+## Building from source
 
 To build VersaTiles from source, you'll need to have Rust and Cargo installed on your system. If you don't have them, you can install them [here](https://www.rust-lang.org/tools/install).
 

@@ -1,7 +1,10 @@
 # How to run a local VersaTiles server using Docker
 
 In this guide, we will explain how to set up and run a local VersaTiles server using [docker](https://www.docker.com/).
-VersaTiles is a program written in Rust that includes a complete map tile server.
+
+> [!NOTE]
+> The VersaTiles server is written in Rust (Repo: [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)).
+> The docker containers are specified in the repo [versatiles-docker](https://github.com/versatiles-org/versatiles-docker/tree/main/docker)
 
 ## Prerequisites
 
