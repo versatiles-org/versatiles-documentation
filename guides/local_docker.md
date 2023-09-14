@@ -7,23 +7,31 @@ VersaTiles is a program written in Rust that includes a complete map tile server
 
 Before you begin, make sure you have [docker](https://www.docker.com/) properly installed.
 
+You also need to [download the tiles](download_tiles.md).
+
 ## Usage
 
-Start VersaTiles container from latest image including the frontend UI. This will
-use the online map resource and no local map file is needed:
+Start the VersaTiles container with the latest image including the front-end user interface by executing the following command in the same folder where the file `*.versatiles` is located:
 
-    docker run -p 8080:8080 versatiles/versatiles-frontend:latest-alpine \
-      versatiles serve -s /frontend.br.tar -i 0.0.0.0 \
-     '[osm]https://storage.googleapis.com/versatiles/download/planet/planet-20230605.versatiles'
+```bash
+docker run -p 8080:8080 --mount src="$(pwd)",dst=/tiles,type=bind,readonly versatiles/versatiles-frontend:latest-alpine \
+serve -s /app/frontend.br.tar -i 0.0.0.0 '[osm]/tiles/planet-latest.versatiles'
+```
 
-Open `http://localhost:8080/` in your browser and start browsing the world map!
+Open `http://localhost:8080/` in your browser. It should look like this:
 
-If you want to provide a local cached map file:
+![Screenshot of the frontend](../assets/screenshots/frontend_index.png)
 
-    mkdir data
-    wget https://storage.googleapis.com/versatiles/download/planet/europe/germany/berlin-20230101.versatiles -O data/berlin-20230101.versatiles
-    docker run -p 8080:8080 -v $(pwd)/data/:/data versatiles/versatiles-frontend:latest-alpine \
-      versatiles serve -s /frontend.br.tar -i 0.0.0.0 /data/berlin-20230101.versatiles
+## Explanation
 
-Until [zoom to bbox in overview mode](https://github.com/versatiles-org/versatiles-frontend/issues/7) is fixed you need to specific the coordinates of the map in the URL, in this case
-open `http://localhost:8080/map.html?url=/tiles/berlin-20230101/#9.48/52.5024/13.3249` in your browser.
+The Docker command example above contains quite a bit of information, so we should break it down:
+- **`docker run`** starts the Docker container.
+- **`-p 8080:8080`** maps the port 8080 inside of the container to the outside.
+- **`--mount src="$(pwd)",dst=/tiles,type=bind,readonly`** mounts you current directory to `/tiles` inside of the container.
+- **`versatiles/versatiles-frontend:latest-alpine`** is the name of the Docker image. You can also choose [one of the other images](https://github.com/versatiles-org/versatiles-docker#images-versatiles-frontend).
+
+Now we have configured docker run. The following arguments are for the VersaTiles server inside:
+- **`serve`** is a subcommand for versatiles to start the server.
+- **`-s /app/frontend.br.tar`** adds the included [frontend](https://github.com/versatiles-org/versatiles-frontend).
+- **`-i 0.0.0.0`** listen on every IP.
+- **`'[osm]/tiles/planet-latest.versatiles'`** use the mounted `*.versatiles` file. Change this if your file has a different name.
