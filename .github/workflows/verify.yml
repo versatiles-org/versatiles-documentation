@@ -2,6 +2,7 @@ name: Check Markdown links
 
 on:
   push:
+  workflow_dispatch:
   schedule:
   - cron: "0 3 1 * *"
 
@@ -10,7 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    - uses: gaurav-nelson/github-action-markdown-link-check@v1
-      with:
-        use-quiet-mode: 'yes'
-    
+    - uses: michaelkreil/check-markdown-links
