@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    - uses: michaelkreil/check-markdown-links
+    - uses: michaelkreil/check-markdown-links@main
