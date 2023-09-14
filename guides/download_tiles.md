@@ -1,33 +1,51 @@
+# How to download tiles?
 
-You can download tiles for the whole planet at [download.versatiles.org](https://download.versatiles.org/)
+## Direct Download
 
-# using bbox
+You can download tiles for the whole planet from the official site [download.versatiles.org](https://download.versatiles.org/).
 
+To make downloading easier, you can use `wget`. The `-c` flag can be added to resume an interrupted download:
 
-# How to upload the VersaTiles planet to Google Cloud Storage
+```bash
+wget -c "https://download.versatiles.org/planet-latest.versatiles"
+```
 
-- Prepare a Google Cloud Storage bucket. See also the [Google documentation](https://cloud.google.com/storage/docs/creating-buckets).
-- Copy the newest version of "planet-*.versatiles" from [download.versatiles.org](https://download.versatiles.org/) into your bucket. There are 3 ways to do that:
+## Using VersaTiles for Partial Download
 
-  1. Using "Transfer data in":
-     - In "Bucket details" click on "TRANDFER DATA", "Transfer data in".
-     - Select "Source type: URL list" and click on "NEXT STEP".
-     - As "URL of TSV file" set: "https://download.versatiles.org/urllist.tsv" and click on "NEXT STEP".
-     - Choose a bucket and folder as destination and click on "NEXT STEP".
-     - "Run once", "Starting now" and click on "NEXT STEP".
-     - Click on "CREATE".
-     - This will start the transfer. You can monitor the transfer also in [transfer jobs](https://console.cloud.google.com/transfer/jobs).
-     - For unknown reasons, Google transfers the data at a speed of only an annoying 10 MB/s.
+If you only need tiles for a specific region, like a continent or a country, you can use VersaTiles to download them. Filters can be applied to specify minimum and maximum zoom levels, as well as a geographical bounding box.
 
-  2. Manually:
-     - If you have a fast internet connection at home/work, you can download the file manually with wget/curl and upload it with gscloud.
+For example, to download only tiles for Switzerland from zoom level 5 to 12:
 
-  3. Manually in a Google VM:
-     - You could also use a Google Compute Engine VM to download and upload the file.
+```bash
+versatiles convert --min-zoom 5 --max-zoom 12 --box 5.956,45.818,10.492,47.808 https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
+```
 
-- Either the bucket or the file must be [publicly accessible](https://cloud.google.com/storage/docs/access-control/making-data-public).
-	<details><summary>Explanation</summary>
-   In the current version of VersaTiles, Google authentication is not yet implemented. Therefore, either the entire bucket or the file must be publicly accessible to enable access via HTTPS.
-	
-	Hopefully, in the near future, the possibility of specifying gs:// addresses as a source will also be implemented VersaTiles in order to be able to use the automatic Google Cloud authentication in Google Cloud Run. Also see [issue versatiles-rs#22](https://github.com/versatiles-org/versatiles-rs/issues/22).
-  </details>
+## Downloading to Google Cloud Storage
+
+To store VersaTiles data on Google Cloud Storage, follow these steps:
+
+- **Prepare a Google Cloud Storage Bucket**  
+  Follow the [Google documentation](https://cloud.google.com/storage/docs/creating-buckets) to create a new bucket.
+
+- **Copy the Latest Data**  
+  Transfer "planet-latest.versatiles" file from [download.versatiles.org](https://download.versatiles.org/) to your bucket. There are 3 ways to do that:
+
+  1. **Automated Transfer**
+    - Navigate to "Bucket details" and click on "TRANSFER DATA", then "Transfer data in".
+    - Select "Source type: URL list" and proceed to the next step.
+    - Enter "https://download.versatiles.org/urllist.tsv" as the "URL of TSV file" and proceed.
+    - Specify your bucket and folder as the destination, and continue.
+    - Opt for "Run once", "Starting now", and finalize by clicking "CREATE".
+    - Monitor the transfer status [here](https://console.cloud.google.com/transfer/jobs).
+    - Note: Transfer speed may be limited to around 10 MB/s for unspecified reasons.
+
+   2. **Manual Transfer**
+    - Use `wget` or `curl` to download the file and `gscloud` to upload it, if you have a high-speed internet connection.
+
+   3. **Google VM Transfer**
+    - Alternatively, use a Google Compute Engine VM for both downloading and uploading.
+
+- **Set Public Access**  
+  The bucket or the file must be set to [public access](https://cloud.google.com/storage/docs/access-control/making-data-public).
+  <details><summary>Why Public Access is Required</summary>
+  VersaTiles currently does not support Google Cloud authentication. Therefore, public access is necessary for HTTPS retrieval. Future versions may include support for Google Cloud Run's automatic authentication. For more details, refer to [issue versatiles-rs#22](https://github.com/versatiles-org/versatiles-rs/issues/22).</details>
