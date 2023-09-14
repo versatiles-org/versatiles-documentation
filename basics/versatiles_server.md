@@ -51,7 +51,7 @@ Now the URLs look like this:
 
 ## Optional frontend
 
-You can extend the VersaTiles server with an optional frontend. This frontend includes the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), map styles, fonts and symbols. You can [download the frontend](../basics/frontend.md#download):
+You can extend the VersaTiles server with an optional frontend. This frontend includes the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), map styles, fonts and symbols. You can [download the frontend](../basics/frontend.md#download-the-frontend):
 ```bash
 wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
 ```

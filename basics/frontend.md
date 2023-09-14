@@ -7,9 +7,9 @@ The server only provides vector tiles. But you need more to have an interactive 
 
 To make it easier for you we prepared and bundled everything in a compact package that is ready to use.
 
-## Downloading the frontend<a id="download"></a>
+## Download the frontend
 
-We release the precompressed frontend as a TAR file [here](https://github.com/versatiles-org/versatiles-frontend/releases/latest).
+We release the frontend as a TAR file [here](https://github.com/versatiles-org/versatiles-frontend/releases/latest). The package `frontend.br.tar` contains all the files but pre-compressed with Brotli so that the server can provide the compressed files with minimal CPU load.
 
 To download it just run:
 ```bash
