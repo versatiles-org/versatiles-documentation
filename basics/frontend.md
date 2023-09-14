@@ -5,7 +5,7 @@ The server only provides vector tiles. But you need more to have an interactive 
 - Styles that define, how the vector tiles should be drawn.
 - Fonts and symbols for labels and markers on the map.
 
-To make it easier for you we prepared and bundled everything in a compact package that is easy to use.
+To make it easier for you we prepared and bundled everything in a compact package that is ready to use.
 
 ## Downloading the frontend<a id="download"></a>
 
