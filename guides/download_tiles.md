@@ -17,7 +17,7 @@ If you only need tiles for a specific region, like a continent or a country, you
 For example, to download only tiles for Switzerland from zoom level 5 to 12:
 
 ```bash
-versatiles convert --min-zoom 5 --max-zoom 12 --box 5.956,45.818,10.492,47.808 https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
+versatiles convert --min-zoom 5 --max-zoom 12 --bbox 5.956,45.818,10.492,47.808 https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
 ```
 
 ## Downloading to Google Cloud Storage
