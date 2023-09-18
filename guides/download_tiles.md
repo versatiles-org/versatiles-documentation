@@ -15,10 +15,14 @@ wget -c "https://download.versatiles.org/planet-latest.versatiles"
 If you only need tiles for a specific region, like a continent or a country, you can use VersaTiles to download them. Filters can be applied to specify minimum and maximum zoom levels, as well as a geographical bounding box.
 
 For example, to download only tiles for Switzerland (including 3 tiles as border):
-
 ```bash
 versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
 ```
+
+Or, very similarly, how to download Germany
+```bash
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/planet-latest.versatiles germany.versatiles
+``````
 
 ## Downloading to Google Cloud Storage
 
