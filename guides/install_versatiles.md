@@ -16,6 +16,13 @@ brew tap versatiles-org/versatiles
 brew install versatiles
 ```
 
+If you want to upgrade to the newest version of versatiles, run:
+
+```bash
+brew update
+brew upgrade versatiles
+```
+
 ## Downloading the binary
 
 For every new release, we provide pre-compiled binaries for various operating systems and architectures. You can download the latest binary from the following link:
