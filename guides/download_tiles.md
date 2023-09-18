@@ -17,7 +17,7 @@ If you only need tiles for a specific region, like a continent or a country, you
 For example, to download only tiles for Switzerland (including 3 tiles as border):
 
 ```bash
-versatiles convert --bbox-border 3 --box "5.956,45.818,10.492,47.808" https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
+versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
 ```
 
 ## Downloading to Google Cloud Storage
