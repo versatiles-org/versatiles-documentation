@@ -20,7 +20,6 @@ FROM versatiles/versatiles-frontend:latest-alpine
 EXPOSE $PORT
 
 # Start the VersaTiles server with the following parameters:
-#   -i "0.0.0.0": Google Cloud Run uses 0.0.0.0 as localhost
 #   -p $PORT: Set the port
 #   -s frontend.br.tar: serve the frontend as static content, if you like
 #   "[osm]https://..." is the url of the VersaTiles container
@@ -29,7 +28,6 @@ EXPOSE $PORT
 #      - "[osm]" sets the name of the tile source
 #      - you can append more entries if you want to host multiple tile sources
 CMD versatiles serve \
-    -i "0.0.0.0" \
     -p $PORT \
     -s /frontend.br.tar \
     "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"

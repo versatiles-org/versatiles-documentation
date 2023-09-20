@@ -41,7 +41,7 @@ Save the `frontend.br.tar` file in the same directory as the `.versatiles` file.
 To start the VersaTiles server, open a shell, navigate to the directory where you saved the `.versatiles` file and the frontend file, and run:
 
 ```bash
-versatiles serve -s frontend.br.tar "[osm]planet-latest.versatiles"
+versatiles serve -i 127.0.0.1 -s frontend.br.tar "[osm]planet-latest.versatiles"
 ```
 
 The VersaTiles server will now be running locally on your machine. To test it open `http://localhost:8080` in your browser.
