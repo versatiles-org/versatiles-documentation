@@ -29,5 +29,5 @@ How to:
 
 # Advanced Guide
 - [How to use VersaTiles in **Android and iOS** apps?](guides/what_about_mobile.md)
-- [How to use VersaTiles in QGIS](guides/use_versatiles_in_qgis.md)
+- [How to use VersaTiles in **QGIS**?](guides/use_versatiles_in_qgis.md)
 - *How to add maps into your mobile app with maximum privacy, e.g. by including a server into your app?*
