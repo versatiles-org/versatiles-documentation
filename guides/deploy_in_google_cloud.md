@@ -30,7 +30,7 @@ EXPOSE $PORT
 CMD versatiles serve \
     -i 0.0.0.0 \
     -p $PORT \
-    -s /frontend.br.tar \
+    -s frontend.br.tar \
     "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"
 ```
 - Don't forget to update the last line of `Dockerfile` to point to your Google Bucket
