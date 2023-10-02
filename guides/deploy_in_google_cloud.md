@@ -28,6 +28,7 @@ EXPOSE $PORT
 #      - "[osm]" sets the name of the tile source
 #      - you can append more entries if you want to host multiple tile sources
 CMD versatiles serve \
+    -i 0.0.0.0 \
     -p $PORT \
     -s /frontend.br.tar \
     "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"

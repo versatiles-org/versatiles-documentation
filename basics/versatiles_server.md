@@ -62,6 +62,12 @@ You can then add the frontend to the server by adding the tar file with a `-s` a
 versatiles server -s frontend.br.tar planet.versatiles
 ```
 
+## Different IP/Port
+
+Per default versatiles uses 127.0.0.1:8080. If you want to change IP/Port use the options:
+- `-i`/`--ip`: e.g. `-i 0.0.0.0`
+- `-p`/`--port`: e.g. `-p 3000`
+
 # What's not included?
 
 The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. But you can use a CDN or nginx for this. You can find HowTos on CDNs and nginx in the [documentation](https://github.com/versatiles-org/versatiles-documentation).
