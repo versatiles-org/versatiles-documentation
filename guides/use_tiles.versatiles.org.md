@@ -1,6 +1,6 @@
 # How to use tiles.versatiles.org?
 
-We run a free vector tiles server open for public use at: [tiles.versatiles.org](tiles.versatiles.org).
+We run a free vector tiles server open for public use at: [tiles.versatiles.org](https://tiles.versatiles.org).
 
 You can access tiles directly via the following URL pattern: `https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}`.
 
