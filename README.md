@@ -10,6 +10,7 @@ What is it and how does it work:
 # Beginner's guide
 
 How to:
+- [… **use** our public tile server?](guides/use_tiles.versatiles.org.md)
 - [… **install** VersaTiles?](guides/install_versatiles.md)
 - [… **download** vector tiles?](guides/download_tiles.md)
 - … run a VersaTiles **server locally** …
