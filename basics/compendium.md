@@ -1,6 +1,6 @@
 
 - [Introduction](#introduction)
-  - [Use cases](#use-cases)
+  - [Who needs web maps?](#who-needs-web-maps)
   - [What are Slippy Maps?](#what-are-slippy-maps)
   - [Why is there no simple solution?](#why-is-there-no-simple-solution)
   - [How does VersaTiles takle the problem?](#how-does-versatiles-takle-the-problem)
@@ -23,20 +23,25 @@
 
 # Introduction
 
-Since the early 90ies a lot of technological improvements happend to the web. Thanks to new standard and new tools  it is now much easier to publish text articles, photos, videos and other media. Unfortunately one element is still hard to use: maps ... even the age of mobile web, and data journalismus, this one form of media is still a problem.
+Since the early 1990s, the web has undergone significant technological advancements. New standards and tools have simplified the process of publishing text, articles, photos, videos, and other forms of media. However, publishing maps remains notably challenging - even in the era of mobile web and data journalism.
 
-There are multiple reasons:
-1. Map data is often copyright protected. Geo data, satellite or aerial photohraphy are expensive. Many governments still missing the point of open data. Instead most geo data is produced for commerical applications in mind.
-2. Presenting map data as an interactive web tool is complex. You have to consider a lot of issues like data formats, geo projections, server infrastructure, and complex frontend frameworks. 
- The first points makes it expensive to use maps. The second point makes it difficult to use.
- But since a lot of data, standards and frameworks are available open or even free, there are a lot of puzzle pieces available to build your own web map infrastructure.
- Here comes VersaTiles into play. VersaTiles doesn't reinvent the wheel, we just made it round and standardized it.
+Several factors contribute to these challenges:
+1. Geographic data, satellite imagery and aerial photography, is often protected by copyright, making it expensive and inaccessible for open use.   
+Some governments have not yet adopted the idea of open data but insteas produce geospatial data mainly for commercial purposes.
+2. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements, and the intricacies of frontend frameworks. This complexity can make map integration expensive and technically demanding.
 
-## Use cases
+Despite theses challenges, the abundance of available data, standards, and frameworks - many of which are open or freely accessible - presents a unique opportunity to build a web map infrastructures. However, the diversity of solutions makes it difficult to put the pieces together.
 
-==write me
+VersaTiles aims to define and implement a standardised map infrastructure that provides a streamlined approach to integrating maps into web platforms.
 
-But first have a close look how web maps actually work:
+## Who needs web maps?
+
+Basically everyone and everything has a geo-coordinate. Even you have a geo-coordinate right now. No data is more useful than geo data, and no visualisation is more familiar than maps.
+
+- **Data Journalism**: Journalists and media outlets often rely on maps to tell stories more effectively, providing readers with a visual context for complex issues such as war zones, political events or natural disasters.
+- **Research**: Researchers focusing on environmental issues, climate change or other localised phenomena need a tool to analyse and visualise their data.
+- **Emergency Response**: In times of crisis, such as natural disasters or public health emergencies, organisations need maps to visualise affected areas and communicate local information to the public.
+- **Communities**: There are so many great communities out there, such as citizen science, community-based bike sharing or community-supported agriculture. They all need a simple, cost-effective way to display location information.
 
 ## What are Slippy Maps?
 
