@@ -3,7 +3,7 @@
   - [Who needs web maps?](#who-needs-web-maps)
   - [What are Slippy Maps?](#what-are-slippy-maps)
   - [Why is there no simple solution?](#why-is-there-no-simple-solution)
-  - [How does VersaTiles takle the problem?](#how-does-versatiles-takle-the-problem)
+  - [How does VersaTiles tackle the problem?](#how-does-versatiles-tackle-the-problem)
 - [VersaTiles Specification](#versatiles-specification)
   - [Layer: Generator](#layer-generator)
   - [Interface: Container](#interface-container)
@@ -67,31 +67,30 @@ Mapbox aims to address these challenges by providing a comprehensive software su
 
 It would be ideal to have an open-source system. Although open-source alternatives exist for each problem, integrating them into one infrastructure can be challenging. Developing a single software solution that addresses all problems at once and remains flexible enough for various use cases is not feasible.
 
-## How does VersaTiles takle the problem?
+## How does VersaTiles tackle the problem?
 
-Developing a solution covering so many problems reminded me on how the internet was build: Instead of building a single software that can run the whole internet, they developed the OSI model to cut the problem into smaller pieces and defined standards for every part. This allows everyone to implement there own software solutions and can be sure, that it will work together with other implementation that fullfills the OSI standards.
+The development of a solution to address such a broad range of issues was inspired by the creation of the internet itself. Instead of creating a single software to run the entire internet, the OSI model was developed. This model segments the problem into manageable pieces and establishes standards for each component. This segmentation ensures that individual software solutions can be developed independently while remaining compatible with others adhering to OSI standards.
 
-So it made perfect sense to use OSI as a role model, cut the big problem into smaller ones, develop a basis for standardising each part/layers and their interconnections, to ensure that all parts fit together.
+Using the OSI model as a blueprint, we divided the complex problem into smaller, more manageable parts. This allowed us to standardize each segment and their interconnections, ensuring cohesion across all components.
 
-We defined the 'big problem' as a pipeline, that generates, serves and displays map data. Then we cut this pipeline into 4 sub segments and developed a specification, that defines the interface between these pipeline segments. Additionally we provide one or more free reference implementations for every segment, and provide a reference pipeline that everyone can use for free.
+The 'big problem' was conceptualized as a pipeline that generates, serves, and displays map data. We divided the pipeline into four sub-segments and developed specifications to define the interfaces between them. Additionally, we provide free reference implementations for each segment, as well as a reference pipeline that is available for everyone to use at no cost.
 
-The advantages: Everybody can use our map tile service for free or can setup parts or the full pipeline on their own infrastructure. It also allows to deviate from our reference pipeline at any point and still be able use every other part of the pipeline. This also allows to experiment and find totally new uses cases that we can't imagine yet.
+This allows anyone to use our map tile service for free or use parts or the entire pipeline on their own infrastructure. VersaTiles permits deviation from the reference pipeline at any point, while still allowing the use of all other pipeline components. This flexibility promotes experimentation and the discovery of new use cases that have not yet been envisioned.
 
-Our reference pipeline consists of four segments (layers):
-1. **Generator:** Creates map tiles from a data source, like vector tiles from OpenStreetMap data or image tiles from satellite or aerial photos.
-2. **Server:** Manages the storage and distribution of map tiles.
-3. **Network:** Handles all network related issues like TLS certificates, load balancing, caching and CORS.
-4. **Frontend:** Provides the user interface for interactive maps.
+Our reference pipeline is comprised of four segments:
 
 ```mermaid
 flowchart LR
 Generator --> Server --> Network --> Frontend
-
 ```
 
+1. **Generator:** Creates map tiles from a data source, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial photos.
+2. **Server:** Manages the storage and distribution of map tiles.
+3. **Network:** Handles all network-related issues, including TLS certificates, load balancing and caching.
+4. **Frontend:** Provides the user interface for interactive maps.
 
-> [!WARNING] VersaTiles is still under heavy development
-> Be aware that not all specifications of the pipeline are final yet. We still encounter unforseen use cases, issues or features that require minor adjustments. But the big majority is pretty stable.
+> [!WARNING] VersaTiles is still in development.
+Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, issues or features that require minor adjustments. However, the majority of the pipeline is stable.
 
 # VersaTiles Specification
 
