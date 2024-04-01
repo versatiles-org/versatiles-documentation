@@ -1,5 +1,5 @@
 
-
+```bash
 git clone sprites
 run in sprites: ./bin/build_png.js
 
@@ -18,4 +18,4 @@ versatiles serve --fast \
 	"planet-20230925.versatiles[osm]"
 
 open http://localhost:8080/demo.html
-
+```
