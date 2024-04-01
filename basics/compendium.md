@@ -178,50 +178,48 @@ HTTP requests for sequential tiles are merged to download thousands of tiles at 
 
 ## Segment: Server
 
-The Server layer is responsible for serving map tiles and additional static files via HTTP. Static files can be styles, sprites, fonts, JavaScript libraries, and so on.
+The server delivers map tiles and static files via HTTP. These static files may include styles, sprites, fonts, JavaScript libraries, and others.
 
 ### Requirements/Recommendations
 
-- Must recognize and process [_VersaTiles containers_](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
-- 
-- Proper handling of HTTP headers is required, notably:
-	- `Content-Type` should reflect the accurate MIME type.
-	- `Accept-Encoding` and `Content-Encoding` should be managed for data compression; re-compress data as necessary.
-	- `Cache-Control` must be utilized to guide caching protocols for proxies, CDNs, and browsers.
-	- Implement CORS headers, such as `Access-Control-Allow-Origin`, where applicable.
-- The server should know its public URL for resource referencing.
-- Adopts a structured folder hierarchy for organized tile and metadata access:
-    - `/tiles/`: Central directory for tile retrieval.
-        - `/tiles/sources.json`: Comprehensive index of available tile sources.
-        - `/tiles/{name}/{z}/{x}/{y}`: Standardized tile access endpoints.
-        - `/tiles/{name}/tiles.json`: Incorporates a legitimate [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0) document.
-    - `/assets/`: Storage for additional resources like sprites, glyphs, styles, and MapLibre GL JS files.
+- It MUST recognize and process [VersaTiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
+- SHOULD handle HTTP header, specifically:
+	- `Content-Type` must accurately represent the MIME type.
+	- `Accept-Encoding` and `Content-Encoding` for data compression; re-compress data as necessary.
+	- `Cache-Control` should be used to manage caching strategies for proxies, CDNs, and browsers.
+	- Implement CORS headers, like `Access-Control-Allow-Origin`, as needed.
+- The server should be aware of its public URL for referencing resources.
+- Organized tile and metadata access through a structured folder hierarchy is recommended:
+    - `/tiles/`: The primary directory for tile retrieval.
+        - `/tiles/sources.json`: A detailed index of available tile sources.
+        - `/tiles/{name}/{z}/{x}/{y}`: Standardized endpoints for tile access.
+        - `/tiles/{name}/tiles.json`: a valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
+    - `/assets/`: Houses additional resources like sprites, glyphs, styles, and MapLibre GL JS files.
         - `/assets/sprites/`
         - `/assets/glyphs/`
-            - `/assets/glyphs/{name}`: Font names must only contain letters, numbers and underscore
-            - `/assets/glyphs/fonts.json`: Index of available fonts.
+            - `/assets/glyphs/{name}`: Font names SHOULD only include lowercase letters, numbers, and underscores.
+            - `/assets/glyphs/fonts.json`: A catalog of available fonts.
         - `/assets/styles/`
-        - `/assets/maplibre/maplibre.*`: JavaScript and CSS of newest MapLibre GL JS
-- Might implement handling of CORS requests to facilitate resource sharing across different domains.
-- Configurability via `config.yaml` for custom server setup, including domain configuration, IP/port listening preferences, operational modes (e.g., development vs. production), tile source definition, and static content management:
+        - `/assets/maplibre/maplibre.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
+- SHOULD be configured via `config.yaml` for a tailored server setup, encompassing domain setup, IP/port listening preferences, operational modes (development vs. production), tile source specification, and static content management:
 
 ```yaml
-# public URL
-domain: 'https://example.org' # required
+# Public URL
+domain: 'https://example.org' # Required
 
-# listen to
-listen_ip: '0.0.0.0' # default: 0.0.0.0
-listen_port: 3000 # default: 8080
+# Listening configuration
+listen_ip: '0.0.0.0' # Default: 0.0.0.0
+listen_port: 3000 # Default: 8080
 
-# set to true use only minimal recompression and only if necessary, e.g. for development
-fast: true # default: false
+# Use minimal recompression only as necessary, e.g., for development
+fast: true # Default: false
 
-# set tile sources, required
+# Tile sources configuration, required
 tile_sources:
-- { name: 'osm', source: './planet.versatiles' }
+- { name: 'osm', source: './osm.versatiles' }
 - { name: 'landsat', source: 'https://example.org/landsat.versatiles' }
 
-# set static content, optional
+# Static content configuration, optional
 static_content:
 - { source: './styles', prefix: 'assets/styles' }
 - { source: './frontend.tar' }
@@ -237,52 +235,50 @@ block_origin:
 - 'someonewhosaysheisnotanazibut.org'
 ```
 
-### Rust implementation
-We provide a very performant [Rust implementation](https://github.com/versatiles-org/versatiles-rs) as CLI application and as Rust crate (library).
+### Rust Implementation
+We offer a high-performance [Rust implementation](https://github.com/versatiles-org/versatiles-rs), available both as a CLI application and as Rust library (crate).
 
-The binary runs on x86 and ARM (64 Bit), on:
+Supported platforms include x86 and ARM (64 Bit) across:
 - [x] Linux
 - [x] MacOS
 - [ ] Windows
 
-Beside the source code that can easily be [compiled using cargo](https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/install_versatiles.md#building-from-source) we also provide:
-- [x] [binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
+In addition to source code, which can be [compiled using cargo](https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/install_versatiles.md#building-from-source), we provide:
+- [x] [Binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
 - [ ] NixOS
 - [ ] Snap
 - [ ] Flatpak
 - [x] [Homebrew](https://github.com/versatiles-org/homebrew-versatiles)
 
-We also provide [Docker images](https://hub.docker.com/u/versatiles) ([Repo](https://github.com/versatiles-org/versatiles-docker)) using:
-- Debian, Alpine and scratch
-- [excluding](https://hub.docker.com/r/versatiles/versatiles/tags) and [including](https://hub.docker.com/r/versatiles/versatiles-frontend/tags) all static files of the full frontend
+Our [Docker images](https://hub.docker.com/u/versatiles) ([Repository](https://github.com/versatiles-org/versatiles-docker)) use Debian, Alpine, and scratch environments. They including variations without and with [all static frontend files](https://hub.docker.com/r/versatiles/versatiles-frontend/tags).
 
-We also want to add features like
-- [ ] handle CORS correctly
-- [ ] fully support the standardized `config.yaml`
-- [ ] generate statistics (histograms) of tile sizes
-- [ ] deep inspection of vector tiles to debug the content
-- [ ] implement "diff" and "patch" commands to generate VersaTiles containers that only contain new (changed) tiles ("diff") and apply this diff to a container to update these tiles ("patch"). This might be a helpful feature to automatically update planet wide tile containers.
-- [ ] implement an "overlay" command that allows to overlay image tiles, e.g. overlay aerial image tiles onto satellite image tiles
+Future enhancements will focus on:
+- [ ] Proper CORS handling
+- [ ] Full `config.yaml` support
+- [ ] Tile size statistics generation
+- [ ] Vector tile content debugging
+- [ ] Implementing "diff" and "patch" commands for tile updates
+- [ ] Developing an "overlay" command for image tile layering
 - [ ] improve the "overlay" command by implementing a [multi-scale approach](https://en.wikipedia.org/wiki/Multi-scale_approaches) to seamlessly overlay image tiles (see also [Gradient-domain image processing](https://en.wikipedia.org/wiki/Gradient-domain_image_processing))
 
-### NodeJS implementations
+### NodeJS Implementations
 
-We also provide a NodeJS implementation:
-- [x] as [NPM library](https://github.com/versatiles-org/node-versatiles-container)
-- [x] as simple [server](https://github.com/versatiles-org/node-versatiles-server)
-- [ ] fully support config.yaml
-- [ ] handle CORS
+Our NodeJS offerings include:
+- [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
+- [x] A basic [server](https://github.com/versatiles-org/node-versatiles-server)
+- [ ] Full `config.yaml` support
+- [ ] Comprehensive CORS management
 
-We provide also a solution especially suited for data journalist using Google Cloud. It's basically a NodeJS Cloud Run server for serving static files from a bucket via CDN. It handles all HTTP headers, MIME types, caching and optimal (re)compression. But the killer feature is that if you request a `*.versatiles` file it will automatically provide an API for serving tiles right out of the bucket, including a preview mode.
-- [x] [Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) for very easy integration of map data into data visualisations, e.g. for editorial departments
+A specialized solution for data journalists using Google Cloud involves a NodeJS Cloud Run server that serves static files from a bucket via CDN, managing all HTTP headers, MIME types, caching, and optimal compression. A standout feature is serving tiles directly from a `*.versatiles` file, including a preview mode:
+- [x] [Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies map data integration into data visualizations for editorial departments.
 
 ### Status
 
-Additionally we plan to:
-- [ ] test VersaTiles on Raspberry Pi to ensure it is easy to serve global maps in special scenarios like NGOs in crisis regions
-- [ ] implement a tile server in C for ESP32, serving a VersaTiles container from a SD card. We are not sure, if there is actually a use case for a 7$ mobile map server hardware - but we want to do it anyway just to demo how simple and efficient VersaTiles is. (low priority)
-- [ ] [standardise](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/readme.md#server-layer-specifications) the server configuration file to make it easier to migrate between different server implementation
-- [ ] [standardise](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/readme.md#server-layer-specifications) the API
+Moving forward, we aim to:
+- [ ] Validate VersaTiles on Raspberry Pi for accessibility in unique scenarios
+- [ ] Explore a tile server on ESP32, showcasing the simplicity and efficiency of VersaTiles
+- [ ] Standardize server configuration and API for seamless transitions between server implementations
+
 
 ## Interface: Private/Internal Network
 
