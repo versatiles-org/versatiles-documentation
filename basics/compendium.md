@@ -5,13 +5,13 @@
   - [Why is there no simple solution?](#why-is-there-no-simple-solution)
   - [How does VersaTiles tackle the problem?](#how-does-versatiles-tackle-the-problem)
 - [VersaTiles Specification](#versatiles-specification)
-  - [Layer: Generator](#layer-generator)
+  - [Segment: Generator](#segment-generator)
   - [Interface: Container](#interface-container)
-  - [Layer: Server](#layer-server)
+  - [Segment: Server](#segment-server)
   - [Interface: Private/Internal Network](#interface-privateinternal-network)
-  - [Layer: Network](#layer-network)
+  - [Segment: Network](#segment-network)
   - [Interface: Public/External Network](#interface-publicexternal-network)
-  - [Layer: Frontend](#layer-frontend)
+  - [Segment: Frontend](#segment-frontend)
 - [Tools](#tools)
 - [Documentation and versatiles.org](#documentation-and-versatilesorg)
 - [The Future of VersaTiles](#the-future-of-versatiles)
@@ -34,6 +34,7 @@ Despite theses challenges, the abundance of available data, standards, and frame
 
 VersaTiles aims to define and implement a standardised map infrastructure that provides a streamlined approach to integrating maps into web platforms.
 
+
 ## Who needs web maps?
 
 Basically everyone and everything has a geo-coordinate. Even you have a geo-coordinate right now. No data is more useful than geo data, and no visualisation is more familiar than maps.
@@ -42,6 +43,7 @@ Basically everyone and everything has a geo-coordinate. Even you have a geo-coor
 - **Research**: Researchers focusing on environmental issues, climate change or other localised phenomena need a tool to analyse and visualise their data.
 - **Emergency Response**: In times of crisis, such as natural disasters or public health emergencies, organisations need maps to visualise affected areas and communicate local information to the public.
 - **Communities**: There are so many great communities out there, such as citizen science, community-based bike sharing or community-supported agriculture. They all need a simple, cost-effective way to display location information.
+
 
 ## What are Slippy Maps?
 
@@ -59,6 +61,7 @@ This approach works great for image tiles, such as satellite and aerial images. 
 
 Therefore, the concept of 'slippy maps' was improved by including vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons, and text - like SVG. But since SVG is too cumbersome, Mapbox developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as Google Protobufs (PBF). The frontend should read the geographic data and draw it accordingly. One benefit is the ability to define the map style in the frontend, allowing for adjustments to be made to the map's brightness, saturation, and color. Rendering all geographic data can be complex, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL, or Vulcan to ensure speed and responsiveness.
 
+
 ## Why is there no simple solution?
 
 Generating, serving, and visualizing map tiles can be a complex process due to various tile formats, hosting options, storage and generation methods, serving and display techniques, vector data styling approaches, and data source combinations. Additionally, frontends must draw vector data, satellite images, hillshading, data visualization layers, and interactive frontend elements.
@@ -66,6 +69,7 @@ Generating, serving, and visualizing map tiles can be a complex process due to v
 Mapbox aims to address these challenges by providing a comprehensive software suite. However, the solution can be expensive, leads to vendor lock-in, and raises privacy concerns.
 
 It would be ideal to have an open-source system. Although open-source alternatives exist for each problem, integrating them into one infrastructure can be challenging. Developing a single software solution that addresses all problems at once and remains flexible enough for various use cases is not feasible.
+
 
 ## How does VersaTiles tackle the problem?
 
@@ -92,44 +96,50 @@ Generator --> Server --> Network --> Frontend
 > [!WARNING] VersaTiles is still in development.
 Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, issues or features that require minor adjustments. However, the majority of the pipeline is stable.
 
+
 # VersaTiles Specification
 
 ==split specification from implementation, e.g.: OSM generator, hillshade generator, ...
 
-## Layer: Generator
 
-This Generator Layer is responsible for generating tiles. This can be image or vector tiles.
+## Segment: Generator
 
-For vector tiles we don't use the [OpenMapTiles schema](https://openmaptiles.org/schema/) since we don't believe its open enough. Especially the requirement to add links to the website of MapTiler or to pay license fees feels more like a SEO campaign instead of a free standard. That's why we decided to use the free [Shortbread schema](https://shortbread-tiles.org) originally developed by GeoFabrik. We understand the consequences, like that map styles based on "OpenMapTiles" can't be used directly for "Shortbread tiles". But if we start from scratch, then let's do it right from the beginning.
+The Generator Segment produces map tiles, which can be image or vector tiles.
 
-Of course you can deviate from our recommendations and generate, serve and display vector tiles in OpenMapTiles schema, but we will not actively work on this path and focus on Shortbread.
+We chose not to use the [OpenMapTiles schema](https://openmaptiles.org/schema/) for vector tiles because we believe it does not embody the openness we aim for. Specifically, the requirement to include links to MapTiler's website or to pay licensing fees seems more like a marketing strategy than a commitment to open standards. Instead, we have opted to utilise the free [Shortbread schema](https://shortbread-tiles.org), which was originally developed by GeoFabrik. We acknowledge that this choice has implications, such as the incompatibility of map styles designed for OpenMapTiles vs. Shortbread. 
 
-BTW: Users can skip the part of generating tiles and just download our prepared vector tiles covering the whole planet: [download.versatiles.org](https://download.versatiles.org)
+However, if we start from scratch, let's do it right from the beginning.
+
+While users are free to deviate from our recommendations and use the OpenMapTiles schema, we will continue to concentrate our efforts on the Shortbread schema.
+
+Users can bypass the tile generation process entirely and download our prepared map tiles covering the entire planet directly from [download.versatiles.org](https://download.versatiles.org).
+
 
 ### Requirements/Recommendations
 
-- Tiles must be packaged in a [*.versatiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
-- Vector tiles must conform to the [Shortbread schema](https://shortbread-tiles.org/).
-- Containers must include detailed metadata compliant with [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
+- Tiles SHOULD be packaged in a [*.versatiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
+- Vector tiles SHOULD conform to the [Shortbread schema](https://shortbread-tiles.org/).
+- Containers SHOULD include detailed metadata compliant with [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
     - `attribution` detailing source data copyrights.
     - `vector_layers` describing the vector tiles' layered composition.
-- Use optimal compression techniques to efficiently reduce tile size without compromising data integrity. Recommended methods include:
-    - Brotli compression for vector tiles.
-    - WebP format for raster tiles to improve loading efficiency and reduce bandwidth.
+- You SHOULD use optimal compression techniques to efficiently reduce tile size without compromising data integrity. Recommended methods include:
+    - use Brotli compression for vector tiles.
+    - use WebP format for raster tiles to improve loading efficiency and reduce bandwidth.
+
 
 ### Status
 
-- [x] Implement using Tilemaker [*](https://github.com/versatiles-org/shortbread-tilemaker)
-- [x] Use Shortbread schema [*](https://github.com/versatiles-org/shortbread-tilemaker)
-- [ ] add more languages besides local language, english and german
-- [x] use .versatiles instead of .mbtiles [*](https://github.com/versatiles-org/versatiles-converter)
-- [ ] merge the Converter into the Generator and use Docker [*](https://github.com/versatiles-org/versatiles-generator/issues/1)
-- [ ] use Tilemaker 3.0.0 to reduce the memory requirements [*](https://github.com/versatiles-org/shortbread-tilemaker/issues/7
-- [ ] migrate to cheaper Cloud provider (Hetzner)
-- [ ] reduce size of vector tiles [*](https://github.com/versatiles-org/versatiles-generator/issues/7)
-- [ ] improve lower zoom levels [*](https://github.com/versatiles-org/versatiles-generator/issues/2)
-- [ ] generate hill shading [*](https://registry.opendata.aws/terrain-tiles/)
-- [ ] generate satellite imagery (using Landsat/SENTINEL, aerial photos from national open data platforms, open MAXAR images)
+- [x] Implement Generator using Tilemaker ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
+- [x] Use Shortbread schema ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
+- [ ] add more languages besides local language, english and german ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
+- [x] generate `.versatiles` instead of `.mbtiles` ([repo](https://github.com/versatiles-org/versatiles-converter))
+- [ ] merge the Converter into the Generator and use Docker ([issue](https://github.com/versatiles-org/versatiles-generator/issues/1))
+- [ ] use Tilemaker 3.0.0 to reduce the memory requirements ([issue](https://github.com/versatiles-org/shortbread-tilemaker/issues/7))
+- [ ] migrate to cheaper Cloud provider (like Hetzner)
+- [ ] reduce size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
+- [ ] improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2))
+- [ ] generate hill shading ([issue](https://registry.opendata.aws/terrain-tiles/))
+- [ ] generate satellite imagery (using Landsat/SENTINEL, aerial photos from national open data platforms and open MAXAR images)
 
 ## Interface: Container
 
@@ -170,7 +180,7 @@ All HTTP requests retrieving sequential tiles are merged into single once to dow
 - [x] allow bbox download
 - [x] finish [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
 
-## Layer: Server
+## Segment: Server
 
 The Server layer is responsible for serving map tiles and additional static files via HTTP. Static files can be styles, sprites, fonts, JavaScript libraries, and so on.
 
@@ -277,7 +287,7 @@ Additionally we plan to:
 At this point the server handles HTTP request.
 
 We explicitly recommend to not implement additional features in the server like TLS, to reduce the complexity, but instead leave network features to the network layer.
-## Layer: Network
+## Segment: Network
 
 The Network Layer covers all aspects that are necessary if you want to serve files publicly.
 ### Requirements/Recommendations
@@ -304,7 +314,7 @@ The Network Layer covers all aspects that are necessary if you want to serve fil
 ## Interface: Public/External Network
 Public facing network
 
-## Layer: Frontend
+## Segment: Frontend
 
 The Frontend Layer is the user interface that renders the map tiles.
 There are many frameworks available, like MapLibre GL JS, Mapbox, OpenLayers, Leaflet, ... But we focus on MapLibre since this framework is the only one that can render vector tiles really fast on the GPU, has a free license and provides libraries for JavaScript, iOS and Android.
