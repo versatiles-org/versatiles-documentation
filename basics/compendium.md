@@ -5,13 +5,13 @@
   - [Why is there no simple solution?](#why-is-there-no-simple-solution)
   - [How does VersaTiles tackle the problem?](#how-does-versatiles-tackle-the-problem)
 - [VersaTiles Specification](#versatiles-specification)
-  - [Segment: Generator](#segment-generator)
+  - [Layer: Generator](#layer-generator)
   - [Interface: Container](#interface-container)
-  - [Segment: Server](#segment-server)
+  - [Layer: Server](#layer-server)
   - [Interface: Private/Internal Network](#interface-privateinternal-network)
   - [Segment: Network](#segment-network)
   - [Interface: Public/External Network](#interface-publicexternal-network)
-  - [Segment: Frontend](#segment-frontend)
+  - [Layer: Frontend](#layer-frontend)
 - [Tools](#tools)
 - [Documentation and versatiles.org](#documentation-and-versatilesorg)
 - [The Future of VersaTiles](#the-future-of-versatiles)
@@ -99,9 +99,9 @@ Please note that not all pipeline specifications are final and we may encounter 
 
 # VersaTiles Specification
 
-## Segment: Generator
+## Layer: Generator
 
-The Generator Segment produces map tiles, which can be image or vector tiles.
+The Generator Layer produces map tiles, which can be image or vector tiles.
 
 We chose not to use the [OpenMapTiles schema](https://openmaptiles.org/schema/) for vector tiles because we believe it does not embody the openness we aim for. Specifically, the requirement to include links to MapTiler's website or to pay licensing fees seems more like a marketing strategy than a commitment to open standards. Instead, we have opted to utilise the free [Shortbread schema](https://shortbread-tiles.org), which was originally developed by GeoFabrik. We acknowledge that this choice has implications, such as the incompatibility of map styles designed for OpenMapTiles vs. Shortbread. 
 
@@ -176,9 +176,10 @@ HTTP requests for sequential tiles are merged to download thousands of tiles at 
 - [x] Completion of the [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
 
 
-## Segment: Server
+## Layer: Server
 
 The server delivers map tiles and static files via HTTP. These static files may include styles, sprites, fonts, JavaScript libraries, and others.
+
 
 ### Requirements/Recommendations
 
@@ -236,6 +237,7 @@ block_origin:
 ```
 
 ### Rust Implementation
+
 We offer a high-performance [Rust implementation](https://github.com/versatiles-org/versatiles-rs), available both as a CLI application and as Rust library (crate).
 
 Supported platforms include x86 and ARM (64 Bit) across:
@@ -261,6 +263,7 @@ Future enhancements will focus on:
 - [ ] Developing an "overlay" command for image tile layering
 - [ ] improve the "overlay" command by implementing a [multi-scale approach](https://en.wikipedia.org/wiki/Multi-scale_approaches) to seamlessly overlay image tiles (see also [Gradient-domain image processing](https://en.wikipedia.org/wiki/Gradient-domain_image_processing))
 
+
 ### NodeJS Implementations
 
 Our NodeJS offerings include:
@@ -272,6 +275,7 @@ Our NodeJS offerings include:
 A specialized solution for data journalists using Google Cloud involves a NodeJS Cloud Run server that serves static files from a bucket via CDN, managing all HTTP headers, MIME types, caching, and optimal compression. A standout feature is serving tiles directly from a `*.versatiles` file, including a preview mode:
 - [x] [Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies map data integration into data visualizations for editorial departments.
 
+
 ### Status
 
 Moving forward, we aim to:
@@ -280,39 +284,46 @@ Moving forward, we aim to:
 - [ ] Standardize server configuration and API for seamless transitions between server implementations
 
 
+
 ## Interface: Private/Internal Network
 
-At this point the server handles HTTP request.
+This interface is where the server processes HTTP requests. It is advised against incorporating additional functionalities, such as TLS, directly into the server layer to maintain simplicity. Instead, these network-related features should be managed by the network layer, ensuring a clear separation of concerns.
 
-We explicitly recommend to not implement additional features in the server like TLS, to reduce the complexity, but instead leave network features to the network layer.
+
 ## Segment: Network
 
-The Network Layer covers all aspects that are necessary if you want to serve files publicly.
+The Network Layer is crucial for serving files over the public internet, addressing all related security, availability, and performance requirements.
+
+
 ### Requirements/Recommendations
 
-- Handle Transport Layer Security (certificates, …)
-- ensure security (against DDOS, )
-- ensure availability (load balancing, ...)
-- ensure speed (CDN, …)
-- …
+- **Transport Layer Security (TLS)**: Implement TLS to secure communications with certificates management.
+- **Security Measures**: Protect against DDoS attacks and other security threats to maintain service integrity.
+- **Availability**: Use load balancing techniques to distribute traffic evenly across servers, enhancing reliability.
+- **Performance**: Employ Content Delivery Networks (CDN) to accelerate content delivery, improving user experience by reducing latency.
+- **Compliance and Best Practices**: Adhere to industry standards and best practices for network security and performance.
+
 
 ### Status
 
-- Test and document CDN solutions
-	- [x] Google CDN
-	- [x] NGINX
-	- [x] bunny.net
-	- [ ] Akamai
-	- [ ] AWS
-	- [ ] Azure
-- NGINX as standard solution
-	- [x] test NGINX
-	- [ ] add documentation
+Efforts have been made to evaluate and document CDN solutions, with particular focus on their integration and performance:
+
+- [x] Google CDN: Tested and used at SWR.
+- [x] NGINX: Employed as the standard solution for single server setups.
+- [x] bunny.net: Tested for tiles.versatiles.org
+- [ ] Akamai: Pending ...
+- [ ] AWS: Pending ...
+- [ ] Azure: Pending ...
+
+Documentation on the use of NGINX, including setup and configuration for optimal performance, is in development.
+
 
 ## Interface: Public/External Network
-Public facing network
 
-## Segment: Frontend
+This interface represents the network's public-facing aspect, which is responsible for handling incoming and outgoing traffic to the internet.
+
+
+## Layer: Frontend
 
 The Frontend Layer is the user interface that renders the map tiles.
 There are many frameworks available, like MapLibre GL JS, Mapbox, OpenLayers, Leaflet, ... But we focus on MapLibre since this framework is the only one that can render vector tiles really fast on the GPU, has a free license and provides libraries for JavaScript, iOS and Android.
