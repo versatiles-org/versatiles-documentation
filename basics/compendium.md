@@ -1,10 +1,32 @@
 
+- [Introduction](#introduction)
+  - [Use cases](#use-cases)
+  - [What are Slippy Maps?](#what-are-slippy-maps)
+  - [Why is there no simple solution?](#why-is-there-no-simple-solution)
+  - [How does VersaTiles takle the problem?](#how-does-versatiles-takle-the-problem)
+- [VersaTiles Specification](#versatiles-specification)
+  - [Layer: Generator](#layer-generator)
+  - [Interface: Container](#interface-container)
+  - [Layer: Server](#layer-server)
+  - [Interface: Private/Internal Network](#interface-privateinternal-network)
+  - [Layer: Network](#layer-network)
+  - [Interface: Public/External Network](#interface-publicexternal-network)
+  - [Layer: Frontend](#layer-frontend)
+- [Tools](#tools)
+- [Documentation and versatiles.org](#documentation-and-versatilesorg)
+- [The Future of VersaTiles](#the-future-of-versatiles)
+  - [Core values](#core-values)
+  - [Community](#community)
+  - [funding](#funding)
+- [Improvements for this document](#improvements-for-this-document)
+
+
 # Introduction
 
-Since the early 90ies a lot of technological improvements happend to the web. Thanks to new standard and new tools  it is now much easier to publish text articles, photos, videos and other media. Unfortunately one element is still hard to use: maps ... even the age of mobile web, and data journalismus, one form of media is still a problem.
+Since the early 90ies a lot of technological improvements happend to the web. Thanks to new standard and new tools  it is now much easier to publish text articles, photos, videos and other media. Unfortunately one element is still hard to use: maps ... even the age of mobile web, and data journalismus, this one form of media is still a problem.
 
 There are multiple reasons:
-1. Map data is often copyright protected. Geo data, satellite or aerial photohraphy are expensive. Many governments still missing the point of open data. Instead most data is produced for commerical applications in mind.
+1. Map data is often copyright protected. Geo data, satellite or aerial photohraphy are expensive. Many governments still missing the point of open data. Instead most geo data is produced for commerical applications in mind.
 2. Presenting map data as an interactive web tool is complex. You have to consider a lot of issues like data formats, geo projections, server infrastructure, and complex frontend frameworks. 
  The first points makes it expensive to use maps. The second point makes it difficult to use.
  But since a lot of data, standards and frameworks are available open or even free, there are a lot of puzzle pieces available to build your own web map infrastructure.
@@ -272,9 +294,10 @@ The Network Layer covers all aspects that are necessary if you want to serve fil
 	- [x] bunny.net
 	- [ ] Akamai
 	- [ ] AWS
+	- [ ] Azure
 - NGINX as standard solution
 	- [x] test NGINX
-	- [ ] document
+	- [ ] add documentation
 
 ## Interface: Public/External Network
 Public facing network
@@ -344,3 +367,42 @@ open standard, open data, open source
 non commercial
 How to fund the infrastructure?
 How to fund the standardization and development?
+
+# Improvements for this document
+Your compendium on "VersaTiles" is an ambitious and comprehensive document that outlines the vision, structure, and technical specifications of an open-source map stack. It addresses key challenges in the realm of interactive web mapping, proposing a layered architecture similar to the OSI model for modular development and integration. Here's how it can be improved and extended:
+
+**Clarity and Consistency**
+- [ ] Ensure technical terms and acronyms are defined upon first use. For readers less familiar with web mapping or specific technologies, a glossary might be useful.
+- [ ] Use consistent terminology and spelling (e.g., "use cases" vs. "uses cases", "VersaTiles takle" should be "VersaTiles tackle").
+- [ ] Review for typographical errors and grammatical inconsistencies to enhance readability.
+
+**Use Cases Expansion**
+- [ ] Flesh out the "Use cases" section with specific scenarios where VersaTiles provides a distinct advantage. Include examples from journalism, NGOs, education, and other fields to illustrate its versatility.
+
+**Technical Depth**
+- [ ] Provide more technical details or examples in sections like "Layer: Generator" and "Layer: Server", especially around implementation strategies and challenges.
+- [ ] In "Layer: Network", discuss the considerations for selecting between different CDN providers or network configurations, possibly including case studies or benchmarks.
+
+**Community Engagement**
+- [ ] Detail how the community can contribute to VersaTiles. This could include a roadmap for development, guidelines for contributions, and channels for communication (e.g., forums, GitHub, social media).
+- [ ] Highlight current contributors and partners to showcase community support and encourage new participants.
+
+**Funding and Sustainability**
+- [ ] Elaborate on the "funding" section to address how the project plans to remain financially sustainable while adhering to its core values. Discuss potential revenue models, grants, donations, or sponsorships.
+
+**Accessibility and Internationalization**
+- [ ] Consider aspects of accessibility, both in terms of the web interface (e.g., support for screen readers, keyboard navigation) and geographic diversity (e.g., multi-language support, cultural considerations in map design).
+- [ ] Address how VersaTiles can accommodate regions with limited internet access or restrictions on data usage.
+
+**Technical Documentation and Tutorials**
+- [ ] Expand the "Documentation and versatiles.org" section with links to API documentation, SDKs, libraries, and tools that developers can use to integrate VersaTiles into their applications.
+- [ ] Include step-by-step tutorials for common tasks, such as setting up a VersaTiles server, customizing map styles, or integrating maps into web applications.
+
+**Versioning and Compatibility**
+- [ ] Discuss how versioning of the VersaTiles specification will be managed, including backward compatibility, deprecation policies, and how updates are rolled out to users.
+
+**Security Considerations**
+- [ ] Highlight security practices and recommendations for users hosting their own VersaTiles infrastructure. Discuss encryption, authentication, and protection against common web vulnerabilities.
+
+**Feedback Loop**
+- [ ] Establish mechanisms for gathering user feedback, conducting usability testing, and adapting the project roadmap based on community input.
