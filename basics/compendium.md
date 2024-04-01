@@ -61,11 +61,11 @@ Therefore, the concept of 'slippy maps' was improved by including vector data in
 
 ## Why is there no simple solution?
 
-In the end using interactive web maps becomes quite complex. There are many different tile formats (images, vector data in different schemas), different ways of hosting (locally, server, cloud), different ways of storing and generating the tiles (on the fly from a database, or prerendering all tiles), different ways of serving tiles, different ways of displaying tiles, different ways of styling vector data and different ways of combining multiple data sources, like vector data, satellite images, hillshading, data visualisation layers and interactive frontend elements.
+Generating, serving, and visualizing map tiles can be a complex process due to various tile formats, hosting options, storage and generation methods, serving and display techniques, vector data styling approaches, and data source combinations. Additionally, frontends must draw vector data, satellite images, hillshading, data visualization layers, and interactive frontend elements.
 
-Mapbox is tries to cover all the problems and offers a really good software suite. But the solution can be quite expensive and ties you to a single vendor.
+Mapbox aims to address these challenges by providing a comprehensive software suite. However, the solution can be expensive, leads to vendor lock-in, and raises privacy concerns.
 
-It would be great to have open source alternative. There are open source alternatives for every problem but it is still hard to combine them to your own infrastructure. It is not feasible to develop a single software solution, that covers all problem at once and is still flexible enough for the many different use cases.
+It would be ideal to have an open-source system. Although open-source alternatives exist for each problem, integrating them into one infrastructure can be challenging. Developing a single software solution that addresses all problems at once and remains flexible enough for various use cases is not feasible.
 
 ## How does VersaTiles takle the problem?
 
