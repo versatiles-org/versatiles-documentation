@@ -13,7 +13,7 @@
   - [Interface: Public/External Network](#interface-publicexternal-network)
   - [Layer: Frontend](#layer-frontend)
 - [Tools](#tools)
-- [Documentation and versatiles.org](#documentation-and-versatilesorg)
+- [versatiles.org](#versatilesorg)
 - [The Future of VersaTiles](#the-future-of-versatiles)
   - [Core values](#core-values)
   - [Community](#community)
@@ -361,27 +361,15 @@ In our roadmap, we plan to develop a suite of useful tools aimed at enhancing th
 - [ ] **Generate City Maps**: An interactive web demonstration of VersaTiles capabilities, allowing users to select a region and automatically generate a stylized city map poster in black and white. ([Examples](https://duckduckgo.com/?va=i&t=hb&q=city+map+poster&iax=images&ia=images))
 - [ ] **Style Converter**: A straightforward NodeJS utility designed to convert map styles from the OpenMapTiles schema to the Shortbread schema, facilitating style adaptation and interoperability.
 
-# Documentation and versatiles.org
 
-**Explanation**
+# versatiles.org
 
+The website needs to be developed further:
+- [ ] migrate download.versatiles.org to bunny.net
+- [ ] migrate tiles.versatiles.org to bunny.net
 - [ ] Check if browsers limit the number of simultanous requests per domain and if multiple subdomains would actually increase loading speed.
-
-**Requirements**
-
-
-**Recommendations**
-
-
-**Status**
-
-- [ ] add to website 
-
-- [ ] Specification
-- [ ] Guide: Install plattforms/via packages
-- [ ] Guide: CORS
-- [ ] Guide: TLS
-- [ ] Guide: CDN
+- [ ] add documentation, tutorials and specification to versatiles.org
+- [ ] add exmaples and tools to versatiles.org
 
 
 # The Future of VersaTiles
