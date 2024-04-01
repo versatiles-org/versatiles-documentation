@@ -198,7 +198,7 @@ The server delivers map tiles and static files via HTTP. These static files may 
     - `/assets/`: Houses additional resources like sprites, glyphs, styles, and MapLibre GL JS files.
         - `/assets/sprites/`
         - `/assets/glyphs/`
-            - `/assets/glyphs/{name}`: Font names SHOULD only include lowercase letters, numbers, and underscores.
+            - `/assets/glyphs/{name}`: Font names SHOULD contain only lowercase letters, numbers and underscores (as opposed to common implementations with font names such as "Arial%20Unicode%20MS%20Regular")
             - `/assets/glyphs/fonts.json`: A catalog of available fonts.
         - `/assets/styles/`
         - `/assets/maplibre/maplibre.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
@@ -325,23 +325,25 @@ This interface represents the network's public-facing aspect, which is responsib
 
 ## Layer: Frontend
 
-The Frontend Layer is the user interface that renders the map tiles.
-There are many frameworks available, like MapLibre GL JS, Mapbox, OpenLayers, Leaflet, ... But we focus on MapLibre since this framework is the only one that can render vector tiles really fast on the GPU, has a free license and provides libraries for JavaScript, iOS and Android.
+The Frontend Layer serves as the graphical interface, presenting map tiles to the user. While numerous frameworks such as MapLibre GL JS, Mapbox, OpenLayers, and Leaflet are available for this purpose, our focus is on MapLibre. This choice is due to MapLibre's ability to efficiently render vector tiles on the GPU, its open-source licensing, and its comprehensive support for JavaScript, iOS, and Android platforms.
 
 
 ### Requirements/Recommendations
 
-- Must ensure compatibility with both vector and raster tiles.
+- The frontend SHOULD be compatible with both vector and raster tiles.
+
+
 ### Status
 
+Progress in the development and implementation of the Frontend Layer includes:
 
-- [x] Style-Engine
-- [x] Style Library
-- [x] Fonts
-- [x] Sprites
-- [ ] Right to left?
-- [ ] precompressed Tar
-- [ ] OMT -> Shortbread
+- [x] **Style Templating Engine**: Implemented to allow dynamic generaton of map styles. ([Repository](https://github.com/versatiles-org/versatiles-style))
+- [x] **Style Library**: A collection of pre-defined map styles is available. ([Repository](https://github.com/versatiles-org/versatiles-style))
+- [x] **Fonts**: Prepared standard fonts. ([Repository](https://github.com/versatiles-org/versatiles-fonts))
+- [x] **Sprites Using Signed Distance Fields**: ... to ensure icons and symbols are scalable, colourable and clear at any zoom level. ([Repository](https://github.com/versatiles-org/versatiles-style))
+- [ ] **Multiple Frontends** are available: a minimal version and a big developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
+- [ ] **Right-to-Left (RTL) Label Support**: Efforts are underway to include support for RTL languages, such as Arabic, to ensure maps are accessible for a global audience. ([issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
+
 
 # Tools
 
@@ -355,6 +357,7 @@ There are many frameworks available, like MapLibre GL JS, Mapbox, OpenLayers, Le
 - [ ] Backend Renderer
 - [ ] VersaTiles-Studio
 - [ ] Generate city maps
+- [ ] style converter OpenMapTiles -> Shortbread
 
 # Documentation and versatiles.org
 
