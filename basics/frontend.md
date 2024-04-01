@@ -20,8 +20,7 @@ wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/down
 
 We maintain the frontend in the repo: [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend). A GitHub workflow triggers the build script. It then bundles:
 - the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js)
-- styles from the repo: [versatiles-styles](https://github.com/versatiles-org/versatiles-styles)
+- styles and sprites from the repo: [versatiles-styles](https://github.com/versatiles-org/versatiles-styles)
 - fonts (glyphs) from the repo: [versatiles-fonts](https://github.com/versatiles-org/versatiles-fonts)
-- symbols (sprites) from the repo: [versatiles-sprites](https://github.com/versatiles-org/versatiles-sprites)
 
 To make it even easier we procompressed all files inside the TAR with brotli. That's why the package has the unusual file extension `.br.tar`. Changing the order to `.tar.br` would be wrong because the TAR container itself is not compressed.

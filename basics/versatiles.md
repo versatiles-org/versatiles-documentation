@@ -12,7 +12,7 @@ It specifies some basic architectural choices and provides a standard implementa
 - The **Converter** prepares these tiles for the server by pre-compressing, cleaning and converting them into a [versatiles container](http://github.com/versatiles-org/versatiles-spec).
 - The **Server** serves the vector tiles via HTTP.
 - The **Proxy** handles network stuff like TLS certificates, caching, load balancing, CORS etc.
-- The **Frontend** loads and renders the vector tiles. We recommend [MapLibre GL JS](https://maplibre.org/projects/maplibre-gl-js/).
+- The **Frontend** loads and renders the vector tiles. We recommend [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/).
 
 ## Versatiles is open and free
 
