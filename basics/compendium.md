@@ -14,11 +14,11 @@
   - [Layer: Frontend](#layer-frontend)
 - [Tools](#tools)
 - [versatiles.org](#versatilesorg)
+- [Show cases](#show-cases)
 - [The Future of VersaTiles](#the-future-of-versatiles)
   - [Core values](#core-values)
   - [Community](#community)
   - [funding](#funding)
-- [Improvements for this document](#improvements-for-this-document)
 
 
 # Introduction
@@ -368,9 +368,22 @@ The website needs to be developed further:
 - [ ] migrate download.versatiles.org to bunny.net
 - [ ] migrate tiles.versatiles.org to bunny.net
 - [ ] Check if browsers limit the number of simultanous requests per domain and if multiple subdomains would actually increase loading speed.
-- [ ] add documentation, tutorials and specification to versatiles.org
-- [ ] add exmaples and tools to versatiles.org
+- [ ] add to versatiles.org:
+  - [ ] documentation
+  - [ ] tutorials
+  - [ ] specification
+  - [ ] exmaples
+  - [ ] show cases
+  - [ ] tools
 
+# Show cases
+
+- https://www.swr.de/swraktuell/diesel-und-benzinpreise-aktuell-so-tanken-sie-heute-clever-100.html
+- https://www.swr.de/swraktuell/rheinland-pfalz/waldbraende-aktuell-orte-karte-rlp-102.html
+- https://swrdata.github.io/zensus-gitter-test/
+- https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/
+- https://interaktiv.morgenpost.de/cannabis-legalisierung-kiffen-karte/
+- https://www.ndr.de/nachrichten/hamburg/Neue-Studie-Hamburg-bleibt-Deutschlands-Stau-Hochburg,stau1650.html
 
 # The Future of VersaTiles
 
@@ -381,42 +394,3 @@ open standard, open data, open source
 non commercial
 How to fund the infrastructure?
 How to fund the standardization and development?
-
-# Improvements for this document
-Your compendium on "VersaTiles" is an ambitious and comprehensive document that outlines the vision, structure, and technical specifications of an open-source map stack. It addresses key challenges in the realm of interactive web mapping, proposing a layered architecture similar to the OSI model for modular development and integration. Here's how it can be improved and extended:
-
-**Clarity and Consistency**
-- [ ] Ensure technical terms and acronyms are defined upon first use. For readers less familiar with web mapping or specific technologies, a glossary might be useful.
-- [ ] Use consistent terminology and spelling (e.g., "use cases" vs. "uses cases", "VersaTiles takle" should be "VersaTiles tackle").
-- [ ] Review for typographical errors and grammatical inconsistencies to enhance readability.
-
-**Use Cases Expansion**
-- [ ] Flesh out the "Use cases" section with specific scenarios where VersaTiles provides a distinct advantage. Include examples from journalism, NGOs, education, and other fields to illustrate its versatility.
-
-**Technical Depth**
-- [ ] Provide more technical details or examples in sections like "Layer: Generator" and "Layer: Server", especially around implementation strategies and challenges.
-- [ ] In "Layer: Network", discuss the considerations for selecting between different CDN providers or network configurations, possibly including case studies or benchmarks.
-
-**Community Engagement**
-- [ ] Detail how the community can contribute to VersaTiles. This could include a roadmap for development, guidelines for contributions, and channels for communication (e.g., forums, GitHub, social media).
-- [ ] Highlight current contributors and partners to showcase community support and encourage new participants.
-
-**Funding and Sustainability**
-- [ ] Elaborate on the "funding" section to address how the project plans to remain financially sustainable while adhering to its core values. Discuss potential revenue models, grants, donations, or sponsorships.
-
-**Accessibility and Internationalization**
-- [ ] Consider aspects of accessibility, both in terms of the web interface (e.g., support for screen readers, keyboard navigation) and geographic diversity (e.g., multi-language support, cultural considerations in map design).
-- [ ] Address how VersaTiles can accommodate regions with limited internet access or restrictions on data usage.
-
-**Technical Documentation and Tutorials**
-- [ ] Expand the "Documentation and versatiles.org" section with links to API documentation, SDKs, libraries, and tools that developers can use to integrate VersaTiles into their applications.
-- [ ] Include step-by-step tutorials for common tasks, such as setting up a VersaTiles server, customizing map styles, or integrating maps into web applications.
-
-**Versioning and Compatibility**
-- [ ] Discuss how versioning of the VersaTiles specification will be managed, including backward compatibility, deprecation policies, and how updates are rolled out to users.
-
-**Security Considerations**
-- [ ] Highlight security practices and recommendations for users hosting their own VersaTiles infrastructure. Discuss encryption, authentication, and protection against common web vulnerabilities.
-
-**Feedback Loop**
-- [ ] Establish mechanisms for gathering user feedback, conducting usability testing, and adapting the project roadmap based on community input.
