@@ -99,9 +99,6 @@ Please note that not all pipeline specifications are final and we may encounter 
 
 # VersaTiles Specification
 
-==split specification from implementation, e.g.: OSM generator, hillshade generator, ...
-
-
 ## Segment: Generator
 
 The Generator Segment produces map tiles, which can be image or vector tiles.
@@ -141,44 +138,43 @@ Users can bypass the tile generation process entirely and download our prepared 
 - [ ] generate hill shading ([issue](https://registry.opendata.aws/terrain-tiles/))
 - [ ] generate satellite imagery (using Landsat/SENTINEL, aerial photos from national open data platforms and open MAXAR images)
 
+
 ## Interface: Container
 
-One of the most asked question is why we developed our own container format. There are multiple reasons behind that:
+A frequently asked question is why we chose to develop our own container format. The reasons are manifold:
 
-One of the most important feature for the OSM community is to automatically update their own map tile server to be always up to date and see any changes to OSM in minutes. This might be an important requirement for OSM contributors, but it is totally unneccessary for almost everyone else. Especially new rooms, data journalists, NGOs and most other frontend developers need a simple background map that can be 3 month old. We neither want to use the data for monitoring recent changes, nor use map tiles for acurate car navigation.
-But the requirement of being always up-to-date creates a lot of complexity and ressource requirements, since you have to store and index all OSM objects in a Postgresql/Postgis database, fetching updates every minute and update all changed tiles on the fly. Generating vector tiles from a Postgresql database is also still in a experimental phase ([osm2pgsql](https://osm2pgsql.org/examples/vector-tiles/)). This requirement makes it impossible to build a simple, low cost solutions. That's why we abandoned the idea of using a database and instead focus on pregenerated tiles stored in a file container.
+A critical need within the OSM community is for map tile servers to automatically and rapidly reflect updates to OSM data. While this real-time updating is vital for some OSM contributors, it is not as crucial for a broader audience. News organizations, data journalists, NGOs, and many frontend developers often require only a basic map background that may be a few months old. The need to monitor real-time changes or use map tiles for car navigation is not a priority for these users. However, the insistence on up-to-the-minute updates adds significant complexity and resource demands, necessitating the storage and indexing of all OSM objects in a PostgreSQL/PostGIS database and updating all altered tiles instantaneously. Generating vector tiles directly from a PostgreSQL database is still experimental ([osm2pgsql](https://osm2pgsql.org/examples/vector-tiles/)). These requirements complicate the development of simple, low-cost solutions, leading us to prioritize pre-generated tiles stored in a file container.
 
-The most used container format is [MBTtiles](https://wiki.openstreetmap.org/wiki/MBTiles). It's basically just a SQLite database with a table containing a row for each tile, while the tile data is stored as gzipped blobs in one column. This makes the container very flexible, but it has some disadvantages:
-1. The container must be on the server on a local or mounted drive and can't be stored on a remote storage like a cloud object storage. 
-2. You need SQLite as a dependency.
-3. Querying or processing many tiles is slow since SQLite is not optimized for high throughput.
-A different approach is to use a cloud optimized map tile container format like [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles). They basically concatenate all tiles into a big file and append an index that can be used to lookup the byte range of each tile inside of the container. Both container formats differ in their implementation because they are optimised for different usecases. For example PMTiles is optimized to be stored on public cloud storage like AWS S3 and can be accessed without any server directly via a JavaScript implementation using HTTP range requests. This approach of serverless tile hosting is a really nice idea but has some major disadvantages, like slow initialisation time, uncompressed tile data, and no good way of caching requests. Additionally we want do be independent from container formats that have different use cases and might develop into a different direction.
+The most commonly used container format is [MBTiles](https://wiki.openstreetmap.org/wiki/MBTiles), essentially a SQLite database housing a row for each tile with tile data stored as gzipped blobs. Despite its flexibility, MBTiles has several downsides:
+1. It necessitates local or mounted server storage and cannot be hosted on remote cloud storage.
+2. SQLite becomes a required dependency. (like libsqlite3-dev)
+3. Processing numerous tiles is inefficient, given SQLite's limited throughput capacity.
 
-That's why we heavily learned from COMTiles and PMTiles a build our own, very simple container format: https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md
+In response, some have turned to cloud-optimized map tile container formats like [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored for distinct use cases; for example, PMTiles is designed for storage on public cloud services like AWS S3 and can be accessed serverlessly through JavaScript via HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialization, uncompressed tile data, and caching challenges. Our goal is to remain independent from container formats confined to specific applications or prone to divergent future development paths.
 
-One of the many advantages is a killer feature that we haven't seen yet anywhere else: We host planet wide tiles as VersaTiles containers at [download.versatiles.org](https://download.versatiles.org). But if you need just a portion, like a continent, country or city, you don't have to download the full planet and extract the necessary tiles. Instead you can use our Rust implementation to "convert" our hosted container to a local container using a bounding box as filter, e.g.:
+Accordingly, we have drawn insights from COMTiles and PMTiles to create a uniquely straightforward container format detailed here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
+
+A distinctive feature of our format is the capability of fast spatial queries running remotely. Users needing only a specific region, such as a continent, country, or city, can forego downloading the entire dataset. Instead, they can use our Rust tool to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
 ```bash
 versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
 ```
-All HTTP requests retrieving sequential tiles are merged into single once to download thousands of tiles at once. The resulting performance allows you to extract a part of the planet with no overhead at all: https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/download_tiles.md#partial-download. Only the internet connect limits the speed of downloading parts of the world.
+HTTP requests for sequential tiles are merged to download thousands of tiles at once, resulting in a very high performance. This allows for extracting parts of the planet with no overhead. For more information, refer to: https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/download_tiles.md#partial-download. The speed of downloading parts of the world is limited only by the internet connection.
 
 
 ### Requirements/Recommendations
-- It is required to follow the VersaTiles container specification: https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md
-- It is required to handle HTTP headers correctly, especially:
-	- `Content-Type` using the correct MIME type.
-	- `Accept-Encoding` and `Content-Encoding` for compressed data. Recompress data if neccessary.
-	- `Cache-Control` to signal to proxies, CDNs and browser how to cache the content.
-	- CORS headers like `Access-Control-Allow-Origin` if needed
-- Traffic costs money. It is recommended use optimal compression for tile data.
+
+- a container MUST follow the VersaTiles container specification: [VersaTiles Spec](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
+- tile data SHOULD use optimal compression
+
 
 ### Status
 
-- [x] include meta data
-- [x] support all tile formats (images and vector data)
-- [x] support all compressions (gzip, brotli)
-- [x] allow bbox download
-- [x] finish [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
+- [x] Metadata inclusion
+- [x] Support for all tile formats (image and vector data)
+- [x] Support for all compression methods (gzip, brotli)
+- [x] Enablement of bbox downloads
+- [x] Completion of the [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
+
 
 ## Segment: Server
 
@@ -187,6 +183,12 @@ The Server layer is responsible for serving map tiles and additional static file
 ### Requirements/Recommendations
 
 - Must recognize and process [_VersaTiles containers_](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
+- 
+- Proper handling of HTTP headers is required, notably:
+	- `Content-Type` should reflect the accurate MIME type.
+	- `Accept-Encoding` and `Content-Encoding` should be managed for data compression; re-compress data as necessary.
+	- `Cache-Control` must be utilized to guide caching protocols for proxies, CDNs, and browsers.
+	- Implement CORS headers, such as `Access-Control-Allow-Origin`, where applicable.
 - The server should know its public URL for resource referencing.
 - Adopts a structured folder hierarchy for organized tile and metadata access:
     - `/tiles/`: Central directory for tile retrieval.
