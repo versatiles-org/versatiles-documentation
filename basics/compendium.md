@@ -117,11 +117,11 @@ Users can bypass the tile generation process entirely and download our prepared 
 - Tiles SHOULD be packaged in a [*.versatiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
 - Vector tiles SHOULD conform to the [Shortbread schema](https://shortbread-tiles.org/).
 - Containers SHOULD include detailed metadata compliant with [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
-    - `attribution` detailing source data copyrights.
-    - `vector_layers` describing the vector tiles' layered composition.
+  - `attribution` detailing source data copyrights.
+  - `vector_layers` describing the vector tiles' layered composition.
 - You SHOULD use optimal compression techniques to efficiently reduce tile size without compromising data integrity. Recommended methods include:
-    - use Brotli compression for vector tiles.
-    - use WebP format for raster tiles to improve loading efficiency and reduce bandwidth.
+  - use Brotli compression for vector tiles.
+  - use WebP format for raster tiles to improve loading efficiency and reduce bandwidth.
 - The filename of the container SHOULD follow the format `<content>[.<schema>][.<coverage>][.<date>].versatiles` where:
   - `<content>` describes the content, e.g.: `osm`, `hillshade` or `satellite`.
   - `<schema>` (optional) e.g.: `shortbread` or `openmaptiles`.
@@ -196,17 +196,17 @@ The server delivers map tiles and static files via HTTP. These static files may 
 	- Implement CORS headers, like `Access-Control-Allow-Origin`, as needed.
 - The server should be aware of its public URL for referencing resources.
 - Organized tile and metadata access through a structured folder hierarchy is recommended:
-    - `/tiles/`: The primary directory for tile retrieval.
-        - `/tiles/sources.json`: A detailed index of available tile sources.
-        - `/tiles/{name}/{z}/{x}/{y}`: Standardized endpoints for tile access.
-        - `/tiles/{name}/tiles.json`: a valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
-    - `/assets/`: Houses additional resources like sprites, glyphs, styles, and MapLibre GL JS files.
-        - `/assets/sprites/`
-        - `/assets/glyphs/`
-            - `/assets/glyphs/{name}`: Font names SHOULD contain only lowercase letters, numbers and underscores (as opposed to common implementations with font names such as "Arial%20Unicode%20MS%20Regular")
-            - `/assets/glyphs/fonts.json`: A catalog of available fonts.
-        - `/assets/styles/`
-        - `/assets/maplibre/maplibre.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
+  - `/tiles/`: The primary directory for tile retrieval.
+    - `/tiles/sources.json`: A detailed index of available tile sources.
+    - `/tiles/{name}/{z}/{x}/{y}`: Standardized endpoints for tile access.
+    - `/tiles/{name}/tiles.json`: a valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
+  - `/assets/`: Houses additional resources like sprites, glyphs, styles, and MapLibre GL JS files.
+    - `/assets/sprites/`
+    - `/assets/glyphs/`
+      - `/assets/glyphs/{name}`: Font names SHOULD contain only lowercase letters, numbers and underscores (as opposed to common implementations with font names such as "Arial%20Unicode%20MS%20Regular")
+      - `/assets/glyphs/fonts.json`: A catalog of available fonts.
+    - `/assets/styles/`
+    - `/assets/maplibre/maplibre.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
 - SHOULD be configured via `config.yaml` for a tailored server setup, encompassing domain setup, IP/port listening preferences, operational modes (development vs. production), tile source specification, and static content management:
 
 ```yaml
