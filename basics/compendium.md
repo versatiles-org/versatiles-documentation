@@ -122,6 +122,11 @@ Users can bypass the tile generation process entirely and download our prepared 
 - You SHOULD use optimal compression techniques to efficiently reduce tile size without compromising data integrity. Recommended methods include:
     - use Brotli compression for vector tiles.
     - use WebP format for raster tiles to improve loading efficiency and reduce bandwidth.
+- The filename of the container SHOULD follow the format `<content>[.<schema>][.<coverage>][.<date>].versatiles` where:
+  - `<content>` describes the content, e.g.: `osm`, `hillshade` or `satellite`.
+  - `<schema>` (optional) e.g.: `shortbread` or `openmaptiles`.
+  - `<coverage>` (optional) specifies the geographical coverage, if not planet wide, e.g.: `europe` or `cairo`.
+  - `<date>` (optional) is a [basic ISO date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (YYYYMMDD), e.g.: `20231231`.
 
 
 ### Status
