@@ -19,7 +19,7 @@ But the most convenient way is to install it via [Homebrew for MacOS](install_ve
 The VersaTiles data file is a compact file containing all map tiles for the entire planet. You can download it with `wget`:
 
 ```bash
-wget -c https://download.versatiles.org/planet-latest.versatiles
+wget -c https://download.versatiles.org/osm.versatiles
 ```
 
 If you need only a part of the planet, e.g. only a continent/country/city, you can download this part using the `versatiles` tool. See: [download tiles](download_tiles.md#partial-download)
@@ -41,7 +41,7 @@ Save the `frontend.br.tar` file in the same directory as the `.versatiles` file.
 To start the VersaTiles server, open a shell, navigate to the directory where you saved the `.versatiles` file and the frontend file, and run:
 
 ```bash
-versatiles serve -i 127.0.0.1 -s frontend.br.tar "[osm]planet-latest.versatiles"
+versatiles serve -i 127.0.0.1 -s frontend.br.tar "[osm]osm.versatiles"
 ```
 
 The VersaTiles server will now be running locally on your machine. To test it open `http://localhost:8080` in your browser.

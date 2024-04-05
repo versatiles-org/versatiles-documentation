@@ -161,7 +161,7 @@ Accordingly, we have drawn insights from COMTiles and PMTiles to create a unique
 
 A distinctive feature of our format is the capability of fast spatial queries running remotely. Users needing only a specific region, such as a continent, country, or city, can forego downloading the entire dataset. Instead, they can use our Rust tool to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
 ```bash
-versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
+versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
 ```
 HTTP requests for sequential tiles are merged to download thousands of tiles at once, resulting in a very high performance. This allows for extracting parts of the planet with no overhead. For more information, refer to: https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/download_tiles.md#partial-download. The speed of downloading parts of the world is limited only by the internet connection.
 

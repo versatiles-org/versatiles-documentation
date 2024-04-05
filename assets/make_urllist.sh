@@ -1,5 +1,5 @@
 
-FILE=planet-latest.versatiles
+FILE=osm.versatiles
 DIRE=/var/www/download.versatiles.org/docs
 SIZE=$(stat -Lc %s $DIRE/$FILE)
 HASH=$(pv $DIRE/$FILE | openssl dgst -md5 -binary | openssl enc -base64)

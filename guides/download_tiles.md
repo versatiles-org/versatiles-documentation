@@ -7,7 +7,7 @@ You can download tiles for the whole planet from the official site [download.ver
 To make downloading easier, you can use `wget`. The `-c` flag can be added to resume an interrupted download:
 
 ```bash
-wget -c "https://download.versatiles.org/planet-latest.versatiles"
+wget -c "https://download.versatiles.org/osm.versatiles"
 ```
 
 ## Partial download
@@ -16,12 +16,12 @@ If you only need tiles for a specific region, like a continent or a country, you
 
 For example, to download only tiles for Switzerland (including 3 tiles as border):
 ```bash
-versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/planet-latest.versatiles switzerland.versatiles
+versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/osm.versatiles switzerland.versatiles
 ```
 
 Or, very similarly, how to download Germany
 ```bash
-versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/planet-latest.versatiles germany.versatiles
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm.versatiles germany.versatiles
 ``````
 
 ## Downloading to Google Cloud Storage
@@ -32,7 +32,7 @@ To store VersaTiles data on Google Cloud Storage, follow these steps:
   Follow the [Google documentation](https://cloud.google.com/storage/docs/creating-buckets) to create a new bucket.
 
 - **Copy the Latest Data**  
-  Transfer "planet-latest.versatiles" file from [download.versatiles.org](https://download.versatiles.org/) to your bucket. There are 3 ways to do that:
+  Transfer "osm.versatiles" file from [download.versatiles.org](https://download.versatiles.org/) to your bucket. There are 3 ways to do that:
 
   1. **Automated Transfer**
     - Navigate to "Bucket details" and click on "TRANSFER DATA", then "Transfer data in".
