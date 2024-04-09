@@ -204,11 +204,12 @@ The server delivers map tiles and static files via HTTP. These static files may 
     - `/tiles/sources.json`: A detailed index of available tile sources.
     - `/tiles/{name}/{z}/{x}/{y}`: Standardized endpoints for tile access.
     - `/tiles/{name}/tiles.json`: a valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
-  - `/assets/`: Houses additional resources like sprites, glyphs, styles, and MapLibre GL JS files.
+  - `/assets/`: Houses additional resources like sprites, fonts, styles, and MapLibre GL JS files.
     - `/assets/sprites/`
-    - `/assets/glyphs/`
-      - `/assets/glyphs/{name}`: Font names SHOULD contain only lowercase letters, numbers and underscores (as opposed to common implementations with font names such as "Arial%20Unicode%20MS%20Regular")
-      - `/assets/glyphs/fonts.json`: A catalog of available fonts.
+    - `/assets/fonts/`
+      - `/assets/fonts/{name}`: Font names SHOULD be OS/UNIX/URL safe and therefore contain only lowercase letters, digits and underscores. (Instead of common font names such as `Arial%20Unicode%20MS%20Regular`, the name should be `arial_unicode_ms_regular`.)
+      - `/assets/fonts/fonts.json`: A catalog of available fonts ([see `/assets/fonts/fonts.json`](#file-assetsfontsfontsjson)
+      - `/assets/fonts/font_families.json`: A catalog of available fonts ([see `/assets/fonts/font_families.json`](#file-assetsfontsfont_familiesjson))
     - `/assets/styles/`
     - `/assets/maplibre/maplibre.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
 - SHOULD be configured via `config.yaml` for a tailored server setup, encompassing domain setup, IP/port listening preferences, operational modes (development vs. production), tile source specification, and static content management:
@@ -363,7 +364,7 @@ When serving a frontend the fonts should be stored in the path `/assets/fonts/`.
 
 ## File `/assets/fonts/fonts.json`
 
-There should be JSON at `/assets/fonts/fonts.json` containing an array of all folders in `/assets/fonts/`.
+There should be JSON at `/assets/fonts/fonts.json` containing an array of all folders in `/assets/fonts/` containings glyphs.
 
 For example:
 ```JSON
@@ -382,7 +383,7 @@ For example:
 
 ## File `/assets/fonts/font_families.json`
 
-There should be JSON at `/assets/fonts/font_families.json` containing all font families with their font faces. The keys of the font face objects should be the same as the folder names.
+There should be JSON at `/assets/fonts/font_families.json` containing all font families with their font faces. The keys of the `fontFace` objects should be the same as the glyph folder names.
 
 The TypeScript definition of this JSON is:
 ```TypeScript
