@@ -4,14 +4,18 @@
   - [What are Slippy Maps?](#what-are-slippy-maps)
   - [Why is there no simple solution?](#why-is-there-no-simple-solution)
   - [How does VersaTiles tackle the problem?](#how-does-versatiles-tackle-the-problem)
-- [VersaTiles Specification](#versatiles-specification)
+- [VersaTiles Layer Specification](#versatiles-layer-specification)
   - [Layer: Generator](#layer-generator)
   - [Interface: Container](#interface-container)
   - [Layer: Server](#layer-server)
   - [Interface: Private/Internal Network](#interface-privateinternal-network)
-  - [Segment: Network](#segment-network)
+  - [Layer: Network](#layer-network)
   - [Interface: Public/External Network](#interface-publicexternal-network)
   - [Layer: Frontend](#layer-frontend)
+- [VersaTiles Frontend Specifications](#versatiles-frontend-specifications)
+  - [Folder `/assets/fonts/`](#folder-assetsfonts)
+  - [File `/assets/fonts/fonts.json`](#file-assetsfontsfontsjson)
+  - [File `/assets/fonts/font_families.json`](#file-assetsfontsfont_familiesjson)
 - [Tools](#tools)
 - [versatiles.org](#versatilesorg)
 - [Show cases](#show-cases)
@@ -97,7 +101,7 @@ Generator --> Server --> Network --> Frontend
 Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, issues or features that require minor adjustments. However, the majority of the pipeline is stable.
 
 
-# VersaTiles Specification
+# VersaTiles Layer Specification
 
 ## Layer: Generator
 
@@ -295,7 +299,7 @@ Moving forward, we aim to:
 This interface is where the server processes HTTP requests. It is advised against incorporating additional functionalities, such as TLS, directly into the server layer to maintain simplicity. Instead, these network-related features should be managed by the network layer, ensuring a clear separation of concerns.
 
 
-## Segment: Network
+## Layer: Network
 
 The Network Layer is crucial for serving files over the public internet, addressing all related security, availability, and performance requirements.
 
@@ -349,6 +353,86 @@ Progress in the development and implementation of the Frontend Layer includes:
 - [ ] **Multiple Frontends** are available: a minimal version and a big developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
 - [ ] **Right-to-Left (RTL) Label Support**: Efforts are underway to include support for RTL languages, such as Arabic, to ensure maps are accessible for a global audience. ([issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
 
+
+# VersaTiles Frontend Specifications
+
+
+## Folder `/assets/fonts/`
+
+When serving a frontend the fonts should be stored in the path `/assets/fonts/`.
+
+## File `/assets/fonts/fonts.json`
+
+There should be JSON at `/assets/fonts/fonts.json` containing an array of all folders in `/assets/fonts/`.
+
+For example:
+```JSON
+[
+  "fira_sans_bold",
+  "fira_sans_bold_italic",
+  "fira_sans_condensed_bold",
+  "fira_sans_condensed_bold_italic",
+  "fira_sans_condensed_italic",
+  "fira_sans_condensed_regular",
+  "fira_sans_italic",
+  "fira_sans_regular"
+]
+```
+
+
+## File `/assets/fonts/font_families.json`
+
+There should be JSON at `/assets/fonts/font_families.json` containing all font families with their font faces. The keys of the font face objects should be the same as the folder names.
+
+The TypeScript definition of this JSON is:
+```TypeScript
+type FontFamilies = Record<string, FontFamily>;
+interface FontFamily {
+  name: string;
+  fontFace: Record<string, FontFace>;
+}
+interface FontFace {
+  name: string;
+  italic: boolean;
+  weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+}
+```
+
+For example:
+```JSON
+{
+  "fira_sans": {
+    "name": "Fira Sans",
+    "fontFace": {
+      "fira_sans_bold": { "name": "Bold", "italic": false, "weight": 700 },
+      "fira_sans_bold_italic": { "name": "Bold Italic", "italic": true, "weight": 700 },
+      "fira_sans_italic": { "name": "Italic", "italic": true, "weight": 400 },
+      "fira_sans_regular": { "name": "Regular", "italic": false, "weight": 400 }
+    }
+  },
+    "fira_sans_condensed": {
+    "name": "Fira Sans Condensed",
+    "fontFace": {
+      "fira_sans_condensed_bold": { "name": "Bold", "italic": false, "weight": 700 },
+      "fira_sans_condensed_bold_italic": { "name": "Bold Italic", "italic": true, "weight": 700 },
+      "fira_sans_condensed_italic": { "name": "Italic", "italic": true, "weight": 400 },
+      "fira_sans_condensed_regular": { "name": "Regular", "italic": false, "weight": 400 }
+    }
+  }
+}
+```
+
+Based on this example JSON the following glyphs should be available:
+```
+/assets/fonts/fira_sans_bold/*.pbf
+/assets/fonts/fira_sans_bold_italic/*.pbf
+/assets/fonts/fira_sans_italic/*.pbf
+/assets/fonts/fira_sans_regular/*.pbf
+/assets/fonts/fira_sans_condensed_bold/*.pbf
+/assets/fonts/fira_sans_condensed_bold_italic/*.pbf
+/assets/fonts/fira_sans_condensed_italic/*.pbf
+/assets/fonts/fira_sans_condensed_regular/*.pbf
+```
 
 # Tools
 
