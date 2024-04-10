@@ -206,10 +206,7 @@ The server delivers map tiles and static files via HTTP. These static files may 
     - `/tiles/{name}/tiles.json`: a valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
   - `/assets/`: Houses additional resources like sprites, fonts, styles, and MapLibre GL JS files.
     - `/assets/sprites/`
-    - `/assets/fonts/`
-      - `/assets/fonts/{name}`: Font names SHOULD be OS/UNIX/URL safe and therefore contain only lowercase letters, digits and underscores. (Instead of common font names such as `Arial%20Unicode%20MS%20Regular`, the name should be `arial_unicode_ms_regular`.)
-      - `/assets/fonts/fonts.json`: A catalog of available fonts ([see `/assets/fonts/fonts.json`](#file-assetsfontsfontsjson)
-      - `/assets/fonts/font_families.json`: A catalog of available fonts ([see `/assets/fonts/font_families.json`](#file-assetsfontsfont_familiesjson))
+    - `/assets/fonts/` ([see requirements](#folder-assetsfonts))
     - `/assets/styles/`
     - `/assets/maplibre/maplibre.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
 - SHOULD be configured via `config.yaml` for a tailored server setup, encompassing domain setup, IP/port listening preferences, operational modes (development vs. production), tile source specification, and static content management:
@@ -360,7 +357,11 @@ Progress in the development and implementation of the Frontend Layer includes:
 
 ## Folder `/assets/fonts/`
 
-When serving a frontend the fonts should be stored in the path `/assets/fonts/`.
+- When serving a frontend, the fonts should be stored in `/assets/fonts/`.
+- The glyphs should be served as `/assets/fonts/{fontname}/{start}-{end}.pbf`, e.g. `/assets/fonts/open_sans_bold_italic/768-1023.pbf`.
+- Font names (`{fontname}`) SHOULD be OS/UNIX/URL safe and therefore contain only lower case letters, digits and underscores. Instead of naming fonts like `Arial%20Unicode%20MS%20Regular`, the name should be `arial_unicode_ms_regular`.
+- You should also serve a list of all available fonts as [`fonts.json`](#file-assetsfontsfontsjson) and [`font_families.json`](#file-assetsfontsfont_familiesjson).
+
 
 ## File `/assets/fonts/fonts.json`
 
