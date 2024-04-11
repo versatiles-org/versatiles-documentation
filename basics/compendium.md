@@ -450,14 +450,14 @@ In our roadmap, we plan to develop a suite of useful tools aimed at enhancing th
 - [ ] **Backend Renderer**: A JavaScript library engineered to render specified map regions into PNG or SVG formats, offering a flexible solution for static map generation. ([Repository](https://github.com/versatiles-org/versatiles-renderer))
 - [ ] **VersaTiles-Studio**: A desktop application, developed in Rust, that enables the conversion of geographic data into vector tiles while optimizing tile size.
 - [ ] **Generate City Maps**: An interactive web demonstration of VersaTiles capabilities, allowing users to select a region and automatically generate a stylized city map poster in black and white. ([Examples](https://duckduckgo.com/?va=i&t=hb&q=city+map+poster&iax=images&ia=images))
-- [ ] **Style Converter**: A straightforward NodeJS utility designed to convert map styles from the OpenMapTiles schema to the Shortbread schema, facilitating style adaptation and interoperability.
+- [ ] **Style Converter**: A NodeJS utility designed to convert map styles from the OpenMapTiles schema to the Shortbread schema.
 
 
 # versatiles.org
 
 The website needs to be developed further:
 - [ ] migrate download.versatiles.org to bunny.net
-- [ ] migrate tiles.versatiles.org to bunny.net
+- [x] migrate tiles.versatiles.org to bunny.net
 - [ ] Check if browsers limit the number of simultanous requests per domain and if multiple subdomains would actually increase loading speed.
 - [ ] add to versatiles.org:
   - [ ] documentation
