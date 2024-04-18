@@ -196,7 +196,8 @@ The server delivers map tiles and static files via HTTP. These static files may 
 - SHOULD handle HTTP header, specifically:
 	- `Content-Type` must accurately represent the MIME type.
 	- `Accept-Encoding` and `Content-Encoding` for data compression; re-compress data as necessary.
-	- `Cache-Control` should be used to manage caching strategies for proxies, CDNs, and browsers.
+	- `Cache-Control` should be used to manage caching strategies for proxies, CDNs, and browsers. Should include `no-transform`.
+	- `Vary` should be set to `Accept-Encoding`.
 	- Implement CORS headers, like `Access-Control-Allow-Origin`, as needed.
 - The server should be aware of its public URL for referencing resources.
 - Organized tile and metadata access through a structured folder hierarchy is recommended:
@@ -208,39 +209,49 @@ The server delivers map tiles and static files via HTTP. These static files may 
     - `/assets/sprites/`
     - `/assets/fonts/` ([see requirements](#folder-assetsfonts))
     - `/assets/styles/`
-    - `/assets/maplibre/maplibre.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
+    - `/assets/maplibre-gl/maplibre-gl.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
 - SHOULD be configured via `config.yaml` for a tailored server setup, encompassing domain setup, IP/port listening preferences, operational modes (development vs. production), tile source specification, and static content management:
 
 ```yaml
-# Public URL
-domain: 'https://example.org' # Required
+server:
+  host: '0.0.0.0'  # Listen on all network interfaces. Default: 0.0.0.0
+  port: 3000       # Port number for the server. Default: 8080
+  domain: 'https://example.org'  # Publicly accessible URL of the server
 
-# Listening configuration
-listen_ip: '0.0.0.0' # Default: 0.0.0.0
-listen_port: 3000 # Default: 8080
+# Performance settings: Use minimal recompression for development
+fast: true  # Set to false in production for full compression. Default: false
 
-# Use minimal recompression only as necessary, e.g., for development
-fast: true # Default: false
-
-# Tile sources configuration, required
+# Configuration for tile sources
 tile_sources:
-- { name: 'osm', source: './osm.versatiles' }
-- { name: 'landsat', source: 'https://example.org/landsat.versatiles' }
+  - name: 'osm'
+    source: './osm.versatiles'  # Local source for OpenStreetMap tiles
+  - name: 'landsat'
+    source: 'https://example.org/landsat.versatiles'  # Remote source for Landsat tiles
 
-# Static content configuration, optional
+# Optional configuration for serving static content
 static_content:
-- { source: './styles', prefix: 'assets/styles' }
-- { source: './frontend.tar' }
+  - source: './styles'
+    prefix: 'assets/styles'  # URL path prefix for styles
+  - source: './frontend.tar'
+    # Default prefix is "/"
 
-# CORS allow list, optional
-allow_origin:
-- 'versatiles.org'
-- 'example.org'
-- 'someone.org'
+cors:
+  # Default policy to allow or block CORS requests if they don't match any specific rules
+  default_policy: 'block'  # Options: 'allow', 'block'
 
-# CORS block list, optional
-block_origin:
-- 'someonewhosaysheisnotanazibut.org'
+  # List of URL patterns to explicitly allow for CORS requests
+  allow_patterns:
+    - '^https?://trusteddomain\.com'
+    - '^https?://*.example\.com'
+
+  # List of URL patterns to explicitly block for CORS requests
+  block_patterns:
+    - '^https?://untrusteddomain\.com'
+    - '^https?://*.malicious\.com'
+
+logging:
+  level: 'info'  # Options: 'debug', 'info', 'warning', 'error'
+  path: '/var/log/myserver.log'  # File path for log output
 ```
 
 ### Rust Implementation
