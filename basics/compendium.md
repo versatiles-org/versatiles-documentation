@@ -479,9 +479,8 @@ In our roadmap, we plan to develop a suite of useful tools aimed at enhancing th
 # versatiles.org
 
 The website needs to be developed further:
-- [ ] migrate download.versatiles.org to bunny.net
-- [x] migrate tiles.versatiles.org to bunny.net
-- [ ] Check if browsers limit the number of simultanous requests per domain and if multiple subdomains would actually increase loading speed.
+- [ ] migrate download.versatiles.org to new V-Server
+- [ ] migrate tiles.versatiles.org to new V-Server
 - [ ] add to versatiles.org:
   - [ ] documentation
   - [ ] tutorials
