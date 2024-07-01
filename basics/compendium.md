@@ -480,7 +480,7 @@ In our roadmap, we plan to develop a suite of useful tools aimed at enhancing th
 
 The website needs to be developed further:
 - [ ] migrate download.versatiles.org to new V-Server
-- [ ] migrate tiles.versatiles.org to new V-Server
+- [x] migrate tiles.versatiles.org to new V-Server
 - [ ] add to versatiles.org:
   - [ ] documentation
   - [ ] tutorials
@@ -498,6 +498,8 @@ The website needs to be developed further:
 - https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/
 - https://interaktiv.morgenpost.de/cannabis-legalisierung-kiffen-karte/
 - https://www.ndr.de/nachrichten/hamburg/Neue-Studie-Hamburg-bleibt-Deutschlands-Stau-Hochburg,stau1650.html
+- https://www.ndr.de/nachrichten/hamburg/Zensus-2022-Hamburg-ist-Bundesland-mit-hoechsten-Mieten,zensus340.html
+- https://www.ndr.de/nachrichten/ndrdata/Zensus-Mietpreise-im-Norden-im-Ueberblick,zensus308.html
 
 
 # The Future of VersaTiles
