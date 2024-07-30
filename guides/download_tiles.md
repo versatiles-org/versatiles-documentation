@@ -22,7 +22,10 @@ versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://d
 Or, very similarly, how to download Germany
 ```bash
 versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm.versatiles germany.versatiles
-``````
+```
+~~~shell
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" --min-zoom 10 --max-zoom 14  https://download.versatiles.org/planet-latest.versatiles germany.versatiles
+~~~
 
 ## Downloading to Google Cloud Storage
 
