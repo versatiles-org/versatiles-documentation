@@ -20,8 +20,24 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 ### 1. [VersaTiles의 공용 타일 서버 사용하기][공용 타일 서버 사용하기]
  
 ### 2 .VersaTiles를 개인 서버에 설치하고 실행하기
-#### 2-1. VersaTiles 설치하기  
-VersaTiles는 타일 데이터를 처리하고 제공하기 위한 Rust 기반 프로젝트입니다. [Releases 페이지](https://github.com/versatiles-org/versatiles-rs/releases/)에서 다양한 운영체제 및 아키텍처에 대한 사전 컴파일된 바이너리를 제공하고 있습니다. 
+
+#### 2-1. VersaTiles 벡터 타일 다운로드  
+
+공식 사이트 download.versatiles.org에서 행성 전체의 타일을 다운로드할 수 있습니다.
+
+~~~shell
+wget -c "https://download.versatiles.org/osm.versatiles"
+~~~
+
+행성 전체가 아닌 대륙, 국가, 도시만 필요한 경우 `versatiles`을(를) 사용하여 일부 지역의 타일만을 다운로드할 수도 있습니다.  
+자세한 내용은 [벡터 타일 다운로드] 항목을 참조하세요.
+
+<br />
+
+#### 2-2. versatiles-rs 설치하기  
+
+VersaTiles는 타일 데이터를 처리하고 제공하기 위한 Rust 기반 프로젝트입니다.  
+[Releases 페이지](https://github.com/versatiles-org/versatiles-rs/releases/)에서 다양한 운영체제 및 아키텍처에 대한 사전 컴파일된 바이너리를 제공하고 있습니다. 
 
 ##### Linux  
 아래 스크립트는 사전 컴파일된 바이너리를 다운로드하고 /usr/local/bin/에 복사하여 `versatiles`를 설치합니다.
@@ -114,18 +130,6 @@ cargo install versatiles
 ~~~
 
 자세한 내용은 [VersaTiles 설치] 항목을 참조하세요.
-
-<br />
-
-#### 2-2. VersaTiles 벡터 타일 다운로드  
-공식 사이트 download.versatiles.org에서 행성 전체의 타일을 다운로드할 수 있습니다.
-
-~~~shell
-wget -c "https://download.versatiles.org/osm.versatiles"
-~~~
-
-행성 전체가 아닌 대륙, 국가, 도시만 필요한 경우 `versatiles`을(를) 사용하여 일부 지역의 타일만을 다운로드할 수도 있습니다.  
-자세한 내용은 [벡터 타일 다운로드] 항목을 참조하세요.
 
 <br />
 
