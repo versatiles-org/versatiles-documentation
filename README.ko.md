@@ -41,7 +41,7 @@ wget -c "https://download.versatiles.org/osm.versatiles"
 
 [Releases 페이지](https://github.com/versatiles-org/versatiles-rs/releases/)는 다양한 운영체제 및 아키텍처를 위하여 Rust로 사전 컴파일된 바이너리를 제공합니다.
 
-### Linux , Mac 
+#### Linux , Mac 
 아래 스크립트는 사전 컴파일된 바이너리를 다운로드하고 /usr/local/bin/에 복사하여 `versatiles`를 설치합니다.
 <details><summary>접기/펼치기</summary>
 
