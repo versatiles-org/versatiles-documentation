@@ -124,10 +124,7 @@ docker pull versatiles-org/versatiles
 ~~~
 
 #### Build from Source
-소스에서 VersaTiles를 빌드하기 위해서는 Rust가 사전 설치되어 있어야 합니다.   
-시스템에 Rust가 설치되어 있지 않은가요? [Rust 설치](https://www.rust-lang.org/tools/install)
-
-아래 명령을 실행합니다.
+소스에서 VersaTiles를 빌드하기 위해서는 Rust가 사전 설치되어 있어야 합니다. 아래 명령을 실행합니다.
 
 ~~~shell
 cargo install versatiles
