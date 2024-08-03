@@ -13,7 +13,7 @@ VersaTiles는 상업적 이익을 전혀 갖지 않는 OpenStreetMap 데이터�
 # 초보자 가이드
 VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 * [VersaTiles의 공용 타일 서버 사용하기](#versatiles의-공용-타일-서버-사용하기)
-* [VersaTiles를 개인 서버에 설치하고 실행하기](#versatiles를-개인-서버에-설치하고-실행하기)
+* [VersaTiles를 개인 서버에서 사용하기](#versatiles를-개인-서버에서-사용하기)
   * [VersaTiles 벡터 타일 다운로드](#versatiles-벡터-타일-다운로드)
   * [Versatiles 설치](#versatiles-설치)
     * [Linux, Mac](#linux--mac)
@@ -24,7 +24,7 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 ## VersaTiles의 공용 타일 서버 사용하기
 자세한 내용은 [공용 타일 서버 사용하기] 항목을 참조하세요.  
   
-## VersaTiles를 개인 서버에 설치하고 실행하기
+## VersaTiles를 개인 서버에서 사용하기
 
 ### VersaTiles 벡터 타일 다운로드  
 download.versatiles.org에서 행성 전체 타일을 다운로드합니다.
