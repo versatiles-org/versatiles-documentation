@@ -1,14 +1,14 @@
 ## Introduction
-- [웹 지도와 벡터 타일][웹 지도]
+- [웹 지도와 벡터 타일](basics/web_maps.md)
 - [VersaTiles][VersaTiles]: OSM 데이터를 처리하고 제공하여 대화형 웹 지도를 만드는 방법을 정의하는 스택입니다.
 
 ## 초보자 가이드
 VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 * 개인 서버에서 사용하기
+  * [VersaTiles 설치][VersaTiles 설치]: 사전 컴파일된 바이너리를 다운로드하여 사용하거나 직접 컴파일할 수 있습니다.
   * [VersaTiles 벡터 타일 다운로드][벡터 타일 다운로드]: 행성 전체 타일, 또는 일부를 다운로드합니다.
-  * [VersaTiles 설치](#versatiles-설치): 사전 컴파일된 바이너리를 다운로드하여 사용하거나 직접 컴파일할 수 있습니다.
-  * [VersaTiles 실행](#versatiles-실행): `versatiles`의 사용법을 알아봅니다.
-* [공개된 타일 서버 사용하기][공개된 타일 서버 사용하기]: [tiles.versatiles.org](https://tiles.versatiles.org)에서 제공하는 타일 서버를 사용합니다.
+  * [VersaTiles 실행][VersaTiles 서버]: `versatiles`의 사용법을 알아봅니다.
+* [공개된 타일 서버 사용하기][공개된 타일 서버 사용하기]: `tiles.versatiles.org`에서 제공하는 타일 서버를 사용합니다.
 
 ## VersaTiles 서버 배포
 - [**Debian**에서][Debian에서]
@@ -23,8 +23,8 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 - [**QGIS**에서 VersaTiles 사용 방법?][QGIS에서 VersaTiles 사용 방법]
 - *최대한의 프라이버시를 유지하며 모바일 앱에 지도를 추가하는 방법, 예를 들어 서버를 앱에 포함시키는 방법?*
 
-[웹 지도]: basics/web_maps.md
 [VersaTiles]: basics/versatiles.md
+
 [VersaTiles 서버]: basics/versatiles_server.md
 [VersaTiles 프론트엔드]: basics/frontend.md
 [공개된 타일 서버 사용하기]: guides/use_tiles.versatiles.org.md
@@ -32,11 +32,9 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 [벡터 타일 다운로드]: guides/download_tiles.ko.md
 
 [VersaTiles 설치]: guides/install_versatiles.md
-[Linux에서]: guides/local_server_debian.md
-[Mac에서]: guides/local_server_mac.md
-[Docker를 사용하여]: guides/local_server_docker.md
-[Debian에서]: guides/deploy_on_debian.md
 
+[Debian에서]: guides/deploy_on_debian.md
 [Google Cloud에서]: guides/deploy_in_google_cloud.md
+
 [Android 및 iOS 앱에서 VersaTiles 사용 방법]: guides/what_about_mobile.md
 [QGIS에서 VersaTiles 사용 방법]: guides/use_versatiles_in_qgis.md
