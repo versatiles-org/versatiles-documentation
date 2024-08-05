@@ -4,7 +4,7 @@
 In the top menu, click on `Layer`.  
 From the dropdown menu, hover over `Add Layer` and then select `Add Vector Tile Layer...`.  
   
-`Add Layer ►` ![Add Vector Tile Layer](https://docs.qgis.org/3.34/en/_images/mActionAddVectorTileLayer.png) `Add Vector Tile Layer...`
+`Layer ►` `Add Layer ►` ![Add Vector Tile Layer](https://docs.qgis.org/3.34/en/_images/mActionAddVectorTileLayer.png) `Add Vector Tile Layer...`
 
 ## **Add a New Connection**
 In the `Data Source Manager - Vector Tiles` window, click on the `New` button next to the `Connections` dropdown.  
