@@ -1,3 +1,5 @@
+You can read this document in [English/영어](README.md) or [Korean/한국어](README.ko.md).
+
 ## Introduction
 
 What is it and how does it work:
