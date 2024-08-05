@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 
 What is it and how does it work:
 - [**Web maps**](basics/web_maps.md)
@@ -7,7 +7,7 @@ What is it and how does it work:
 - *VersaTiles caching*
 - [VersaTiles **frontend**](basics/frontend.md)
 
-# Beginner's guide
+## Beginner's guide
 
 How to:
 - [… **use** our public tile server?](guides/use_tiles.versatiles.org.md)
@@ -19,7 +19,7 @@ How to:
   - *on **Windows***
   - [using **Docker**](guides/local_server_docker.md)
 
-# Deploy a VersaTiles server
+## Deploy a VersaTiles server
 
 - … on [**Debian**](guides/deploy_on_debian.md)
 - … in [**Google Cloud**](guides/deploy_in_google_cloud.md)
