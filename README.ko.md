@@ -29,4 +29,3 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 [Google Cloud에서]: guides/deploy_in_google_cloud.md
 
 [Android 및 iOS 앱에서 VersaTiles 사용 방법]: guides/what_about_mobile.md
-[QGIS에서 VersaTiles 사용 방법]: 
