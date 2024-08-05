@@ -23,4 +23,4 @@ We maintain the frontend in the repo: [versatiles-frontend](https://github.com/v
 - styles and sprites from the repo: [versatiles-styles](https://github.com/versatiles-org/versatiles-styles)
 - fonts (glyphs) from the repo: [versatiles-fonts](https://github.com/versatiles-org/versatiles-fonts)
 
-To make it even easier we procompressed all files inside the TAR with brotli. That's why the package has the unusual file extension `.br.tar`. Changing the order to `.tar.br` would be wrong because the TAR container itself is not compressed.
+To make it even easier we precompressed all files inside the TAR with brotli. That's why the package has the unusual file extension `.br.tar`. Changing the order to `.tar.br` would be wrong because the TAR container itself is not compressed.
