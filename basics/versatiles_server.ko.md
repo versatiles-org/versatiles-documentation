@@ -69,8 +69,12 @@ HTTP 바이트 범위 요청을 통해 액세스할 수 있는 컨테이너를 �
 
 ## 프론트엔드
 
-최신 버전의 [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), 맵 스타일, 글꼴 및 기호를 포함한 프론트엔드를 선택적으로 사용할 수 있습니다: [VersaTile 프론트엔드](../basics/frontend.md)  
+최신 버전의 [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), 맵 스타일, 글꼴 및 기호를 포함한 프론트엔드를 선택적으로 사용할 수 있습니다: [VersaTile 프론트엔드](../basics/frontend.ko.md)  
 
+```bash
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+versatiles osm.versatiles --static frontend.br.tar
+```
 
 # 포함되지 않은 것은 무엇인가요?
 
