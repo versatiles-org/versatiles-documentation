@@ -1,6 +1,6 @@
 ## Introduction
-- [웹 지도와 벡터 타일](basics/web_maps.md)
-- [VersaTiles][VersaTiles]: OSM 데이터를 처리하고 제공하여 대화형 웹 지도를 만드는 방법을 정의하는 스택입니다.
+- [웹 지도](basics/web_maps.md): 웹 지도와 벡터 타일을 통해 기술, 예술, 데이터 시각화를 지원하는 VersaTiles에 대해 설명합니다.
+- [VersaTiles][VersaTiles]: OpenStreetMap 데이터를 처리하고 제공하여 대화형 웹 지도를 만드는 방법을 정의합니다.
 
 ## 초보자 가이드
 VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
