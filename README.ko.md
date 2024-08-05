@@ -20,7 +20,7 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 
 ## 고급 가이드
 - [**Android 및 iOS** 앱에서 VersaTiles 사용 방법?][Android 및 iOS 앱에서 VersaTiles 사용 방법]
-- [**QGIS**에서 VersaTiles 사용 방법?][QGIS에서 VersaTiles 사용 방법]
+- [**QGIS**에서 VersaTiles 사용하기](guides/use_versatiles_in_qgis.ko.md)
 - *최대한의 프라이버시를 유지하며 모바일 앱에 지도를 추가하는 방법, 예를 들어 서버를 앱에 포함시키는 방법?*
 
 [VersaTiles]: basics/versatiles.md
@@ -29,4 +29,4 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 [Google Cloud에서]: guides/deploy_in_google_cloud.md
 
 [Android 및 iOS 앱에서 VersaTiles 사용 방법]: guides/what_about_mobile.md
-[QGIS에서 VersaTiles 사용 방법]: guides/use_versatiles_in_qgis.md
+[QGIS에서 VersaTiles 사용 방법]: 
