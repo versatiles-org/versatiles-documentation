@@ -28,7 +28,7 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 [VersaTiles 서버]: basics/versatiles_server.md
 [VersaTiles 프론트엔드]: basics/frontend.md
 [공개된 타일 서버 사용하기]: guides/use_tiles.versatiles.org.md
-[VersaTiles 설치하기]: guides/install_versatiles.md
+[VersaTiles 설치하기]: guides/install_versatiles.ko.md
 [벡터 타일 다운로드]: guides/download_tiles.ko.md
 
 [VersaTiles 설치]: guides/install_versatiles.md
