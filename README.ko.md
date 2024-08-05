@@ -26,7 +26,6 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
 [VersaTiles]: basics/versatiles.md
 [VersaTiles 프론트엔드]: basics/frontend.md
 [공개된 타일 서버 사용하기]: guides/use_tiles.versatiles.org.md
-
 [Debian에서]: guides/deploy_on_debian.md
 [Google Cloud에서]: guides/deploy_in_google_cloud.md
 
