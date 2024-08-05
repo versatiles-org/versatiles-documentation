@@ -12,61 +12,65 @@ HTTP 바이트 범위 요청을 통해 액세스할 수 있는 컨테이너를 �
 
 # 설치 및 설정
 
-먼저 VersaTiles를 설치해야 합니다: [VersaTiles 설치](../guides/install_versatiles.ko.md)
-
-준비된 맵 타일도 필요합니다: [지도 타일 다운로드](../guides/download_tiles.ko.md)
+* VersaTiles를 설치해야 합니다: [VersaTiles 설치](../guides/install_versatiles.ko.md)  
+* VersaTiles 실행을 위하여 행성 전체, 또는 일부를 포함한 벡터 타일이 필요합니다: [VersaTiles 벡터 타일 다운로드](../guides/download_tiles.ko.md)
 
 # 사용법
 
-그런 다음 `versatiles`를 하위 명령 `server`와 함께 사용하여 서버를 시작하고, 간단히 versatiles 파일을 인수로 추가할 수 있습니다.
-```bash
-versatiles server planet.versatiles
-```
 
-## 여러 소스
+## 서버 시작 및 기본 사용
 
-두 개 이상의 소스를 제공하려면 간단히 추가할 수 있습니다.
-```bash
-versatiles server planet.versatiles satellite_imagery.mbtiles my_overlay.tar
-```
+ * **서버 시작**: `versatiles server` 명령어를 사용하여 VersaTiles 서버를 시작합니다. 기본적인 사용 방법은 다음과 같습니다.  
+    
+    ```bash
+    versatiles server osm.versatiles
+    ```
+    
+    이 명령어는 `osm.versatiles` 파일을 소스로 사용하여 서버를 시작합니다.
 
-서버가 시작되면 모든 소스와 해당 URL이 나열됩니다.
-```
-/tiles/planet/* <- /tiles/planet.versatiles
-/tiles/satellite_imagery/* <- /tiles/satellite_imagery.mbtiles
-/tiles/my_overlay/* <- /tiles/my_overlay.tar
-```
+* **두 개 이상의 소스**: 파일 이름을 나열하는 방법으로 서버에 두 개 이상의 소스를 추가할 수 있습니다.
+ 
+     ```bash
+     versatiles server osm.versatiles satellite_imagery.mbtiles my_overlay.tar
+     ```
+     위 예는 `osm.versatiles`, `satellite_imagery.mbtiles`, `my_overlay.tar`의 세 가지 소스를 서버에 추가합니다.
 
-각 소스는 확장자를 제외한 파일 이름과 동일한 URL을 받습니다. 다른 URL을 사용하려면 대괄호로 이 특수 표기법을 사용할 수 있습니다.
-```bash
-versatiles server "[osm]planet.versatiles" "[satellite]satellite_imagery.mbtiles" "[heatmap]my_overlay.tar"
-```
+  서버가 시작되면 *각 소스의 파일 이름에서 확장자를 제외한 부분*이 URL 경로로 자동 매핑됩니다.
+     - `/tiles/osm/*` <- `osm.versatiles`
+     - `/tiles/satellite_imagery/*` <- `satellite_imagery.mbtiles`
+     - `/tiles/my_overlay/*` <- `my_overlay.tar`
 
-이제 URL은 다음과 같습니다.
-```
-/tiles/osm/* <- /tiles/planet.versatiles
-/tiles/satellite/* <- /tiles/satellite_imagery.mbtiles
-/tiles/heatmap/* <- /tiles/my_overlay.tar
-```
+## 사용자 정의 URL
 
-## 선택적 프런트엔드
-
-선택적 프런트엔드로 VersaTiles 서버를 확장할 수 있습니다. 이 프런트엔드에는 최신 버전의 [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), 맵 스타일, 글꼴 및 기호가 포함되어 있습니다. [프론트엔드를 다운로드](../basics/frontend.md#download-the-frontend)할 수 있습니다.
-```bash
-wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
-```
-
-그런 다음 `-s` 인수와 함께 tar 파일을 추가하여 프런트엔드를 서버에 추가할 수 있습니다.
-
-```bash
-versatiles server -s frontend.br.tar planet.versatiles
-```
+- **URL 사용자 정의**: 기본 URL 경로 대신 사용자 정의 URL을 설정할 수 있습니다. 이때 대괄호를 사용하여 소스와 URL을 매핑합니다.
+  
+    ```bash
+    versatiles server "[planet]osm.versatiles" "[satellite]satellite_imagery.mbtiles" "[heatmap]my_overlay.tar"
+    ```
+    URL 매핑은 다음과 같이 변경됩니다:
+    - `/tiles/planet/*` <- `osm.versatiles`
+    - `/tiles/satellite/*` <- `satellite_imagery.mbtiles`
+    - `/tiles/heatmap/*` <- `my_overlay.tar`
 
 ## 다른 IP/포트
+VersaTiles 서버는 기본적으로 `127.0.0.1:8080`을 사용합니다. 아래 옵션을 사용하여 IP 주소와 포트 번호를 변경할 수 있습니다.
 
-기본적으로 varietys는 127.0.0.1:8080을 사용합니다. IP/포트를 변경하려면 다음 옵션을 사용하세요.
-- `-i`/`--ip`: 예: `-i 0.0.0.0`
-- `-p`/`--port`: 예: `-p 3000`
+* **IP 주소 변경**: 여러 IP 대역을 사용하는 경우, VersaTiles 서버를 시작할 때 `-i` 또는 `--ip` 옵션을 사용하여 IP 주소를 지정합니다.
+  
+     ```bash
+     versatiles server --ip 0.0.0.0
+     ```
+
+* **포트 번호 변경**: 다른 포트 번호를 사용하려면 `-p` 또는 `--port` 옵션을 사용하여 포트 번호를 지정합니다.
+
+     ```bash
+     versatiles server --port 80
+     ```
+
+## 프론트엔드
+
+최신 버전의 [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), 맵 스타일, 글꼴 및 기호를 포함한 프론트엔드를 선택적으로 사용할 수 있습니다: [VersaTile 프론트엔드](../basics/frontend.md)  
+
 
 # 포함되지 않은 것은 무엇인가요?
 
