@@ -6,7 +6,7 @@
 
 VersaTiles의 핵심 개념 중 하나는 맵 데이터를 저장하기 위한 고유한 [.versatiles 파일 형식](https://github.com/versatiles-org/versatiles-spec)입니다. 이 형식은 행성 전체의 모든 맵 타일을 포함할 뿐만 아니라 파일 내에서 해당 바이트 오프셋과 길이를 포함한 모든 맵 타일의 인덱스도 포함합니다.
 
-.versatiles 형식의 진짜 매력은 로컬에 저장할 필요가 없다는 것입니다. 대신 예를 들어 HTTP를 사용하여 원격으로 액세스할 수 있습니다. 이는 VersaTiles 서버가 필요한 맵 타일 데이터가 포함된 .versatiles 파일의 특정 부분을 검색할 수 있도록 하는 HTTP 바이트 범위 요청 덕분에 가능합니다. 이 기능을 사용하면 VersaTiles 서버는 전체 .versatiles 파일을 로컬에 두지 않고도 맵 타일을 효율적으로 제공할 수 있습니다. 이를 통해 VersaTiles로 확장 가능한 맵 인프라를 훨씬 더 쉽게 구축할 수 있습니다.
+.versatiles 형식의 진짜 매력은 로컬에 저장할 필요가 없다는 것입니다. 대신 예를 들어 HTTP를 사용하여 원격으로 액세스할 수 있습니다. 이는 `versatiles`가 필요한 맵 타일 데이터가 포함된 .versatiles 파일의 특정 부분을 검색할 수 있도록 하는 HTTP 바이트 범위 요청 덕분에 가능합니다. 이 기능을 사용하면 `versatiles`는 전체 .versatiles 파일을 로컬에 두지 않고도 맵 타일을 효율적으로 제공할 수 있습니다. 이를 통해 VersaTiles로 확장 가능한 맵 인프라를 훨씬 더 쉽게 구축할 수 있습니다.
 
 HTTP 바이트 범위 요청을 통해 액세스할 수 있는 컨테이너를 개발한다는 아이디어는 [COMTiles](https://github.com/mactrem/com-tiles) 및 [PMTiles](https://github.com/protomaps/PMTiles)를 기반으로 합니다. 그러나 우리는 약간 다른 부분에 초점을 맞추고, 필요한 경우 이전 구현에서 벗어나야 할 필요성을 느꼈기 때문에 자체 표준을 개발하기로 결정했습니다. 그러나 우리는 파이프라인에서 대안으로 COMTiles 및 PMTiles를 지원하는 데 매우 열려 있습니다.
 
@@ -20,7 +20,7 @@ HTTP 바이트 범위 요청을 통해 액세스할 수 있는 컨테이너를 �
 
 ## 서버 시작 및 기본 사용
 
- * **서버 시작**: `versatiles server` 명령어를 사용하여 VersaTiles 서버를 시작합니다. 기본적인 사용 방법은 다음과 같습니다.  
+ * **서버 시작**: `versatiles server` 명령어를 사용하여 서버를 시작합니다. 기본적인 사용 방법은 다음과 같습니다.  
     
     ```bash
     versatiles server osm.versatiles
