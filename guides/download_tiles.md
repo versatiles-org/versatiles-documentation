@@ -40,7 +40,7 @@ To store VersaTiles data on Google Cloud Storage, follow these steps:
   1. **Automated Transfer**
     - Navigate to "Bucket details" and click on "TRANSFER DATA", then "Transfer data in".
     - Select "Source type: URL list" and proceed to the next step.
-    - Enter "https://download.versatiles.org/urllist.tsv" as the "URL of TSV file" and proceed.
+    - Enter "https://download.versatiles.org/urllist_osm.tsv" as the "URL of TSV file" and proceed.
     - Specify your bucket and folder as the destination, and continue.
     - Opt for "Run once", "Starting now", and finalize by clicking "CREATE".
     - Monitor the transfer status [here](https://console.cloud.google.com/transfer/jobs).

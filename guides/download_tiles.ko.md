@@ -69,7 +69,7 @@ VersaTiles 데이터를 Google Cloud Storage에 저장하려면 다음 단계를
   1. **자동 전송**
       - **버킷 세부정보**로 이동하여 **데이터 전송**을 클릭한 후 **데이터 전송 시작**을 선택합니다.
       - **소스 유형: URL 목록**을 선택하고 다음 단계로 진행합니다.
-      - **URL 목록 파일**의 URL로 `https://download.versatiles.org/urllist.tsv`를 입력하고 진행합니다.
+      - **URL 목록 파일**의 URL로 `https://download.versatiles.org/urllist_osm.tsv`를 입력하고 진행합니다.
       - 대상 버킷과 폴더를 선택하면 **한 번 실행**, **지금 시작**을 선택하고 **생성**을 클릭하여 마무리합니다.
 
    2. **수동 전송**
