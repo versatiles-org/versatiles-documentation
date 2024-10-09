@@ -326,10 +326,10 @@ The Network Layer is crucial for serving files over the public internet, address
 
 Efforts have been made to evaluate and document CDN solutions, with a focus on integration, performance and price estimates:
 
-- [x] ✅ Google CDN (80€/TB): Tested and used at SWR.
-- [x] ✅ NGINX: could be standard solution for single server setups
+- [x] ✅ [Google CDN](https://cloud.google.com/cdn) (80€/TB): Tested and used at SWR.
+- [x] ✅ [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be standard solution for single server setups
 - [x] 🟨 [Bunny CDN](https://bunny.net/cdn/) (5€/TB): Tested for [tiles.versatiles.org](https://tiles.versatiles.org). Unfortunately, BunnyCDN is currently unable to fetch or return compressed vector tiles. The headers "content-encoding" and "vary: accept-encoding" are ignored. The CDN engineering team has been informed, but there is no ETA.
-- [ ] [Akamai CDN](https://www.akamai.com/): not tested yet
+- [ ] [Akamai CDN](https://www.akamai.com/solutions/content-delivery-network): not tested yet
 - [ ] [Amazon CloudFront](https://aws.amazon.com/cloudfront) (90€/TB): not tested yet
 - [ ] [BlazingCDN](https://blazingcdn.com) (5€/TB): not tested yet
 - [ ] [Cachefly](https://www.cachefly.com/) (30$/TB, min. 300€/month): not tested yet
@@ -340,7 +340,7 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on i
 - [ ] [EdgeNext](https://www.edgenext.com/cdn/): not tested yet
 - [ ] [Fastly CDN](https://www.fastly.com/) (130$/TB): not tested yet
 - [ ] [KeyCDN](https://www.keycdn.com/) (40$/TB): not tested yet
-- [ ] [Leaseweb](https://www.leaseweb.us/) (7$/TB, min. 150€/month): not tested yet
+- [ ] [Leaseweb](https://www.leaseweb.com/en/products-services/cdn) (7$/TB, min. 150€/month): not tested yet
 - [ ] [Medianova CDN](https://www.medianova.com/cdn/) (200\$/TB, min. 100\$/month): not tested yet
 - [ ] [Microsoft Azure CDN](https://azure.microsoft.com/en-us/products/cdn) (75$/TB): not tested yet
 - [ ] [OHV CDN](https://www.ovhcloud.com/en-gb/network/cdn/) (12€/TB, prepaid): not tested yet
