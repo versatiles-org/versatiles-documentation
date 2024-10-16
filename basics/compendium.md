@@ -10,230 +10,240 @@
   - [Layer: Server](#layer-server)
   - [Interface: Private/Internal Network](#interface-privateinternal-network)
   - [Layer: Network](#layer-network)
-  - [Interface: Public/External Network](#interface-publicexternal-network)
+  - [Interface: Public Network](#interface-public-network)
   - [Layer: Frontend](#layer-frontend)
-- [VersaTiles Frontend Specifications](#versatiles-frontend-specifications)
-  - [Folder `/assets/fonts/`](#folder-assetsfonts)
-  - [File `/assets/fonts/fonts.json`](#file-assetsfontsfontsjson)
-  - [File `/assets/fonts/font_families.json`](#file-assetsfontsfont_familiesjson)
+- [VersaTiles Frontend Specification](#versatiles-frontend-specification)
+  - [Folder: `/assets/`](#folder-assets)
+  - [Folder: `/assets/fonts/`](#folder-assetsfonts)
+  - [File: `/assets/fonts.json`](#file-assetsfontsjson)
+  - [File: `/assets/font_families.json`](#file-assetsfont_familiesjson)
+  - [Folder: `/assets/sprites/`](#folder-assetssprites)
+  - [File: `/assets/sprites.json`](#file-assetsspritesjson)
+  - [Folder: `/tiles/`](#folder-tiles)
+  - [Files: `/tiles/{tile_id}/{z}/{x}/{y}`](#files-tilestile_idzxy)
+  - [File: `/tiles/index.json`](#file-tilesindexjson)
 - [Tools](#tools)
 - [versatiles.org](#versatilesorg)
 - [Show cases](#show-cases)
-- [The Future of VersaTiles](#the-future-of-versatiles)
+- [The Bigger Picture](#the-bigger-picture)
+  - [The Future of VersaTiles](#the-future-of-versatiles)
   - [Core Values](#core-values)
   - [Support](#support)
   - [Legal Entity](#legal-entity)
 
 
+------------------------------------------
+
+
 # Introduction
 
-Since the early 1990s, the web has undergone significant technological advancements. New standards and tools have simplified the process of publishing text, articles, photos, videos, and other forms of media. However, publishing maps remains notably challenging - even in the era of mobile web and data journalism.
+Since the early 1990s, the web has seen significant technological advances. New standards and tools have made it easier to publish text, articles, photos, videos and other forms of media. However, publishing maps remains particularly challenging.
 
 Several factors contribute to these challenges:
-1. Geographic data, satellite imagery and aerial photography, is often protected by copyright, making it expensive and inaccessible for open use.   
-Some governments have not yet adopted the idea of open data but insteas produce geospatial data mainly for commercial purposes.
-2. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements, and the intricacies of frontend frameworks. This complexity can make map integration expensive and technically demanding.
+1. Geographical data, satellite imagery and aerial photography, is often copyrighted, making it expensive and inaccessible for open use.   
+Some governments have not yet embraced the idea of open data, instead producing geospatial data mainly for commercial purposes.
+1. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements and the intricacies of front-end frameworks.
 
-Despite theses challenges, the abundance of available data, standards, and frameworks - many of which are open or freely accessible - presents a unique opportunity to build a web map infrastructures. However, the diversity of solutions makes it difficult to put the pieces together.
+Despite these challenges, the wealth of available data, standards and frameworks - many of which are open or freely available - provides a unique opportunity to build a web map infrastructure. However, the diversity of solutions makes it difficult to put the pieces together.
 
 VersaTiles aims to define and implement a standardised map infrastructure that provides a streamlined approach to integrating maps into web platforms.
 
 
 ## Who needs web maps?
 
-Basically everyone and everything has a geo-coordinate. Even you have a geo-coordinate right now. No data is more useful than geo data, and no visualisation is more familiar than maps.
+Basically, every person and every object on the planet has a geo-coordinate. Even you have a geo-coordinate right now. No data is more useful than geodata, and no visualisation is more familiar than maps.
 
 - **Data Journalism**: Journalists and media outlets often rely on maps to tell stories more effectively, providing readers with a visual context for complex issues such as war zones, political events or natural disasters.
 - **Research**: Researchers focusing on environmental issues, climate change or other localised phenomena need a tool to analyse and visualise their data.
 - **Emergency Response**: In times of crisis, such as natural disasters or public health emergencies, organisations need maps to visualise affected areas and communicate local information to the public.
-- **Communities**: There are so many great communities out there, such as citizen science, community-based bike sharing or community-supported agriculture. They all need a simple, cost-effective way to display location information.
+- **Communities**: There are so many great communities out there, such as citizen science, community-based bike sharing, community-supported agriculture and many more, that need a simple, cost-effective way to display location information.
 
 
 ## What are Slippy Maps?
 
-One of the most successful approaches for publishing interactive web maps is called 'slippy maps'. ([Wikipedia](https://en.wikipedia.org/wiki/Tiled_web_map), [OSM Wiki](https://wiki.openstreetmap.org/wiki/Slippy_map))
+One of the most successful techniques for publishing interactive web maps is called 'slippy maps'. ([Wikipedia](https://en.wikipedia.org/wiki/Tiled_web_map), [OSM Wiki](https://wiki.openstreetmap.org/wiki/Slippy_map))
 
-The first step involves projecting all geographic data onto a 2D plane using the Mercator projection. The Mercator projection has limitations. For instance, it cannot represent the North and South Poles, and objects near the equator, such as Africa, appear smaller than those near the poles, such as Greenland. Nevertheless, the Mercator projection has a significant advantage: it always shows north as up, west as left, and does not distort areas the size of a city. This makes it an excellent option for publishing a global map that can be easily zoomed in and out, displaying every location accurately.
+The first step is to project all geographic data onto a 2D plane using the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection). The Mercator projection has its limitations. For example, it cannot represent the north and south poles, and objects near the equator, such as Africa, appear smaller than those near the poles, such as Greenland. However, the Mercator projection has one major advantage: it always shows north as up, west as left, and does not distort small areas the size of a city. This makes it an excellent option for publishing a global map that can be easily zoomed in and out to show every location accurately.
 
-Once all geographic data and/or images have been projected onto a global map, the challenge is to present this information on a web frontend without the need to download large amounts of data. The solution provided by 'slippy maps' is to create a square map of the world at a very low resolution (zoom level 0). To increase the resolution at zoom level 1, the 'world map' is doubled in resolution and divided into four squares (northwest, northeast, southwest, southeast). Zoom level 2 consists of 16 tiles, each with four times the resolution of the world map, and so on.
+Once all the geographical data and/or images have been projected onto a world map, the challenge is to present this information on a web front-end without having to download large amounts of data. The solution provided by 'slippy maps' is to create a square world map at a very low resolution (zoom level 0). To increase the resolution at zoom level 1, the 'world map' is doubled in resolution and divided into four squares (northwest, northeast, southwest, southeast). Zoom level 2 consists of 16 tiles. The rule is that zoom level n has 4ⁿ tiles.
 
-The tiles can be stored as JPEG images with a resolution of 256x256 pixels. There is a [standard way to name these files](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames), typically in the format: `{zoom_level}/{column}/{row}.jpg`.
+The tiles can be saved images (such as JPEG or PNG) with a resolution of 256x256 pixels. There is a [standard way of naming these files](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames), typically in the format: `{zoom_level}/{column}/{row}.jpg`.
 
-A frontend such as MapLibre, Leaflet or OpenLayers can then load the relevant tiles and display them in the correct position, creating the illusion of a continuous map that can be zoomed and dragged to any position.
+A frontend such as [MapLibre](https://maplibre.org/), [Leaflet](https://leafletjs.com/) or [OpenLayers](https://openlayers.org/) can then load the relevant tiles and display them in the correct position, creating the illusion of a continuous map that can be zoomed and dragged to any position.
 
 This approach works great for image tiles, such as satellite and aerial images. However, it has some disadvantages when displaying [thematic maps](https://en.wikipedia.org/wiki/Thematic_map), such as city maps. When zooming in, the map has to transition from one zoom level to another, resulting in disappearing and reappearing labels. Image tiles do not provide a smooth zooming experience.
 
-Therefore, the concept of 'slippy maps' was improved by including vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons, and text - like SVG. But since SVG is too cumbersome, Mapbox developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as Google Protobufs (PBF). The frontend should read the geographic data and draw it accordingly. One benefit is the ability to define the map style in the frontend, allowing for adjustments to be made to the map's brightness, saturation, and color. Rendering all geographic data can be complex, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL, or Vulcan to ensure speed and responsiveness.
+So the concept of 'slippy maps' has been improved by using vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons and their properties - much like SVG. But because SVG is too cumbersome, Mapbox developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as compact [protobufs](https://protobuf.dev/) (PBF). The frontend should read the geographic data and draw the map accordingly. One advantage is that the map style can be defined in the frontend, allowing the colour or even the language of the map to be adjusted. Rendering large amounts of vector data can be computationally expensive, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL or Vulcan.
 
 
 ## Why is there no simple solution?
 
-Generating, serving, and visualizing map tiles can be a complex process due to various tile formats, hosting options, storage and generation methods, serving and display techniques, vector data styling approaches, and data source combinations. Additionally, frontends must draw vector data, satellite images, hillshading, data visualization layers, and interactive frontend elements.
+Generating, serving, and visualising map tiles can be a complex process due to the variety of tile formats, hosting options, storage and generation methods, serving and display techniques, map data styling approaches, and data source combinations. In addition, front-ends need to draw vector data, satellite imagery, hillshading, data visualisation layers, and interactive front-end elements.
 
-Mapbox aims to address these challenges by providing a comprehensive software suite. However, the solution can be expensive, leads to vendor lock-in, and raises privacy concerns.
+Commercial vendors such as Mapbox address these challenges by offering a comprehensive software suite. However, the solution is expensive, leads to vendor lock-in and raises privacy concerns.
 
-It would be ideal to have an open-source system. Although open-source alternatives exist for each problem, integrating them into one infrastructure can be challenging. Developing a single software solution that addresses all problems at once and remains flexible enough for various use cases is not feasible.
+A free and open source system would be ideal. Although open source alternatives exist for each problem, integrating them into a single infrastructure can be challenging. It is not feasible to develop a single software solution that solves all the problems at once and remains flexible enough for different use cases.
 
 
 ## How does VersaTiles tackle the problem?
 
-The development of a solution to address such a broad range of issues was inspired by the creation of the internet itself. Instead of creating a single software to run the entire internet, the OSI model was developed. This model segments the problem into manageable pieces and establishes standards for each component. This segmentation ensures that individual software solutions can be developed independently while remaining compatible with others adhering to OSI standards.
+To find a solution to such a wide range of problems, we looked to the development of the Internet itself for inspiration. Instead of creating a single piece of software to run the entire Internet, the OSI model was developed. This model segments the problem into manageable pieces and defines specifications for each component. This segmentation ensures that individual software solutions can be developed independently while remaining compatible with others that adhere to OSI standards.
 
-Using the OSI model as a blueprint, we divided the complex problem into smaller, more manageable parts. This allowed us to standardize each segment and their interconnections, ensuring cohesion across all components.
+Using the OSI model as a blueprint, we broke down the complex problem into smaller, more manageable pieces. This allowed us to standardise each segment and its interconnections, ensuring cohesion across all components.
 
-The 'big problem' was conceptualized as a pipeline that generates, serves, and displays map data. We divided the pipeline into four sub-segments and developed specifications to define the interfaces between them. Additionally, we provide free reference implementations for each segment, as well as a reference pipeline that is available for everyone to use at no cost.
+The 'big problem' was conceptualised as a pipeline that generates, serves and displays map data. We divided the pipeline into four sub-segments and developed specifications to define the interfaces between them. We also provide free reference implementations for each segment, as well as a reference pipeline that anyone can use for free.
 
-This allows anyone to use our map tile service for free or use parts or the entire pipeline on their own infrastructure. VersaTiles permits deviation from the reference pipeline at any point, while still allowing the use of all other pipeline components. This flexibility promotes experimentation and the discovery of new use cases that have not yet been envisioned.
+This allows anyone to use our map tile service for free, or to use parts or the entire pipeline in their own infrastructure. VersaTiles allows you to deviate from the reference pipeline at any point and still use all the other pipeline components. This ensures that you have a stable platform to use and build on, but also gives you the flexibility and freedom to experiment.
 
-Our reference pipeline is comprised of four segments:
+
+------------------------------------------
+
+
+# VersaTiles Layer Specification
+
+Our reference pipeline has four segments:
 
 ```mermaid
 flowchart LR
 Generator --> Server --> Network --> Frontend
 ```
 
-1. **Generator:** Creates map tiles from a data source, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial photos.
-2. **Server:** Manages the storage and distribution of map tiles.
-3. **Network:** Handles all network-related issues, including TLS certificates, load balancing and caching.
-4. **Frontend:** Provides the user interface for interactive maps.
+1. **Generator:** Creates map tiles from a data source, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial imagery.
+2. **Server:** Manages the storage and distribution of map tiles.
+3. **Network:** Handles all network-related issues, including TLS certificates, load balancing, CORS and caching.
+4. **Frontend:** Provides the user interface for interactive maps.
 
-> [!WARNING] VersaTiles is still in development.
-Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, issues or features that require minor adjustments. However, the majority of the pipeline is stable.
+> [!WARNING] VersaTiles is still under development.
+Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, problems or features that require minor adjustments. However, the majority of the pipeline is stable.
 
-
-# VersaTiles Layer Specification
 
 ## Layer: Generator
 
-The Generator Layer produces map tiles, which can be image or vector tiles.
+The generator layer creates map tiles, which can be either image or vector tiles.
 
-We chose not to use the [OpenMapTiles schema](https://openmaptiles.org/schema/) for vector tiles because we believe it does not embody the openness we aim for. Specifically, the requirement to include links to MapTiler's website or to pay licensing fees seems more like a marketing strategy than a commitment to open standards. Instead, we have opted to utilise the free [Shortbread schema](https://shortbread-tiles.org), which was originally developed by GeoFabrik. We acknowledge that this choice has implications, such as the incompatibility of map styles designed for OpenMapTiles vs. Shortbread. 
+We have chosen not to use the [OpenMapTiles schema](https://openmaptiles.org/schema/) for vector tiles because we feel it does not embody the openness we are aiming for. In particular, the requirement to include links to the MapTiler website or to pay licensing fees seems more like a marketing strategy than a commitment to open standards. Instead, we have chosen to use the free [Shortbread schema](https://shortbread-tiles.org) originally developed by GeoFabrik. We acknowledge that this choice has implications, such as the incompatibility of map styles designed for OpenMapTiles vs. Shortbread. 
 
-However, if we start from scratch, let's do it right from the beginning.
+But if we're going to start from scratch, let's do it right from the very beginning.
 
-While users are free to deviate from our recommendations and use the OpenMapTiles schema, we will continue to concentrate our efforts on the Shortbread schema.
+While users are free to deviate from our recommendations and use the OpenMapTiles schema, we will continue to focus our efforts on the Shortbread schema.
 
-Users can bypass the tile generation process entirely and download our prepared map tiles covering the entire planet directly from [download.versatiles.org](https://download.versatiles.org).
+Users can skip the tile generation process entirely and download our prepared map tiles for the entire planet directly from [download.versatiles.org](https://download.versatiles.org).
 
 
 ### Requirements/Recommendations
 
-- Tiles SHOULD be packaged in a [*.versatiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
-- Vector tiles SHOULD conform to the [Shortbread schema](https://shortbread-tiles.org/).
-- Containers SHOULD include detailed metadata compliant with [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
-  - `attribution` detailing source data copyrights.
-  - `vector_layers` describing the vector tiles' layered composition.
+- Tiles SHOULD be packed in a [*.versatiles container](https://github.com/versatiles-org/versatiles-spec/).
+- Vector tiles SHOULD conform to the [Shortbread Schema](https://shortbread-tiles.org/).
+- Containers SHOULD include detailed metadata conforming to [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
+  - `attribution` detailing the copyright of the source data.
+  - `vector_layers` describing the vector tile layers and their properties.
 - You SHOULD use optimal compression techniques to efficiently reduce tile size without compromising data integrity. Recommended methods include:
-  - use Brotli compression for vector tiles.
-  - use WebP format for raster tiles to improve loading efficiency and reduce bandwidth.
+  - Use Brotli compression for vector tiles.
+  - Ese WebP format for raster tiles.
 - The filename of the container SHOULD follow the format `<content>[.<schema>][.<coverage>][.<date>].versatiles` where:
   - `<content>` describes the content, e.g.: `osm`, `hillshade` or `satellite`.
   - `<schema>` (optional) e.g.: `shortbread` or `openmaptiles`.
-  - `<coverage>` (optional) specifies the geographical coverage, if not planet wide, e.g.: `europe` or `cairo`.
-  - `<date>` (optional) is a [basic ISO date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (YYYYMMDD), e.g.: `20231231`.
+  - `<coverage>` (optional) specifies the geographical coverage, if not planet wide, e.g.: `europe` or `kyiv`.
+  - `<date>` (optional) is a [basic ISO date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (YYYYMMDD), e.g.: `20151021`.
 
 
 ### Status
 
-- [x] Implement Generator using Tilemaker ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
+- [x] Implement the generator using Tilemaker ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
 - [x] Use Shortbread schema ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
-- [ ] add more languages besides local language, english and german ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
+- [ ] Add more languages besides local, english and german ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
 - [x] generate `.versatiles` instead of `.mbtiles` ([repo](https://github.com/versatiles-org/versatiles-converter))
-- [x] merge the Converter into the Generator and use Docker ([issue](https://github.com/versatiles-org/versatiles-generator/issues/1))
-- [x] use Tilemaker 3.0.0 to reduce the memory requirements ([issue](https://github.com/versatiles-org/shortbread-tilemaker/issues/7))
-- [x] migrate to cheaper Cloud provider (like Hetzner)
-- [ ] reduce size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
-- [ ] improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2))
-- [ ] generate hill shading ([issue](https://registry.opendata.aws/terrain-tiles/))
-- [ ] generate satellite imagery (using Landsat/SENTINEL, aerial photos from national open data platforms and open MAXAR images)
+- [x] merge the converter into the generator and use docker ([issue](https://github.com/versatiles-org/versatiles-generator/issues/1))
+- [x] use Tilemaker 3.0.0 to reduce memory usage ([issue](https://github.com/versatiles-org/shortbread-tilemaker/issues/7))
+- [x] migrate to a cheaper cloud provider (like Hetzner)
+- [ ] reduce the size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
+- [ ] improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
+- [x] generate hill shading ([issue](https://registry.opendata.aws/terrain-tiles/))
+- [ ] Generate satellite imagery (using Landsat/SENTINEL, aerial imagery from national open data platforms and open MAXAR imagery)
 
 
 ## Interface: Container
 
 A frequently asked question is why we chose to develop our own container format. The reasons are manifold:
 
-A critical need within the OSM community is for map tile servers to automatically and rapidly reflect updates to OSM data. While this real-time updating is vital for some OSM contributors, it is not as crucial for a broader audience. News organizations, data journalists, NGOs, and many frontend developers often require only a basic map background that may be a few months old. The need to monitor real-time changes or use map tiles for car navigation is not a priority for these users. However, the insistence on up-to-the-minute updates adds significant complexity and resource demands, necessitating the storage and indexing of all OSM objects in a PostgreSQL/PostGIS database and updating all altered tiles instantaneously. Generating vector tiles directly from a PostgreSQL database is still experimental ([osm2pgsql](https://osm2pgsql.org/examples/vector-tiles/)). These requirements complicate the development of simple, low-cost solutions, leading us to prioritize pre-generated tiles stored in a file container.
+A critical need within the OSM community is for map tile servers to automatically and quickly reflect updates to OSM data. While this real-time updating is critical for some OSM contributors, it is not as important for a broader audience. News organisations, data journalists, NGOs and many front-end developers often only need a basic map background that may be a few months old. The need to monitor real-time changes is not a priority for these users. However, the insistence on up-to-the-minute updates adds significant complexity and resource requirements, requiring all OSM objects to be stored and indexed in a PostgreSQL/PostGIS database, and all changed tiles to be updated immediately. This requirement makes it difficult to develop simple, low-cost solutions. Instead, we will focus on pre-generated tiles stored in a file container.
 
-The most commonly used container format is [MBTiles](https://wiki.openstreetmap.org/wiki/MBTiles), essentially a SQLite database housing a row for each tile with tile data stored as gzipped blobs. Despite its flexibility, MBTiles has several downsides:
-1. It necessitates local or mounted server storage and cannot be hosted on remote cloud storage.
-2. SQLite becomes a required dependency. (like libsqlite3-dev)
-3. Processing numerous tiles is inefficient, given SQLite's limited throughput capacity.
+The most commonly used container format is [MBTiles](https://wiki.openstreetmap.org/wiki/MBTiles), which is essentially a SQLite database containing a row for each tile, with tile data stored as gzipped blobs. Despite its flexibility, MBTiles has several drawbacks:
+1. It requires local or mounted server storage and cannot be hosted on remote cloud storage.
+2. SQLite becomes a necessary dependency. (like libsqlite3-dev)
+3. Processing many tiles is inefficient given SQLite's limited throughput.
 
-In response, some have turned to cloud-optimized map tile container formats like [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored for distinct use cases; for example, PMTiles is designed for storage on public cloud services like AWS S3 and can be accessed serverlessly through JavaScript via HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialization, uncompressed tile data, and caching challenges. Our goal is to remain independent from container formats confined to specific applications or prone to divergent future development paths.
+In response, some have turned to cloud-optimised map tile container formats such as [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored to specific use cases; for example, PMTiles is designed for storage on public cloud storage such as AWS S3 and can be accessed serverlessly via JavaScript using HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialisation, uncompressed tile data, and caching challenges. Our goal is to remain independent of container formats that are application specific or prone to divergent future development paths.
 
-Accordingly, we have drawn insights from COMTiles and PMTiles to create a uniquely straightforward container format detailed here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
+Accordingly, we have taken the lessons learned from COMTiles and PMTiles to create a uniquely simple container format, which is described here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
 
-A distinctive feature of our format is the capability of fast spatial queries running remotely. Users needing only a specific region, such as a continent, country, or city, can forego downloading the entire dataset. Instead, they can use our Rust tool to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
+A unique feature of our format is the ability to run fast spatial queries remotely. Users who only need a specific region, such as a continent, country or city, do not need to download the entire planet. Instead, they can use our [VersaTiles tool](https://github.com/versatiles-org/versatiles-rs) to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
 ```bash
 versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
 ```
-HTTP requests for sequential tiles are merged to download thousands of tiles at once, resulting in a very high performance. This allows for extracting parts of the planet with no overhead. For more information, refer to: https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/download_tiles.md#partial-download. The speed of downloading parts of the world is limited only by the internet connection.
+HTTP requests for sequential tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/download_tiles.md#partial-download) for more information.
 
 
 ### Requirements/Recommendations
 
-- a container MUST follow the VersaTiles container specification: [VersaTiles Spec](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
-- tile data SHOULD use optimal compression
+- A container MUST conform to the VersaTiles container specification: [VersaTiles Spec](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
+- Tile data SHOULD use optimal compression
 
 
 ### Status
 
-- [x] Metadata inclusion
-- [x] Support for all tile formats (image and vector data)
+- [x] Include metadata
+- [x] Support for all tile formats (image and vector)
 - [x] Support for all compression methods (gzip, brotli)
-- [x] Enablement of bbox downloads
-- [x] Completion of the [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
+- [x] Enable bbox downloads
+- [x] Completion of the [specification] (https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
 
 
 ## Layer: Server
 
-The server delivers map tiles and static files via HTTP. These static files may include styles, sprites, fonts, JavaScript libraries, and others.
+The server delivers map tiles and static files over HTTP. These static files can include styles, sprites, fonts, JavaScript libraries and more.
 
 
 ### Requirements/Recommendations
 
-- It MUST recognize and process [VersaTiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
-- SHOULD handle HTTP header, specifically:
+- It MUST recognise and process [VersaTiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
+- SHOULD handle HTTP headers, specifically:
 	- `Content-Type` must accurately represent the MIME type.
-	- `Accept-Encoding` and `Content-Encoding` for data compression; re-compress data as necessary.
+	- `Accept-Encoding` and `Content-Encoding` for data compression; recompress data if necessary.
 	- `Cache-Control` should be used to manage caching strategies for proxies, CDNs, and browsers. Should include `no-transform`.
 	- `Vary` should be set to `Accept-Encoding`.
 	- Implement CORS headers, like `Access-Control-Allow-Origin`, as needed.
-- The server should be aware of its public URL for referencing resources.
-- Organized tile and metadata access through a structured folder hierarchy is recommended:
-  - `/tiles/`: The primary directory for tile retrieval.
+- The server should know its public URL for referencing resources.
+- Organised tile and metadata access through a structured folder hierarchy is recommended:
+  - `/tiles/`: The primary directory for retrieving tiles.
     - `/tiles/sources.json`: A detailed index of available tile sources.
-    - `/tiles/{name}/{z}/{x}/{y}`: Standardized endpoints for tile access.
-    - `/tiles/{name}/tiles.json`: a valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
-  - `/assets/`: Houses additional resources like sprites, fonts, styles, and MapLibre GL JS files.
-    - `/assets/sprites/`
-    - `/assets/fonts/` ([see requirements](#folder-assetsfonts))
-    - `/assets/styles/`
-    - `/assets/maplibre-gl/maplibre-gl.*`: Contains the latest JavaScript and CSS from MapLibre GL JS.
-- SHOULD be configured via `config.yaml` for a tailored server setup, encompassing domain setup, IP/port listening preferences, operational modes (development vs. production), tile source specification, and static content management:
+    - `/tiles/{name}/{z}/{x}/{y}`: Standardised endpoints for accessing tiles.
+    - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
+  - `/assets/`: Houses additional resources such as styles, fonts, sprites, and MapLibre GL JS files.
+  - See [VersaTiles Frontend Specifications](#versatiles-frontend-specification) for more information.
+- SHOULD be configured via `config.yaml` for a customised server setup, including domain setup, IP/port listening preferences, operation modes (development vs. production), tile source specification and static content management:
 
 ```yaml
 server:
-  host: '0.0.0.0'  # Listen on all network interfaces. Default: 0.0.0.0
-  port: 3000       # Port number for the server. Default: 8080
-  domain: 'https://example.org'  # Publicly accessible URL of the server
+  host: '127.0.0.1'               # Listen on all network interfaces. Default: 0.0.0.0
+  port: 3000                      # Port number for the server. Default: 8080
+  domain: 'https://example.org'   # Publicly accessible URL of the server
 
 # Performance settings: Use minimal recompression for development
-fast: true  # Set to false in production for full compression. Default: false
+fast: true                        # Set to false in production for full compression. Default: false
 
 # Configuration for tile sources
 tile_sources:
   - name: 'osm'
-    source: './osm.versatiles'  # Local source for OpenStreetMap tiles
+    source: './osm.versatiles'    # Local source for OpenStreetMap tiles
   - name: 'landsat'
-    source: 'https://example.org/landsat.versatiles'  # Remote source for Landsat tiles
+    source: 'https://example.org/landsat.versatiles'   # Remote source for Landsat tiles
 
 # Optional configuration for serving static content
 static_content:
   - source: './styles'
-    prefix: 'assets/styles'  # URL path prefix for styles
+    prefix: 'assets/styles'  # URL path prefix for styles; default prefix is "/"
   - source: './frontend.tar'
-    # Default prefix is "/"
 
 cors:
   # Default policy to allow or block CORS requests if they don't match any specific rules
@@ -250,88 +260,97 @@ cors:
     - '^https?://*.malicious\.com'
 
 logging:
-  level: 'info'  # Options: 'debug', 'info', 'warning', 'error'
-  path: '/var/log/myserver.log'  # File path for log output
+  level: 'info'                   # Options: 'debug', 'info', 'warning', 'error'
+  path: '/var/log/myserver.log'   # File path for log output
 ```
+
 
 ### Rust Implementation
 
-We offer a high-performance [Rust implementation](https://github.com/versatiles-org/versatiles-rs), available both as a CLI application and as Rust library (crate).
+We provide a high performance [Rust implementation](https://github.com/versatiles-org/versatiles-rs), available as both a CLI application and a Rust library ([crate](https://crates.io/crates/versatiles)).
 
 Supported platforms include x86 and ARM (64 Bit) across:
 - [x] Linux
 - [x] MacOS
-- [ ] Windows
+- [x] Windows
 
 In addition to source code, which can be [compiled using cargo](https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/install_versatiles.md#building-from-source), we provide:
 - [x] [Binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
-- [ ] NixOS
-- [ ] Snap
-- [ ] Flatpak
+- [ ] Install scripts for [Linux/MacOS](https://github.com/versatiles-org/versatiles-rs/blob/main/helpers/install-unix.sh) and [Windows](https://github.com/versatiles-org/versatiles-rs/blob/main/helpers/install-windows.ps1)
 - [x] [Homebrew](https://github.com/versatiles-org/homebrew-versatiles)
+- [ ] NixOS
+- [ ] Snap ?
+- [ ] Flatpak ?
 
-Our [Docker images](https://hub.docker.com/u/versatiles) ([Repository](https://github.com/versatiles-org/versatiles-docker)) use Debian, Alpine, and scratch environments. They including variations without and with [all static frontend files](https://hub.docker.com/r/versatiles/versatiles-frontend/tags).
+Our [Docker images](https://hub.docker.com/u/versatiles) ([Repository](https://github.com/versatiles-org/versatiles-docker)) use Debian, Alpine, and scratch environments. They include variations with and without [all static frontend files](https://hub.docker.com/r/versatiles/versatiles-frontend/tags).
 
-Future enhancements will focus on:
+Future improvements will focus on:
 - [ ] Proper CORS handling
 - [ ] Full `config.yaml` support
-- [ ] Tile size statistics generation
+- [x] Generating tile size statistics
 - [ ] Vector tile content debugging
 - [ ] Implementing "diff" and "patch" commands for tile updates
+- [ ] Implementing a tile processing pipeline (alpha version is already released. Run `versatiles help pipeline`)
 - [ ] Developing an "overlay" command for image tile layering
-- [ ] improve the "overlay" command by implementing a [multi-scale approach](https://en.wikipedia.org/wiki/Multi-scale_approaches) to seamlessly overlay image tiles (see also [Gradient-domain image processing](https://en.wikipedia.org/wiki/Gradient-domain_image_processing))
+- [ ] Improving the "overlay" command by implementing a [multi-scale approach](https://en.wikipedia.org/wiki/Multi-scale_approaches) to seamlessly overlay image tiles (see also [Gradient-domain image processing](https://en.wikipedia.org/wiki/Gradient-domain_image_processing))
 
 
 ### NodeJS Implementations
 
-Our NodeJS offerings include:
+Our NodeJS implementation includes:
 - [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
 - [x] A basic [server](https://github.com/versatiles-org/node-versatiles-server)
 - [ ] Full `config.yaml` support
 - [ ] Comprehensive CORS management
 
-A specialized solution for data journalists using Google Cloud involves a NodeJS Cloud Run server that serves static files from a bucket via CDN, managing all HTTP headers, MIME types, caching, and optimal compression. A standout feature is serving tiles directly from a `*.versatiles` file, including a preview mode:
-- [x] [Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies map data integration into data visualizations for editorial departments.
+A specialised solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `*.versatiles' file, including a preview mode:
+- [x] [VersaTiles - Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies the integration of map data into data visualisations for editorial departments.
 
 
 ### Status
 
-Moving forward, we aim to:
-- [ ] Validate VersaTiles on Raspberry Pi for accessibility in unique scenarios
-- [ ] Explore a tile server on ESP32, showcasing the simplicity and efficiency of VersaTiles
-- [ ] Standardize server configuration and API for seamless transitions between server implementations
-
+In the future we want to:
+- [ ] Validate VersaTiles on Raspberry Pi
+- [ ] Explore a tile server on ESP32 that demonstrates the simplicity and efficiency of VersaTiles
+- [ ] Standardise server configuration and API for seamless transitions between server implementations
 
 
 ## Interface: Private/Internal Network
 
-This interface is where the server processes HTTP requests. It is advised against incorporating additional functionalities, such as TLS, directly into the server layer to maintain simplicity. Instead, these network-related features should be managed by the network layer, ensuring a clear separation of concerns.
+We recommend to divide the server into two parts:
+1. A map server running on a private network ("Server" layer)
+2. A public facing server ("Network" layer)
+Communication between these two layers should be via plain, unencrypted HTTP.
 
 
 ## Layer: Network
 
-The Network Layer is crucial for serving files over the public internet, addressing all related security, availability, and performance requirements.
+The network layer is critical to the delivery of files over the public Internet and addresses the security, availability and performance requirements associated with this.
+
+Currently we recommend:
+- to use a CDN provider or
+- to use a reverse proxy like NGINX.
 
 
 ### Requirements/Recommendations
 
-- **Transport Layer Security (TLS)**: Implement TLS to secure communications with certificates management.
+- **Transport Layer Security (TLS)**: Implement TLS to secure communication with certificate management.
 - **Security Measures**: Protect against DDoS attacks and other security threats to maintain service integrity.
-- **Availability**: Use load balancing techniques to distribute traffic evenly across servers.
-- **Performance**: Employ Content Delivery Networks (CDN) to accelerate content delivery and reduce latency.
+- **Availability**: Use load balancing techniques to balance traffic across servers.
+- **Performance**: Use caching and/or content delivery networks (CDNs) to speed up content delivery and reduce latency.
 - **Compliance and Best Practices**: Adhere to industry standards and best practices for network security and performance.
 
 
 ### Status
 
-Efforts have been made to evaluate and document CDN solutions, with a focus on integration, performance and price estimates:
+Efforts have been made to evaluate and document CDN solutions, with a focus on price estimates:
 
+- [x] ✅ [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be the standard solution for single server setups. We should publish some docker compose examples using NGINX and Let's encrypt. ([SWAG](https://docs.linuxserver.io/general/swag/), [traefik](https://github.com/traefik/traefik))
 - [x] ✅ [Google CDN](https://cloud.google.com/cdn) (80€/TB): Tested and used at SWR.
-- [x] ✅ [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be standard solution for single server setups
+- [x] ✅ [Akamai CDN](https://www.akamai.com/): Tested and used at NDR.
 - [x] 🟨 [Bunny CDN](https://bunny.net/cdn/) (5€/TB): Tested for [tiles.versatiles.org](https://tiles.versatiles.org). Unfortunately, BunnyCDN is currently unable to fetch or return compressed vector tiles. The headers "content-encoding" and "vary: accept-encoding" are ignored. The CDN engineering team has been informed, but there is no ETA.
-- [ ] [Akamai CDN](https://www.akamai.com/solutions/content-delivery-network): not tested yet
+- [x] 🟨 [BlazingCDN](https://blazingcdn.com) (5€/TB): Tested, but is also unable to serve compressed vector tiles.
 - [ ] [Amazon CloudFront](https://aws.amazon.com/cloudfront) (90€/TB): not tested yet
-- [ ] [BlazingCDN](https://blazingcdn.com) (5€/TB): not tested yet
 - [ ] [Cachefly](https://www.cachefly.com/) (30$/TB, min. 300€/month): not tested yet
 - [ ] [CDN77](https://www.cdn77.com/) (4\$/TB, min. 990\$/month): not tested yet
 - [ ] [CDNetworks](https://www.cdnetworks.com/) (40\$/TB, min. 50\$/month): not tested yet
@@ -345,12 +364,12 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on i
 - [ ] [Microsoft Azure CDN](https://azure.microsoft.com/en-us/products/cdn) (75$/TB): not tested yet
 - [ ] [OHV CDN](https://www.ovhcloud.com/en-gb/network/cdn/) (12€/TB, prepaid): not tested yet
 
-Documentation on the use of NGINX, including setup and configuration for optimal performance, is in development.
+Documentation on the use of NGINX, including setup, configuration and a Docker image is in development.
 
 
-## Interface: Public/External Network
+## Interface: Public Network
 
-This interface represents the network's public-facing aspect, which is responsible for handling incoming and outgoing traffic to the internet.
+HTTP traffic, encrypted with TLS.
 
 
 ## Layer: Frontend
@@ -360,7 +379,8 @@ The Frontend Layer serves as the graphical interface, presenting map tiles to th
 
 ### Requirements/Recommendations
 
-- The frontend SHOULD be compatible with both vector and raster tiles.
+- The frontend SHOULD be capable to draw Shortbread vector tiles and raster tiles.
+- See [VersaTiles Frontend Specifications](#versatiles-frontend-specification) for more information.
 
 
 ### Status
@@ -371,27 +391,52 @@ Progress in the development and implementation of the Frontend Layer includes:
 - [x] **Style Library**: A collection of pre-defined map styles is available. ([Repository](https://github.com/versatiles-org/versatiles-style))
 - [x] **Fonts**: Prepared standard fonts. ([Repository](https://github.com/versatiles-org/versatiles-fonts))
 - [x] **Sprites Using Signed Distance Fields**: ... to ensure icons and symbols are scalable, colourable and clear at any zoom level. ([Repository](https://github.com/versatiles-org/versatiles-style))
-- [ ] **Multiple Frontends** are available: a minimal version and a big developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
+- [x] **Multiple Frontends** are available: a minimal version and a big developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
 - [ ] **Right-to-Left (RTL) Label Support**: Efforts are underway to include support for RTL languages, such as Arabic, to ensure maps are accessible for a global audience. ([issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
 
 
-# VersaTiles Frontend Specifications
+------------------------------------------
 
 
-## Folder `/assets/fonts/`
+# VersaTiles Frontend Specification
 
-- When serving a frontend, the fonts should be stored in `/assets/fonts/`.
-- The glyphs should be served as `/assets/fonts/{fontname}/{start}-{end}.pbf`, e.g. `/assets/fonts/open_sans_bold_italic/768-1023.pbf`.
-- Font names (`{fontname}`) SHOULD be OS/UNIX/URL safe and therefore contain only lower case letters, digits and underscores. Instead of naming fonts like `Arial%20Unicode%20MS%20Regular`, the name should be `arial_unicode_ms_regular`.
-- You should also serve a list of all available fonts as [`fonts.json`](#file-assetsfontsfontsjson) and [`font_families.json`](#file-assetsfontsfont_familiesjson).
+To ensure maximum compatibility, we recommend the following folder and file structure:
+
+- [`assets/`](#folder-assets)
+  - [`fonts/{font_id}/{start}-{end}.pbf`](#folder-assetsfonts)
+  - [`fonts.json`](#file-assetsfontsjson)
+  - [`font_families.json`](#file-assetsfont_familiesjson)
+  - [`sprites/{sprite_id}/sprite.json`](#folder-assetssprites)
+  - [`sprites.json`](#file-assetsspritesjson)
+- [`tiles/`](#folder-tiles)
+  - [`{tile_id}/{z}/{x}/{y}`](#files-tilestile_idzxy)
+  - [`{tile_id}/tiles.json`](#files-tilestile_idtilesjson)
+  - [`index.json`](#file-tilesindexjson)
 
 
-## File `/assets/fonts/fonts.json`
+## Folder: `/assets/`
 
-There should be JSON at `/assets/fonts/fonts.json` containing an array of all folders in `/assets/fonts/` containings glyphs.
+The `/assets/` folder is designated for static assets such as JavaScript libraries, CSS files, map styles, images, icons, fonts, and other related resources.
 
-For example:
-```JSON
+
+## Folder: `/assets/fonts/`
+
+- All map glyphs should be stored in the `/assets/fonts/` directory.
+- Glyphs should be served as `/assets/fonts/{font_id}/{start}-{end}.pbf`. For example: `/assets/fonts/open_sans_bold_italic/768-1023.pbf`.
+- Font IDs (`{font_id}`) should be OS/UNIX/URL safe, using only lowercase letters, digits, and underscores. For example, instead of naming a font folder `Arial%20Unicode%20MS%20Regular`, it should be named `arial_unicode_ms_regular`.
+- Additionally, you should provide a list of all available fonts in the following files:
+  - [`/assets/fonts.json`](#file-assetsfontsjson)
+  - [`/assets/font_families.json`](#file-assetsfont_familiesjson)
+- The MapLibre Style Spec has [more information about glyphs](https://maplibre.org/maplibre-style-spec/glyphs/).
+
+
+## File: `/assets/fonts.json`
+
+The `/assets/fonts.json` file should contain a JSON array listing all available font IDs. These IDs correspond to the folder names within `/assets/fonts/`, where each folder contains the glyphs for that font.
+
+### Example:
+
+```json
 [
   "fira_sans_bold",
   "fira_sans_bold_italic",
@@ -405,59 +450,138 @@ For example:
 ```
 
 
-## File `/assets/fonts/font_families.json`
+## File: `/assets/font_families.json`
 
-There should be JSON at `/assets/fonts/font_families.json` containing all font families with their font faces. The keys of the `fontFace` objects should be the same as the glyph folder names.
+The `/assets/font_families.json` file should contain a JSON object defining all font families along with their respective font faces. Each `fontFace` object's `id` must match the corresponding glyph folder name in `/assets/fonts/`.
 
-The TypeScript definition of this JSON is:
-```TypeScript
-type FontFamilies = Record<string, FontFamily>;
+The TypeScript definition for this JSON is as follows:
+
+```typescript
+type FontFamilies = FontFamily[];
+
 interface FontFamily {
-  name: string;
-  fontFace: Record<string, FontFace>;
+  title: string;
+  fontFace: FontFace[];
 }
+
 interface FontFace {
-  name: string;
+  id: string;
+  title: string;
   italic: boolean;
   weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 }
 ```
 
-For example:
-```JSON
-{
-  "fira_sans": {
-    "name": "Fira Sans",
-    "fontFace": {
-      "fira_sans_bold": { "name": "Bold", "italic": false, "weight": 700 },
-      "fira_sans_bold_italic": { "name": "Bold Italic", "italic": true, "weight": 700 },
-      "fira_sans_italic": { "name": "Italic", "italic": true, "weight": 400 },
-      "fira_sans_regular": { "name": "Regular", "italic": false, "weight": 400 }
-    }
+### Example:
+
+```json
+[
+  {
+    "title": "Fira Sans",
+    "fontFace": [
+      { "id": "fira_sans_bold_italic", "title": "Bold Italic", "italic": true, "weight": 700 },
+      { "id": "fira_sans_bold", "title": "Bold", "italic": false, "weight": 700 },
+      { "id": "fira_sans_italic", "title": "Italic", "italic": true, "weight": 400 },
+      { "id": "fira_sans_regular", "title": "Regular", "italic": false, "weight": 400 }
+    ]
   },
-    "fira_sans_condensed": {
-    "name": "Fira Sans Condensed",
-    "fontFace": {
-      "fira_sans_condensed_bold": { "name": "Bold", "italic": false, "weight": 700 },
-      "fira_sans_condensed_bold_italic": { "name": "Bold Italic", "italic": true, "weight": 700 },
-      "fira_sans_condensed_italic": { "name": "Italic", "italic": true, "weight": 400 },
-      "fira_sans_condensed_regular": { "name": "Regular", "italic": false, "weight": 400 }
-    }
+  {
+    "title": "Fira Sans Condensed",
+    "fontFace": [
+      { "id": "fira_sans_condensed_bold_italic", "title": "Bold Italic", "italic": true, "weight": 700 },
+      { "id": "fira_sans_condensed_bold", "title": "Bold", "italic": false, "weight": 700 },
+      { "id": "fira_sans_condensed_italic", "title": "Italic", "italic": true, "weight": 400 },
+      { "id": "fira_sans_condensed_regular", "title": "Regular", "italic": false, "weight": 400 }
+    ]
   }
-}
+]
 ```
 
-Based on this example JSON the following glyphs should be available:
+Based on this example, the following glyphs must be available:
+
+```shell
+/assets/fonts/fira_sans_bold/{range}.pbf
+/assets/fonts/fira_sans_bold_italic/{range}.pbf
+/assets/fonts/fira_sans_italic/{range}.pbf
+/assets/fonts/fira_sans_regular/{range}.pbf
+/assets/fonts/fira_sans_condensed_bold/{range}.pbf
+/assets/fonts/fira_sans_condensed_bold_italic/{range}.pbf
+/assets/fonts/fira_sans_condensed_italic/{range}.pbf
+/assets/fonts/fira_sans_condensed_regular/{range}.pbf
 ```
-/assets/fonts/fira_sans_bold/*.pbf
-/assets/fonts/fira_sans_bold_italic/*.pbf
-/assets/fonts/fira_sans_italic/*.pbf
-/assets/fonts/fira_sans_regular/*.pbf
-/assets/fonts/fira_sans_condensed_bold/*.pbf
-/assets/fonts/fira_sans_condensed_bold_italic/*.pbf
-/assets/fonts/fira_sans_condensed_italic/*.pbf
-/assets/fonts/fira_sans_condensed_regular/*.pbf
+
+
+## Folder: `/assets/sprites/`
+
+- All map sprites should be stored in the `/assets/sprites/` directory.
+- Each sprite should be contained in its own subdirectory: `/assets/sprites/{sprite_id}/`.
+- The metadata for each sprite is defined in JSON format following the [sprite source specification](https://maplibre.org/maplibre-style-spec/sprite/#sprite-source-format) and should be served as `/assets/sprites/{sprite_id}/sprite.json`.
+- Sprite IDs (`{sprite_id}`) should be OS/UNIX/URL safe, using only lowercase letters, digits, and underscores.
+- Additionally, you should provide a list of all available sprites in the [`/assets/sprites.json`](#file-assetsspritesjson) file.
+- Refer to the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/sprite/) for more detailed information on sprites.
+
+
+## File: `/assets/sprites.json`
+
+This file should be formatted in the same way as defining [multiple sprite sources](https://maplibre.org/maplibre-style-spec/sprite/#multiple-sprite-sources) within a style.
+
+### Example:
+
+```json
+[
+  {
+    "id": "versatiles",
+    "url": "https://tiles.versatiles.org/assets/sprites/versatiles/sprite.json"
+  },
+  {
+    "id": "marker",
+    "url": "https://tiles.versatiles.org/assets/sprites/marker/sprite.json"
+  },
+  {
+    "id": "animals",
+    "url": "https://example.org/assets/sprites/animals/sprite.json"
+  }
+]
 ```
+
+
+## Folder: `/tiles/`
+
+The `/tiles/` folder is used to serve map tiles and related metadata in the [TileJSON format](https://github.com/mapbox/tilejson-spec).
+
+
+## Files: `/tiles/{tile_id}/{z}/{x}/{y}`
+
+- `/tiles/{tile_id}/`: Each tile set is stored in its own subdirectory identified by `{tile_id}`.
+- `/tiles/{tile_id}/{z}/{x}/{y}`: The tiles themselves are stored in directories based on zoom level (`{z}`), and within that, further divided by x (column) and y (row) coordinates (`{x}`, `{y}`).
+
+For a tile set with the ID `city_map`, the folder structure for a tile at zoom level 10, coordinates (x: 512, y: 384) would be: `/tiles/city_map/10/512/384`
+
+
+### Files: `/tiles/{tile_id}/tiles.json`
+
+Each tile set should include a `tiles.json` file that provides metadata about the tiles. This file should be stored at `/tiles/{tile_id}/tiles.json` and must follow the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
+
+
+## File: `/tiles/index.json`
+
+In addition to individual `tiles.json` files for each tile set, you should provide an `index.json` file in the `/tiles/` directory. This file contains an array of all available TileJSON URLs for the various tile sets.
+
+### Example:
+
+```json
+[
+  "https://example.org/tiles/osm/tiles.json",
+  "https://example.org/tiles/elevation/tiles.json",
+  "https://example.org/tiles/hillshade-raster/tiles.json",
+  "https://example.org/tiles/hillshade-vector/tiles.json",
+  "https://example.org/tiles/landcover-vector/tiles.json"
+]
+```
+
+
+------------------------------------------
+
 
 # Tools
 
@@ -476,24 +600,31 @@ In our roadmap, we plan to develop a suite of useful tools aimed at enhancing th
 - [ ] **Style Converter**: A NodeJS utility designed to convert map styles from the OpenMapTiles schema to the Shortbread schema.
 
 
+------------------------------------------
+
+
 # versatiles.org
 
 The website needs to be developed further:
-- [ ] migrate download.versatiles.org to new V-Server
+- [x] migrate download.versatiles.org to new V-Server
 - [x] migrate tiles.versatiles.org to new V-Server
 - [ ] add to versatiles.org:
   - [ ] documentation
   - [ ] tutorials
   - [ ] specification
-  - [ ] exmaples
-  - [ ] show cases
-  - [ ] tools
+  - [ ] examples
+  - [ ] [show cases](#show-cases)
+  - [ ] [tools](#tools)
+
+
+------------------------------------------
 
 
 # Show cases
 
 - https://www.swr.de/swraktuell/diesel-und-benzinpreise-aktuell-so-tanken-sie-heute-clever-100.html
 - https://www.swr.de/swraktuell/rheinland-pfalz/waldbraende-aktuell-orte-karte-rlp-102.html
+- https://notfallrettung.swr.de/
 - https://swrdata.github.io/zensus-gitter-test/
 - https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/
 - https://interaktiv.morgenpost.de/cannabis-legalisierung-kiffen-karte/
@@ -502,9 +633,14 @@ The website needs to be developed further:
 - https://www.ndr.de/nachrichten/ndrdata/Zensus-Mietpreise-im-Norden-im-Ueberblick,zensus308.html
 
 
-# The Future of VersaTiles
+------------------------------------------
 
-VersaTiles aims to democratize map data and tools, making geographic information accessible to all. Its future direction is guided by core principles, sustainable funding avenues, and a legal framework that supports its growth and mission.
+
+# The Bigger Picture
+
+## The Future of VersaTiles
+
+VersaTiles aims to democratize map data and tools, making geographic information accessible to all.
 
 
 ## Core Values
@@ -515,7 +651,7 @@ This is achieved through:
 - **Open Standards**: We promote openly documented protocols and formats to encourage interoperability and flexibility in mapping solutions.
 - **Open Data**: We advocate for free access to geographic data and support initiatives that encourage information sharing to enrich public knowledge and innovation.
 - **Open Source**: By developing VersaTiles in an open environment, we encourage collaboration, auditability, and adoption, fostering a diverse ecosystem of applications and users.
-- **Prefer Free Over Open**: We prioritize free standards, data, and software whenever possible, in line with our commitment to accessibility.
+- **Prefer Free Over Open**: We prioritize free standards, data, and software whenever possible.
 
 
 ## Support
@@ -530,4 +666,4 @@ A crucial factor in the future growth of VersaTiles is determining the most appr
 
 The options being considered include:
 - **Independent Entity**: Establishing VersaTiles as a standalone legal entity, providing full autonomy but with the responsibility of full organizational management.
-- **Subsection of an Existing Foundation**: Integrating VersaTiles as a subsection within an established foundation, benefiting from existing infrastructures, such as legal and financial frameworks, while focusing on project development.
+- **Subsection of an Existing Foundation**: Integrating VersaTiles as a subsection within an established foundation or organisation, benefiting from existing infrastructures, such as legal and financial frameworks, while focusing on project development.
