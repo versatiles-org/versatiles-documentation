@@ -19,7 +19,7 @@
   - [File: `/assets/glyphs/index.json`](#file-assetsglyphsindexjson)
   - [File: `/assets/glyphs/font_families.json`](#file-assetsglyphsfont_familiesjson)
   - [Folder: `/assets/sprites/`](#folder-assetssprites)
-  - [File: `/assets/sprites.json`](#file-assetsspritesjson)
+  - [File: `/assets/sprites/index.json`](#file-assetsspritesindexjson)
   - [Folder: `/tiles/`](#folder-tiles)
   - [Files: `/tiles/{tile_id}/{z}/{x}/{y}{.ext}`](#files-tilestile_idzxyext)
   - [File: `/tiles/index.json`](#file-tilesindexjson)
@@ -405,6 +405,9 @@ To minimize confusion and incompatibilities, we recommend the following folder a
 
 ## Folder Structure
 
+- 📄 **`index.html`**  
+  A front page.
+
 - 📂 **`assets/`**  
   [Contains all static resources such as libraries, fonts, sprites, styles, images, ...](#folder-assets)
 
@@ -436,7 +439,7 @@ To minimize confusion and incompatibilities, we recommend the following folder a
       Optionally, you can include other libraries such as [MapLibre GL Inspect](https://github.com/maplibre/maplibre-gl-inspect), ...
 
   - 📂 **`sprites/`**  
-    Contains all map sprites (image files with multiple small graphical icons or symbols used on the map).
+    [Contains all map sprites (image files with multiple small graphical icons or symbols used on the map).](#folder-assetssprites)
 
     - 📂 **`{sprite_id}/`**  
       Each sprite is stored in its own directory, named using its sprite ID.
@@ -448,7 +451,7 @@ To minimize confusion and incompatibilities, we recommend the following folder a
         The actual sprite image, which contains all sprite icons in a single PNG image file.
 
     - 📄 **`index.json`**  
-      A JSON file listing all available sprite IDs.
+      [A JSON file listing all available sprite IDs.](#file-assetsspritesindexjson)
 
   - 📂 **`styles/`**  
     Contains prepared map styles.
@@ -457,22 +460,22 @@ To minimize confusion and incompatibilities, we recommend the following folder a
       Each map style is stored in its own JSON file, identified by `{style_id}`. The file follows the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/) to define how the map is rendered.
 
   - 📂 **`.../`**  
-    Additional static folder such as `css`, `fonts`, `images`, and `js`.
+    Additional static folders such as `css`, `fonts`, `images`, and `js`.
 
 - 📂 **`tiles/`**
-  The content of this folder is generated and returned by the tile server.
+  [The content of this folder is generated and returned by the tile server.](#folder-tiles)
 
   - 📂 **`{tile_id}/`**  
     Each tile set is organized in a separate directory identified by its `{tile_id}`.
 
     - 📄 **`{z}/{x}/{y}{.ext}`**  
-      The individual map tiles are stored in subdirectories based on the zoom level (`{z}`), column (`{x}`), and row (`{y}`). The optional tile file extension (`{.ext}`) can be `.pbf`, `.png`, `.jpg`, ... or simply be omitted.
+      [The individual map tiles are stored in subdirectories based on the zoom level (`{z}`), column (`{x}`), and row (`{y}`). The tile file extension (`{.ext}`) is optional.](#files-tilestile_idzxyext)
 
     - 📄 **`tiles.json`**  
       Metadata for each tile set following the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
 
   - 📄 **`index.json`**  
-    JSON with an array of tile IDs. This file acts as a directory of available map tile layers.
+    [JSON with an array of tile IDs. This file acts as a directory of available map tile layers.](#file-tilesindexjson)
 
 
 ## Folder: `/assets/`
@@ -495,7 +498,7 @@ The `/assets/` folder is designated for static assets such as JavaScript librari
 
 The `/assets/glyphs/index.json` file should contain a JSON array listing all available font IDs. These IDs correspond to the folder names within `/assets/glyphs/`, where each folder contains the glyphs for that font.
 
-### Example:
+**Example:**
 
 ```json
 [
@@ -541,7 +544,7 @@ interface FontFace {
 }
 ```
 
-### Example:
+**Example:**
 
 ```json
 [
@@ -585,11 +588,11 @@ Based on this example, the following glyphs must be available:
 - Refer to the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/sprite/) for more detailed information on sprites.
 
 
-## File: `/assets/sprites.json`
+## File: `/assets/sprites/index.json`
 
 This file should be formatted in the same way as defining [multiple sprite sources](https://maplibre.org/maplibre-style-spec/sprite/#multiple-sprite-sources) within a style.
 
-### Example:
+**Example:**
 
 ```json
 [
@@ -611,28 +614,23 @@ This file should be formatted in the same way as defining [multiple sprite sourc
 
 ## Folder: `/tiles/`
 
-The `/tiles/` folder is used to serve map tiles and related metadata in the [TileJSON format](https://github.com/mapbox/tilejson-spec).
+The `/tiles/` folder is used to serve map tiles and related metadata in the [TileJSON format](https://github.com/mapbox/tilejson-spec). All files are served by the map server.
 
 
 ## Files: `/tiles/{tile_id}/{z}/{x}/{y}{.ext}`
 
 - `/tiles/{tile_id}/`: Each tile set is stored in its own subdirectory identified by `{tile_id}`.
 - `/tiles/{tile_id}/{z}/{x}/{y}`: The tiles themselves are stored in directories based on zoom level (`{z}`), and within that, further divided by x (column) and y (row) coordinates (`{x}`, `{y}`).
-- file extension is optional
+- file extensions `{.ext}` are optional.
 
 For a tile set with the ID `city_map`, the folder structure for a tile at zoom level 10, coordinates (x: 512, y: 384) would be: `/tiles/city_map/10/512/384`
-
-
-### Files: `/tiles/{tile_id}/tiles.json`
-
-Each tile set should include a `tiles.json` file that provides metadata about the tiles. This file should be stored at `/tiles/{tile_id}/tiles.json` and must follow the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
 
 
 ## File: `/tiles/index.json`
 
 In addition to individual `tiles.json` files for each tile set, you should provide an `index.json` file in the `/tiles/` directory. This file contains an array of all available TileJSON URLs for the various tile sets.
 
-### Example:
+**Example:**
 
 ```json
 [
