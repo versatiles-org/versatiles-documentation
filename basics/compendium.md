@@ -13,6 +13,7 @@
   - [Interface: Public Network](#interface-public-network)
   - [Layer: Frontend](#layer-frontend)
 - [VersaTiles Frontend Specification](#versatiles-frontend-specification)
+  - [Folder Structure](#folder-structure)
   - [Folder: `/assets/`](#folder-assets)
   - [Folder: `/assets/fonts/`](#folder-assetsfonts)
   - [File: `/assets/fonts.json`](#file-assetsfontsjson)
@@ -20,7 +21,7 @@
   - [Folder: `/assets/sprites/`](#folder-assetssprites)
   - [File: `/assets/sprites.json`](#file-assetsspritesjson)
   - [Folder: `/tiles/`](#folder-tiles)
-  - [Files: `/tiles/{tile_id}/{z}/{x}/{y}`](#files-tilestile_idzxy)
+  - [Files: `/tiles/{tile_id}/{z}/{x}/{y}{.ext}`](#files-tilestile_idzxyext)
   - [File: `/tiles/index.json`](#file-tilesindexjson)
 - [Tools](#tools)
 - [versatiles.org](#versatilesorg)
@@ -400,18 +401,78 @@ Progress in the development and implementation of the Frontend Layer includes:
 
 # VersaTiles Frontend Specification
 
-To ensure maximum compatibility, we recommend the following folder and file structure:
+To minimize confusion and incompatibilities, we recommend the following folder and file structure.
 
-- [`assets/`](#folder-assets)
-  - [`fonts/{font_id}/{start}-{end}.pbf`](#folder-assetsfonts)
-  - [`fonts.json`](#file-assetsfontsjson)
-  - [`font_families.json`](#file-assetsfont_familiesjson)
-  - [`sprites/{sprite_id}/sprite.json`](#folder-assetssprites)
-  - [`sprites.json`](#file-assetsspritesjson)
-- [`tiles/`](#folder-tiles)
-  - [`{tile_id}/{z}/{x}/{y}`](#files-tilestile_idzxy)
-  - [`{tile_id}/tiles.json`](#files-tilestile_idtilesjson)
-  - [`index.json`](#file-tilesindexjson)
+## Folder Structure
+
+- 📂 **`assets/`**  
+  Contains all static resources such as libraries, fonts, sprites, styles, images, ...
+
+  - 📂 **`lib/`**  
+    Contains all JavaScript/CSS libraries.
+
+    - 📂 **`maplibre-gl/`**  
+      Folder for [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), which must contain both `maplibre-gl.js` and `maplibre-gl.css` files for map rendering.
+
+    - 📂 **`versatiles-style/`**  
+      Folder for [VersaTiles Style](https://github.com/versatiles-org/versatiles-style), which contains the `versatiles-style.js` file to generate map styles.
+
+    - 📂 **`.../`**  
+      Optionally, you can include other libraries such as [MapLibre GL Inspect](https://github.com/maplibre/maplibre-gl-inspect), ...
+
+  - 📂 **`glyphs/`**  
+    Contains font glyphs used for map text rendering.
+
+    - 📂 **`{font_id}/`**  
+      Each font is stored in its own folder, named using its font ID.
+
+      - 📄 **`{start}-{end}.pbf`**  
+        Glyphs for each font are divided into ranges (e.g., `0-255.pbf`), where each file represents a specific Unicode range.
+
+    - 📄 **`index.json`**  
+      A JSON file that lists all available font IDs, essentially providing an index of all the fonts in the `glyphs/` folder.
+
+    - 📄 **`font_families.json`**  
+      Defines the font families and their available font faces (e.g., regular, italic, bold) along with their properties such as weight and style.
+
+  - 📂 **`sprites/`**  
+    Contains all map sprites, which are small graphical icons or symbols used on the map.
+
+    - 📂 **`{sprite_id}/`**  
+      Each sprite is stored in its own directory, named using its sprite ID.
+
+      - 📄 **`sprite.json`**  
+        The metadata for the sprite set, defined according to the [sprite source format](https://maplibre.org/maplibre-style-spec/sprite/#sprite-source-format).
+
+      - 📄 **`sprite.png`**  
+        The actual sprite image, which contains all sprite icons in a single PNG image file.
+
+    - 📄 **`index.json`**  
+      A JSON file listing all available sprite IDs.
+
+  - 📂 **`styles/`**  
+    Contains prepared map styles.
+
+    - 📄 **`{style_id}.json`**  
+      Each map style is stored in its own JSON file, identified by `{style_id}`. The file follows the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/) to define how the map is rendered.
+
+  - 📂 **`.../`**  
+    Additional static folder such as `css`, `fonts`, `images`, and `js`.
+
+- 📂 **`tiles/`**
+  The content of this folder is generated and returned by the tile server.
+
+  - 📂 **`{tile_id}/`**  
+    Each tile set is organized in a separate directory identified by its `{tile_id}`.
+
+    - 📄 **`{z}/{x}/{y}{.ext}`**  
+      The individual map tiles are stored in subdirectories based on the zoom level (`{z}`), column (`{x}`), and row (`{y}`). The optional tile file extension (`{.ext}`) can be `.pbf`, `.png`, `.jpg`, ... or simply be omitted.
+
+    - 📄 **`tiles.json`**  
+      Metadata for each tile set following the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
+
+  - 📄 **`index.json`**  
+    JSON with an array of URLs to all available tile sets `tiles.json` metadata. This file acts as a directory of available map layers.
 
 
 ## Folder: `/assets/`
@@ -550,10 +611,11 @@ This file should be formatted in the same way as defining [multiple sprite sourc
 The `/tiles/` folder is used to serve map tiles and related metadata in the [TileJSON format](https://github.com/mapbox/tilejson-spec).
 
 
-## Files: `/tiles/{tile_id}/{z}/{x}/{y}`
+## Files: `/tiles/{tile_id}/{z}/{x}/{y}{.ext}`
 
 - `/tiles/{tile_id}/`: Each tile set is stored in its own subdirectory identified by `{tile_id}`.
 - `/tiles/{tile_id}/{z}/{x}/{y}`: The tiles themselves are stored in directories based on zoom level (`{z}`), and within that, further divided by x (column) and y (row) coordinates (`{x}`, `{y}`).
+- file extension is optional
 
 For a tile set with the ID `city_map`, the folder structure for a tile at zoom level 10, coordinates (x: 512, y: 384) would be: `/tiles/city_map/10/512/384`
 
