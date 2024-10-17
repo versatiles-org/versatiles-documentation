@@ -15,9 +15,9 @@
 - [VersaTiles Frontend Specification](#versatiles-frontend-specification)
   - [Folder Structure](#folder-structure)
   - [Folder: `/assets/`](#folder-assets)
-  - [Folder: `/assets/fonts/`](#folder-assetsfonts)
-  - [File: `/assets/fonts.json`](#file-assetsfontsjson)
-  - [File: `/assets/font_families.json`](#file-assetsfont_familiesjson)
+  - [Folder: `/assets/glyphs/`](#folder-assetsglyphs)
+  - [File: `/assets/glyphs/index.json`](#file-assetsglyphsindexjson)
+  - [File: `/assets/glyphs/font_families.json`](#file-assetsglyphsfont_familiesjson)
   - [Folder: `/assets/sprites/`](#folder-assetssprites)
   - [File: `/assets/sprites.json`](#file-assetsspritesjson)
   - [Folder: `/tiles/`](#folder-tiles)
@@ -406,7 +406,22 @@ To minimize confusion and incompatibilities, we recommend the following folder a
 ## Folder Structure
 
 - 📂 **`assets/`**  
-  Contains all static resources such as libraries, fonts, sprites, styles, images, ...
+  [Contains all static resources such as libraries, fonts, sprites, styles, images, ...](#folder-assets)
+
+  - 📂 **`glyphs/`**  
+    [Contains font glyphs used for map text rendering.](#folder-assetsglyphs)
+
+    - 📂 **`{font_id}/`**  
+      Each font face is stored in its own folder, named using its font ID.
+
+      - 📄 **`{start}-{end}.pbf`**  
+        Glyphs for each font are divided into ranges of 256 characters (e.g., `0-255.pbf`), where each file represents a specific Unicode range.
+
+    - 📄 **`index.json`**  
+      [A JSON file that lists all available font IDs, essentially providing an index of all the fonts in the `assets/glyphs/` folder. ](#file-assetsglyphsindexjson)
+
+    - 📄 **`font_families.json`**  
+      [Defines all available font families and their font faces (e.g., regular, italic, bold, condensed) along with their properties.](#file-assetsglyphsfont_familiesjson)
 
   - 📂 **`lib/`**  
     Contains all JavaScript/CSS libraries.
@@ -420,23 +435,8 @@ To minimize confusion and incompatibilities, we recommend the following folder a
     - 📂 **`.../`**  
       Optionally, you can include other libraries such as [MapLibre GL Inspect](https://github.com/maplibre/maplibre-gl-inspect), ...
 
-  - 📂 **`glyphs/`**  
-    Contains font glyphs used for map text rendering.
-
-    - 📂 **`{font_id}/`**  
-      Each font is stored in its own folder, named using its font ID.
-
-      - 📄 **`{start}-{end}.pbf`**  
-        Glyphs for each font are divided into ranges (e.g., `0-255.pbf`), where each file represents a specific Unicode range.
-
-    - 📄 **`index.json`**  
-      A JSON file that lists all available font IDs, essentially providing an index of all the fonts in the `glyphs/` folder.
-
-    - 📄 **`font_families.json`**  
-      Defines the font families and their available font faces (e.g., regular, italic, bold) along with their properties such as weight and style.
-
   - 📂 **`sprites/`**  
-    Contains all map sprites, which are small graphical icons or symbols used on the map.
+    Contains all map sprites (image files with multiple small graphical icons or symbols used on the map).
 
     - 📂 **`{sprite_id}/`**  
       Each sprite is stored in its own directory, named using its sprite ID.
@@ -472,7 +472,7 @@ To minimize confusion and incompatibilities, we recommend the following folder a
       Metadata for each tile set following the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
 
   - 📄 **`index.json`**  
-    JSON with an array of URLs to all available tile sets `tiles.json` metadata. This file acts as a directory of available map layers.
+    JSON with an array of tile IDs. This file acts as a directory of available map tile layers.
 
 
 ## Folder: `/assets/`
@@ -480,20 +480,20 @@ To minimize confusion and incompatibilities, we recommend the following folder a
 The `/assets/` folder is designated for static assets such as JavaScript libraries, CSS files, map styles, images, icons, fonts, and other related resources.
 
 
-## Folder: `/assets/fonts/`
+## Folder: `/assets/glyphs/`
 
-- All map glyphs should be stored in the `/assets/fonts/` directory.
-- Glyphs should be served as `/assets/fonts/{font_id}/{start}-{end}.pbf`. For example: `/assets/fonts/open_sans_bold_italic/768-1023.pbf`.
-- Font IDs (`{font_id}`) should be OS/UNIX/URL safe, using only lowercase letters, digits, and underscores. For example, instead of naming a font folder `Arial%20Unicode%20MS%20Regular`, it should be named `arial_unicode_ms_regular`.
+- All map glyphs should be stored in the `/assets/glyphs/` directory.
+- Glyphs should be served as `/assets/glyphs/{font_id}/{start}-{end}.pbf`. For example: `/assets/glyphs/open_sans_bold_italic/768-1023.pbf`.
+- Font IDs (`{font_id}`) should be OS/UNIX/URL safe, using only lowercase letters, digits, and underscores. For example, instead of naming a folder `Arial%20Unicode%20MS%20Regular`, it should be named `arial_unicode_ms_regular`.
 - Additionally, you should provide a list of all available fonts in the following files:
-  - [`/assets/fonts.json`](#file-assetsfontsjson)
-  - [`/assets/font_families.json`](#file-assetsfont_familiesjson)
+  - [`/assets/glyphs/index.json`](#file-assetsglyphsindexjson)
+  - [`/assets/glyphs/font_families.json`](#file-assetsglyphsfont_familiesjson)
 - The MapLibre Style Spec has [more information about glyphs](https://maplibre.org/maplibre-style-spec/glyphs/).
 
 
-## File: `/assets/fonts.json`
+## File: `/assets/glyphs/index.json`
 
-The `/assets/fonts.json` file should contain a JSON array listing all available font IDs. These IDs correspond to the folder names within `/assets/fonts/`, where each folder contains the glyphs for that font.
+The `/assets/glyphs/index.json` file should contain a JSON array listing all available font IDs. These IDs correspond to the folder names within `/assets/glyphs/`, where each folder contains the glyphs for that font.
 
 ### Example:
 
@@ -501,19 +501,24 @@ The `/assets/fonts.json` file should contain a JSON array listing all available 
 [
   "fira_sans_bold",
   "fira_sans_bold_italic",
-  "fira_sans_condensed_bold",
-  "fira_sans_condensed_bold_italic",
-  "fira_sans_condensed_italic",
-  "fira_sans_condensed_regular",
+  "fira_sans_cond_bold",
+  "fira_sans_cond_bold_italic",
+  "fira_sans_cond_italic",
+  "fira_sans_cond_regular",
   "fira_sans_italic",
   "fira_sans_regular"
 ]
 ```
 
 
-## File: `/assets/font_families.json`
+## File: `/assets/glyphs/font_families.json`
 
-The `/assets/font_families.json` file should contain a JSON object defining all font families along with their respective font faces. Each `fontFace` object's `id` must match the corresponding glyph folder name in `/assets/fonts/`.
+The `/assets/glyphs/font_families.json` file should contain a JSON array defining all font families along with their respective font faces.
+Each `fontFace` object's `id` must match the corresponding glyph folder name in `/assets/glyphs/`.
+
+> [!NOTE]
+> The structure of `font_families.json` is based on the concepts of [font families and font faces in CSS 4](https://www.w3.org/TR/css-fonts-4/#font-families).
+> The properties `style`, `weight` and `width` and their values are based on the CSS 4 properties [`font-style`](https://www.w3.org/TR/css-fonts-4/#font-style-prop), [`font-weight`](https://www.w3.org/TR/css-fonts-4/#font-weight-numeric-values) and [`font-width`](https://www.w3.org/TR/css-fonts-4/#font-width-prop)
 
 The TypeScript definition for this JSON is as follows:
 
@@ -521,15 +526,18 @@ The TypeScript definition for this JSON is as follows:
 type FontFamilies = FontFamily[];
 
 interface FontFamily {
-  title: string;
-  fontFace: FontFace[];
+  name: string;
+  faces: FontFace[];
 }
 
 interface FontFace {
   id: string;
-  title: string;
-  italic: boolean;
+  style: "normal" | "italic" | "oblique";
   weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  width:
+    "ultra-condensed" | "extra-condensed" | "condensed" | "semi-condensed" |
+    "normal" |
+    "semi-expanded" | "expanded" | "extra-expanded" | "ultra-expanded"
 }
 ```
 
@@ -538,21 +546,16 @@ interface FontFace {
 ```json
 [
   {
-    "title": "Fira Sans",
-    "fontFace": [
-      { "id": "fira_sans_bold_italic", "title": "Bold Italic", "italic": true, "weight": 700 },
-      { "id": "fira_sans_bold", "title": "Bold", "italic": false, "weight": 700 },
-      { "id": "fira_sans_italic", "title": "Italic", "italic": true, "weight": 400 },
-      { "id": "fira_sans_regular", "title": "Regular", "italic": false, "weight": 400 }
-    ]
-  },
-  {
-    "title": "Fira Sans Condensed",
-    "fontFace": [
-      { "id": "fira_sans_condensed_bold_italic", "title": "Bold Italic", "italic": true, "weight": 700 },
-      { "id": "fira_sans_condensed_bold", "title": "Bold", "italic": false, "weight": 700 },
-      { "id": "fira_sans_condensed_italic", "title": "Italic", "italic": true, "weight": 400 },
-      { "id": "fira_sans_condensed_regular", "title": "Regular", "italic": false, "weight": 400 }
+    "name": "Fira Sans",
+    "faces": [
+      { "id": "fira_sans_bold_italic",      "style": "italic", "weight": 700, "width": "normal"    },
+      { "id": "fira_sans_bold",             "style": "normal", "weight": 700, "width": "normal"    },
+      { "id": "fira_sans_italic",           "style": "italic", "weight": 400, "width": "normal"    },
+      { "id": "fira_sans_regular",          "style": "normal", "weight": 400, "width": "normal"    },
+      { "id": "fira_sans_cond_bold_italic", "style": "italic", "weight": 700, "width": "condensed" },
+      { "id": "fira_sans_cond_bold",        "style": "normal", "weight": 700, "width": "condensed" },
+      { "id": "fira_sans_cond_italic",      "style": "italic", "weight": 400, "width": "condensed" },
+      { "id": "fira_sans_cond_regular",     "style": "normal", "weight": 400, "width": "condensed" }
     ]
   }
 ]
@@ -561,14 +564,14 @@ interface FontFace {
 Based on this example, the following glyphs must be available:
 
 ```shell
-/assets/fonts/fira_sans_bold/{range}.pbf
-/assets/fonts/fira_sans_bold_italic/{range}.pbf
-/assets/fonts/fira_sans_italic/{range}.pbf
-/assets/fonts/fira_sans_regular/{range}.pbf
-/assets/fonts/fira_sans_condensed_bold/{range}.pbf
-/assets/fonts/fira_sans_condensed_bold_italic/{range}.pbf
-/assets/fonts/fira_sans_condensed_italic/{range}.pbf
-/assets/fonts/fira_sans_condensed_regular/{range}.pbf
+/assets/glyphs/fira_sans_bold/{range}.pbf
+/assets/glyphs/fira_sans_bold_italic/{range}.pbf
+/assets/glyphs/fira_sans_italic/{range}.pbf
+/assets/glyphs/fira_sans_regular/{range}.pbf
+/assets/glyphs/fira_sans_cond_bold/{range}.pbf
+/assets/glyphs/fira_sans_cond_bold_italic/{range}.pbf
+/assets/glyphs/fira_sans_cond_italic/{range}.pbf
+/assets/glyphs/fira_sans_cond_regular/{range}.pbf
 ```
 
 
