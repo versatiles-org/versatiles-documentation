@@ -21,7 +21,7 @@
   - [Folder: `/assets/sprites/`](#folder-assetssprites)
   - [File: `/assets/sprites/index.json`](#file-assetsspritesindexjson)
   - [Folder: `/tiles/`](#folder-tiles)
-  - [Files: `/tiles/{tile_id}/{z}/{x}/{y}{.ext}`](#files-tilestile_idzxyext)
+  - [Files: `/tiles/{tileset_id}/{z}/{x}/{y}{.ext}`](#files-tilestileset_idzxyext)
   - [File: `/tiles/index.json`](#file-tilesindexjson)
 - [Tools](#tools)
 - [versatiles.org](#versatilesorg)
@@ -401,12 +401,16 @@ Progress in the development and implementation of the Frontend Layer includes:
 
 # VersaTiles Frontend Specification
 
-To minimize confusion and incompatibilities, we recommend the following folder and file structure.
+Map servers like [Martin](https://github.com/maplibre/martin), [mbtileserver](https://github.com/consbio/mbtileserver), [t-rex](https://github.com/t-rex-tileserver/t-rex), [TileServer GL](https://github.com/maptiler/tileserver-gl) and others have different ways of organizing all files, folders and their URLs in the web frontend.
+
+This can be problematic and confusing. For example it is unclear if a folder `/fonts/` should contain web fonts (like `*.woff`) or glyphs for rendering in WebGL (`*.pbf`). Or if a folder `/styles/` should contain style sheets (`*.css`) or map style definitions (`style.json`).
+
+Based on best practices the VersaTiles Frontend Specification defines a recommended folder structure and file formats for serving static and dynamic files, to avoid confusion and incompatibilities when developing a web frontend.
 
 ## Folder Structure
 
 - 📄 **`index.html`**  
-  A front page.
+  The index.html file serves as the front page of the map server.
 
 - 📂 **`assets/`**  
   [Contains all static resources such as libraries, fonts, sprites, styles, images, ...](#folder-assets)
@@ -415,16 +419,16 @@ To minimize confusion and incompatibilities, we recommend the following folder a
     [Contains font glyphs used for map text rendering.](#folder-assetsglyphs)
 
     - 📂 **`{font_id}/`**  
-      Each font face is stored in its own folder, named using its font ID.
+      Each font face is stored in its own folder, named using a font ID.
 
       - 📄 **`{start}-{end}.pbf`**  
         Glyphs for each font are divided into ranges of 256 characters (e.g., `0-255.pbf`), where each file represents a specific Unicode range.
 
-    - 📄 **`index.json`**  
-      [A JSON file that lists all available font IDs, essentially providing an index of all the fonts in the `assets/glyphs/` folder. ](#file-assetsglyphsindexjson)
-
     - 📄 **`font_families.json`**  
       [Defines all available font families and their font faces (e.g., regular, italic, bold, condensed) along with their properties.](#file-assetsglyphsfont_familiesjson)
+
+    - 📄 **`index.json`**  
+      [A JSON file that lists all available font IDs, essentially providing an index of all the fonts in the `assets/glyphs/` folder.](#file-assetsglyphsindexjson)
 
   - 📂 **`lib/`**  
     Contains all JavaScript/CSS libraries.
@@ -456,26 +460,26 @@ To minimize confusion and incompatibilities, we recommend the following folder a
   - 📂 **`styles/`**  
     Contains prepared map styles.
 
-    - 📄 **`{style_id}.json`**  
-      Each map style is stored in its own JSON file, identified by `{style_id}`. The file follows the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/) to define how the map is rendered.
+    - 📄 **`{style_id}/style.json`**  
+      Each map style is stored in its own folder. I must contain a `style.json` file following the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/) to define how the map is rendered. The folder can also contain additional files like style specific sprite definitions.
 
   - 📂 **`.../`**  
-    Additional static folders such as `css`, `fonts`, `images`, and `js`.
+    Optional subfolders such as `css/`, `fonts/`, `images/`, and `js/` can be included as needed for additional resources.
 
 - 📂 **`tiles/`**
   [The content of this folder is generated and returned by the tile server.](#folder-tiles)
 
-  - 📂 **`{tile_id}/`**  
-    Each tile set is organized in a separate directory identified by its `{tile_id}`.
+  - 📂 **`{tileset_id}/`**  
+    Each tile set is organized in a separate directory identified by its `{tileset_id}`.
 
     - 📄 **`{z}/{x}/{y}{.ext}`**  
-      [The individual map tiles are stored in subdirectories based on the zoom level (`{z}`), column (`{x}`), and row (`{y}`). The tile file extension (`{.ext}`) is optional.](#files-tilestile_idzxyext)
+      [The individual map tiles are stored in subdirectories based on the zoom level (`{z}`), column (`{x}`), and row (`{y}`). The tile file extension (`{.ext}`) is optional.](#files-tilestileset_idzxyext)
 
     - 📄 **`tiles.json`**  
       Metadata for each tile set following the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
 
   - 📄 **`index.json`**  
-    [JSON with an array of tile IDs. This file acts as a directory of available map tile layers.](#file-tilesindexjson)
+    [JSON with an array of tile set IDs. This file acts as a directory of available tile sets.](#file-tilesindexjson)
 
 
 ## Folder: `/assets/`
@@ -496,7 +500,7 @@ The `/assets/` folder is designated for static assets such as JavaScript librari
 
 ## File: `/assets/glyphs/index.json`
 
-The `/assets/glyphs/index.json` file should contain a JSON array listing all available font IDs. These IDs correspond to the folder names within `/assets/glyphs/`, where each folder contains the glyphs for that font.
+The `/assets/glyphs/index.json` file should contain a JSON array listing all available `{font_id}`s. These `{font_id}`s correspond to the folder names within `/assets/glyphs/`, where each folder contains the glyphs for that font face. This index file can be used by map design tools to get a list of all fonts.
 
 **Example:**
 
@@ -516,8 +520,8 @@ The `/assets/glyphs/index.json` file should contain a JSON array listing all ava
 
 ## File: `/assets/glyphs/font_families.json`
 
-The `/assets/glyphs/font_families.json` file should contain a JSON array defining all font families along with their respective font faces.
-Each `fontFace` object's `id` must match the corresponding glyph folder name in `/assets/glyphs/`.
+The `/assets/glyphs/font_families.json` file should contain a JSON array defining all font families along with their respective font faces. This will allow map design tools to know, which font faces for each font family are available.
+Each `FontFace` object's `id` must match the corresponding `{font_id}` in `/assets/glyphs/`.
 
 > [!NOTE]
 > The structure of `font_families.json` is based on the concepts of [font families and font faces in CSS 4](https://www.w3.org/TR/css-fonts-4/#font-families).
@@ -580,7 +584,7 @@ Based on this example, the following glyphs must be available:
 
 ## Folder: `/assets/sprites/`
 
-- All map sprites should be stored in the `/assets/sprites/` directory.
+- All map sprites, that are used by multiple map styles, should be stored in the `/assets/sprites/` directory.
 - Each sprite should be contained in its own subdirectory: `/assets/sprites/{sprite_id}/`.
 - The metadata for each sprite is defined in JSON format following the [sprite source specification](https://maplibre.org/maplibre-style-spec/sprite/#sprite-source-format) and should be served as `/assets/sprites/{sprite_id}/sprite.json`.
 - Sprite IDs (`{sprite_id}`) should be OS/UNIX/URL safe, using only lowercase letters, digits, and underscores.
@@ -590,55 +594,47 @@ Based on this example, the following glyphs must be available:
 
 ## File: `/assets/sprites/index.json`
 
-This file should be formatted in the same way as defining [multiple sprite sources](https://maplibre.org/maplibre-style-spec/sprite/#multiple-sprite-sources) within a style.
+This file should contain a JSON array listing all available `{sprite_id}`s. These `{sprite_id}`s correspond to the folder names within `/assets/sprites/`. This index file can be used by map design tools to get a list of all sprites.
 
 **Example:**
 
 ```json
 [
-  {
-    "id": "versatiles",
-    "url": "https://tiles.versatiles.org/assets/sprites/versatiles/sprite.json"
-  },
-  {
-    "id": "marker",
-    "url": "https://tiles.versatiles.org/assets/sprites/marker/sprite.json"
-  },
-  {
-    "id": "animals",
-    "url": "https://example.org/assets/sprites/animals/sprite.json"
-  }
+  "versatiles",
+  "marker",
+  "traffic_signs",
+  "cabbages"
 ]
 ```
 
 
 ## Folder: `/tiles/`
 
-The `/tiles/` folder is used to serve map tiles and related metadata in the [TileJSON format](https://github.com/mapbox/tilejson-spec). All files are served by the map server.
+The `/tiles/` folder is used to serve map tiles and related metadata in the [TileJSON format](https://github.com/mapbox/tilejson-spec). All files are generated dynamically by the map server.
 
 
-## Files: `/tiles/{tile_id}/{z}/{x}/{y}{.ext}`
+## Files: `/tiles/{tileset_id}/{z}/{x}/{y}{.ext}`
 
-- `/tiles/{tile_id}/`: Each tile set is stored in its own subdirectory identified by `{tile_id}`.
-- `/tiles/{tile_id}/{z}/{x}/{y}`: The tiles themselves are stored in directories based on zoom level (`{z}`), and within that, further divided by x (column) and y (row) coordinates (`{x}`, `{y}`).
-- file extensions `{.ext}` are optional.
+- `/tiles/{tileset_id}/`: Each tile set is stored in its own subdirectory identified by `{tileset_id}`.
+- `/tiles/{tileset_id}/{z}/{x}/{y}`: The tiles themselves are stored in directories based on zoom level (`{z}`), and within that, further divided by x (column) and y (row) coordinates (`{x}`, `{y}`).
+- File extensions `{.ext}` are optional. But if set they should reflect the correct data type of the map tiles like `.png`, `.jpeg` or `.pbf`.
 
 For a tile set with the ID `city_map`, the folder structure for a tile at zoom level 10, coordinates (x: 512, y: 384) would be: `/tiles/city_map/10/512/384`
 
 
 ## File: `/tiles/index.json`
 
-In addition to individual `tiles.json` files for each tile set, you should provide an `index.json` file in the `/tiles/` directory. This file contains an array of all available TileJSON URLs for the various tile sets.
+This file contains an array of all available `{tileset_id}`. For every `{tileset_id}` their must be `/tiles/{tileset_id}/tiles.json`. This index file can be used by map design tools to get a list of all available tile sets.
 
 **Example:**
 
 ```json
 [
-  "https://example.org/tiles/osm/tiles.json",
-  "https://example.org/tiles/elevation/tiles.json",
-  "https://example.org/tiles/hillshade-raster/tiles.json",
-  "https://example.org/tiles/hillshade-vector/tiles.json",
-  "https://example.org/tiles/landcover-vector/tiles.json"
+  "osm",
+  "elevation",
+  "hillshade-raster",
+  "hillshade-vector",
+  "landcover-vector"
 ]
 ```
 
