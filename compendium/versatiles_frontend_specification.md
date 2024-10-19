@@ -204,7 +204,7 @@ Based on this example, the following glyphs must be available:
 - Each sprite should be contained in its own subdirectory: `/assets/sprites/{sprite_id}/`.
 - The metadata for each sprite is defined in JSON format following the [sprite source specification](https://maplibre.org/maplibre-style-spec/sprite/#sprite-source-format) and should be served as `/assets/sprites/{sprite_id}/sprite.json`.
 - Sprite IDs (`{sprite_id}`) should be OS/UNIX/URL safe, using only lowercase letters, digits, and underscores.
-- Additionally, you should provide a list of all available sprites in the [`/assets/sprites.json`](#file-assetsspritesjson) file.
+- Additionally, you should provide a list of all available sprites in the [`/assets/sprites/index.json`](#file-assetsspritesindexjson) file.
 - Refer to the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/sprite/) for more detailed information on sprites.
 
 

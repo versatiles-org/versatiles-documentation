@@ -292,7 +292,7 @@ The Frontend Layer serves as the graphical interface, presenting map tiles to th
 ### Requirements/Recommendations
 
 - The frontend SHOULD be capable to draw Shortbread vector tiles and raster tiles.
-- See [VersaTiles Frontend Specifications](#versatiles-frontend-specification) for more information.
+- See [VersaTiles Frontend Specifications](versatiles_frontend_specification.md) for more information.
 
 
 ### Status
