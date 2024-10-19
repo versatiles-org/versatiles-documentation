@@ -132,7 +132,7 @@ The server delivers map tiles and static files over HTTP. These static files can
 	 - `/tiles/{name}/{z}/{x}/{y}`: Standardised endpoints for accessing tiles.
 	 - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
   - `/assets/`: Houses additional resources such as styles, fonts, sprites, and MapLibre GL JS files.
-  - See [VersaTiles Frontend Specifications](#versatiles-frontend-specification) for more information.
+  - See [VersaTiles Frontend Specifications](versatiles_frontend_specification.md) for more information.
 - SHOULD be configured via `config.yaml` for a customised server setup, including domain setup, IP/port listening preferences, operation modes (development vs. production), tile source specification and static content management:
 
 ```yaml
@@ -267,7 +267,7 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 - [ ] [CDN77](https://www.cdn77.com/) (4\$/TB, min. 990\$/month): not tested yet
 - [ ] [CDNetworks](https://www.cdnetworks.com/) (40\$/TB, min. 50\$/month): not tested yet
 - [ ] [Cloudflare CDN](https://www.cloudflare.com/en-gb/application-services/products/cdn/) (0$/TB, minimum costs: your soul): not tested yet
-- [ ] [Edgecast CDN](https://edg.io/applications/performance/): not tested yet
+- [ ] Edgecast CDN: not tested yet
 - [ ] [EdgeNext](https://www.edgenext.com/cdn/): not tested yet
 - [ ] [Fastly CDN](https://www.fastly.com/) (130$/TB): not tested yet
 - [ ] [KeyCDN](https://www.keycdn.com/) (40$/TB): not tested yet
