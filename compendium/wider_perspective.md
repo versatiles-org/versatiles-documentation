@@ -1,11 +1,11 @@
 
-# A Wider Perspective on VersaTiles
+# A wider perspective on VersaTiles
 
 We don't own our planet. Imposing copyright or ownership on any representation of our world, including photographs or geographic data, is fundamentally misguided. Geographic information is a common resource that should remain freely available to all of us.
 
-The privatisation of infrastructure is harmful to society. It paves the way for monopolies that serve the interests of a few, often driven by personal greed and exploitation. When control of critical infrastructure is concentrated in the hands of private companies, it reduces access and stifles innovation. The consequences are clear: higher costs, limited choice and a lack of transparency that benefits corporations over communities.
+Privatisation of infrastructure is harmful to society. It paves the way for monopolies that serve the interests of a few, often driven by personal greed and exploitation. When control of critical infrastructure is concentrated in the hands of private companies, it reduces access and stifles innovation. The consequences are clear: higher costs, reduced choice and a lack of transparency that benefits corporations over communities.
 
-VersaTiles is driven by the goal of democratising mapping data and tools. We believe that geographic information should be available to everyone, not just those with deep pockets. By providing open access to map data and infrastructure, VersaTiles ensures that individuals, communities and organisations around the world can build, use and share geographic knowledge freely. This empowerment fosters innovation, encourages collaboration and ultimately benefits society as a whole.
+VersaTiles is driven by the goal of democratising mapping data and tools. We believe that geographic information should be available to everyone, not just those with deep pockets. By providing open access to map data and infrastructure, VersaTiles ensures that individuals, communities and organisations around the world can freely build, use and share geographic knowledge. This empowerment fosters innovation, encourages collaboration and ultimately benefits society as a whole.
 
 
 
@@ -19,7 +19,7 @@ We uphold these values through
   
 - **Open Data**: We are strongly committed to unrestricted access to geographic data. We support initiatives that encourage data sharing, believing that the free exchange of information enriches public knowledge, spurs innovation and drives societal progress.
 
-- **Open Source**: VersaTiles is developed in an open, transparent environment where anyone can contribute, review or use the software. This openness promotes collaboration, enhances security through auditability, and fosters a vibrant ecosystem of applications, users, and contributors.
+- **Open Source**: VersaTiles is being developed in an open, transparent environment where anyone can contribute, review or use the software. This openness promotes collaboration, enhances security through auditability, and fosters a vibrant ecosystem of applications, users and contributors.
 
 - **Prefer free to open**: While we are committed to openness, we prioritise the creation and use of free standards, data and software whenever possible. This commitment ensures that everyone, regardless of resources, can access and contribute to the tools and knowledge.
 
@@ -34,12 +34,12 @@ To address these challenges, we are actively seeking grants and partnerships to 
 
 ## Legal entity
 
-A critical factor in the future growth of VersaTiles is determining the most appropriate legal structure to handle donations, financial transactions and governance. This decision is essential to establishing a solid foundation for the project, enabling us to accept donations, manage resources and ensure long-term sustainability.
+Determining the most appropriate legal structure to handle donations, financial transactions and governance is a critical factor in the future of VersaTiles. This decision is essential to establish a solid foundation for the project, enabling us to accept donations, manage resources and ensure long-term sustainability.
 
 Options under consideration include
 
 - **Independent entity**: Setting up VersaTiles as a fully independent legal entity. This would allow full control over decision making and operations, but would also mean taking on full responsibility for organisational management, including legal, financial and administrative tasks. This route requires significant effort to build and maintain a robust organisation from scratch, which could take focus away from development.
 
-- **Part of an existing foundation**: Integrate VersaTiles as part of an existing foundation or organisation. This option has the advantage of using existing legal and financial frameworks, allowing the project to focus on its core mission of developing open source mapping tools. However, it may involve a loss of autonomy, as we would need to align ourselves with the policies and governance structures of the parent organisation.
+- **Part of an existing foundation**: Integrate VersaTiles as part of an existing foundation or organisation. This option has the advantage of using existing legal and financial frameworks, allowing the project to focus on its core mission of developing open source mapping tools. However, it may involve a loss of autonomy, as we would have to conform to the policies and governance structures of the parent organisation.
 
-Both options have benefits and risks. Establishing an independent entity requires significant resources and expertise, and could impose a heavy administrative burden, potentially slowing the growth of the project. On the other hand, joining an existing foundation could limit our autonomy and force us to deal with the constraints of external governance. These risks are why we are carefully evaluating both paths and taking the time to find a clear way forward that balances autonomy with sustainability and ensures that VersaTiles continues to thrive without compromising its values.
+There are benefits and risks to both options. Establishing an independent entity requires significant resources and expertise, and could impose a heavy administrative burden, potentially slowing the growth of the project. On the other hand, joining an existing foundation could limit our autonomy and force us to deal with the constraints of external governance. These risks are why we are carefully evaluating both paths and taking the time to find a clear way forward that balances autonomy with sustainability and ensures that VersaTiles continues to thrive without compromising its values.

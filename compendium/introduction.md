@@ -1,13 +1,3 @@
-- [Introduction](#introduction)
-	- [Who needs web maps?](#who-needs-web-maps)
-	- [What are Slippy Maps?](#what-are-slippy-maps)
-	- [Why is there no simple solution?](#why-is-there-no-simple-solution)
-	- [How does VersaTiles solve the problem?](#how-does-versatiles-solve-the-problem)
-
-
-------------------------------------------
-
-
 # Introduction
 
 Since the early 1990s, the web has seen significant technological advances. New standards and tools have made it easier to publish text, articles, photos, videos and other forms of media. However, publishing maps remains particularly challenging.
@@ -46,12 +36,12 @@ A frontend such as [MapLibre](https://maplibre.org/), [Leaflet](https://leafletj
 
 This approach works well for image tiles, such as satellite and aerial imagery. However, it has some disadvantages when displaying [thematic maps](https://en.wikipedia.org/wiki/Thematic_map), such as city maps. When zooming in, the map has to transition from one zoom level to another, causing labels to disappear and reappear. Image tiles do not provide a smooth zooming experience.
 
-So the concept of 'slippy maps' has been improved by using vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons and their properties - much like SVG. But because SVG is too cumbersome, Mapbox developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as compact [protobufs](https://protobuf.dev/) (PBF). The frontend should read the geographic data and draw the map accordingly. One advantage is that the map style can be defined in the frontend, so that the colour or even the language of the map can be adjusted. Rendering large amounts of vector data can be computationally expensive, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL or Vulcan.
+So the concept of "slippy maps" has been improved by using vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons and their properties - much like SVG. But because SVG is too cumbersome, Mapbox has developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as compact [protobufs](https://protobuf.dev/) (PBF). The frontend should read the geographic data and draw the map accordingly. One advantage is that the map style can be defined in the frontend, so that the colour or even the language of the map can be adjusted. Rendering large amounts of vector data can be computationally expensive, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL or Vulcan.
 
 
 ## Why is there no simple solution?
 
-Generating, serving, and visualising map tiles can be a complex process due to the variety of tile formats, hosting options, storage and generation methods, serving and display techniques, map data styling approaches, and data source combinations. In addition, front-ends need to render vector data, satellite imagery, hillshading, data visualisation layers, and interactive front-end elements.
+Generating, serving, and visualising map tiles can be a complex process due to the variety of tile formats, hosting options, storage and generation methods, serving and display techniques, map data styling approaches, and data source combinations. In addition, front-ends must render vector data, satellite imagery, hillshading, data visualisation layers, and interactive front-end elements.
 
 Commercial vendors such as Mapbox address these challenges by offering a comprehensive software suite. However, the solution is expensive, leads to vendor lock-in and raises privacy concerns.
 
