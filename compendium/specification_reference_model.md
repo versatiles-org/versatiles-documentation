@@ -1,4 +1,4 @@
-- [VersaTiles Layer Specification](#versatiles-layer-specification)
+- [VersaTiles Reference Model](#versatiles-reference-model)
   - [Layer: Generator](#layer-generator)
   - [Interface: Container](#interface-container)
   - [Layer: Server](#layer-server)
@@ -11,7 +11,7 @@
 ------------------------------------------
 
 
-# VersaTiles Layer Specification
+# VersaTiles Reference Model
 
 Our reference pipeline has four segments:
 
@@ -132,7 +132,7 @@ The server delivers map tiles and static files over HTTP. These static files can
 	 - `/tiles/{name}/{z}/{x}/{y}`: Standardised endpoints for accessing tiles.
 	 - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
   - `/assets/`: Houses additional resources such as styles, fonts, sprites, and MapLibre GL JS files.
-  - See [VersaTiles Frontend Specifications](versatiles_frontend_specification.md) for more information.
+  - See [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
 - SHOULD be configured via `config.yaml` for a customised server setup, including domain setup, IP/port listening preferences, operation modes (development vs. production), tile source specification and static content management:
 
 ```yaml
@@ -292,7 +292,7 @@ The Frontend Layer serves as the graphical interface, presenting map tiles to th
 ### Requirements/Recommendations
 
 - The frontend SHOULD be capable to draw Shortbread vector tiles and raster tiles.
-- See [VersaTiles Frontend Specifications](versatiles_frontend_specification.md) for more information.
+- See [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
 
 
 ### Status
