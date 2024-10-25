@@ -1,8 +1,8 @@
 # VersaTiles Frontend Specification
 
-Map servers like [Martin](https://github.com/maplibre/martin), [mbtileserver](https://github.com/consbio/mbtileserver), [t-rex](https://github.com/t-rex-tileserver/t-rex), [TileServer GL](https://github.com/maptiler/tileserver-gl) and others have different ways of organising all the files, folders and their URLs in the web frontend.
+Map servers like [Martin](https://github.com/maplibre/martin), [mbtileserver](https://github.com/consbio/mbtileserver), [t-rex](https://github.com/t-rex-tileserver/t-rex), [TileServer GL](https://github.com/maptiler/tileserver-gl) and others have different ways of organising their files and folders in the web frontend. The same assets can be served at different URLs depending on the server software.
 
-This can be problematic and confusing. For example, it is unclear whether a `/fonts/` folder should contain web fonts (`*.woff`) or glyphs for rendering in WebGL (`*.pbf`). Or if a `/styles/` folder should contain style sheets (`*.css`) or map style definitions (`style.json`).
+This can be problematic and confusing. For example, it is unclear whether a `/fonts/` folder should contain web fonts (`*.woff`) or glyphs for Maplibre GL JS (`*.pbf`). Or if a `/styles/` folder should contain style sheets (`*.css`) or map style definitions (`style.json`).
 
 Based on best practices, the VersaTiles Frontend Specification defines a recommended folder structure and file formats for serving static and dynamic files to avoid confusion and incompatibilities when developing a web frontend.
 
@@ -31,7 +31,7 @@ Based on best practices, the VersaTiles Frontend Specification defines a recomme
     [A JSON file that lists all available font IDs, essentially providing an index of all the fonts in the `assets/glyphs/` folder.](#file-assetsglyphsindexjson)
 
   - 📂 **`lib/`**  
-   Contains all the JavaScript/CSS libraries.
+   Contains all JavaScript/CSS libraries.
 
    - 📂 **`maplibre-gl/`**  
     Folder for [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), which must contain both `maplibre-gl.js` and `maplibre-gl.css` files for map rendering.
@@ -40,7 +40,7 @@ Based on best practices, the VersaTiles Frontend Specification defines a recomme
     Folder for [VersaTiles Style](https://github.com/versatiles-org/versatiles-style), which contains the `versatiles-style.js` file to generate map styles.
 
    - 📂 **`.../`**  
-    Optionally you can include other libraries like [MapLibre GL Inspect](https://github.com/maplibre/maplibre-gl-inspect), ...
+    Optionally you can include other libraries such as [MapLibre GL Inspect](https://github.com/maplibre/maplibre-gl-inspect), ...
 
   - 📂 **`sprites/`**  
    [Contains all map sprites (image files with multiple small graphical icons or symbols used on the map)](#folder-assetssprites)
@@ -70,7 +70,7 @@ Based on best practices, the VersaTiles Frontend Specification defines a recomme
   [The contents of this folder are generated and returned by the tile server.](#folder-tiles)
 
   - 📂 **`{tileset_id}/`**  
-   Each tile set is organised in a separate folder identified by its `{tileset_id}`.
+   Each tile set is organised in its own folder.
 
    - 📄 **`{z}/{x}/{y}{.ext}`**  
     [The individual map tiles are stored in subdirectories based on zoom level (`{z}`), column (`{x}`) and row (`{y}`). The tile file extension (`{.ext}`) is optional.](#files-tilestileset_idzxyext)
@@ -79,7 +79,7 @@ Based on best practices, the VersaTiles Frontend Specification defines a recomme
     Metadata for each tile set following the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
 
   - 📄 **`index.json`**  
-   [JSON containing an array of tile set IDs. This file acts as a directory of available tile sets.](#file-tilesindexjson)
+   [JSON containing an array of all `tileset_id`s. This file acts as a directory of available tile sets.](#file-tilesindexjson)
 
 
 ## Folder: `/assets/`
@@ -171,24 +171,24 @@ interface FontFace {
 Based on this example, the following glyphs must be present:
 
 ```shell
-/assets/glyphs/fira_sans_bold/{range}.pbf
 /assets/glyphs/fira_sans_bold_italic/{range}.pbf
-/assets/glyphs/fira_sans_italic/{range}.pbf
-/assets/glyphs/fira_sans_regular/{range}.pbf
-/assets/glyphs/fira_sans_cond_bold/{range}.pbf
+/assets/glyphs/fira_sans_bold/{range}.pbf
 /assets/glyphs/fira_sans_cond_bold_italic/{range}.pbf
+/assets/glyphs/fira_sans_cond_bold/{range}.pbf
 /assets/glyphs/fira_sans_cond_italic/{range}.pbf
 /assets/glyphs/fira_sans_cond_regular/{range}.pbf
+/assets/glyphs/fira_sans_italic/{range}.pbf
+/assets/glyphs/fira_sans_regular/{range}.pbf
 ```
 
 
 ### Folder: `/assets/sprites/`
 
-- All map sprites used by multiple map styles should be stored in the `/assets/sprites/` directory.
+- All map sprites that are used by multiple map styles should be stored in the `/assets/sprites/` directory.
 - Each sprite should be in its own subdirectory: `/assets/sprites/{sprite_id}/`.
 - The metadata for each sprite is defined in JSON format according to the [sprite source specification](https://maplibre.org/maplibre-style-spec/sprite/#sprite-source-format) and should be served as `/assets/sprites/{sprite_id}/sprite.json`.
 - Sprite IDs (`{sprite_id}`) should be OS/UNIX/URL safe, using only lower case letters, numbers and underscores.
-- In addition, you should provide a list of all available sprites in the [`/assets/sprites/index.json`](#file-assetsspritesindexjson) file.
+- You should also provide a list of all available sprites in the [`/assets/sprites/index.json`](#file-assetsspritesindexjson) file.
 - See the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/sprite/) for more detailed information on sprites.
 
 
@@ -203,14 +203,14 @@ This file should contain a JSON array listing all available `{sprite_id}`s. Thes
   "versatiles",
   "markers",
   "traffic_signs",
-  "cabbages"
+  "animals"
 ]
 ```
 
 
 ## Folder: `/tiles/`
 
-The `/tiles/` folder is used to provide map tiles and associated metadata in [TileJSON format](https://github.com/mapbox/tilejson-spec). All files are dynamically generated by the map server.
+The `/tiles/` folder is used to provide map tiles and associated metadata (in [TileJSON format](https://github.com/mapbox/tilejson-spec)). All files are dynamically generated by the map server.
 
 
 ### Files: `/tiles/{tileset_id}/{z}/{x}/{y}{.ext}`
