@@ -107,17 +107,17 @@ The server provides map tiles and static files via HTTP. These static files can 
 
 - It MUST recognise and process [VersaTiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
 - It SHOULD handle HTTP headers in particular:
-	- `Content-Type` must accurately represent the MIME type.
-	- `Accept-Encoding` and `Content-Encoding` for data compression; recompress data if necessary.
-	- `Cache-Control` should be used to manage caching strategies for proxies, CDNs and browsers. Should include `no-transform`.
-	- `Vary` should be set to `Accept-Encoding`.
-	- Implement CORS headers such as `Access-Control-Allow-Origin` if required.
+  - `Content-Type` must accurately represent the MIME type.
+  - `Accept-Encoding` and `Content-Encoding` for data compression; recompress data if necessary.
+  - `Cache-Control` should be used to manage caching strategies for proxies, CDNs and browsers. Should include `no-transform`.
+  - `Vary` should be set to `Accept-Encoding`.
+  - Implement CORS headers such as `Access-Control-Allow-Origin` if required.
 - The server should know its public URL for referencing resources.
 - Organised tile and metadata access through a structured folder hierarchy is recommended:
   - `/tiles/`: The primary directory for retrieving tiles.
-	 - `/tiles/sources.json`: A detailed index of available tile sources.
-	 - `/tiles/{name}/{z}/{x}/{y}`: Standardised endpoints for accessing tiles.
-	 - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
+    - `/tiles/index.json`: An index of available tile sources.
+    - `/tiles/{name}/{z}/{x}/{y}`: Standardised endpoints for accessing tiles.
+    - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
   - `/assets/`: Houses additional resources such as styles, fonts, sprites and MapLibre GL JS files.
   - See [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
 - SHOULD be configured via `config.yaml` for a customised server setup, including domain setup, IP/port listening preferences, operation modes (development vs. production), tile source specification and static content management:
@@ -134,14 +134,14 @@ fast: true                        # Set to false in production for full compress
 # Configuration for tile sources
 tile_sources:
   - name: 'osm'
-	 source: './osm.versatiles'    # Local source for OpenStreetMap tiles
+    source: './osm.versatiles'    # Local source for OpenStreetMap tiles
   - name: 'landsat'
-	 source: 'https://example.org/landsat.versatiles'   # Remote source for Landsat tiles
+    source: 'https://example.org/landsat.versatiles'   # Remote source for Landsat tiles
 
 # Optional configuration for serving static content
 static_content:
   - source: './styles'
-	 prefix: 'assets/styles'  # URL path prefix for styles; default prefix is "/"
+    prefix: 'assets/styles'  # URL path prefix for styles; default prefix is "/"
   - source: './frontend.tar'
 
 cors:
@@ -150,13 +150,13 @@ cors:
 
   # List of URL patterns to explicitly allow for CORS requests
   allow_patterns:
-	 - '^https?://trusteddomain\.com'
-	 - '^https?://*.example\.com'
+    - '^https?://trusteddomain\.com'
+    - '^https?://*.example\.com'
 
   # List of URL patterns to explicitly block for CORS requests
   block_patterns:
-	 - '^https?://untrusteddomain\.com'
-	 - '^https?://*.malicious\.com'
+    - '^https?://untrusteddomain\.com'
+    - '^https?://*.malicious\.com'
 
 logging:
   level: 'info'                   # Options: 'debug', 'info', 'warning', 'error'
