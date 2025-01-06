@@ -30,6 +30,8 @@ How to:
 - … on **Raspberry Pi**
 - … on **AWS**
 
+There is also a community-developed [Ansible Playbook](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/versatiles.md).
+
 ## Advanced Guide
 - [How to use VersaTiles in **Android and iOS** apps?](guides/what_about_mobile.md)
 - [How to use VersaTiles in **QGIS**?](guides/use_versatiles_in_qgis.md)
