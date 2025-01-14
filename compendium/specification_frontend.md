@@ -9,78 +9,39 @@ Based on best practices, the VersaTiles Frontend Specification defines a recomme
 
 ## Folder Structure
 
-- 📄 **`index.html`**  
-  The index.html file is the front page of the map server.
-
-- 📂 **`assets/`**  
-  [Contains all static resources such as libraries, fonts, sprites, styles, images, ...](#folder-assets)
-
-  - 📂 **`glyphs/`**  
-    [Contains font glyphs used for map text rendering](#folder-assetsglyphs)
-
-    - 📂 **`{font_id}/`**  
-      Each font face is stored in its own folder, named by its font ID.
-
-      - 📄 **`{start}-{end}.pbf`**  
-        The glyphs for each font are divided into ranges of 256 characters (e.g. `0-255.pbf`), with each file representing a particular Unicode range.
-
-    - 📄 **`font_families.json`**  
-      [Defines all available font families and their font faces (e.g. regular, italic, bold, condensed) along with their properties.](#file-assetsglyphsfont_familiesjson)
-
-    - 📄 **`index.json`**  
-      [A JSON file that lists all available font IDs, essentially providing an index of all the fonts in the `assets/glyphs/` folder.](#file-assetsglyphsindexjson)
-
-  - 📂 **`lib/`**  
-    Contains all JavaScript/CSS libraries.
-
-    - 📂 **`maplibre-gl/`**  
-      Folder for [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), which must contain both `maplibre-gl.js` and `maplibre-gl.css` files for map rendering.
-
-    - 📂 **`versatiles-style/`**  
-      Folder for [VersaTiles Style](https://github.com/versatiles-org/versatiles-style), which contains the `versatiles-style.js` file to generate map styles.
-
-    - 📂 **`.../`**  
-      Optionally you can include other libraries such as [MapLibre GL Inspect](https://github.com/maplibre/maplibre-gl-inspect), ...
-
-  - 📂 **`sprites/`**  
-    [Contains all map sprites (image files with multiple small graphical icons or symbols used on the map)](#folder-assetssprites)
-
-    - 📂 **`{sprite_id}/`**  
-    Each sprite is stored in its own directory, named by its sprite ID.
-
-      - 📄 **`sprite.json`**  
-        The metadata for the sprite set, defined according to the [Sprite Source Format](https://maplibre.org/maplibre-style-spec/sprite/#sprite-source-format).
-
-      - 📄 **`sprite.png`**  
-        The actual sprite image, containing all the sprite icons in a single PNG image file.
-
-    - 📄 **`index.json`**  
-      [A JSON file listing all available sprite IDs.](#file-assetsspritesindexjson)
-
-  - 📂 **`styles/`**  
-    Contains prepared map styles.
-
-    - 📄 **`{style_id}/style.json`**  
-      Each map style is stored in a separate folder. It must contain a `style.json` file following the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/) to define how the map is rendered. The folder may also contain additional files such as style-specific sprite definitions.
-
-  - 📂 **`.../`**  
-    Optional subfolders such as `css/`, `fonts/`, `images/` and `js/` can be included as needed for additional resources.
-
-- 📂 **`tiles/`**
-  [The contents of this folder are generated and returned by the tile server.](#folder-tiles)
-
-  - 📂 **`{tileset_id}/`**  
-    Each tile set is organised in its own folder.
-
-    - 📄 **`{z}/{x}/{y}{.ext}`**  
-      [The individual map tiles are stored in subdirectories based on zoom level (`{z}`), column (`{x}`) and row (`{y}`). The tile file extension (`{.ext}`) is optional.](#files-tilestileset_idzxyext)
-
-    - 📄 **`tiles.json`**  
-      Metadata for each tile set following the [TileJSON specification](https://github.com/mapbox/tilejson-spec).
-
-  - 📄 **`index.json`**  
-    [JSON containing an array of all `tileset_id`s. This file acts as a directory of available tile sets.](#file-tilesindexjson)
-
+<pre>
+├── 📂 <a href="#folder-assets">assets/</a>
+│   ├── 📂 <a href="#folder-assetsglyphs">glyphs/</a>
+│   │   ├── 📂 <a href="#folder-assetsglyphs">{font_id}/</a>
+│   │   │   └── 📄 <a href="#folder-assetsglyphs">{start}-{end}.pbf</a>
+│   │   ├── 📄 <a href="#file-assetsglyphsfont_familiesjson">font_families.json</a>
+│   │   └── 📄 <a href="#file-assetsglyphsindexjson">index.json</a>
+│   ├── 📂 lib/
+│   │   ├── 📂 maplibre-gl/
+│   │   │   ├── 📄 maplibre-gl.css
+│   │   │   ├── 📄 maplibre-gl.js
+│   │   │   └── ...
+│   │   ├── 📂 versatiles-style/
+│   │   │   └── 📄 versatiles-style.js
+│   │   └── 📂 .../
+│   ├── 📂 <a href="#folder-assetssprites">sprites/</a>
+│   │   ├── 📂 <a href="#folder-assetssprites">{sprite_id}/</a>
+│   │   │   ├── 📄 <a href="#folder-assetssprites">sprite.json</a>
+│   │   │   └── 📄 <a href="#folder-assetssprites">sprite.png</a>
+│   │   └── 📄 <a href="#file-assetsspritesindexjson">index.json</a>
+│   ├── 📂 <a href="#folder-assetsstyles">styles/</a>
+│   │   └── 📂 <a href="#folder-assetsstyles">{style_id}/</a>
+│   │       └── 📄 <a href="#folder-assetsstyles">style.json</a>
+│   └── 📂 .../
+├── 📂 <a href="#folder-tiles">tiles/</a>
+│   ├── 📂 <a href="#files-tilestileset_idzxyext">{tileset_id}/</a>
+│   │   ├── 📂 <a href="#files-tilestileset_idzxyext">{z}/</a>
+│   │   │   └── 📂 <a href="#files-tilestileset_idzxyext">{x}/</a>
+│   │   │       └── 📄 <a href="#files-tilestileset_idzxyext">{y}{.ext}</a>
+│   │   └── 📄 tiles.json
+│   └── 📄 <a href="#file-tilesindexjson">index.json</a>
+└── 📄 index.html
+</pre>
 
 ## Folder: `/assets/`
 
@@ -191,6 +152,14 @@ Based on this example, the following glyphs must be present:
 - You should also provide a list of all available sprites in the [`/assets/sprites/index.json`](#file-assetsspritesindexjson) file.
 - See the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/sprite/) for more detailed information on sprites.
 
+
+### Folder: `/assets/styles/`
+
+- All prepared map styles should be stored in the `/assets/styles/` directory.
+- Each style should be in its own subdirectory: `/assets/styles/{style_id}/`.
+- The styles are defined in JSON format according to the [MapLibre style specification](https://maplibre.org/maplibre-style-spec/) and should be served as `/assets/styles/{style_id}/style.json`.
+- Additional variants of the style can also be saved in the folder, e.g. localised versions such as `de.json`, `en.json`, `nolabel.json` etc.
+- Style IDs (`{style_id}`) should be OS/UNIX/URL safe, using only lower case letters, numbers and underscores.
 
 ### File: `/assets/sprites/index.json`
 
