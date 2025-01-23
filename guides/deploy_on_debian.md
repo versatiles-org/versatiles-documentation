@@ -58,7 +58,7 @@ WantedBy=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=versatiles serve "2023-01-planet.versatiles#osm" --static-tar frontend.br.tar -p 8080 -i 0.0.0.0
+ExecStart=versatiles serve "[osm]2023-01-planet.versatiles" -s frontend.br.tar -p 8080
 WorkingDirectory=/home/abhi/Dev/echo-server
 Restart=always
 RestartSec=5

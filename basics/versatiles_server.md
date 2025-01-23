@@ -64,8 +64,8 @@ versatiles server -s frontend.br.tar planet.versatiles
 
 ## Different IP/Port
 
-Per default versatiles uses 127.0.0.1:8080. If you want to change IP/Port use the options:
-- `-i`/`--ip`: e.g. `-i 0.0.0.0`
+Per default versatiles uses 0.0.0.0:8080. If you want to change IP/Port use the options:
+- `-i`/`--ip`: e.g. `-i 127.0.0.1`
 - `-p`/`--port`: e.g. `-p 3000`
 
 # What's not included?
