@@ -21,7 +21,7 @@ EXPOSE $PORT
 
 # Start the VersaTiles server with the following parameters:
 #   -p $PORT: Set the port
-#   -s frontend.br.tar: serve the frontend as static content, if you like
+#   -s frontend-dev.br.tar: serve the frontend as static content, if you like
 #   "[osm]https://..." is the url of the VersaTiles container
 #      - enter the correct url of the file in your Google Bucket
 #      - make sure, this file is publicly accessible
@@ -29,7 +29,7 @@ EXPOSE $PORT
 #      - you can append more entries if you want to host multiple tile sources
 CMD versatiles serve \
     -p $PORT \
-    -s frontend.br.tar \
+    -s frontend-dev.br.tar \
     "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"
 ```
 - Don't forget to update the last line of `Dockerfile` to point to your Google Bucket

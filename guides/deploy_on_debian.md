@@ -29,7 +29,7 @@ cargo install versatiles
 cd ~
 mkdir versatiles
 cd versatiles
-curl -Lo frontend.br.tar "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+curl -Lo frontend.br.tar.gz "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 aria2c --seed-time=0 "https://download.versatiles.org/planet-20230227.versatiles.torrent"
 ```
 
@@ -58,7 +58,7 @@ WantedBy=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=versatiles serve "[osm]2023-01-planet.versatiles" -s frontend.br.tar -p 8080
+ExecStart=versatiles serve "[osm]2023-01-planet.versatiles" -s frontend.br.tar.gz -p 8080
 WorkingDirectory=/home/abhi/Dev/echo-server
 Restart=always
 RestartSec=5

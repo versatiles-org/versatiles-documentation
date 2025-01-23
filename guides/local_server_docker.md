@@ -18,7 +18,7 @@ Start the VersaTiles container with the latest image including the front-end use
 
 ```bash
 docker run -p 8080:8080 --mount src="$(pwd)",dst=/tiles,type=bind,readonly versatiles/versatiles-frontend:latest-alpine \
-versatiles serve -s frontend.br.tar '[osm]/tiles/osm.versatiles'
+versatiles serve -s frontend-dev.br.tar.gz '[osm]/tiles/osm.versatiles'
 ```
 
 Open `http://localhost:8080/` in your browser. It should look like this: [Screenshot of the frontend](../assets/screenshots/frontend_index.png)
@@ -33,7 +33,7 @@ The Docker command example above contains quite a bit of information, so we shou
 
 Now we have configured docker run. The following arguments are for the VersaTiles server inside:
 - **`versatiles server`** run versatiles in server mode.
-- **`-s frontend.br.tar`** adds the included [frontend](https://github.com/versatiles-org/versatiles-frontend).
+- **`-s frontend-dev.br.tar`** adds the included [frontend](https://github.com/versatiles-org/versatiles-frontend).
 - **`'[osm]/tiles/osm.versatiles'`** use the mounted `*.versatiles` file. Change this if your file has a different name.
 
 For more information, see the documentation on [using the VersaTiles server](https://github.com/versatiles-org/versatiles-documentation/blob/main/basics/versatiles_server.md#usage).

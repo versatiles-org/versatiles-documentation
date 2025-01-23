@@ -9,11 +9,11 @@ To make it easier for you we prepared and bundled everything in a compact packag
 
 ## Download the frontend
 
-We release the frontend as a TAR file [here](https://github.com/versatiles-org/versatiles-frontend/releases/latest). The package `frontend.br.tar` contains all the files but pre-compressed with Brotli so that the server can provide the compressed files with minimal CPU load.
+We release the frontend as a TAR file [here](https://github.com/versatiles-org/versatiles-frontend/releases/latest). The package `frontend.br.tar.gz` contains all the files but pre-compressed with Brotli so that the server can provide the compressed files with minimal CPU load.
 
 To download it just run:
 ```bash
-wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 ```
 
 ## How is it build?

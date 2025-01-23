@@ -53,13 +53,13 @@ Now the URLs look like this:
 
 You can extend the VersaTiles server with an optional frontend. This frontend includes the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), map styles, fonts and symbols. You can [download the frontend](../basics/frontend.md#download-the-frontend):
 ```bash
-wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 ```
 
 You can then add the frontend to the server by adding the tar file with a `-s` argument:
 
 ```bash
-versatiles server -s frontend.br.tar planet.versatiles
+versatiles server -s frontend.br.tar.gz planet.versatiles
 ```
 
 ## Different IP/Port

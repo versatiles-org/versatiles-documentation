@@ -31,17 +31,17 @@ Once the download is complete, save the `.versatiles` file in a directory of you
 The frontend might be helpful because it includes JavaScript libraries, map styles, and fonts. You can download the latest frontend using `wget` by running the following command:
 
 ```bash
-wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 ```
 
-Save the `frontend.br.tar` file in the same directory as the `.versatiles` file.
+Save the `frontend.br.tar.gz` file in the same directory as the `.versatiles` file.
 
 ## Step 4: Start the VersaTiles server
 
 To start the VersaTiles server, open a shell, navigate to the directory where you saved the `.versatiles` file and the frontend file, and run:
 
 ```bash
-versatiles serve -i 127.0.0.1 -s frontend.br.tar "[osm]osm.versatiles"
+versatiles serve -i 127.0.0.1 -s frontend.br.tar.gz "[osm]osm.versatiles"
 ```
 
 The VersaTiles server will now be running locally on your machine. To test it open `http://localhost:8080` in your browser.

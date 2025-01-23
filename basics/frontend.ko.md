@@ -31,14 +31,14 @@ Brotli로 압축된 파일을 사용하면 서버의 CPU 부하를 줄이고 성
 이 명령어는 `frontend.br.tar` 파일을 현재 디렉토리로 다운로드합니다.
 
 ```bash
-wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar"
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 ```
 
 ### Brotli 압축 파일을 사용하여 `versatiles` 실행
 
-아래 명령어는 `-s` 또는 `--static` 옵션으로 `frontend.br.tar` 파일에 포함된 정적 파일을 제공합니다.
+아래 명령어는 `-s` 또는 `--static` 옵션으로 `frontend.br.tar.gz` 파일에 포함된 정적 파일을 제공합니다.
 ```sh
-versatiles osm.versatiles --static frontend.br.tar
+versatiles osm.versatiles --static frontend.br.tar.gz
 ```
 
 
