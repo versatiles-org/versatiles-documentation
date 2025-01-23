@@ -18,7 +18,7 @@ Start the VersaTiles container with the latest image including the front-end use
 
 ```bash
 docker run -p 8080:8080 --mount src="$(pwd)",dst=/tiles,type=bind,readonly versatiles/versatiles-frontend:latest-alpine \
-versatiles serve -s frontend-dev.br.tar.gz '[osm]/tiles/osm.versatiles'
+versatiles serve -s frontend-dev.br.tar '[osm]/tiles/osm.versatiles'
 ```
 
 Open `http://localhost:8080/` in your browser. It should look like this: [Screenshot of the frontend](../assets/screenshots/frontend_index.png)
