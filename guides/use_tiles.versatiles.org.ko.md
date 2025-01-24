@@ -11,33 +11,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Versatiles: Demo Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link href="https://tiles.versatiles.org/assets/maplibre-gl/maplibre-gl.css" rel="stylesheet" />
-  <link href="https://tiles.versatiles.org/assets/mapdesigner/mapdesigner-control.css" rel="stylesheet" />
-
-  <script src="https://tiles.versatiles.org/assets/maplibre-gl/maplibre-gl.js"></script>
-  <script src="https://tiles.versatiles.org/assets/mapdesigner/mapdesigner-control.js"></script>
-  <script src="https://tiles.versatiles.org/assets/styles/versatiles-style.js"></script>
+   <meta charset="utf-8" />
+   <title>VersaTiles - Demo</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <script src="https://tiles.versatiles.org/assets/lib/maplibre/maplibre-gl.js"></script>
+   <link href="https://tiles.versatiles.org/assets/lib/maplibre/maplibre-gl.css" rel="stylesheet" />
 </head>
-
 <body>
-  <div id="map" style="position: absolute;top: 0;bottom: 0;width: 100%;"></div>
-  <script>
-    const map = new maplibregl.Map({
-      container: 'map',
-      center: [127.105705, 37.513672],
-      zoom: 10
-    });
-
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
-    map.addControl(new MapDesignerControl({
-      tiles: ['https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}'],
-      sprite: 'https://tiles.versatiles.org/assets/sprites/sprites',
-      glyphs: 'https://tiles.versatiles.org/assets/fonts/{fontstack}/{range}.pbf',
-    }));
-  </script>
+   <div id="map" style="width: 100%; height: 80vh;"></div>
+   <script>
+      new maplibregl.Map({
+         container: 'map', // The container ID
+         style: 'https://tiles.versatiles.org/assets/lib/styles/colorful/style.json' // Style URL
+      });
+   </script>
 </body>
 </html>
 ```
