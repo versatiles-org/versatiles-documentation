@@ -34,6 +34,9 @@ jobs:
       - name: Build Pages
         run: npm run build
 
+      - name: Add .nojekyll
+        run: touch ./.vitepress/dist/.nojekyll
+
       - name: Upload Pages Artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
