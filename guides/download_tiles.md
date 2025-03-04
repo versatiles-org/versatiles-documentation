@@ -24,17 +24,17 @@ Or, very similarly, how to download Germany
 versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm.versatiles germany.versatiles
 ```
 ~~~shell
-versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" --min-zoom 10 --max-zoom 14  https://download.versatiles.org/planet-latest.versatiles germany.versatiles
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" --min-zoom 10 --max-zoom 14  https://download.versatiles.org/osm.versatiles germany.versatiles
 ~~~
 
 ## Downloading to Google Cloud Storage
 
 To store VersaTiles data on Google Cloud Storage, follow these steps:
 
-- **Prepare a Google Cloud Storage Bucket**  
+- **Prepare a Google Cloud Storage Bucket**
   Follow the [Google documentation](https://cloud.google.com/storage/docs/creating-buckets) to create a new bucket.
 
-- **Copy the Latest Data**  
+- **Copy the Latest Data**
   Transfer "osm.versatiles" file from [download.versatiles.org](https://download.versatiles.org/) to your bucket. There are 3 ways to do that:
 
   1. **Automated Transfer**
@@ -52,7 +52,7 @@ To store VersaTiles data on Google Cloud Storage, follow these steps:
    3. **Google VM Transfer**
     - Alternatively, use a Google Compute Engine VM for both downloading and uploading.
 
-- **Set Public Access**  
+- **Set Public Access**
   The bucket or the file must be set to [public access](https://cloud.google.com/storage/docs/access-control/making-data-public).
   <details><summary>Why Public Access is Required</summary>
   VersaTiles currently does not support Google Cloud authentication. Therefore, public access is necessary for HTTPS retrieval. Future versions may include support for Google Cloud Run's automatic authentication. For more details, refer to [issue versatiles-rs#22](https://github.com/versatiles-org/versatiles-rs/issues/22).</details>

@@ -10,7 +10,7 @@ Your server requires as an absolute minimum:
 ## 1. Update the server and install dependencies
 ```bash
 sudo apt update
-sudo apt -q install -y aria2 curl nginx build-essential libsqlite3-dev pkg-config openssl libssl-dev # git wget unzip tmux htop sysstat brotli cmake ifstat gnupg2 ca-certificates lsb-release
+sudo apt -q install -y curl nginx build-essential libsqlite3-dev pkg-config openssl libssl-dev # git wget unzip tmux htop sysstat brotli cmake ifstat gnupg2 ca-certificates lsb-release
 ```
 
 ## 2. Install Rust
@@ -30,7 +30,7 @@ cd ~
 mkdir versatiles
 cd versatiles
 curl -Lo frontend.br.tar.gz "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
-aria2c --seed-time=0 "https://download.versatiles.org/planet-20230227.versatiles.torrent"
+curl -Lo osm.versatiles "https://download.versatiles.org/osm.versatiles"
 ```
 
 ---
@@ -58,7 +58,7 @@ WantedBy=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=versatiles serve "[osm]2023-01-planet.versatiles" -s frontend.br.tar.gz -p 8080
+ExecStart=versatiles serve "[osm]osm.versatiles" -s frontend.br.tar.gz -p 8080
 WorkingDirectory=/home/abhi/Dev/echo-server
 Restart=always
 RestartSec=5

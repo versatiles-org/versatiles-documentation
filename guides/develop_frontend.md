@@ -15,7 +15,7 @@ versatiles serve --fast \
 	-s "../versatiles-styles/dist[/assets/styles/]" \
 	-s "../versatiles-sprites/dist[/assets/sprites/]" \
 	-s ../versatiles-frontend/dist/frontend \
-	"planet-20230925.versatiles[osm]"
+	"[osm]osm.versatiles"
 
 open http://localhost:8080/demo.html
 ```
