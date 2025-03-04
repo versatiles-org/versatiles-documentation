@@ -1,3 +1,5 @@
+You can read this document in [English/영어](download_tiles.md) or [Korean/한국어](download_tiles.ko.md).
+
 # How to download tiles?
 
 ## Direct download

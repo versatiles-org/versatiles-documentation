@@ -1,3 +1,5 @@
+이 문서는 [English/영어](install_versatiles.md)와 [Korean/한국어](install_versatiles.ko.md)로 제공됩니다.
+
 # VersaTiles 설치
 
 시스템에 VersaTiles를 설치하는 다양한 방법을 설명합니다.
@@ -10,8 +12,8 @@
 
 ##  바이너리 다운로드
 
-[Releases 페이지](https://github.com/versatiles-org/versatiles-rs/releases/)에서 Linux와 Mac 운영체제를 위한 Rust로 사전 컴파일된 바이너리를 제공합니다.  
- 
+[Releases 페이지](https://github.com/versatiles-org/versatiles-rs/releases/)에서 Linux와 Mac 운영체제를 위한 Rust로 사전 컴파일된 바이너리를 제공합니다.
+
 아래 스크립트는 사전 컴파일된 바이너리를 다운로드하여 `versatiles`를 설치합니다.
 <details><summary>접기/펼치기</summary>
 

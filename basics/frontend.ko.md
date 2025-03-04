@@ -1,3 +1,5 @@
+이 문서는 [English/영어](frontend.md)와 [Korean/한국어](frontend.ko.md)로 제공됩니다.
+
 # VersaTiles 프론트엔드
 
 서버에서는 벡터 타일에 대한 정보만 제공합니다. 그러나 대화형 웹 맵에는 더 많은 것들이 필요합니다.
@@ -9,7 +11,7 @@
 
 ## 프론트엔드 Tarball 패키지
 
-[Release 페이지](https://github.com/versatiles-org/versatiles-frontend/releases/latest)에서 프론트엔드 전체 파일을 tarball로 제공합니다.  
+[Release 페이지](https://github.com/versatiles-org/versatiles-frontend/releases/latest)에서 프론트엔드 전체 파일을 tarball로 제공합니다.
 
 아래 명령어는 `frontend.tar.gz` 파일을 현재 디렉토리로 다운로드하고 `frontend.d` 디렉토리에 압축 해제합니다
 ```bash
@@ -26,7 +28,7 @@ versatiles osm.versatiles --static frontend.d
 
 ## 프론트엔드 Brotli 패키지
 
-Brotli로 압축된 파일을 사용하면 서버의 CPU 부하를 줄이고 성능을 최적화할 수 있습니다.  
+Brotli로 압축된 파일을 사용하면 서버의 CPU 부하를 줄이고 성능을 최적화할 수 있습니다.
 
 이 명령어는 `frontend.br.tar` 파일을 현재 디렉토리로 다운로드합니다.
 

@@ -1,3 +1,5 @@
+You can read this document in [English/영어](install_versatiles.md) or [Korean/한국어](install_versatiles.ko.md).
+
 # VersaTiles Installation Guide
 
 This guide outlines various methods to install VersaTiles on your system:

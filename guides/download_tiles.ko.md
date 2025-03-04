@@ -1,3 +1,5 @@
+이 문서는 [English/영어](download_tiles.md)와 [Korean/한국어](download_tiles.ko.md)로 제공됩니다.
+
 # 타일 다운로드 방법
 
 - [개인 서버로 다운로드](#개인-서버로-다운로드)
@@ -58,12 +60,12 @@ versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://d
 
 VersaTiles 데이터를 Google Cloud Storage에 저장하려면 다음 단계를 따르세요:
 
-- **Google Cloud Storage 버킷 준비**  
+- **Google Cloud Storage 버킷 준비**
   [Google 문서](https://cloud.google.com/storage/docs/creating-buckets)를 따라 새 버킷을 만듭니다.
 
-- **최신 데이터 복사**  
+- **최신 데이터 복사**
   [download.versatiles.org](https://download.versatiles.org/)에서 `osm.versatiles` 파일을 버킷으로 전송합니다.
-    
+
   세 가지 방법이 있습니다:
 
   1. **자동 전송**
@@ -79,7 +81,7 @@ VersaTiles 데이터를 Google Cloud Storage에 저장하려면 다음 단계를
    3. **Google VM 전송**
       - Google Compute Engine VM을 사용하여 다운로드와 업로드를 모두 수행할 수 있습니다.
 
-- **공개 액세스 설정**  
+- **공개 액세스 설정**
   버킷 또는 파일을 [공개 액세스](https://cloud.google.com/storage/docs/access-control/making-data-public)로 설정해야 합니다.
   <details><summary>공개 액세스가 필요한 이유</summary>
   VersaTiles는 현재 Google Cloud 인증을 지원하지 않습니다. 따라서, HTTPS를 통해 데이터를 검색하려면 공개 액세스가 필요합니다.

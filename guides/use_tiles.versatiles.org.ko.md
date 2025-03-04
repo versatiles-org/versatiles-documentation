@@ -1,3 +1,5 @@
+이 문서는 [English/영어](use_tiles.versatiles.org.md)와 [Korean/한국어](use_tiles.versatiles.org.ko.md)로 제공됩니다.
+
 # 공개된 타일 서버 사용하기
 
 저희는 [tiles.versatiles.org](https://tiles.versatiles.org)에서 공개된 무료 벡터 타일 서버를 운영합니다.

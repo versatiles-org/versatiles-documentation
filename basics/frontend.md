@@ -1,3 +1,5 @@
+You can read this document in [English/영어](frontend.md) or [Korean/한국어](frontend.ko.md).
+
 # The VersaTiles frontend
 
 The server only provides vector tiles. But you need more to have an interactive web map. You also need:

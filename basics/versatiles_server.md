@@ -1,3 +1,5 @@
+You can read this document in [English/영어](versatiles_server.md) or [Korean/한국어](versatiles_server.ko.md).
+
 # How does the VersaTiles server work?
 
 The VersaTiles server is built in Rust and provides excellent performance with low resource usage. In this article, we'll look at the main components and functionality of the VersaTiles server.
