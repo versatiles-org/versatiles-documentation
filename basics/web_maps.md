@@ -35,6 +35,7 @@ They handle the user interaction with the web map and the loading of the data.
 When you zoom into the map, the frontend knows that the image has become too pixelated and replaces it with four images, effectively doubling the resolution.
 
 <table align="center" border="0">
+<tbody>
 <tr>
 <td align="center"><img src="../assets/web_map/1.0.0.png"><br>1/0/0.png</td>
 <td align="center"><img src="../assets/web_map/1.1.0.png"><br>1/1/0.png</td>
@@ -43,6 +44,7 @@ When you zoom into the map, the frontend knows that the image has become too pix
 <td align="center"><img src="../assets/web_map/1.0.1.png"><br>1/0/1.png</td>
 <td align="center"><img src="../assets/web_map/1.1.1.png"><br>1/1/1.png</td>
 </tr>
+</tbody>
 </table>
 
 As you zoom in, the map tiles are replaced with their four sub tiles at each successive zoom level.
