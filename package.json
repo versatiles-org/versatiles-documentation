@@ -1,0 +1,24 @@
+{
+  "name": "versatiles-documentation",
+  "version": "1.0.0",
+  "description": "Documentation for Versatiles",
+  "homepage": "https://github.com/versatiles-org/versatiles-documentation#readme",
+  "bugs": {
+    "url": "https://github.com/versatiles-org/versatiles-documentation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/versatiles-org/versatiles-documentation.git"
+  },
+  "scripts": {
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "preview": "vitepress preview ."
+  },
+  "license": "Unlicense",
+  "type": "commonjs",
+  "dependencies": {},
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
