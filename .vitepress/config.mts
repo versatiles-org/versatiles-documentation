@@ -10,7 +10,7 @@ export default {
     editLink: {
       pattern: 'https://github.com/versatiles-org/versatiles-documentation/edit/main/docs/:path'
     },
-    logo: "/assets/logo_versatiles.svg",
+    logo: "/versatiles.svg",
     nav: [
       {
         text: "Basics",
