@@ -8,7 +8,7 @@ export default {
       provider: 'local'
     },
     editLink: {
-      pattern: 'https://github.com/versatiles-org/versatiles-documentation/edit/main/docs/:path'
+      pattern: 'https://github.com/versatiles-org/versatiles-documentation/edit/main/:path'
     },
     logo: "/versatiles.svg",
     nav: [
