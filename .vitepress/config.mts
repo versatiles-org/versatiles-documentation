@@ -19,6 +19,7 @@ export default {
           { text: "Server",                   link: "/basics/versatiles_server" },
           { text: "Frontend",                 link: "/basics/frontend" },
           { text: "Web Maps",                 link: "/basics/web_maps" },
+          { text: "Available Tilesets",       link: "/basics/tilesets" },
         ],
       },
       {

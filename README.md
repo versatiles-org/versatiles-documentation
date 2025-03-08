@@ -8,6 +8,7 @@ What is it and how does it work:
 - [VersaTiles **server**](basics/versatiles_server.md)
 - *VersaTiles caching*
 - [VersaTiles **frontend**](basics/frontend.md)
+- [Available Tilesets](basics/tilesets.md)
 
 ## Beginner's guide
 
