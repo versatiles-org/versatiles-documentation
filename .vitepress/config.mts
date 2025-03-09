@@ -1,3 +1,4 @@
+import GithubSlugger from 'github-slugger'
 
 export default {
   title: "Versatiles",
@@ -62,4 +63,12 @@ export default {
       message: 'Released under Unlicense'
     }
   },
+  markdown: {
+      anchor: {
+         slugify: (str) => {
+            const slugger = new GithubSlugger();
+            return slugger.slug(str);
+         }
+      }
+   },
 };
