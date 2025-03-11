@@ -3,13 +3,20 @@ import GithubSlugger from 'github-slugger'
 export default {
   title: "Versatiles",
   description: "A completely FLOSS map stack.",
+  head: [
+    ["link", { rel: "shortcut icon", sizes: "16x16 24x24 32x32 48x48 64x64", href: "/favicon.ico" }],
+    ["link", { rel: "icon", type: "image/png", href: "/versatiles.32.png", sizes: "32x32" }],
+    ["link", { rel: "icon", type: "image/png", href: "/versatiles.48.png", sizes: "48x48" }],
+    ["link", { rel: "icon", type: "image/png", href: "/versatiles.64.png", sizes: "64x64" }],
+    ["link", { rel: "icon", type: "image/png", href: "/versatiles.96.png", sizes: "96x96" }],
+  ],
   lastUpdated: true,
   themeConfig: {
     search: {
-      provider: 'local'
+      provider: "local"
     },
     editLink: {
-      pattern: 'https://github.com/versatiles-org/versatiles-documentation/edit/main/:path'
+      pattern: "https://github.com/versatiles-org/versatiles-documentation/edit/main/:path"
     },
     logo: "/versatiles.svg",
     nav: [
