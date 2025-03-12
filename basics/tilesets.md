@@ -169,3 +169,98 @@ There is one layer called `landcover-vectors` with a property `kind`:
 
 * [ESA Worldcover](https://esa-worldcover.org/en/data-access) is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 * The Versatiles Landcover Vectors tileset is derived from ESA Worldcover and therefore also licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
+
+bathymetry
+## Bathymetry
+
+![Example of Bathymetry](../assets/example-bathymetry.png)
+
+A set of vector tiles based on [Bathymetry Shapefiles from OpenDEM](https://www.opendem.info/download_bathymetry.html)
+
+* [Repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)
+
+### Style
+
+There is one layer called `bathymetry` with a property `mindepth` with values
+
+| Zoom | Depths |
+| ---- | ------ |
+| 0-5  | 100, 500, 2000, 6000, 8000
+| 6-9  | 50, 100, 200, 500, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000
+| 10   | 25, 50, 100, 200, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500
+
+#### Example
+
+``` js
+{
+  // ...
+  "sources": {
+    "bathymetry-gebco-opendem": {
+      "tilejson": "3.0.0",
+      "name": "OpenDEM GEBCO Bathymetry",
+      "description": "Bathymetry Vectors based on GEBCO 2021 derived contour polys provided by OpenDEM",
+      "attribution": "Derived product from the <a href=\"https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2019\">GEBCO 2019 Grid</a>, made with <a href=\"https://www.naturalearthdata.com/\">NaturalEarth</a> by <a href=\"https://opendem.info\">OpenDEM</a>",
+      "version": "1.0.0",
+      "tiles": ["https://tiles.versatiles.org/tiles/batymetry-vectors/{z}/{x}/{y}"],
+      "type": "vector",
+      "scheme": "xyz",
+      "format": "pbf",
+      "bounds": [ -180, -85.0511287798066, 180, 85.0511287798066 ],
+      "minzoom": 0,
+      "maxzoom": 10,
+      "vector_layers":[{ "id": "bathymetry", "fields": { "mindepth": "Number" }, "minzoom": 0 ,"maxzoom": 10 }]
+    }
+  },
+  "layers": [
+    {
+      "id": "bathymetry-gebco-opendem",
+      "type": "fill",
+      "source": "bathymetry-gebco-opendem",
+      "source-layer": "bathymetry",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-opacity": 1,
+        "fill-antialias": false,
+        "fill-color": ["case",
+          ["==", ["get", "mindepth"], -25], "#0084bd",
+          ["==", ["get", "mindepth"], -50], "#0181ba",
+          ["==", ["get", "mindepth"], -100], "#017fb6",
+          ["==", ["get", "mindepth"], -200], "#027cb3",
+          ["==", ["get", "mindepth"], -250], "#0279af",
+          ["==", ["get", "mindepth"], -500], "#0276ac",
+          ["==", ["get", "mindepth"], -750], "#0374a8",
+          ["==", ["get", "mindepth"], -1000], "#0371a5",
+          ["==", ["get", "mindepth"], -1250], "#036ea1",
+          ["==", ["get", "mindepth"], -1500], "#036c9e",
+          ["==", ["get", "mindepth"], -1750], "#03699b",
+          ["==", ["get", "mindepth"], -2000], "#036797",
+          ["==", ["get", "mindepth"], -2500], "#036494",
+          ["==", ["get", "mindepth"], -3000], "#036191",
+          ["==", ["get", "mindepth"], -3500], "#035f8d",
+          ["==", ["get", "mindepth"], -4000], "#035c8a",
+          ["==", ["get", "mindepth"], -4500], "#035a87",
+          ["==", ["get", "mindepth"], -5000], "#025783",
+          ["==", ["get", "mindepth"], -5500], "#025580",
+          ["==", ["get", "mindepth"], -6000], "#02527d",
+          ["==", ["get", "mindepth"], -6500], "#025079",
+          ["==", ["get", "mindepth"], -7000], "#014d76",
+          ["==", ["get", "mindepth"], -7500], "#014b73",
+          ["==", ["get", "mindepth"], -8000], "#014870",
+          ["==", ["get", "mindepth"], -8500], "#01466c",
+          ["==", ["get", "mindepth"], -9000], "#004369",
+          ["==", ["get", "mindepth"], -9500], "#004166",
+          "#0097d6"
+        ]
+      }
+    }
+  ]
+}
+
+```
+
+### License / Attribution
+
+* The GEBCO Grid is placed in the public domain and may be used free of charge. Use of the GEBCO Grid indicates that the user accepts the [conditions of use and disclaimer information](https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_2019/grid_terms_of_use.html).
+* Attribution: Derived product from the [GEBCO 2021 Grid](https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2021), made with [NaturalEarth](https://www.naturalearthdata.com/) by [OpenDEM](https://opendem.info)
