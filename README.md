@@ -33,7 +33,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 ### Tile Storage & Distribution
 
 - **[Tilesets](basics/tilesets.md)**: Ready-to-use vector tilesets available for download.
-- **[Container Format](compendium/specification_container.html)**: A highly efficient and web-accessible format for storing map tiles, offering great performance and flexibility.
+- **[Container Format](compendium/specification_container.md)**: A highly efficient and web-accessible format for storing map tiles, offering great performance and flexibility.
 - **[VersaTiles Node](https://github.com/versatiles-org/node-versatiles-container)**: An npm package for integrating VersaTiles into JavaScript applications.
 
 ### Tile Serving
