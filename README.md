@@ -45,16 +45,15 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 ### Tile Display and Rendering
 
-- **[VersaTiles Style](https://github.com/versatiles-org/versatiles-style)** Generate [map styles](https://maplibre.org/maplibre-style-spec/) packaged with glyphs and sprites
+- **[VersaTiles Style](https://github.com/versatiles-org/versatiles-style)** Generate [map styles](https://maplibre.org/maplibre-style-spec/) and sprites
 - **[VersaTiles Fonts](https://github.com/versatiles-org/versatiles-fonts)** Generate font glyphs for map use
 - **[VersaTiles Glyphs](https://github.com/versatiles-org/versatiles-glyphs-rs)** Generate signed distance field glyphs for map use
-- **[VersaTiles Sprites](https://github.com/versatiles-org/versatiles-sprites)**: Generate sprites from SVG icons for map use
 - **[VersaTiles Renderer](https://github.com/versatiles-org/versatiles-renderer)**: Render a map view as image (WIP)
 
 ### Integrations
 
 - **[Svelte Components for VersaTiles](https://github.com/versatiles-org/node-versatiles-svelte)**
-- **[MapLibre plugin for editting VersaTiles styles](https://github.com/versatiles-org/maplibre-versatiles-styler)**
+- **[MapLibre plugin for editing VersaTiles styles](https://github.com/versatiles-org/maplibre-versatiles-styler)**
 
 
 
