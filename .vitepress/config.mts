@@ -36,6 +36,7 @@ export default {
           { text: "Use Public Tileserver",    link: "guides/use_tiles.versatiles.org" },
           { text: "Install Versatiles",       link: "guides/install_versatiles" },
           { text: "Download Tiles",           link: "guides/download_tiles" },
+          { text: "Convert Tilesets",         link: "guides/converter" },
           // { text: "Develop Frontend",         link: "guides/develop_frontend" }, // unpolished
           { text: "Deploy in Google Cloud",   link: "guides/deploy_in_google_cloud" },
           { text: "Deploy on Debian",         link: "guides/deploy_on_debian" },
