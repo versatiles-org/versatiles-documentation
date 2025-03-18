@@ -72,7 +72,7 @@ Per default versatiles uses 0.0.0.0:8080. If you want to change IP/Port use the 
 
 # What's not included?
 
-The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. But you can use a CDN or nginx for this. You can find HowTos on CDNs and nginx in the [documentation](https://github.com/versatiles-org/versatiles-documentation).
+The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. But you can use a CDN or nginx for this. You can find HowTos on CDNs and nginx in the [documentation](https://docs.versatiles.org/).
 
 # Scalability and performance
 

@@ -46,4 +46,4 @@ versatiles serve -i 127.0.0.1 -s frontend.br.tar.gz "[osm]osm.versatiles"
 
 The VersaTiles server will now be running locally on your machine. To test it open `http://localhost:8080` in your browser.
 
-For more information, see the documentation on [using the VersaTiles server](https://github.com/versatiles-org/versatiles-documentation/blob/main/basics/versatiles_server.md#usage).
+For more information, see the documentation on [using the VersaTiles server](https://docs.versatiles.org/basics/versatiles_server#usage).

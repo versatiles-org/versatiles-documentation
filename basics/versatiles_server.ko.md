@@ -80,7 +80,7 @@ versatiles osm.versatiles --static frontend.br.tar.gz
 
 # 포함되지 않은 것은 무엇인가요?
 
-`versatiles`는 프로젝트의 간단하고 빠른 유지 관리를 위하여 핵심 기능만 구현하였습니다. TLS 인증서와 캐싱 기능은 서버에 포함되지 않습니다. 하지만 대안으로 CDN 또는 Nginx를 사용할 수 있습니다. [문서](https://github.com/versatiles-org/versatiles-documentation)에서 CDN과 nginx에 대한 HowTo를 찾을 수 있습니다.
+`versatiles`는 프로젝트의 간단하고 빠른 유지 관리를 위하여 핵심 기능만 구현하였습니다. TLS 인증서와 캐싱 기능은 서버에 포함되지 않습니다. 하지만 대안으로 CDN 또는 Nginx를 사용할 수 있습니다. [문서](https://docs.versatiles.org/)에서 CDN과 nginx에 대한 HowTo를 찾을 수 있습니다.
 
 # 확장성 및 성능
 

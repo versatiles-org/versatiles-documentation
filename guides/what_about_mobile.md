@@ -16,10 +16,7 @@ mapView.getMapAsync { map ->
 }
 ```
 
-<p align="center">
-  <img height="600" alt="VersatilesMapLibre-iOS" src="https://github.com/versatiles-org/versatiles-documentation/assets/649392/3df3be25-d214-4449-b704-5430e556c26d">
-
-  <img height="600" alt="VersatilesMapLibre-Android" src="https://github.com/versatiles-org/versatiles-documentation/assets/649392/3098aec1-fd66-4e88-baf7-97cec3a00dc0">
-</p>
+| [!["Versatiles MapLibre iOS"](../assets/versatiles-maplibre-ios-thumbnail.png)](../assets/versatiles-maplibre-ios.png) | [!["Versatiles MapLibre Android"](../assets/versatiles-maplibre-android-thumbnail.png)](../assets/versatiles-maplibre-android.png) |
+| - | - |
 
 Refer to the documentation of MapLibre Native for more information about using the toolkit.

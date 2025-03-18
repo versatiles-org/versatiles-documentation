@@ -20,7 +20,7 @@ Please note that not all pipeline specifications are final and we may encounter 
 
 The generator layer creates map tiles, which can be either image or vector tiles.
 
-We have chosen not to use the [OpenMapTiles schema](https://openmaptiles.org/schema/) for vector tiles because we feel it does not embody the openness we are aiming for. In particular, the requirement to include links to the MapTiler website or to pay licensing fees seems more like a marketing strategy than a commitment to open standards. Instead, we have chosen to use the free [Shortbread schema](https://shortbread-tiles.org) originally developed by GeoFabrik. We acknowledge that this choice has implications, such as the incompatibility of map styles designed for OpenMapTiles vs. Shortbread. 
+We have chosen not to use the [OpenMapTiles schema](https://openmaptiles.org/schema/) for vector tiles because we feel it does not embody the openness we are aiming for. In particular, the requirement to include links to the MapTiler website or to pay licensing fees seems more like a marketing strategy than a commitment to open standards. Instead, we have chosen to use the free [Shortbread schema](https://shortbread-tiles.org) originally developed by GeoFabrik. We acknowledge that this choice has implications, such as the incompatibility of map styles designed for OpenMapTiles vs. Shortbread.
 
 But if we're going to start from scratch, let's get it right from the beginning.
 
@@ -80,7 +80,7 @@ A unique feature of our format is the ability to perform fast spatial queries re
 ```bash
 versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
 ```
-HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/download_tiles.md#partial-download) for more information.
+HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://docs.versatiles.org/guides/download_tiles#partial-download) for more information.
 
 
 ### Requirements/Recommendations
@@ -173,7 +173,7 @@ Supported platforms include x86 and ARM (64 Bit) across:
 - [x] MacOS
 - [x] Windows
 
-In addition to the source code, which can be [compiled using cargo](https://github.com/versatiles-org/versatiles-documentation/blob/main/guides/install_versatiles.md#building-from-source), we provide:
+In addition to the source code, which can be [compiled using cargo](https://docs.versatiles.org/install_versatiles#building-from-source), we provide:
 - [x] [Binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
 - [x] Installation scripts for [Linux/MacOS](https://github.com/versatiles-org/versatiles-rs/blob/main/helpers/install-unix.sh) and [Windows](https://github.com/versatiles-org/versatiles-rs/blob/main/helpers/install-windows.ps1)
 - [x] [Homebrew](https://github.com/versatiles-org/homebrew-versatiles)

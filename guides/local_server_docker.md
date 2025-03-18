@@ -36,4 +36,4 @@ Now we have configured docker run. The following arguments are for the VersaTile
 - **`-s frontend-dev.br.tar`** adds the included [frontend](https://github.com/versatiles-org/versatiles-frontend).
 - **`'[osm]/tiles/osm.versatiles'`** use the mounted `*.versatiles` file. Change this if your file has a different name.
 
-For more information, see the documentation on [using the VersaTiles server](https://github.com/versatiles-org/versatiles-documentation/blob/main/basics/versatiles_server.md#usage).
+For more information, see the documentation on [using the VersaTiles server](https://docs.versatiles.org/basics/versatiles_server#usage).
