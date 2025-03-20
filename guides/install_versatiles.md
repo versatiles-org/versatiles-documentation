@@ -2,41 +2,58 @@ You can read this document in [English/영어](install_versatiles.md) or [Korean
 
 # VersaTiles Installation Guide
 
-This guide outlines various methods to install VersaTiles on your system:
+This guide outlines different ways to install VersaTiles on your system:
 
-  - Using a Package Manager
-    - [Homebrew for MacOS](#homebrew-for-macos)
-  - [Downloading the Released Binary](#downloading-the-binary)
-  - [Building from Source using Rust and Cargo](#building-from-source)
+- [Using Homebrew (macOS)](#using-homebrew-macos)
+- [Using the Install Script](#using-the-install-script)
+- [Building with Cargo](#building-with-cargo)
+- [Building from Source](#building-from-source)
 
-## Homebrew for MacOS
+## Using Homebrew (macOS)
 
-To install VersaTiles using Homebrew, execute the following commands in your terminal:
+To install VersaTiles using Homebrew, run the following commands in your terminal:
 
-```bash
+```sh
 brew tap versatiles-org/versatiles
 brew install versatiles
 ```
 
-If you want to upgrade to the newest version of versatiles, run:
+To upgrade to the latest version, use:
 
-```bash
+```sh
 brew update
 brew upgrade versatiles
 ```
 
-## Downloading the binary
+## Using the Install Script
 
-For every new release, we provide pre-compiled binaries for various operating systems and architectures. You can download the latest binary from the following link:
+You can use the install script to download and install the appropriate [precompiled binary](https://github.com/versatiles-org/versatiles-rs/releases/latest) for your system. The script automatically places the binary in `/usr/local/bin/`.
 
-[Latest Release on GitHub](https://github.com/versatiles-org/versatiles-rs/releases/latest)
+Run the following command:
 
-## Building from source
-
-To build VersaTiles from source, you'll need to have Rust and Cargo installed on your system. If you don't have them, you can install them [here](https://www.rust-lang.org/tools/install).
-
-After installing Rust and Cargo, run the following command:
-
-```bash
-cargo install versatiles --all-features
+```sh
+curl -Ls "https://github.com/versatiles-org/versatiles-rs/raw/main/helpers/install-unix.sh" | sh
 ```
+
+## Building with Cargo
+
+Ensure that you have [Rust and Cargo installed](https://doc.rust-lang.org/cargo/getting-started/installation.html). Then, install VersaTiles with:
+
+```sh
+cargo install versatiles
+```
+
+## Building from Source
+
+To manually build VersaTiles from the source code, follow these steps:
+
+```sh
+git clone https://github.com/versatiles-org/versatiles-rs.git
+cd versatiles-rs
+cargo build --bin versatiles --release
+cp ./target/release/versatiles /usr/local/bin/
+```
+
+## Additional Information
+
+For more details, including Docker support and installation on NixOS, refer to the [Installation section](https://github.com/versatiles-org/versatiles-rs/?tab=readme-ov-file#installation) of the [VersaTiles repository](https://github.com/versatiles-org/versatiles-rs).
