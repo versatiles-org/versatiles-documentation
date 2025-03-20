@@ -8,11 +8,9 @@ In this guide, we will explain how to set up and run a local VersaTiles server. 
 
 ## Step 1: Install the VersaTiles tool
 
-We provide precompiled binaries for multiple platforms and architectures. See [Installing VersaTiles: Downloading the binary](install_versatiles.md#downloading-the-binary).
+See ["Installing VersaTiles"](install_versatiles.md).
 
-You might prefer to compile it from source using Rust and Cargo: See [Installing VersaTiles: Building from source](install_versatiles.md#building-from-source).
-
-But the most convenient way is to install it via [Homebrew for MacOS](install_versatiles.md#homebrew-for-macos)
+But the most convenient way is to install it via [Homebrew for MacOS](install_versatiles.md#using-homebrew-macos)
 
 ## Step 2: Download the VersaTiles planet
 
