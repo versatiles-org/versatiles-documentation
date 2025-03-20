@@ -17,15 +17,15 @@ Below is a minimal HTML example demonstrating how to implement a map using Mapli
    <meta charset="utf-8" />
    <title>VersaTiles - Demo</title>
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <script src="https://tiles.versatiles.org/assets/lib/maplibre/maplibre-gl.js"></script>
-   <link href="https://tiles.versatiles.org/assets/lib/maplibre/maplibre-gl.css" rel="stylesheet" />
+   <script src="https://tiles.versatiles.org/assets/lib/maplibre-gl/maplibre-gl.js"></script>
+   <link href="https://tiles.versatiles.org/assets/lib/maplibre-gl/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
    <div id="map" style="width: 100%; height: 80vh;"></div>
    <script>
       new maplibregl.Map({
          container: 'map', // The container ID
-         style: 'https://tiles.versatiles.org/assets/lib/styles/colorful/style.json' // Style URL
+         style: 'https://tiles.versatiles.org/assets/styles/colorful/style.json' // Style URL
       });
    </script>
 </body>
