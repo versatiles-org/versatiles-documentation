@@ -173,7 +173,7 @@ Supported platforms include x86 and ARM (64 Bit) across:
 - [x] MacOS
 - [x] Windows
 
-In addition to the source code, which can be [compiled using cargo](https://docs.versatiles.org/install_versatiles#building-from-source), we provide:
+In addition to the source code, which can be [compiled using cargo](https://docs.versatiles.org/guides/install_versatiles.html#building-from-source), we provide:
 - [x] [Binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
 - [x] Installation scripts for [Linux/MacOS](https://github.com/versatiles-org/versatiles-rs/blob/main/helpers/install-unix.sh) and [Windows](https://github.com/versatiles-org/versatiles-rs/blob/main/helpers/install-windows.ps1)
 - [x] [Homebrew](https://github.com/versatiles-org/homebrew-versatiles)
