@@ -1,7 +1,7 @@
 import GithubSlugger from 'github-slugger'
 
 export default {
-  title: "Versatiles",
+  title: "VersaTiles",
   description: "A completely FLOSS map stack.",
   head: [
     ["link", { rel: "shortcut icon", sizes: "16x16 24x24 32x32 48x48 64x64", href: "/favicon.ico" }],
@@ -23,7 +23,7 @@ export default {
       {
         text: "Basics",
         items: [
-          { text: "Versatiles",               link: "/basics/versatiles" },
+          { text: "VersaTiles",               link: "/basics/versatiles" },
           { text: "Server",                   link: "/basics/versatiles_server" },
           { text: "Frontend",                 link: "/basics/frontend" },
           { text: "Web Maps",                 link: "/basics/web_maps" },
@@ -34,7 +34,7 @@ export default {
         text: "Guides",
         items: [
           { text: "Use Public Tileserver",    link: "guides/use_tiles.versatiles.org" },
-          { text: "Install Versatiles",       link: "guides/install_versatiles" },
+          { text: "Install VersaTiles",       link: "guides/install_versatiles" },
           { text: "Download Tiles",           link: "guides/download_tiles" },
           { text: "Convert Tilesets",         link: "guides/converter" },
           // { text: "Develop Frontend",         link: "guides/develop_frontend" }, // unpolished
@@ -43,7 +43,7 @@ export default {
           { text: "Local Server Debian",      link: "guides/local_server_debian" },
           { text: "Local Server Docker",      link: "guides/local_server_docker" },
           { text: "Local Server Mac",         link: "guides/local_server_mac" },
-          { text: "Use Versatiles in QGis",   link: "guides/use_versatiles_in_qgis" },
+          { text: "Use VersaTiles in QGis",   link: "guides/use_versatiles_in_qgis" },
           { text: "What about mobile?",       link: "guides/what_about_mobile" },
         ],
       },

@@ -43,8 +43,8 @@ There is one layer called `hillshade-vectors` with a property `shade`:
   "sources": {
     "versatiles-hillshade": {
       "tilejson": "3.0.0",
-      "name": "Versatiles Hillshade Vectors",
-      "description": "Versatiles Hillshade Vectors based on Mapzen Jörð Terrain Tiles",
+      "name": "VersaTiles Hillshade Vectors",
+      "description": "VersaTiles Hillshade Vectors based on Mapzen Jörð Terrain Tiles",
       "attribution": "<a href=\"https://github.com/tilezen/joerd/blob/master/docs/attribution.md\">Mapzen Terrain Tiles, DEM Sources</a>",
       "version": "1.0.0",
       "tiles": ["https://tiles.versatiles.org/tiles/hillshade-vectors/{z}/{x}/{y}"],
@@ -93,7 +93,7 @@ There is one layer called `hillshade-vectors` with a property `shade`:
 ### License / Attribution
 
 * [Mapzen Jörð Terrain Tiles](https://github.com/tilezen/joerd) ([Access via AWS](https://registry.opendata.aws/terrain-tiles/)) uses variously licensed sources with [attribution requirements](https://github.com/tilezen/joerd/blob/master/docs/attribution.md)
-* The Versatiles Hillshade Vectors tileset is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) carrying forward these attribution requirements
+* The VersaTiles Hillshade Vectors tileset is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) carrying forward these attribution requirements
 
 
 
@@ -131,8 +131,8 @@ There is one layer called `landcover-vectors` with a property `kind`:
   "sources": {
     "versatiles-landcover": {
       "tilejson": "3.0.0",
-      "name": "Versatiles Landcover Vectors",
-      "description": "Versatiles Hillshade Vectors based on ESA Worldcover 2021",
+      "name": "VersaTiles Landcover Vectors",
+      "description": "VersaTiles Hillshade Vectors based on ESA Worldcover 2021",
       "attribution": "<a href=\"https://esa-worldcover.org/en/data-access\">© ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021)</a>",
       "version": "1.0.0",
       "tiles": ["https://tiles.versatiles.org/tiles/landcover-vectors/{z}/{x}/{y}"],
@@ -168,7 +168,7 @@ There is one layer called `landcover-vectors` with a property `kind`:
 ### License / Attribution
 
 * [ESA Worldcover](https://esa-worldcover.org/en/data-access) is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
-* The Versatiles Landcover Vectors tileset is derived from ESA Worldcover and therefore also licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
+* The VersaTiles Landcover Vectors tileset is derived from ESA Worldcover and therefore also licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 
 bathymetry
 ## Bathymetry

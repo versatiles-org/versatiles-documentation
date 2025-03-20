@@ -14,7 +14,7 @@ It specifies some basic architectural choices and provides a standard implementa
 - The **Proxy** handles network stuff like TLS certificates, caching, load balancing, CORS etc.
 - The **Frontend** loads and renders the vector tiles. We recommend [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/).
 
-## Versatiles is open and free
+## VersaTiles is open and free
 
 To ensure the [four essential freedoms of Free Software](https://en.wikipedia.org/wiki/The_Free_Software_Definition), we have developed some goals that we try to keep in mind in every decision we make:
 
