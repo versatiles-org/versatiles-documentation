@@ -73,6 +73,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 - [**Debian Linux**](guides/deploy_on_debian.md)
 - [**Google Cloud**](guides/deploy_in_google_cloud.md)
+- [**Uberspace**](guides/uberspace.md)
 <!--
 - **Digital Ocean**
 - **Kubernetes**
