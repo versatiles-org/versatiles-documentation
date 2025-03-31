@@ -9,6 +9,11 @@ export default {
     ["link", { rel: "icon", type: "image/png", href: "/versatiles.48.png", sizes: "48x48" }],
     ["link", { rel: "icon", type: "image/png", href: "/versatiles.64.png", sizes: "64x64" }],
     ["link", { rel: "icon", type: "image/png", href: "/versatiles.96.png", sizes: "96x96" }],
+    ["meta", { property: "og:image", content: "https://docs.versatiles.org/versatiles-social.png" }],
+    ["meta", { property: "og:image:type", content: "image/png" }],
+    ["meta", { property: "og:image:width", content: "1200" }],
+    ["meta", { property: "og:image:height", content: "675" }],
+    ["meta", { property: "og:image:alt", content: "versatiles logo on a gradient background" }],
   ],
   lastUpdated: true,
   themeConfig: {
