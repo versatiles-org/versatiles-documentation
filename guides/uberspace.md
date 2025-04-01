@@ -36,7 +36,7 @@ For example:
 versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm.versatiles osm.versatiles
 ```
 
-[Learn more about downloading tiles](/guides/download_tiles.md#partial-download)
+[Learn more about downloading tiles](./download_tiles.md#partial-download)
 
 ## Download Frontend
 
@@ -86,4 +86,4 @@ The VersaTiles server will now be running locally on your Uberspace host. To tes
 
 Refer to the [↗ Uberspace manual](https://manual.uberspace.de/) for further questions regarding Uberspace.
 
-For more information, see the documentation on [using the VersaTiles server](/basics/versatiles_server.md#usage).
+For more information, see the documentation on [using the VersaTiles server](../basics/versatiles_server.md#usage).
