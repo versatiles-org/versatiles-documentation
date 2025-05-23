@@ -1,6 +1,6 @@
 You can read this document in [English/영어](use_tiles.versatiles.org.md) or [Korean/한국어](use_tiles.versatiles.org.ko.md).
 
-# How to Use tiles.versatiles.org
+# How to use tiles.versatiles.org
 
 We run a free vector tiles server open for public use at: [tiles.versatiles.org](https://tiles.versatiles.org).
 
