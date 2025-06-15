@@ -1,5 +1,8 @@
 name: check markdown links
 
+permissions:
+  contents: read
+
 on:
   push:
   workflow_dispatch:
