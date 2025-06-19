@@ -9,6 +9,9 @@ This guide outlines different ways to install VersaTiles on your system:
 - [Building with Cargo](#building-with-cargo)
 - [Building from Source](#building-from-source)
 
+> [!TIP]
+> If you want to setup your own map server, use our "[Setup Tool](https://versatiles.org/tools/setup_server)" to generate the necessary shell code: [versatiles.org/tools/setup_server](https://versatiles.org/tools/setup_server)
+
 ## Using Homebrew (macOS)
 
 To install VersaTiles using Homebrew, run the following commands in your terminal:
@@ -32,7 +35,7 @@ You can use the install script to download and install the appropriate [precompi
 Run the following command:
 
 ```sh
-curl -Ls "https://github.com/versatiles-org/versatiles-rs/raw/main/scripts/install-unix.sh" | sh
+curl -Ls "https://github.com/versatiles-org/versatiles-rs/raw/main/scripts/install-unix.sh" | sudo sh
 ```
 
 ## Building with Cargo
