@@ -17,6 +17,7 @@ export default defineConfig({
     ["meta", { property: "og:image:height", content: "675" }],
     ["meta", { property: "og:image:alt", content: "versatiles logo on a gradient background" }],
   ],
+  ignoreDeadLinks: 'localhostLinks',
   lastUpdated: true,
   themeConfig: {
     search: {
