@@ -1,39 +1,58 @@
-# How to run a local VersaTiles server using Docker
+# Run a VersaTiles Server Locally with Docker
 
-In this guide, we will explain how to set up and run a local VersaTiles server using [docker](https://www.docker.com/).
+This short guide shows how to launch a VersaTiles server on your machine in just a few commands.
 
-> [!NOTE]
-> The VersaTiles server is written in Rust (Repo: [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)).
-> The docker containers are specified in the repo [versatiles-docker](https://github.com/versatiles-org/versatiles-docker/tree/main/docker)
+> [!TIP]
+> To expose the server on a public domain, see **[Deploy a VersaTiles server with Nginx](./deploy_using_docker.md)**.
 
 ## Prerequisites
 
 Before you begin, make sure you have [docker](https://www.docker.com/) properly installed.
 
-You also need to [download the tiles](download_tiles.md).
+---
 
-## Usage
+## Option A — Minimal image: `versatiles`
 
-Start the VersaTiles container with the latest image including the front-end user interface by executing the following command in the same folder where the file `*.versatiles` is located:
+The image **`versatiles`** contains only the [VersaTiles Rust server](https://github.com/versatiles-org/versatiles-rs). Choose it if you already have your own front‑end or want finer control.
 
 ```bash
-docker run -p 8080:8080 --mount src="$(pwd)",dst=/tiles,type=bind,readonly versatiles/versatiles-frontend:latest-alpine \
-versatiles serve -s frontend-dev.br.tar '[osm]/tiles/osm.versatiles'
+docker run --rm -it \
+  -p 8080:8080 \
+  --mount type=bind,src="$(pwd)",dst=/data,readonly \
+  versatiles/versatiles:latest \
+  serve \
+  -s /data/frontend-dev.br.tar \
+  '/data/osm.versatiles'
 ```
 
-Open `http://localhost:8080/` in your browser. It should look like this: [Screenshot of the frontend](../assets/screenshots/frontend_index.png)
+Open <http://localhost:8080/> in your browser to confirm the server is running.
 
-## Explanation
+See the full image documentation in the [`versatiles` directory](https://github.com/versatiles-org/versatiles-docker/blob/main/versatiles/README.md) of the [versatiles-docker repo](https://github.com/versatiles-org/versatiles-docker/).
 
-The Docker command example above contains quite a bit of information, so we should break it down:
-- **`docker run`** starts the Docker container.
-- **`-p 8080:8080`** maps the port 8080 inside of the container to the outside.
-- **`--mount src="$(pwd)",dst=/tiles,type=bind,readonly`** mounts you current directory to `/tiles` inside of the container.
-- **`versatiles/versatiles-frontend:latest-alpine`** is the name of the Docker image. You can also choose [one of the other images](https://github.com/versatiles-org/versatiles-docker#images-versatiles-frontend).
+---
 
-Now we have configured docker run. The following arguments are for the VersaTiles server inside:
-- **`versatiles server`** run versatiles in server mode.
-- **`-s frontend-dev.br.tar`** adds the included [frontend](https://github.com/versatiles-org/versatiles-frontend).
-- **`'[osm]/tiles/osm.versatiles'`** use the mounted `*.versatiles` file. Change this if your file has a different name.
+## Option B — Bundled front‑end image: `versatiles-frontend`
 
-For more information, see the documentation on [using the VersaTiles server](https://docs.versatiles.org/basics/versatiles_server#usage).
+The image **`versatiles-frontend`** packages the [VersaTiles server](https://github.com/versatiles-org/versatiles-rs) together with the latest [developer front‑end](https://github.com/versatiles-org/versatiles-frontend). This is the quickest way to spin up a local map viewer.
+
+```bash
+docker run --rm -it \
+  -p 8080:8080 \
+  --mount type=bind,src="$(pwd)",dst=/tiles,readonly \
+  versatiles/versatiles-frontend:latest-alpine \
+  -s frontend-dev.br.tar \
+  '/tiles/osm.versatiles'
+```
+
+Then browse to <http://localhost:8080/>.
+
+See the image documentation in the [`versatiles-frontend` directory](https://github.com/versatiles-org/versatiles-docker/blob/main/versatiles-frontend/README.md) of the [versatiles-docker repo](https://github.com/versatiles-org/versatiles-docker/).
+
+---
+
+## Resources
+
+- **Server** — [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)  
+- **Dockerfiles** — [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)  
+- **Front‑end** — [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) · [latest release](https://github.com/versatiles-org/versatiles-frontend/releases/latest/)  
+- **Tile data** — <https://download.versatiles.org>
