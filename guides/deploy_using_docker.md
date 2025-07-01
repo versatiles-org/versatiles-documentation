@@ -52,4 +52,4 @@ docker run -d --name versatiles \
 
 See the [versatiles-nginx/README.md](https://github.com/versatiles-org/versatiles-docker/blob/main/versatiles-nginx/README.md)
 
-You can also use our ["Setup Server" tool](https://versatiles.org/tools/setup_server#linux|docker-nginx) to generate a Bash command.
+You can also use our ["Setup Server" tool](https://versatiles.org/tools/setup_server#linux+docker_nginx) to generate a Bash command.
