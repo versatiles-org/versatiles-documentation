@@ -69,11 +69,12 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - [Download Tilesets or regional subsets](guides/download_tiles.md)
 - Run a local VersaTiles Server on [Linux](guides/local_server_debian.md), [MacOS](guides/local_server_mac.md) or with [Docker](guides/local_server_docker.md)
 
-## Deploy a VersaTiles server
+## Deploy a public VersaTiles server
 
+- [**Docker with nginx and certbot**](guides/deploy_using_docker.md)
 - [**Debian Linux**](guides/deploy_on_debian.md)
 - [**Google Cloud**](guides/deploy_in_google_cloud.md)
-- [**Uberspace**](guides/uberspace.md)
+- [**Uberspace**](guides/deploy_on_uberspace.md)
 <!--
 - **Digital Ocean**
 - **Kubernetes**
