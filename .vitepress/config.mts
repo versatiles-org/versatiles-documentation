@@ -45,7 +45,7 @@ export default {
           // { text: "Develop Frontend",         link: "guides/develop_frontend" }, // unpolished
           { text: "Deploy in Google Cloud",   link: "guides/deploy_in_google_cloud" },
           { text: "Deploy on Debian",         link: "guides/deploy_on_debian" },
-          { text: "Deploy on Uberspace",      link: "guides/uberspace" },
+          { text: "Deploy using Docker",      link: "guides/deploy_using_docker" },
           { text: "Local Server Debian",      link: "guides/local_server_debian" },
           { text: "Local Server Docker",      link: "guides/local_server_docker" },
           { text: "Local Server Mac",         link: "guides/local_server_mac" },
