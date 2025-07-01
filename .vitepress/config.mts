@@ -1,9 +1,11 @@
+import { defineConfig } from 'vitepress';
 import GithubSlugger from 'github-slugger'
 
-export default {
+export default defineConfig({
   title: "VersaTiles",
   description: "A completely FLOSS map stack.",
   head: [
+    ["link", { rel: "canonical", href: "https://docs.versatiles.org" }],
     ["link", { rel: "shortcut icon", sizes: "16x16 24x24 32x32 48x48 64x64", href: "/favicon.ico" }],
     ["link", { rel: "icon", type: "image/png", href: "/versatiles.32.png", sizes: "32x32" }],
     ["link", { rel: "icon", type: "image/png", href: "/versatiles.48.png", sizes: "48x48" }],
@@ -28,42 +30,42 @@ export default {
       {
         text: "Basics",
         items: [
-          { text: "VersaTiles",               link: "/basics/versatiles" },
-          { text: "Server",                   link: "/basics/versatiles_server" },
-          { text: "Frontend",                 link: "/basics/frontend" },
-          { text: "Web Maps",                 link: "/basics/web_maps" },
-          { text: "Available Tilesets",       link: "/basics/tilesets" },
+          { text: "VersaTiles",         link: "/basics/versatiles" },
+          { text: "VersaTiles Server",  link: "/basics/versatiles_server" },
+          { text: "Front-end",          link: "/basics/frontend" },
+          { text: "Web Maps",           link: "/basics/web_maps" },
+          { text: "Available Tilesets", link: "/basics/tilesets" },
         ],
       },
       {
         text: "Guides",
         items: [
-          { text: "Use Public Tileserver",    link: "guides/use_tiles.versatiles.org" },
-          { text: "Install VersaTiles",       link: "guides/install_versatiles" },
-          { text: "Download Tiles",           link: "guides/download_tiles" },
-          { text: "Convert Tilesets",         link: "guides/converter" },
-          // { text: "Develop Frontend",         link: "guides/develop_frontend" }, // unpolished
-          { text: "Deploy in Google Cloud",   link: "guides/deploy_in_google_cloud" },
-          { text: "Deploy on Debian",         link: "guides/deploy_on_debian" },
-          { text: "Deploy using Docker",      link: "guides/deploy_using_docker" },
-          { text: "Deploy on Uberspace",      link: "guides/deploy_on_uberspace" },
-          { text: "Local Server Debian",      link: "guides/local_server_debian" },
-          { text: "Local Server Docker",      link: "guides/local_server_docker" },
-          { text: "Local Server Mac",         link: "guides/local_server_mac" },
-          { text: "Use VersaTiles in QGis",   link: "guides/use_versatiles_in_qgis" },
-          { text: "What about mobile?",       link: "guides/what_about_mobile" },
+          { text: "Use the Public Tile Server", link: "/guides/use_tiles_versatiles_org" },
+          { text: "Install VersaTiles",         link: "/guides/install_versatiles" },
+          { text: "Download Tiles",             link: "/guides/download_tiles" },
+          { text: "Convert Tilesets",           link: "/guides/converter" },
+          // { text: "Develop Frontend",           link: "/guides/develop_frontend" }, // unpolished
+          { text: "Deploy on Google Cloud",     link: "/guides/deploy_in_google_cloud" },
+          { text: "Deploy on Debian",           link: "/guides/deploy_on_debian" },
+          { text: "Deploy with Docker",         link: "/guides/deploy_using_docker" },
+          { text: "Deploy on Uberspace",        link: "/guides/deploy_on_uberspace" },
+          { text: "Local Server on Debian",     link: "/guides/local_server_debian" },
+          { text: "Local Server with Docker",   link: "/guides/local_server_docker" },
+          { text: "Local Server on macOS",      link: "/guides/local_server_mac" },
+          { text: "Use VersaTiles in QGIS",     link: "/guides/use_versatiles_in_qgis" },
+          { text: "VersaTiles on Mobile",       link: "/guides/what_about_mobile" },
         ],
       },
       {
         text: "Compendium",
         items: [
-          { text: "Introduction",             link: "/compendium/introduction" },
-          { text: "Wider perspective",        link: "/compendium/wider_perspective" },
-          // { text: "Show cases",               link: "/compendium/show_cases" }, // unpolished
-          { text: "Tools",                    link: "/compendium/tools" },
-          { text: "Container Specification",  link: "/compendium/specification_container" },
-          { text: "Frontend Specification",   link: "/compendium/specification_frontend" },
-          { text: "Reference Model",          link: "/compendium/specification_reference_model" },
+          { text: "Introduction",            link: "/compendium/introduction" },
+          { text: "Wider Perspective",       link: "/compendium/wider_perspective" },
+          // { text: "Show cases",              link: "/compendium/show_cases" }, // unpolished
+          { text: "Tools",                   link: "/compendium/tools" },
+          { text: "Container Specification", link: "/compendium/specification_container" },
+          { text: "Front-end Specification", link: "/compendium/specification_frontend" },
+          { text: "Reference Model",         link: "/compendium/specification_reference_model" },
         ],
       },
     ],
@@ -87,4 +89,4 @@ export default {
          }
       }
    },
-};
+});
