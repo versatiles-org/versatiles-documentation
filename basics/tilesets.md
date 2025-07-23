@@ -28,7 +28,7 @@ A set of general purpose vector tiles for simulating a shaded relief. Based on [
 
 * [Download](https://download.versatiles.org/landcover-vectors.versatiles)
 
-### Stlye
+### Style
 
 There is one layer called `hillshade-vectors` with a property `shade`:
 
