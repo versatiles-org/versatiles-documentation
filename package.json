@@ -21,6 +21,6 @@
     "github-slugger": "^2.0.0"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.4"
   }
 }
