@@ -1,4 +1,4 @@
-You can read this document in [English/영어](use_tiles.versatiles.org.md) or [Korean/한국어](use_tiles.versatiles.org.ko.md).
+You can read this document in [English/영어](use_tiles_versatiles_org.md) or [Korean/한국어](use_tiles_versatiles_org.ko.md).
 
 # How to use tiles.versatiles.org
 

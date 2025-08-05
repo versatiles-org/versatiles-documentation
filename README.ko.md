@@ -11,7 +11,7 @@ VersaTiles를 처음 사용하는 사용자들을 위한 가이드입니다.
   * [VersaTiles 벡터 타일 다운로드](guides/download_tiles.ko.md): 행성 전체 타일, 또는 일부를 다운로드합니다.
   * [VersaTiles 실행](basics/versatiles_server.ko.md): `versatiles`의 사용법을 알아봅니다.
   * [VersaTiles 프론트엔드](basics/frontend.ko.md): 제공되는 프론트엔드 파일과 함께 `versatiles`를 사용합니다.
-* [공개된 타일 서버 사용하기](guides/use_tiles.versatiles.org.ko.md): `tiles.versatiles.org`에서 제공하는 타일 서버를 사용합니다.
+* [공개된 타일 서버 사용하기](guides/use_tiles_versatiles_org.ko.md): `tiles.versatiles.org`에서 제공하는 타일 서버를 사용합니다.
 
 ## VersaTiles 서버 배포
 - [**Debian**에서][Debian에서]

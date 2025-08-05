@@ -64,7 +64,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 ## Get started
 
-- [Use our public tileserver](guides/use_tiles.versatiles.org.md)
+- [Use our public tileserver](guides/use_tiles_versatiles_org.md)
 - [Install VersaTiles](guides/install_versatiles.md)
 - [Download Tilesets or regional subsets](guides/download_tiles.md)
 - Run a local VersaTiles Server on [Linux](guides/local_server_debian.md), [MacOS](guides/local_server_mac.md) or with [Docker](guides/local_server_docker.md)
