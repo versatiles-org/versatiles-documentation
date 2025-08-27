@@ -246,7 +246,7 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 
 - [x] ✅ [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be the default solution for single server setups. We should publish some Docker Compose examples using NGINX and Let's Encrypt. ([SWAG](https://docs.linuxserver.io/general/swag/), [traefik](https://github.com/traefik/traefik))
 - [x] ✅ [Google CDN](https://cloud.google.com/cdn) (80€/TB): Tested and used by SWR.
-- [x] ✅ [Akamai CDN](https://www.akamai.com/): Tested and used by NDR.
+- [x] ✅ Akamai CDN: Tested and used by NDR.
 - [x] 🟨 [Bunny CDN](https://bunny.net/cdn/) (5€/TB): Tested for [tiles.versatiles.org](https://tiles.versatiles.org). Unfortunately, BunnyCDN is currently unable to fetch or return compressed vector tiles. The "content-encoding" and "vary: accept-encoding" headers are being ignored. The CDN engineering team has been notified, but there is no ETA.
 - [x] 🟨 [BlazingCDN](https://blazingcdn.com) (5€/TB): Tested, but also unable to serve compressed vector tiles.
 - [ ] [Amazon CloudFront](https://aws.amazon.com/cloudfront) (90€/TB): Not tested yet.
