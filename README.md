@@ -92,7 +92,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 ## Aweseome VersaTiles
 
-- **[Showcases](compendium/show_cases.md)**: VersaTiles in use
+- **[Showcases](compendium/showcases.md)**: VersaTiles in use
 - **[Ansible Playbook](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/versatiles.md)** for running VersaTiles.
 - **[Tileblaster](https://github.com/yetzt/tileblaster)**: A map tile caching and processing proxy with support for VersaTiles.
 

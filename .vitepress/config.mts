@@ -62,11 +62,11 @@ export default defineConfig({
         items: [
           { text: "Introduction",            link: "/compendium/introduction" },
           { text: "Wider Perspective",       link: "/compendium/wider_perspective" },
-          // { text: "Show cases",              link: "/compendium/show_cases" }, // unpolished
           { text: "Tools",                   link: "/compendium/tools" },
           { text: "Container Specification", link: "/compendium/specification_container" },
           { text: "Front-end Specification", link: "/compendium/specification_frontend" },
           { text: "Reference Model",         link: "/compendium/specification_reference_model" },
+          { text: "Showcases",               link: "/compendium/showcases" },
         ],
       },
     ],
