@@ -13,7 +13,8 @@
   "scripts": {
     "dev": "vitepress dev .",
     "build": "vitepress build .",
-    "preview": "vitepress preview ."
+    "preview": "vitepress preview .",
+    "upgrade": "npm-check-updates -u && rm -f package-lock.json; rm -rf node_modules; npm i && npm update"
   },
   "license": "Unlicense",
   "type": "commonjs",
@@ -21,6 +22,7 @@
     "github-slugger": "^2.0.0"
   },
   "devDependencies": {
+    "npm-check-updates": "^19.1.0",
     "vitepress": "^1.6.4"
   }
 }
