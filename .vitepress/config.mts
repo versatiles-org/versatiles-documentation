@@ -65,6 +65,7 @@ export default defineConfig({
           { text: "Tools",                   link: "/compendium/tools" },
           { text: "Container Specification", link: "/compendium/specification_container" },
           { text: "Front-end Specification", link: "/compendium/specification_frontend" },
+          { text: "TileJSON Extension",      link: "/compendium/specification_extended_tilejson" },
           { text: "Reference Model",         link: "/compendium/specification_reference_model" },
           { text: "Showcases",               link: "/compendium/showcases" },
         ],
