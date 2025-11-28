@@ -4,6 +4,10 @@ Here is a collection of showcases using VersaTiles:
 
 - Berliner Morgenpost: [Cannabis-Legalisierung](https://interaktiv.morgenpost.de/cannabis-legalisierung-kiffen-karte/)
 
+- datajournal.org: ["Hands Off!" protests](https://datajournal.org/hands-off/)
+
+- [Mapnificent](https://next.mapnificent.net/)
+
 - NDR: [Hamburg ist das Bundesland mit den höchsten Mieten](https://www.ndr.de/nachrichten/hamburg/Zensus-2022-Hamburg-ist-Bundesland-mit-hoechsten-Mieten,zensus340.html)
 - NDR: [Zensus 2022](https://www.ndr.de/nachrichten/ndrdata/Zensus-Mietpreise-im-Norden-im-Ueberblick,zensus308.html)
 - NDR: [Wetter](https://www.ndr.de/wetter)
@@ -16,3 +20,5 @@ Here is a collection of showcases using VersaTiles:
 - SWR [Wie Städte klimaneutral heizen wollen](https://www.swr.de/swraktuell/baden-wuerttemberg/wie-staedte-klimaneutral-heizen-wollen-100.html)
 
 - taz: [Energiewende auf Abstand](https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/)
+
+- [veganguide.org](https://veganguide.org)
