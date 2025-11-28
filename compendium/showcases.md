@@ -2,7 +2,9 @@ Here is a collection of showcases using VersaTiles:
 
 # Germany
 
+- Berliner Morgenpost: [Badestellen Berlin Brandenburg](https://interaktiv.morgenpost.de/badestellen-berlin-brandenburg/index_morgenpost.html)
 - Berliner Morgenpost: [Cannabis-Legalisierung](https://interaktiv.morgenpost.de/cannabis-legalisierung-kiffen-karte/)
+- Berliner Morgenpost: [Verkehr in Berlin live: Stau, Sperrungen, Störungen](https://interaktiv.morgenpost.de/verkehr-berlin/)
 
 - datajournal.org: ["Hands Off!" protests](https://datajournal.org/hands-off/)
 
@@ -20,5 +22,7 @@ Here is a collection of showcases using VersaTiles:
 - SWR [Wie Städte klimaneutral heizen wollen](https://www.swr.de/swraktuell/baden-wuerttemberg/wie-staedte-klimaneutral-heizen-wollen-100.html)
 
 - taz: [Energiewende auf Abstand](https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/)
+
+- Thüringer Allgemeine: [So hat Thüringen bei der Landtagswahl gestimmt](https://www.thueringer-allgemeine.de/landtagswahl-thueringen-2024-umfragen-ergebnisse-karte/)
 
 - [veganguide.org](https://veganguide.org)
