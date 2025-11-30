@@ -22,6 +22,7 @@ Here is a collection of showcases using VersaTiles:
 
 - taz: [Energiewende auf Abstand](https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/)
 
+- Thüringer Allgemeine: [So hat Sachsen bei der Landtagswahl gestimmt](https://www.thueringer-allgemeine.de/landtagswahl-sachsen-2024-umfragen-ergebnisse-karte/)
 - Thüringer Allgemeine: [So hat Thüringen bei der Landtagswahl gestimmt](https://www.thueringer-allgemeine.de/landtagswahl-thueringen-2024-umfragen-ergebnisse-karte/)
 
 - [veganguide.org](https://veganguide.org)
