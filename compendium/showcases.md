@@ -15,7 +15,6 @@ Here is a collection of showcases using VersaTiles:
 - NDR: [Wetter](https://www.ndr.de/wetter)
 - NDR: [Dorfgeschichten aus Mecklenburg-Vorpommern](https://www.ndr.de/fernsehen/sendungen/nordmagazin/dorfgeschichte)
 
-- SWR: [Aktuelle Waldbrandgefahr](https://www.swr.de/swraktuell/rheinland-pfalz/waldbraende-aktuell-orte-karte-rlp-102.html)
 - SWR: [Notfall in Deutschland](https://notfallrettung.swr.de/)
 - SWR: [So viel kosten Benzin und Diesel in Ihrer Nähe](https://www.swr.de/swraktuell/diesel-und-benzinpreise-aktuell-so-tanken-sie-heute-clever-100.html)
 - SWR: [Baden-Württemberg heizt noch größtenteils fossil](https://www.swr.de/swraktuell/baden-wuerttemberg/waermewende-bw-heizt-groesstenteils-fossil-oel-und-gas-100.html)
