@@ -22,7 +22,7 @@
     "github-slugger": "^2.0.0"
   },
   "devDependencies": {
-    "npm-check-updates": "^19.1.0",
+    "npm-check-updates": "^19.2.0",
     "vitepress": "^1.6.4"
   }
 }
