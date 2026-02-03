@@ -18,10 +18,8 @@
   },
   "license": "Unlicense",
   "type": "commonjs",
-  "dependencies": {
-    "github-slugger": "^2.0.0"
-  },
   "devDependencies": {
+    "github-slugger": "^2.0.0",
     "npm-check-updates": "^19.3.2",
     "vitepress": "^1.6.4"
   }
