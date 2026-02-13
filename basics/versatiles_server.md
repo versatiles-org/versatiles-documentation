@@ -78,18 +78,3 @@ The VersaTiles server implements only core functionality to keep the project sim
 
 Rust, the programming language used to develop the VersaTiles server, is known for its performance and low resource consumption. As a result, the VersaTiles server can handle a large number of concurrent requests while maintaining fast response times. This makes it ideal for applications ranging from small projects to large, data-intensive infrastructures.
 
-# Configuration Options
-
-*Please describe configuration options*
-
-# API Documentation
-
-*Please describe the API*
-
-# Customise the front-end
-
-*describe the frontend*
-
-# Updates and migration
-
-*Please add something useful here*
