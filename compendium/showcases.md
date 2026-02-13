@@ -18,8 +18,8 @@ Here is a collection of showcases using VersaTiles:
 - SWR: [Notfall in Deutschland](https://notfallrettung.swr.de/)
 - SWR: [So viel kosten Benzin und Diesel in Ihrer Nähe](https://www.swr.de/swraktuell/diesel-und-benzinpreise-aktuell-so-tanken-sie-heute-clever-100.html)
 - SWR: [Baden-Württemberg heizt noch größtenteils fossil](https://www.swr.de/swraktuell/baden-wuerttemberg/waermewende-bw-heizt-groesstenteils-fossil-oel-und-gas-100.html)
-- SWR [Wie Städte klimaneutral heizen wollen](https://www.swr.de/swraktuell/baden-wuerttemberg/wie-staedte-klimaneutral-heizen-wollen-100.html)
-- SWR [Wann lohnt sich ein E-Auto für Sie wirklich?](https://www.swr.de/swraktuell/auto-kosten-rechner-100.html)
+- SWR: [Wann fährt der letzte Bus in Rheinland-Pfalz?](https://www.swr.de/swraktuell/rheinland-pfalz/wann-faehrt-der-letzte-bus-in-rlp-100.html)
+- SWR: [Wann fährt der letzte Bus in Baden-Württemberg?](https://www.swr.de/swraktuell/baden-wuerttemberg/wann-faehrt-der-letzte-bus-in-bw-100.html)
 
 - taz: [Energiewende auf Abstand](https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/)
 
