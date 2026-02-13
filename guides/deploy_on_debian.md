@@ -35,7 +35,8 @@ curl -Lo osm.versatiles "https://download.versatiles.org/osm.versatiles"
 
 ---
 
-Not tested from here on
+> [!WARNING]
+> The following steps (5-7) have not been fully tested. Please verify carefully and report any issues.
 
 ## 5. config nginx
 ```bash
