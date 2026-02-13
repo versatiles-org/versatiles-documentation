@@ -2,7 +2,7 @@
 
 ## OSM Shortbread Vector Tiles
 
-![Example of SOM Shortbread](../assets/example-osm-shortbread.png)
+![Example of OSM Shortbread](../assets/example-osm-shortbread.png)
 
 A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread Scheme](https://shortbread-tiles.org/schema/).
 
@@ -26,7 +26,7 @@ There are [several ready-made Public Domain styles](https://github.com/versatile
 
 A set of general purpose vector tiles for simulating a shaded relief. Based on [Mapzen Jörð Terrain Tiles](https://github.com/tilezen/joerd), inspired by [Datawrapper](https://www.datawrapper.de/blog/shaded-relief-with-gdal-python)
 
-* [Download](https://download.versatiles.org/landcover-vectors.versatiles)
+* [Download](https://download.versatiles.org/hillshade-vectors.versatiles)
 
 ### Style
 
@@ -121,7 +121,7 @@ There is one layer called `landcover-vectors` with a property `kind`:
 * `snow` Snow and ice
 * `treecover` Tree cover
 * `water` Permanent water bodies
-* `wetland` Herbaeceous wetland
+* `wetland` Herbaceous wetland
 
 #### Example
 
@@ -170,7 +170,6 @@ There is one layer called `landcover-vectors` with a property `kind`:
 * [ESA Worldcover](https://esa-worldcover.org/en/data-access) is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 * The VersaTiles Landcover Vectors tileset is derived from ESA Worldcover and therefore also licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 
-bathymetry
 ## Bathymetry
 
 ![Example of Bathymetry](../assets/example-bathymetry.png)
@@ -201,7 +200,7 @@ There is one layer called `bathymetry` with a property `mindepth` with values
       "description": "Bathymetry Vectors based on GEBCO 2021 derived contour polys provided by OpenDEM",
       "attribution": "Derived product from the <a href=\"https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2019\">GEBCO 2019 Grid</a>, made with <a href=\"https://www.naturalearthdata.com/\">NaturalEarth</a> by <a href=\"https://opendem.info\">OpenDEM</a>",
       "version": "1.0.0",
-      "tiles": ["https://tiles.versatiles.org/tiles/batymetry-vectors/{z}/{x}/{y}"],
+      "tiles": ["https://tiles.versatiles.org/tiles/bathymetry-vectors/{z}/{x}/{y}"],
       "type": "vector",
       "scheme": "xyz",
       "format": "pbf",

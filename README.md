@@ -90,7 +90,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 
 
-## Aweseome VersaTiles
+## Awesome VersaTiles
 
 - **[Showcases](compendium/showcases.md)**: VersaTiles in use
 - **[Ansible Playbook](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/versatiles.md)** for running VersaTiles.

@@ -81,7 +81,7 @@ versatiles --version
 Homebrew를 사용하여 `versatiles`를 설치하려면 터미널에서 다음 명령을 실행합니다.
 
 ```bash
-brew tap diverses-org/versatiles
+brew tap versatiles-org/versatiles
 brew install versatiles
 ```
 

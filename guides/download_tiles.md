@@ -25,9 +25,11 @@ Or, very similarly, how to download Germany
 ```bash
 versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm.versatiles germany.versatiles
 ```
-~~~shell
-versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" --min-zoom 10 --max-zoom 14  https://download.versatiles.org/osm.versatiles germany.versatiles
-~~~
+
+You can also limit the zoom levels:
+```bash
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" --min-zoom 10 --max-zoom 14 https://download.versatiles.org/osm.versatiles germany.versatiles
+```
 
 ## Downloading to Google Cloud Storage
 

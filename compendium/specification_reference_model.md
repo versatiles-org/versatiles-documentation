@@ -95,7 +95,7 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - [x] Support all tile formats (image and vector)
 - [x] Support all compression methods (gzip, brotli)
 - [x] Enable bbox downloads
-- [x] Finish the [specification] (https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
+- [x] Finish the [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
 
 
 ## Layer: Server

@@ -59,7 +59,7 @@ WantedBy=multi-user.target
 [Service]
 Type=simple
 ExecStart=versatiles serve "[osm]osm.versatiles" -s frontend.br.tar.gz -p 8080
-WorkingDirectory=/home/abhi/Dev/echo-server
+WorkingDirectory=/home/versatiles/versatiles
 Restart=always
 RestartSec=5
 StandardOutput=syslog

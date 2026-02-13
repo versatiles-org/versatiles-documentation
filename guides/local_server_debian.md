@@ -32,7 +32,7 @@ wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/down
 
 Save the `frontend.br.tar.gz` file in the same directory as the `.versatiles` file.
 
-## Step 3: Start the VersaTiles server
+## Step 4: Start the VersaTiles server
 
 To start the VersaTiles server, open a shell, navigate to the directory where you saved the `.versatiles` file and the frontend file, and run:
 
