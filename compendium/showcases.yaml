@@ -384,6 +384,15 @@
     - politics
     - data-visualization
 
+- title: 'Engagement finden'
+  url: 'https://freiwillig.hamburg/engagement-finden/'
+  source: 'freiwillig.hamburg'
+  country: 'Germany'
+  category: 'government'
+  description: 'Map-based search for volunteer opportunities across Hamburg districts'
+  tags:
+    - interactive-map
+
 - title: 'Zoo Institutes'
   url: 'https://zooinstitutes.com/zooinstitutes.html'
   source: 'Zoo Institutes'
