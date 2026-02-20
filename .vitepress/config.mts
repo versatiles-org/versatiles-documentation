@@ -30,7 +30,7 @@ export default defineConfig({
 			provider: 'local',
 		},
 		editLink: {
-			pattern({ filePath,frontmatter }) {
+			pattern({ filePath, frontmatter }) {
 				const path = frontmatter.editLink || filePath;
 				return `https://github.com/versatiles-org/versatiles-documentation/edit/main/${path}`;
 			},

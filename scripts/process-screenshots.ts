@@ -34,7 +34,9 @@ async function main() {
 	// Warn: unused PNG files (PNG exists but no YAML entry references it)
 	for (const slug of pngSlugs) {
 		if (!yamlSlugs.has(slug)) {
-			console.warn(`⚠ Unused PNG: compendium/showcases/${slug}.png (no YAML entry with thumbnail: ${slug})`);
+			console.warn(
+				`⚠ Unused PNG: compendium/showcases/${slug}.png (no YAML entry with thumbnail: ${slug})`,
+			);
 		}
 	}
 
@@ -72,7 +74,10 @@ async function main() {
 			const slug = basename(file, '.png');
 			const input = resolve(SHOWCASES_DIR, file);
 			const output = resolve(OUTPUT_DIR, `${slug}.webp`);
-			await sharp(input).resize(WIDTH, HEIGHT, { fit: 'cover' }).webp({ quality: WEBP_QUALITY }).toFile(output);
+			await sharp(input)
+				.resize(WIDTH, HEIGHT, { fit: 'cover' })
+				.webp({ quality: WEBP_QUALITY, effort: 6 })
+				.toFile(output);
 			console.log(`✓ ${slug}.webp`);
 		}),
 	);
