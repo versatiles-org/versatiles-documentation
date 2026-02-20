@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { data } from '../../../compendium/showcases.data';
 
+const searchQuery = ref('');
 const selectedCountry = ref<string | null>(null);
 const selectedCategory = ref<string | null>(null);
 const selectedTags = ref<Set<string>>(new Set());
@@ -22,6 +23,7 @@ function toggleTag(tag: string) {
 }
 
 function clearFilters() {
+	searchQuery.value = '';
 	selectedCountry.value = null;
 	selectedCategory.value = null;
 	selectedTags.value = new Set();
@@ -29,20 +31,28 @@ function clearFilters() {
 
 const hasFilters = computed(
 	() =>
+		searchQuery.value !== '' ||
 		selectedCountry.value !== null ||
 		selectedCategory.value !== null ||
 		selectedTags.value.size > 0,
 );
 
-const filtered = computed(() =>
-	data.showcases.filter((s) => {
+const filtered = computed(() => {
+	const q = searchQuery.value.toLowerCase().trim();
+	return data.showcases.filter((s) => {
+		if (q) {
+			const haystack = [s.title, s.description, s.source, s.url, ...s.tags]
+				.join(' ')
+				.toLowerCase();
+			if (!haystack.includes(q)) return false;
+		}
 		if (selectedCountry.value && s.country !== selectedCountry.value) return false;
 		if (selectedCategory.value && s.category !== selectedCategory.value) return false;
 		if (selectedTags.value.size > 0 && !s.tags.some((t) => selectedTags.value.has(t)))
 			return false;
 		return true;
-	}),
-);
+	});
+});
 
 function formatTag(tag: string) {
 	return tag.replace(/-/g, ' ');
@@ -60,6 +70,12 @@ function domain(url: string) {
 <template>
 	<div class="showcases">
 		<div class="filters">
+			<input
+				v-model="searchQuery"
+				type="text"
+				class="search-input"
+				placeholder="Search showcases…"
+			/>
 			<div v-if="data.categories.length > 1" class="filter-group">
 				<span class="filter-label">Category</span>
 				<button
@@ -184,6 +200,26 @@ function domain(url: string) {
 .pill.active {
 	background: var(--vp-c-brand-1);
 	color: #fff;
+	border-color: var(--vp-c-brand-1);
+}
+
+.search-input {
+	padding: 4px 12px;
+	border-radius: 16px;
+	font-size: 13px;
+	border: 1px solid var(--vp-c-divider);
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-1);
+	outline: none;
+	line-height: 1.4;
+	width: 180px;
+}
+
+.search-input::placeholder {
+	color: var(--vp-c-text-3);
+}
+
+.search-input:focus {
 	border-color: var(--vp-c-brand-1);
 }
 
