@@ -3,3 +3,4 @@
 .vitepress/cache
 .vitepress/dist
 node_modules
+/public/showcases/

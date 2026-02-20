@@ -28,6 +28,10 @@ export default {
 		const raw = readFileSync(resolve(__dirname, 'showcases.yaml'), 'utf-8');
 		const showcases = yaml.load(raw) as Showcase[];
 
+		showcases.forEach((s) => {
+			if (s.thumbnail) s.thumbnail = `/showcases/${s.thumbnail}.webp`;
+		});
+
 		const countries = [...new Set(showcases.map((s) => s.country))].sort();
 		const categories = [...new Set(showcases.map((s) => s.category))].sort();
 		const tags = [...new Set(showcases.flatMap((s) => s.tags))].sort();
