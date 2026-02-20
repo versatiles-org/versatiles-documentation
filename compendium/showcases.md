@@ -1,6 +1,5 @@
 ---
-layout: page
-title: Showcases
+aside: false
 ---
 
 # Showcases

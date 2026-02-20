@@ -139,12 +139,6 @@ function domain(url: string) {
 </template>
 
 <style scoped>
-.showcases {
-	max-width: 1152px;
-	margin: 0 auto;
-	padding: 0 24px;
-}
-
 /* Filters */
 .filters {
 	display: flex;
@@ -338,5 +332,13 @@ function domain(url: string) {
 	font-size: 12px;
 	color: var(--vp-c-text-3);
 	margin-top: 4px;
+}
+</style>
+
+<style>
+.VPDoc:not(.has-aside) .container:has(.showcases),
+.VPDoc:not(.has-aside) .content:has(.showcases),
+.VPDoc:not(.has-aside) .content-container:has(.showcases) {
+	max-width: none !important;
 }
 </style>
