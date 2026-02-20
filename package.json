@@ -14,6 +14,8 @@
     "dev": "vitepress dev .",
     "build": "vitepress build .",
     "preview": "vitepress preview .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "upgrade": "npm-check-updates -u && rm -f package-lock.json; rm -rf node_modules; npm i && npm update"
   },
   "license": "Unlicense",
@@ -23,6 +25,7 @@
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.1.1",
     "npm-check-updates": "^19.3.2",
+    "prettier": "^3.8.1",
     "vitepress": "^1.6.4"
   }
 }
