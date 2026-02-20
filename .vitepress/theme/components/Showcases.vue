@@ -243,17 +243,18 @@ function domain(url: string) {
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 16px;
+	justify-content: center;
 }
 
 @media (min-width: 640px) {
 	.card-grid {
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(2, minmax(0, 400px));
 	}
 }
 
 @media (min-width: 960px) {
 	.card-grid {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(0, 400px));
 	}
 }
 
