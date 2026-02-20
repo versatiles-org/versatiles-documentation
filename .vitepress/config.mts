@@ -76,9 +76,9 @@ export default defineConfig({
 					{ text: 'Front-end Specification', link: '/compendium/specification_frontend' },
 					{ text: 'TileJSON Extension', link: '/compendium/specification_extended_tilejson' },
 					{ text: 'Reference Model', link: '/compendium/specification_reference_model' },
-					{ text: 'Showcases', link: '/showcases/' },
 				],
 			},
+			{ text: 'Showcases', link: '/showcases/' },
 		],
 		socialLinks: [
 			{
