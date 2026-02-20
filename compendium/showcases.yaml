@@ -198,3 +198,41 @@
     - leisure
     - interactive-map
     - independent
+
+- title: 'Arsenal on Location'
+  url: 'https://onlocation.arsenal-berlin.de/'
+  source: 'Arsenal - Institut für Film und Videokunst'
+  country: 'Germany'
+  description: 'Interactive map of touring film programs and screenings'
+  tags:
+    - culture
+    - interactive-map
+    - events
+
+- title: 'Our Locations'
+  url: 'https://www.coxhealth.com/our-locations/'
+  source: 'CoxHealth'
+  country: 'United States'
+  description: 'Location finder for CoxHealth hospitals, clinics and facilities in Missouri'
+  tags:
+    - health
+    - interactive-map
+
+- title: 'Re.Light Regensburg'
+  url: 'https://relight-regensburg.de/map/'
+  source: 'Re.Light / Stadt Regensburg'
+  country: 'Germany'
+  description: 'Interactive map of light art installations in Regensburg'
+  tags:
+    - culture
+    - interactive-map
+    - events
+
+- title: 'Student Accommodation'
+  url: 'https://www.unihomes.co.uk/'
+  source: 'UniHomes'
+  country: 'United Kingdom'
+  description: 'Student housing search platform with interactive property maps across UK university cities'
+  tags:
+    - housing
+    - interactive-map
