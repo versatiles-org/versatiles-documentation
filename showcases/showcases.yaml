@@ -173,7 +173,7 @@
   thumbnail: swr-e-auto-rechner
   tags:
     - transport
-    - interactive-tool
+    - interactive-map
 
 - title: 'Energiewende auf Abstand'
   url: 'https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/'
@@ -285,7 +285,7 @@
   thumbnail: build-my-transit
   tags:
     - transport
-    - interactive-tool
+    - interactive-map
 
 - title: 'Climate Action Navigator'
   url: 'https://climate-action.heigit.org/'
@@ -331,7 +331,6 @@
   thumbnail: mapforge
   tags:
     - interactive-map
-    - interactive-tool
 
 - title: 'Map View'
   url: 'https://www.notion.com/'
@@ -376,7 +375,7 @@
   thumbnail: valhalla-routing
   tags:
     - transport
-    - interactive-tool
+    - interactive-map
 
 - title: 'wogibt.es'
   url: 'https://wogibt.es/'
