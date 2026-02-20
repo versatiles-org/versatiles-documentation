@@ -11,14 +11,15 @@
     "url": "git+https://github.com/versatiles-org/versatiles-documentation.git"
   },
   "scripts": {
-    "dev": "vitepress dev .",
     "build": "npm run build:screenshots && npm run build:vitepress",
     "build:vitepress": "vitepress build .",
     "build:screenshots": "tsx scripts/process-screenshots.ts",
-    "preview": "vitepress preview .",
-    "lint": "eslint .",
+    "check": "npm run lint && npm run format:check && npm run build",
+    "dev": "vitepress dev .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "preview": "vitepress preview .",
     "upgrade": "npm-check-updates -u && rm -f package-lock.json; rm -rf node_modules; npm i && npm update"
   },
   "license": "Unlicense",
