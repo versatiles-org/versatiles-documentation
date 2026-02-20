@@ -21,11 +21,17 @@
   "license": "Unlicense",
   "type": "commonjs",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/js-yaml": "^4.0.9",
+    "eslint": "^10.0.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.8.0",
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.1.1",
     "npm-check-updates": "^19.3.2",
     "prettier": "^3.8.1",
-    "vitepress": "^1.6.4"
+    "typescript-eslint": "^8.56.0",
+    "vitepress": "^1.6.4",
+    "vue-eslint-parser": "^10.4.0"
   }
 }
