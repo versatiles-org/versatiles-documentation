@@ -4,6 +4,6 @@ aside: false
 
 # Showcases
 
-Here is a collection of showcases using VersaTiles:
+Here is a collection of projects and applications using VersaTiles:
 
 <Showcases />
