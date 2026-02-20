@@ -236,3 +236,154 @@
   tags:
     - housing
     - interactive-map
+
+- title: 'Back Of Your Hand'
+  url: 'https://backofyourhand.com/'
+  source: 'Back Of Your Hand'
+  country: 'International'
+  description: 'Geography quiz game that tests how well you know your local streets'
+  tags:
+    - leisure
+    - interactive-map
+
+- title: 'Build My Transit'
+  url: 'https://buildmytransit.nyc/'
+  source: 'Jason Wright'
+  country: 'United States'
+  description: 'Interactive game to design your own NYC subway system with ridership simulation'
+  tags:
+    - transport
+    - interactive-tool
+    - independent
+
+- title: 'Climate Action Navigator'
+  url: 'https://climate-action.heigit.org/'
+  source: 'HeiGIT'
+  country: 'Germany'
+  description: 'Interactive tool for cities to analyze walkability, bikeability and heating emissions'
+  tags:
+    - energy
+    - climate
+    - data-visualization
+    - independent
+
+- title: 'Luchtballonradar'
+  url: 'https://www.luchtballonradar.nl/'
+  source: 'Luchtballonradar'
+  country: 'Netherlands'
+  description: 'Live tracking radar for hot air balloon flights in the Netherlands and Belgium'
+  tags:
+    - leisure
+    - interactive-map
+    - live-data
+    - independent
+
+- title: 'Manulization'
+  url: 'https://manulization.com/map'
+  source: 'Manulization'
+  country: 'International'
+  description: "Map of Pallas's cat habitats and wildlife camera traps worldwide"
+  tags:
+    - leisure
+    - interactive-map
+    - independent
+
+- title: 'Mapforge'
+  url: 'https://mapforge.org/'
+  source: 'Mapforge'
+  country: 'International'
+  description: 'Open-source collaborative mapping platform for creating and sharing custom maps'
+  tags:
+    - interactive-map
+    - interactive-tool
+    - independent
+
+- title: 'Map View'
+  url: 'https://www.notion.com/'
+  source: 'Notion'
+  country: 'United States'
+  description: 'Map view in Notion uses basemaps designed by Stamen based on VersaTiles Shortbread tiles'
+  tags:
+    - interactive-map
+    - component
+
+- title: 'MyCar.kz'
+  url: 'https://mycar.kz/'
+  source: 'MyCar Group'
+  country: 'Kazakhstan'
+  description: 'Online marketplace for buying and selling new and used cars in Kazakhstan'
+  tags:
+    - interactive-map
+    - commercial
+
+- title: 'OldNYC'
+  url: 'https://www.oldnyc.org/'
+  source: 'OldNYC'
+  country: 'United States'
+  description: 'Historical photographs of New York City mapped to their original locations'
+  tags:
+    - culture
+    - interactive-map
+    - independent
+
+- title: 'OV Live'
+  url: 'https://www.ovlive.nl/map'
+  source: 'OV Live'
+  country: 'Netherlands'
+  description: 'Live tracking of public transport buses, trams and metros across the Netherlands'
+  tags:
+    - transport
+    - interactive-map
+    - live-data
+    - independent
+
+- title: 'Valhalla Routing Demo'
+  url: 'https://valhalla.openstreetmap.de/'
+  source: 'FOSSGIS'
+  country: 'Germany'
+  description: 'Demo application for the Valhalla open-source routing engine'
+  tags:
+    - transport
+    - interactive-tool
+    - independent
+
+- title: 'wogibt.es'
+  url: 'https://wogibt.es/'
+  source: 'wogibt.es'
+  country: 'Austria'
+  description: 'Location discovery app for finding places like restaurants, bars and natural spots in Styria'
+  tags:
+    - leisure
+    - interactive-map
+    - independent
+
+- title: 'zHaus'
+  url: 'https://zhaus.at/map.php'
+  source: 'zHaus'
+  country: 'Austria'
+  description: 'Event map for discovering local activities and gatherings in Austria'
+  tags:
+    - culture
+    - interactive-map
+    - events
+    - independent
+
+- title: 'Zijn we al autonoom?'
+  url: 'https://zijnwealautonoom.nl/map/email-as/'
+  source: 'Studio Falkland'
+  country: 'Netherlands'
+  description: "Visualization of the Netherlands' digital infrastructure dependencies on non-European providers"
+  tags:
+    - politics
+    - data-visualization
+    - independent
+
+- title: 'Zoo Institutes'
+  url: 'https://zooinstitutes.com/zooinstitutes.html'
+  source: 'Zoo Institutes'
+  country: 'Israel'
+  description: 'Global database and map of zoos with species collections and visit documentation'
+  tags:
+    - leisure
+    - interactive-map
+    - independent
