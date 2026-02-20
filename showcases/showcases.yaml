@@ -4,6 +4,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Interactive map of bathing spots in Berlin and Brandenburg'
+  thumbnail: badestellen-berlin-brandenburg
   tags:
     - leisure
     - interactive-map
@@ -14,6 +15,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Map of cannabis legalization zones'
+  thumbnail: cannabis-legalisierung
   tags:
     - politics
     - interactive-map
@@ -24,6 +26,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Live traffic map for Berlin showing congestion, road closures and disruptions'
+  thumbnail: verkehr-berlin
   tags:
     - transport
     - interactive-map
@@ -35,6 +38,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Map of "Hands Off!" protest events'
+  thumbnail: hands-off-protests
   tags:
     - politics
     - interactive-map
@@ -45,6 +49,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Dynamic public transport travel time map'
+  thumbnail: mapnificent
   tags:
     - transport
     - interactive-map
@@ -55,6 +60,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Census 2022 data showing Hamburg as the state with the highest rents'
+  thumbnail: hamburg-mieten
   tags:
     - housing
     - data-visualization
@@ -65,6 +71,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Overview of rental prices in northern Germany from Census 2022'
+  thumbnail: zensus-2022
   tags:
     - housing
     - data-visualization
@@ -75,6 +82,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Weather map for northern Germany'
+  thumbnail: wetter-ndr
   tags:
     - weather
     - live-data
@@ -85,6 +93,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Interactive village stories from Mecklenburg-Vorpommern'
+  thumbnail: dorfgeschichten-mv
   tags:
     - storytelling
     - interactive-map
@@ -95,6 +104,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Emergency rescue response times across Germany'
+  thumbnail: notfall-deutschland
   tags:
     - health
     - data-visualization
@@ -105,6 +115,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Current petrol and diesel prices near you'
+  thumbnail: swr-benzin-diesel-preise
   tags:
     - transport
     - live-data
@@ -115,6 +126,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Heating energy sources in Baden-Württemberg — still mostly fossil fuels'
+  thumbnail: bw-heizt-fossil
   tags:
     - energy
     - data-visualization
@@ -125,6 +137,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'How cities aim to achieve climate-neutral heating'
+  thumbnail: swr-staedte-klimaneutral-heizen
   tags:
     - energy
     - data-visualization
@@ -135,6 +148,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'When does the last bus run in Rhineland-Palatinate?'
+  thumbnail: swr-letzter-bus-rlp
   tags:
     - transport
     - data-visualization
@@ -145,6 +159,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'When does the last bus run in Baden-Württemberg?'
+  thumbnail: swr-letzter-bus-bw
   tags:
     - transport
     - data-visualization
@@ -155,6 +170,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Calculator to find out when an electric car is worth it for you'
+  thumbnail: swr-e-auto-rechner
   tags:
     - transport
     - interactive-tool
@@ -165,6 +181,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'German regulations on wind energy distance requirements'
+  thumbnail: taz-energiewende-abstand
   tags:
     - politics
     - data-visualization
@@ -175,6 +192,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Election results map for the Saxony state election'
+  thumbnail: landtagswahl-sachsen
   tags:
     - politics
     - interactive-map
@@ -185,6 +203,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Election results map for the Thuringia state election'
+  thumbnail: landtagswahl-thueringen
   tags:
     - politics
     - interactive-map
@@ -195,6 +214,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Map of vegan-friendly restaurants and shops'
+  thumbnail: veganguide
   tags:
     - leisure
     - interactive-map
@@ -205,6 +225,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Interactive map of touring film programs and screenings'
+  thumbnail: arsenal-on-location
   tags:
     - culture
     - interactive-map
@@ -216,6 +237,7 @@
   country: 'United States'
   category: 'commercial'
   description: 'Location finder for CoxHealth hospitals, clinics and facilities in Missouri'
+  thumbnail: coxhealth-locations
   tags:
     - health
     - interactive-map
@@ -226,6 +248,7 @@
   country: 'Germany'
   category: 'government'
   description: 'Interactive map of light art installations in Regensburg'
+  thumbnail: relight-regensburg
   tags:
     - culture
     - interactive-map
@@ -237,6 +260,7 @@
   country: 'United Kingdom'
   category: 'commercial'
   description: 'Student housing search platform with interactive property maps across UK university cities'
+  thumbnail: unihomes
   tags:
     - housing
     - interactive-map
@@ -247,6 +271,7 @@
   country: 'International'
   category: 'independent'
   description: 'Geography quiz game that tests how well you know your local streets'
+  thumbnail: back-of-your-hand
   tags:
     - leisure
     - interactive-map
@@ -257,6 +282,7 @@
   country: 'United States'
   category: 'independent'
   description: 'Interactive game to design your own NYC subway system with ridership simulation'
+  thumbnail: build-my-transit
   tags:
     - transport
     - interactive-tool
@@ -267,6 +293,7 @@
   country: 'Germany'
   category: 'research'
   description: 'Interactive tool for cities to analyze walkability, bikeability and heating emissions'
+  thumbnail: climate-action-navigator
   tags:
     - energy
     - climate
@@ -278,6 +305,7 @@
   country: 'Netherlands'
   category: 'independent'
   description: 'Live tracking radar for hot air balloon flights in the Netherlands and Belgium'
+  thumbnail: luchtballonradar
   tags:
     - leisure
     - interactive-map
@@ -289,6 +317,7 @@
   country: 'International'
   category: 'independent'
   description: "Map of Pallas's cat habitats and wildlife camera traps worldwide"
+  thumbnail: manulization
   tags:
     - leisure
     - interactive-map
@@ -299,6 +328,7 @@
   country: 'International'
   category: 'independent'
   description: 'Open-source collaborative mapping platform for creating and sharing custom maps'
+  thumbnail: mapforge
   tags:
     - interactive-map
     - interactive-tool
@@ -309,18 +339,10 @@
   country: 'United States'
   category: 'commercial'
   description: 'Map view in Notion uses basemaps designed by Stamen based on VersaTiles Shortbread tiles'
+  thumbnail: notion-map-view
   tags:
     - interactive-map
     - component
-
-- title: 'MyCar.kz'
-  url: 'https://mycar.kz/'
-  source: 'MyCar Group'
-  country: 'Kazakhstan'
-  category: 'commercial'
-  description: 'Online marketplace for buying and selling new and used cars in Kazakhstan'
-  tags:
-    - interactive-map
 
 - title: 'OldNYC'
   url: 'https://www.oldnyc.org/'
@@ -328,6 +350,7 @@
   country: 'United States'
   category: 'independent'
   description: 'Historical photographs of New York City mapped to their original locations'
+  thumbnail: oldnyc
   tags:
     - culture
     - interactive-map
@@ -338,6 +361,7 @@
   country: 'Netherlands'
   category: 'independent'
   description: 'Live tracking of public transport buses, trams and metros across the Netherlands'
+  thumbnail: ov-live
   tags:
     - transport
     - interactive-map
@@ -349,6 +373,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Demo application for the Valhalla open-source routing engine'
+  thumbnail: valhalla-routing
   tags:
     - transport
     - interactive-tool
@@ -359,6 +384,7 @@
   country: 'Austria'
   category: 'independent'
   description: 'Location discovery app for finding places like restaurants, bars and natural spots in Styria'
+  thumbnail: wogibt-es
   tags:
     - leisure
     - interactive-map
@@ -369,6 +395,7 @@
   country: 'Austria'
   category: 'independent'
   description: 'Event map for discovering local activities and gatherings in Austria'
+  thumbnail: zhaus
   tags:
     - culture
     - interactive-map
@@ -380,6 +407,7 @@
   country: 'Netherlands'
   category: 'independent'
   description: "Visualization of the Netherlands' digital infrastructure dependencies on non-European providers"
+  thumbnail: zijn-we-al-autonoom
   tags:
     - politics
     - data-visualization
@@ -390,6 +418,7 @@
   country: 'Germany'
   category: 'government'
   description: 'Map-based search for volunteer opportunities across Hamburg districts'
+  thumbnail: engagement-finden
   tags:
     - interactive-map
 
@@ -399,6 +428,7 @@
   country: 'Israel'
   category: 'independent'
   description: 'Global database and map of zoos with species collections and visit documentation'
+  thumbnail: zoo-institutes
   tags:
     - leisure
     - interactive-map
