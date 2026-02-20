@@ -30,7 +30,12 @@ export default defineConfig({
 			provider: 'local',
 		},
 		editLink: {
-			pattern: 'https://github.com/versatiles-org/versatiles-documentation/edit/main/:path',
+			pattern({ filePath }) {
+				if (filePath === 'showcases/index.md') {
+					return 'https://github.com/versatiles-org/versatiles-documentation/edit/main/showcases/showcases.yaml';
+				}
+				return `https://github.com/versatiles-org/versatiles-documentation/edit/main/${filePath}`;
+			},
 		},
 		logo: '/versatiles.svg',
 		nav: [
@@ -73,7 +78,7 @@ export default defineConfig({
 					{ text: 'Front-end Specification', link: '/compendium/specification_frontend' },
 					{ text: 'TileJSON Extension', link: '/compendium/specification_extended_tilejson' },
 					{ text: 'Reference Model', link: '/compendium/specification_reference_model' },
-					{ text: 'Showcases', link: '/compendium/showcases' },
+					{ text: 'Showcases', link: '/showcases/' },
 				],
 			},
 		],

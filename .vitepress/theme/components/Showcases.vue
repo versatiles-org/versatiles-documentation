@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { data } from '../../../compendium/showcases.data';
+import { data } from '../../../showcases/index.data';
 
 const searchQuery = ref('');
 const selectedCountry = ref<string | null>(null);

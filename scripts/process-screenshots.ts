@@ -10,9 +10,9 @@ interface Showcase {
 }
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../..');
-const SHOWCASES_DIR = resolve(ROOT, 'compendium/showcases');
+const SHOWCASES_DIR = resolve(ROOT, 'showcases');
 const OUTPUT_DIR = resolve(ROOT, 'public/showcases');
-const YAML_PATH = resolve(ROOT, 'compendium/showcases.yaml');
+const YAML_PATH = resolve(ROOT, 'showcases/showcases.yaml');
 
 const WIDTH = 800;
 const HEIGHT = 450;
