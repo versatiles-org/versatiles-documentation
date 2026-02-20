@@ -26,15 +26,16 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.3.0",
     "eslint": "^10.0.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.8.0",
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.1.1",
     "npm-check-updates": "^19.4.1",
+    "prettier": "^3.8.1",
     "sharp": "^0.34.5",
     "tsx": "^4.21.0",
-    "prettier": "^3.8.1",
     "typescript-eslint": "^8.56.0",
     "vitepress": "^1.6.4",
     "vue-eslint-parser": "^10.4.0"
