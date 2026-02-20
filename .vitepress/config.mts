@@ -30,11 +30,9 @@ export default defineConfig({
 			provider: 'local',
 		},
 		editLink: {
-			pattern({ filePath }) {
-				if (filePath === 'showcases/index.md') {
-					return 'https://github.com/versatiles-org/versatiles-documentation/edit/main/showcases/showcases.yaml';
-				}
-				return `https://github.com/versatiles-org/versatiles-documentation/edit/main/${filePath}`;
+			pattern({ filePath,frontmatter }) {
+				const path = frontmatter.editLink || filePath;
+				return `https://github.com/versatiles-org/versatiles-documentation/edit/main/${path}`;
 			},
 		},
 		logo: '/versatiles.svg',
