@@ -8,6 +8,7 @@ export interface Showcase {
 	url: string;
 	source: string;
 	country: string;
+	category: string;
 	description: string;
 	thumbnail?: string;
 	tags: string[];
@@ -16,6 +17,7 @@ export interface Showcase {
 export interface ShowcasesData {
 	showcases: Showcase[];
 	countries: string[];
+	categories: string[];
 	tags: string[];
 }
 
@@ -27,8 +29,9 @@ export default {
 		const showcases = yaml.load(raw) as Showcase[];
 
 		const countries = [...new Set(showcases.map((s) => s.country))].sort();
+		const categories = [...new Set(showcases.map((s) => s.category))].sort();
 		const tags = [...new Set(showcases.flatMap((s) => s.tags))].sort();
 
-		return { showcases, countries, tags };
+		return { showcases, countries, categories, tags };
 	},
 };

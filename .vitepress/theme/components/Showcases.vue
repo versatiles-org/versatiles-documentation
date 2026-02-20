@@ -3,10 +3,15 @@ import { ref, computed } from 'vue';
 import { data } from '../../../compendium/showcases.data';
 
 const selectedCountry = ref<string | null>(null);
+const selectedCategory = ref<string | null>(null);
 const selectedTags = ref<Set<string>>(new Set());
 
 function toggleCountry(country: string) {
 	selectedCountry.value = selectedCountry.value === country ? null : country;
+}
+
+function toggleCategory(category: string) {
+	selectedCategory.value = selectedCategory.value === category ? null : category;
 }
 
 function toggleTag(tag: string) {
@@ -18,14 +23,21 @@ function toggleTag(tag: string) {
 
 function clearFilters() {
 	selectedCountry.value = null;
+	selectedCategory.value = null;
 	selectedTags.value = new Set();
 }
 
-const hasFilters = computed(() => selectedCountry.value !== null || selectedTags.value.size > 0);
+const hasFilters = computed(
+	() =>
+		selectedCountry.value !== null ||
+		selectedCategory.value !== null ||
+		selectedTags.value.size > 0,
+);
 
 const filtered = computed(() =>
 	data.showcases.filter((s) => {
 		if (selectedCountry.value && s.country !== selectedCountry.value) return false;
+		if (selectedCategory.value && s.category !== selectedCategory.value) return false;
 		if (selectedTags.value.size > 0 && !s.tags.some((t) => selectedTags.value.has(t)))
 			return false;
 		return true;
@@ -47,8 +59,19 @@ function domain(url: string) {
 
 <template>
 	<div class="showcases">
-		<div v-if="data.countries.length > 1" class="filters">
-			<div class="filter-group">
+		<div class="filters">
+			<div v-if="data.categories.length > 1" class="filter-group">
+				<span class="filter-label">Category</span>
+				<button
+					v-for="category in data.categories"
+					:key="category"
+					:class="['pill', { active: selectedCategory === category }]"
+					@click="toggleCategory(category)"
+				>
+					{{ formatTag(category) }}
+				</button>
+			</div>
+			<div v-if="data.countries.length > 1" class="filter-group">
 				<span class="filter-label">Country</span>
 				<button
 					v-for="country in data.countries"
@@ -64,7 +87,7 @@ function domain(url: string) {
 				<button
 					v-for="tag in data.tags"
 					:key="tag"
-					:class="['pill', 'tag-pill', { active: selectedTags.has(tag) }]"
+					:class="['pill', { active: selectedTags.has(tag) }]"
 					@click="toggleTag(tag)"
 				>
 					{{ formatTag(tag) }}
@@ -98,7 +121,10 @@ function domain(url: string) {
 				</div>
 				<div class="card-body">
 					<div class="card-title">{{ item.title }}</div>
-					<div class="card-source">{{ item.source }}</div>
+					<div class="card-meta">
+						<span class="card-source">{{ item.source }}</span>
+						<span class="card-category">{{ formatTag(item.category) }}</span>
+					</div>
 					<div class="card-desc">{{ item.description }}</div>
 					<div class="card-tags">
 						<span v-for="tag in item.tags" :key="tag" class="card-tag">{{
@@ -265,10 +291,25 @@ function domain(url: string) {
 	line-height: 1.4;
 }
 
+.card-meta {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
 .card-source {
 	font-size: 13px;
 	font-weight: 500;
 	color: var(--vp-c-brand-1);
+}
+
+.card-category {
+	font-size: 11px;
+	padding: 1px 8px;
+	border-radius: 10px;
+	background: var(--vp-c-default-soft);
+	color: var(--vp-c-text-3);
+	text-transform: capitalize;
 }
 
 .card-desc {
