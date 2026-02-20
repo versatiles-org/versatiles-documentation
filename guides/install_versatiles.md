@@ -35,7 +35,7 @@ You can use the install script to download and install the appropriate [precompi
 Run the following command:
 
 ```sh
-curl -Ls "https://github.com/versatiles-org/versatiles-rs/raw/main/scripts/install-unix.sh" | sudo sh
+curl -Ls "https://github.com/versatiles-org/versatiles-rs/releases/latest/download/install-unix.sh" | sudo sh
 ```
 
 ## Building with Cargo
