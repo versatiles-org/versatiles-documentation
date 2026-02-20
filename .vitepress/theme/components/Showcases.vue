@@ -7,14 +7,6 @@ const selectedCountry = ref<string | null>(null);
 const selectedCategory = ref<string | null>(null);
 const selectedTags = ref<Set<string>>(new Set());
 
-function toggleCountry(country: string) {
-	selectedCountry.value = selectedCountry.value === country ? null : country;
-}
-
-function toggleCategory(category: string) {
-	selectedCategory.value = selectedCategory.value === category ? null : category;
-}
-
 function toggleTag(tag: string) {
 	const next = new Set(selectedTags.value);
 	if (next.has(tag)) next.delete(tag);
@@ -69,47 +61,33 @@ function domain(url: string) {
 
 <template>
 	<div class="showcases">
-		<div class="filters">
+		<div class="filters-bar">
 			<input
 				v-model="searchQuery"
 				type="text"
 				class="search-input"
 				placeholder="Search showcases…"
 			/>
-			<div v-if="data.categories.length > 1" class="filter-group">
-				<span class="filter-label">Category</span>
-				<button
-					v-for="category in data.categories"
-					:key="category"
-					:class="['pill', { active: selectedCategory === category }]"
-					@click="toggleCategory(category)"
-				>
-					{{ formatTag(category) }}
-				</button>
-			</div>
-			<div v-if="data.countries.length > 1" class="filter-group">
-				<span class="filter-label">Country</span>
-				<button
-					v-for="country in data.countries"
-					:key="country"
-					:class="['pill', { active: selectedCountry === country }]"
-					@click="toggleCountry(country)"
-				>
-					{{ country }}
-				</button>
-			</div>
-			<div class="filter-group">
-				<span class="filter-label">Tags</span>
-				<button
-					v-for="tag in data.tags"
-					:key="tag"
-					:class="['pill', { active: selectedTags.has(tag) }]"
-					@click="toggleTag(tag)"
-				>
-					{{ formatTag(tag) }}
-				</button>
-			</div>
+			<select v-if="data.categories.length > 1" v-model="selectedCategory" class="filter-select">
+				<option :value="null">All categories</option>
+				<option v-for="c in data.categories" :key="c" :value="c">{{ formatTag(c) }}</option>
+			</select>
+			<select v-if="data.countries.length > 1" v-model="selectedCountry" class="filter-select">
+				<option :value="null">All countries</option>
+				<option v-for="c in data.countries" :key="c" :value="c">{{ c }}</option>
+			</select>
 			<button v-if="hasFilters" class="clear-btn" @click="clearFilters">Clear filters</button>
+		</div>
+		<div class="filter-group">
+			<span class="filter-label">Tags</span>
+			<button
+				v-for="tag in data.tags"
+				:key="tag"
+				:class="['pill', { active: selectedTags.has(tag) }]"
+				@click="toggleTag(tag)"
+			>
+				{{ formatTag(tag) }}
+			</button>
 		</div>
 
 		<p class="result-count">
@@ -156,11 +134,11 @@ function domain(url: string) {
 
 <style scoped>
 /* Filters */
-.filters {
+.filters-bar {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 12px;
+	gap: 8px;
 	align-items: center;
+	flex-wrap: wrap;
 	margin-bottom: 8px;
 }
 
@@ -212,7 +190,8 @@ function domain(url: string) {
 	color: var(--vp-c-text-1);
 	outline: none;
 	line-height: 1.4;
-	width: 180px;
+	flex: 1;
+	min-width: 150px;
 }
 
 .search-input::placeholder {
@@ -220,6 +199,22 @@ function domain(url: string) {
 }
 
 .search-input:focus {
+	border-color: var(--vp-c-brand-1);
+}
+
+.filter-select {
+	padding: 4px 12px;
+	border-radius: 16px;
+	font-size: 13px;
+	border: 1px solid var(--vp-c-divider);
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-2);
+	outline: none;
+	line-height: 1.4;
+	cursor: pointer;
+}
+
+.filter-select:focus {
 	border-color: var(--vp-c-brand-1);
 }
 
