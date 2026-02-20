@@ -1,0 +1,200 @@
+- title: "Badestellen Berlin Brandenburg"
+  url: "https://interaktiv.morgenpost.de/badestellen-berlin-brandenburg/index_morgenpost.html"
+  source: "Berliner Morgenpost"
+  country: "Germany"
+  description: "Interactive map of bathing spots in Berlin and Brandenburg"
+  tags:
+    - journalism
+    - leisure
+    - interactive-map
+
+- title: "Cannabis-Legalisierung"
+  url: "https://interaktiv.morgenpost.de/cannabis-legalisierung-kiffen-karte/"
+  source: "Berliner Morgenpost"
+  country: "Germany"
+  description: "Map of cannabis legalization zones"
+  tags:
+    - journalism
+    - politics
+    - interactive-map
+
+- title: "Verkehr in Berlin live: Stau, Sperrungen, Störungen"
+  url: "https://interaktiv.morgenpost.de/verkehr-berlin/"
+  source: "Berliner Morgenpost"
+  country: "Germany"
+  description: "Live traffic map for Berlin showing congestion, road closures and disruptions"
+  tags:
+    - journalism
+    - transport
+    - interactive-map
+    - live-data
+
+- title: "\"Hands Off!\" protests"
+  url: "https://datajournal.org/hands-off/"
+  source: "datajournal.org"
+  country: "Germany"
+  description: "Map of \"Hands Off!\" protest events"
+  tags:
+    - journalism
+    - politics
+    - interactive-map
+
+- title: "Mapnificent"
+  url: "https://next.mapnificent.net/"
+  source: "Mapnificent"
+  country: "Germany"
+  description: "Dynamic public transport travel time map"
+  tags:
+    - independent
+    - transport
+    - interactive-map
+
+- title: "Hamburg ist das Bundesland mit den höchsten Mieten"
+  url: "https://www.ndr.de/nachrichten/hamburg/Zensus-2022-Hamburg-ist-Bundesland-mit-hoechsten-Mieten,zensus340.html"
+  source: "NDR"
+  country: "Germany"
+  description: "Census 2022 data showing Hamburg as the state with the highest rents"
+  tags:
+    - journalism
+    - housing
+    - data-visualization
+
+- title: "Zensus 2022"
+  url: "https://www.ndr.de/nachrichten/ndrdata/Zensus-Mietpreise-im-Norden-im-Ueberblick,zensus308.html"
+  source: "NDR"
+  country: "Germany"
+  description: "Overview of rental prices in northern Germany from Census 2022"
+  tags:
+    - journalism
+    - housing
+    - data-visualization
+
+- title: "Wetter"
+  url: "https://www.ndr.de/wetter"
+  source: "NDR"
+  country: "Germany"
+  description: "Weather map for northern Germany"
+  tags:
+    - journalism
+    - weather
+    - live-data
+
+- title: "Dorfgeschichten aus Mecklenburg-Vorpommern"
+  url: "https://www.ndr.de/fernsehen/sendungen/nordmagazin/dorfgeschichte"
+  source: "NDR"
+  country: "Germany"
+  description: "Interactive village stories from Mecklenburg-Vorpommern"
+  tags:
+    - journalism
+    - storytelling
+    - interactive-map
+
+- title: "Notfall in Deutschland"
+  url: "https://notfallrettung.swr.de/"
+  source: "SWR"
+  country: "Germany"
+  description: "Emergency rescue response times across Germany"
+  tags:
+    - health
+    - data-visualization
+    - journalism
+
+- title: "So viel kosten Benzin und Diesel in Ihrer Nähe"
+  url: "https://www.swr.de/swraktuell/diesel-und-benzinpreise-aktuell-so-tanken-sie-heute-clever-100.html"
+  source: "SWR"
+  country: "Germany"
+  description: "Current petrol and diesel prices near you"
+  tags:
+    - transport
+    - live-data
+    - journalism
+
+- title: "Baden-Württemberg heizt noch größtenteils fossil"
+  url: "https://www.swr.de/swraktuell/baden-wuerttemberg/waermewende-bw-heizt-groesstenteils-fossil-oel-und-gas-100.html"
+  source: "SWR"
+  country: "Germany"
+  description: "Heating energy sources in Baden-Württemberg — still mostly fossil fuels"
+  tags:
+    - energy
+    - data-visualization
+    - journalism
+
+- title: "Wie Städte klimaneutral heizen wollen"
+  url: "https://www.swr.de/swraktuell/baden-wuerttemberg/wie-staedte-klimaneutral-heizen-wollen-100.html"
+  source: "SWR"
+  country: "Germany"
+  description: "How cities aim to achieve climate-neutral heating"
+  tags:
+    - energy
+    - data-visualization
+    - journalism
+
+- title: "Wann fährt der letzte Bus in Rheinland-Pfalz?"
+  url: "https://www.swr.de/swraktuell/rheinland-pfalz/wann-faehrt-der-letzte-bus-in-rlp-100.html"
+  source: "SWR"
+  country: "Germany"
+  description: "When does the last bus run in Rhineland-Palatinate?"
+  tags:
+    - transport
+    - data-visualization
+    - journalism
+
+- title: "Wann fährt der letzte Bus in Baden-Württemberg?"
+  url: "https://www.swr.de/swraktuell/baden-wuerttemberg/wann-faehrt-der-letzte-bus-in-bw-100.html"
+  source: "SWR"
+  country: "Germany"
+  description: "When does the last bus run in Baden-Württemberg?"
+  tags:
+    - transport
+    - journalism
+    - data-visualization
+
+- title: "Wann lohnt sich ein E-Auto für Sie wirklich?"
+  url: "https://www.swr.de/swraktuell/auto-kosten-rechner-100.html"
+  source: "SWR"
+  country: "Germany"
+  description: "Calculator to find out when an electric car is worth it for you"
+  tags:
+    - journalism
+    - transport
+    - interactive-tool
+
+- title: "Energiewende auf Abstand"
+  url: "https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/"
+  source: "taz"
+  country: "Germany"
+  description: "German regulations on wind energy distance requirements"
+  tags:
+    - politics
+    - data-visualization
+    - journalism
+
+- title: "So hat Sachsen bei der Landtagswahl gestimmt"
+  url: "https://www.thueringer-allgemeine.de/landtagswahl-sachsen-2024-umfragen-ergebnisse-karte/"
+  source: "Thüringer Allgemeine"
+  country: "Germany"
+  description: "Election results map for the Saxony state election"
+  tags:
+    - politics
+    - interactive-map
+    - journalism
+
+- title: "So hat Thüringen bei der Landtagswahl gestimmt"
+  url: "https://www.thueringer-allgemeine.de/landtagswahl-thueringen-2024-umfragen-ergebnisse-karte/"
+  source: "Thüringer Allgemeine"
+  country: "Germany"
+  description: "Election results map for the Thuringia state election"
+  tags:
+    - politics
+    - interactive-map
+    - journalism
+
+- title: "veganguide.org"
+  url: "https://veganguide.org"
+  source: "veganguide.org"
+  country: "Germany"
+  description: "Map of vegan-friendly restaurants and shops"
+  tags:
+    - leisure
+    - interactive-map
+    - independent

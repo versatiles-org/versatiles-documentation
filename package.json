@@ -19,7 +19,9 @@
   "license": "Unlicense",
   "type": "commonjs",
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "github-slugger": "^2.0.0",
+    "js-yaml": "^4.1.1",
     "npm-check-updates": "^19.3.2",
     "vitepress": "^1.6.4"
   }
