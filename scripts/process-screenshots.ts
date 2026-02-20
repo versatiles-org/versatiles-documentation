@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync, mkdirSync, existsSync } from 'fs';
 import { resolve, basename } from 'path';
+import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 import yaml from 'js-yaml';
 
@@ -8,7 +9,7 @@ interface Showcase {
 	thumbnail?: string;
 }
 
-const ROOT = resolve(import.meta.dirname, '..');
+const ROOT = resolve(fileURLToPath(import.meta.url), '../..');
 const SHOWCASES_DIR = resolve(ROOT, 'compendium/showcases');
 const OUTPUT_DIR = resolve(ROOT, 'public/showcases');
 const YAML_PATH = resolve(ROOT, 'compendium/showcases.yaml');
