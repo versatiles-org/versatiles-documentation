@@ -13,8 +13,7 @@ Generator --> Server --> Network --> Frontend
 4. **Frontend:** Provides the user interface for interactive maps.
 
 > [!WARNING] VersaTiles is still under development.
-Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, problems or features that require minor adjustments. However, the majority of the pipeline is stable.
-
+> Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, problems or features that require minor adjustments. However, the majority of the pipeline is stable.
 
 ## Layer: Generator
 
@@ -28,10 +27,9 @@ While users are free to deviate from our recommendations and use the OpenMapTile
 
 Users can skip the tile generation process altogether and download our pre-built map tiles for the entire planet directly from [download.versatiles.org](https://download.versatiles.org).
 
-
 ### Requirements/Recommendations
 
-- Tiles SHOULD be packed in a [*.versatiles container](https://github.com/versatiles-org/versatiles-spec/).
+- Tiles SHOULD be packed in a [\*.versatiles container](https://github.com/versatiles-org/versatiles-spec/).
 - Vector tiles SHOULD follow the [Shortbread Schema](https://shortbread-tiles.org/).
 - Containers SHOULD include detailed metadata conforming to [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
   - `attribution` detailing the copyright of the source data.
@@ -44,7 +42,6 @@ Users can skip the tile generation process altogether and download our pre-built
   - `<schema>` (optional) e.g.: `shortbread` or `openmaptiles`.
   - `<coverage>` (optional) specifies the geographical coverage, if not planet wide, e.g: `europe` or `kyiv`.
   - `<date>` (optional) is a [basic ISO date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (YYYYMMDD), e.g: `20151021`.
-
 
 ### Status
 
@@ -60,7 +57,6 @@ Users can skip the tile generation process altogether and download our pre-built
 - [x] generate hill shading ([issue](https://registry.opendata.aws/terrain-tiles/))
 - [ ] Generate satellite imagery (using Landsat/SENTINEL, aerial imagery from national open data platforms and open MAXAR imagery)
 
-
 ## Interface: Container
 
 A frequently asked question is why we decided to develop our own container format. The reasons are many:
@@ -68,6 +64,7 @@ A frequently asked question is why we decided to develop our own container forma
 A critical need within the OSM community is for map tile servers to automatically and quickly reflect updates to OSM data. While this real-time updating is critical for some OSM contributors, it is not as important for a wider audience. News organisations, data journalists, NGOs and many front-end developers often only need a basic map background that may be a few months old. The need to monitor real-time changes is not a priority for these users. However, the insistence on up-to-the-minute updates adds significant complexity and resource requirements, requiring all OSM objects to be stored and indexed in a PostgreSQL/PostGIS database, and all changed tiles to be updated immediately. This requirement makes it difficult to develop simple, low-cost solutions. Instead, we will focus on pre-generated tiles stored in a file container.
 
 The most commonly used container format is [MBTiles](https://wiki.openstreetmap.org/wiki/MBTiles), which is essentially a SQLite database containing a row for each tile, with the tile data stored as gzipped blobs. Despite its flexibility, MBTiles has several drawbacks:
+
 1. It requires local or mounted server storage and cannot be hosted on remote cloud storage.
 2. SQLite becomes a necessary dependency. (like libsqlite3-dev)
 3. Processing many tiles is inefficient given SQLite's limited throughput.
@@ -77,17 +74,17 @@ In response, some have turned to cloud-optimised map tile container formats such
 Accordingly, we have taken the lessons learned from COMTiles and PMTiles to create a uniquely simple container format, which is described here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
 
 A unique feature of our format is the ability to perform fast spatial queries remotely. Users who only need a specific region, such as a continent, country or city, do not need to download the entire planet. Instead, they can use our [VersaTiles tool](https://github.com/versatiles-org/versatiles-rs) to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
+
 ```bash
 versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
 ```
-HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://docs.versatiles.org/guides/download_tiles#partial-download) for more information.
 
+HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://docs.versatiles.org/guides/download_tiles#partial-download) for more information.
 
 ### Requirements/Recommendations
 
 - A container MUST conform to the VersaTiles Container Specification: [VersaTiles Spec](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
 - Tile data SHOULD use optimal compression.
-
 
 ### Status
 
@@ -97,11 +94,9 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - [x] Enable bbox downloads
 - [x] Finish the [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
 
-
 ## Layer: Server
 
 The server provides map tiles and static files via HTTP. These static files can include styles, sprites, fonts, JavaScript libraries and more.
-
 
 ### Requirements/Recommendations
 
@@ -124,29 +119,29 @@ The server provides map tiles and static files via HTTP. These static files can 
 
 ```yaml
 server:
-  host: '127.0.0.1'               # Listen on all network interfaces. Default: 0.0.0.0
-  port: 3000                      # Port number for the server. Default: 8080
-  domain: 'https://example.org'   # Publicly accessible URL of the server
+  host: '127.0.0.1' # Listen on all network interfaces. Default: 0.0.0.0
+  port: 3000 # Port number for the server. Default: 8080
+  domain: 'https://example.org' # Publicly accessible URL of the server
 
 # Performance settings: Use minimal recompression for development
-fast: true                        # Set to false in production for full compression. Default: false
+fast: true # Set to false in production for full compression. Default: false
 
 # Configuration for tile sources
 tile_sources:
   - name: 'osm'
-    source: './osm.versatiles'    # Local source for OpenStreetMap tiles
+    source: './osm.versatiles' # Local source for OpenStreetMap tiles
   - name: 'landsat'
-    source: 'https://example.org/landsat.versatiles'   # Remote source for Landsat tiles
+    source: 'https://example.org/landsat.versatiles' # Remote source for Landsat tiles
 
 # Optional configuration for serving static content
 static_content:
   - source: './styles'
-    prefix: 'assets/styles'  # URL path prefix for styles; default prefix is "/"
+    prefix: 'assets/styles' # URL path prefix for styles; default prefix is "/"
   - source: './frontend.tar'
 
 cors:
   # Default policy to allow or block CORS requests if they don't match any specific rules
-  default_policy: 'block'  # Options: 'allow', 'block'
+  default_policy: 'block' # Options: 'allow', 'block'
 
   # List of URL patterns to explicitly allow for CORS requests
   allow_patterns:
@@ -159,21 +154,22 @@ cors:
     - '^https?://*.malicious\.com'
 
 logging:
-  level: 'info'                   # Options: 'debug', 'info', 'warning', 'error'
-  path: '/var/log/myserver.log'   # File path for log output
+  level: 'info' # Options: 'debug', 'info', 'warning', 'error'
+  path: '/var/log/myserver.log' # File path for log output
 ```
-
 
 ### Rust Implementation
 
 We provide a high performance [Rust implementation](https://github.com/versatiles-org/versatiles-rs), available as both a CLI application and a Rust library ([crate](https://crates.io/crates/versatiles)).
 
 Supported platforms include x86 and ARM (64 Bit) across:
+
 - [x] Linux
 - [x] MacOS
 - [x] Windows
 
 In addition to the source code, which can be [compiled using cargo](https://docs.versatiles.org/guides/install_versatiles.html#building-from-source), we provide:
+
 - [x] [Binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
 - [x] Installation scripts for [Linux/MacOS](https://github.com/versatiles-org/versatiles-rs/blob/main/scripts/install-unix.sh) and [Windows](https://github.com/versatiles-org/versatiles-rs/blob/main/scripts/install-windows.ps1)
 - [x] [Homebrew](https://github.com/versatiles-org/homebrew-versatiles)
@@ -184,6 +180,7 @@ In addition to the source code, which can be [compiled using cargo](https://docs
 Our [Docker images](https://hub.docker.com/u/versatiles) ([Repository](https://github.com/versatiles-org/versatiles-docker)) use Debian, Alpine and Scratch environments. They include variations with and without [all static frontend files](https://hub.docker.com/r/versatiles/versatiles-frontend/tags).
 
 Future improvements will focus on:
+
 - [ ] Proper CORS handling
 - [ ] Full `config.yaml` support
 - [x] Generation of tile size statistics
@@ -193,43 +190,43 @@ Future improvements will focus on:
 - [ ] Develop an "overlay" command to overlay image tiles
 - [ ] Improve the "overlay" command by implementing a [multi-scale approach](https://en.wikipedia.org/wiki/Multi-scale_approaches) to seamlessly overlay image tiles (see also [gradient-domain image processing](https://en.wikipedia.org/wiki/Gradient-domain_image_processing))
 
-
 ### NodeJS Implementations
 
 Our NodeJS implementation includes
+
 - [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
 - [x] A basic [server](https://github.com/versatiles-org/node-versatiles-server)
 - [ ] Full `config.yaml` support
 - [ ] Comprehensive CORS management
 
-A specific solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `*.versatiles' file, including a preview mode:
-- [x] [VersaTiles - Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies the integration of map data into data visualisations for editorial departments.
+A specific solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `\*.versatiles' file, including a preview mode:
 
+- [x] [VersaTiles - Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies the integration of map data into data visualisations for editorial departments.
 
 ### Status
 
 In the future we plan to:
+
 - [ ] Validate VersaTiles on Raspberry Pi
 - [ ] Explore a tile server on ESP32 that demonstrates the simplicity and efficiency of VersaTiles.
 - [ ] Standardise the server configuration and API for seamless transitions between server implementations
 
-
 ## Interface: Private/Internal Network
 
 We recommend to divide the server into two parts:
+
 1. A map server running on a private network ("Server" layer)
 2. A public facing server ("Network" layer)
-Communication between these two layers should be via plain, unencrypted HTTP.
-
+   Communication between these two layers should be via plain, unencrypted HTTP.
 
 ## Layer: Network
 
 The network layer is critical to the delivery of files over the public Internet and addresses the security, availability and performance requirements associated with this.
 
 Currently we recommend:
+
 - to use a CDN provider or
 - to use a reverse proxy such as NGINX.
-
 
 ### Requirements/Recommendations
 
@@ -238,7 +235,6 @@ Currently we recommend:
 - **Availability**: Use load balancing techniques to balance traffic across servers.
 - **Performance**: Use caching and/or content delivery networks (CDNs) to accelerate content delivery and reduce latency.
 - **Compliance and Best Practices**: Adhere to industry standards and best practices for network security and performance.
-
 
 ### Status
 
@@ -265,22 +261,18 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 
 Documentation on how to use NGINX, including setup, configuration and a Docker image is under development.
 
-
 ## Interface: Public Network
 
 HTTP traffic encrypted with TLS.
-
 
 ## Layer: Frontend
 
 The frontend layer is the graphical interface that presents the map tiles to the user. While numerous frameworks such as MapLibre GL JS, Mapbox, OpenLayers and Leaflet are available for this purpose, our focus is on MapLibre. This choice is due to MapLibre's ability to efficiently render vector tiles on the GPU, its open source licence and its comprehensive support for JavaScript, iOS and Android platforms.
 
-
 ### Requirements/Recommendations
 
 - The frontend SHOULD be able to draw Shortbread vector tiles and raster tiles.
 - See the [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
-
 
 ### Status
 

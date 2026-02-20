@@ -8,7 +8,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 1 * *"
+    - cron: '0 3 1 * *'
 
 concurrency:
   group: ${{ github.workflow }}
@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-      
+
       - name: Check Markdown Links
         uses: michaelkreil/check-markdown-links@main
         with:

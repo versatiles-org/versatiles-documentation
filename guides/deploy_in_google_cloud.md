@@ -12,6 +12,7 @@ See also the [How to transfer the VersaTiles planet to Google Cloud Storage](../
 
 - Create an empty Git repository.
 - Add a file with the filename "Dockerfile" with the following content:
+
 ```Dockerfile
 # Use the latest docker image of VersaTiles including the frontend.
 FROM versatiles/versatiles-frontend:latest-alpine
@@ -32,6 +33,7 @@ CMD versatiles serve \
     -s frontend-dev.br.tar \
     "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"
 ```
+
 - Don't forget to update the last line of `Dockerfile` to point to your Google Bucket
 - Commit and push the new "Dockerfile"
 
@@ -47,7 +49,7 @@ CMD versatiles serve \
   - "Allow direct access to your service from the Internet"
   - For "Authentication" select "Allow unauthenticated invocations".
   - When finished click button "CREATE".
-- Check if the service is running correctly: Open the link in "Service details" (something like: https://***.run.app). You should see an interactive map.
+- Check if the service is running correctly: Open the link in "Service details" (something like: https://\*\*\*.run.app). You should see an interactive map.
 
 ## 4. Add a load balancer
 

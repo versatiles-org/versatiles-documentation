@@ -1,6 +1,7 @@
 # How to run a VersaTiles server with nginx on Debian
 
 Your server requires as an absolute minimum:
+
 - 2 CPU cores
 - 4 GB RAM
 - 60 GB free disk space
@@ -8,23 +9,27 @@ Your server requires as an absolute minimum:
 ## 0. Create a user "versatiles"
 
 ## 1. Update the server and install dependencies
+
 ```bash
 sudo apt update
 sudo apt -q install -y curl nginx build-essential libsqlite3-dev pkg-config openssl libssl-dev # git wget unzip tmux htop sysstat brotli cmake ifstat gnupg2 ca-certificates lsb-release
 ```
 
 ## 2. Install Rust
+
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 ```
 
 ## 3. Install VersaTiles
+
 ```bash
 cargo install versatiles
 ```
 
 ## 4. Download frontend and tiles
+
 ```bash
 cd ~
 mkdir versatiles
@@ -39,6 +44,7 @@ curl -Lo osm.versatiles "https://download.versatiles.org/osm.versatiles"
 > The following steps (5-7) have not been fully tested. Please verify carefully and report any issues.
 
 ## 5. config nginx
+
 ```bash
 sudo nano /etc/nginx/sites-available/default
 # add:
@@ -49,6 +55,7 @@ sudo systemctl restart nginx
 ```
 
 ## 6. prepare a VersaTiles service
+
 ```bash
 sudo cat > /etc/systemd/system/versatiles.service <<EOF
 [Unit]
@@ -70,6 +77,7 @@ EOF
 ```
 
 ## 7. start service
+
 ```bash
 sudo systemctl start versatiles
 ```

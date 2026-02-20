@@ -7,8 +7,6 @@ It provides a open, modular and high-performance alternative to proprietary solu
 It enables developers and organizations to self-host and serve map tiles without relying on commercial providers.
 [Learn more](basics/versatiles.md)
 
-
-
 ## Why Use VersaTiles?
 
 - **Optimized Performance** – The VersaTiles container format ensures **fast** and **efficient** tile access.
@@ -18,8 +16,6 @@ It enables developers and organizations to self-host and serve map tiles without
 
 Whether you need a **fully self-hosted map solution**, a **faster alternative to `.mbtiles`**, or a **customizable
 vector tile pipeline**, VersaTiles provides the tools to build and serve modern, high-performance maps.
-
-
 
 ## VersaTiles components
 
@@ -55,8 +51,6 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - **[Svelte Components for VersaTiles](https://github.com/versatiles-org/node-versatiles-svelte)**
 - **[MapLibre plugin for editing VersaTiles styles](https://github.com/versatiles-org/maplibre-versatiles-styler)**
 
-
-
 ## Learning Resources
 
 - [Introduction](compendium/introduction.md)
@@ -80,7 +74,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - **Kubernetes**
 - **Raspberry Pi**
 - **AWS**
--->
+  -->
 
 ## Advanced Guides
 
@@ -88,14 +82,11 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - [Use VersaTiles in **QGIS**](guides/use_versatiles_in_qgis.md)
 <!-- - *How to add maps into your mobile app with maximum privacy, e.g. by including a server into your app?* -->
 
-
-
 ## Awesome VersaTiles
 
 - **[Showcases](compendium/showcases.md)**: VersaTiles in use
 - **[Ansible Playbook](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/versatiles.md)** for running VersaTiles.
 - **[Tileblaster](https://github.com/yetzt/tileblaster)**: A map tile caching and processing proxy with support for VersaTiles.
-
 
 ## Contributing
 

@@ -3,14 +3,14 @@
 Since the early 1990s, the web has seen significant technological advances. New standards and tools have made it easier to publish text, articles, photos, videos and other forms of media. However, publishing maps remains particularly challenging.
 
 Several factors contribute to this challenge:
-1. Geospatial data, satellite imagery and aerial photography, is often copyrighted, making it expensive and inaccessible for open use.   
-Some governments have not yet embraced the idea of open data and instead produce geospatial data mainly for commercial purposes.
+
+1. Geospatial data, satellite imagery and aerial photography, is often copyrighted, making it expensive and inaccessible for open use.  
+   Some governments have not yet embraced the idea of open data and instead produce geospatial data mainly for commercial purposes.
 1. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements and the intricacies of front-end frameworks.
 
 Despite these challenges, the wealth of available data, standards and frameworks - many of which are open or freely available - provides a unique opportunity to build a web mapping infrastructure. However, the diversity of solutions makes it difficult to put the pieces together.
 
 VersaTiles aims to define and implement a standardised map infrastructure that provides a streamlined approach to integrating maps into web platforms.
-
 
 ## Who needs web maps?
 
@@ -20,7 +20,6 @@ Basically, every person and every object on the planet has a geo-coordinate. Eve
 - **Research**: Researchers studying environmental issues, climate change or other global or local phenomena need a tool to analyse and visualise their data.
 - **Emergency Response**: In times of crisis, such as natural disasters or public health emergencies, organisations need maps to visualise affected areas and communicate local information to the public.
 - **Communities**: There are so many great communities out there, such as citizen science, community-based bike sharing, community-supported agriculture and many more, that need a simple, cost-effective way to display location information.
-
 
 ## What are Slippy Maps?
 
@@ -38,7 +37,6 @@ This approach works well for image tiles, such as satellite and aerial imagery. 
 
 So the concept of "slippy maps" has been improved by using vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons and their properties - much like SVG. But because SVG is too cumbersome, Mapbox has developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as compact [protobufs](https://protobuf.dev/) (PBF). The frontend should read the geographic data and draw the map accordingly. One advantage is that the map style can be defined in the frontend, so that the colour or even the language of the map can be adjusted. Rendering large amounts of vector data can be computationally expensive, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL or Vulcan.
 
-
 ## Why is there no simple solution?
 
 Generating, serving, and visualising map tiles can be a complex process due to the variety of tile formats, hosting options, storage and generation methods, serving and display techniques, map data styling approaches, and data source combinations. In addition, front-ends must render vector data, satellite imagery, hillshading, data visualisation layers, and interactive front-end elements.
@@ -46,7 +44,6 @@ Generating, serving, and visualising map tiles can be a complex process due to t
 Commercial vendors such as Mapbox address these challenges by offering a comprehensive software suite. However, the solution is expensive, leads to vendor lock-in and raises privacy concerns.
 
 A free and open source system would be ideal. Although open source alternatives exist for each problem, integrating them into a single infrastructure can be challenging. It is not feasible to develop a single software solution that solves all the problems at once and remains flexible enough for different use cases.
-
 
 ## How does VersaTiles solve the problem?
 

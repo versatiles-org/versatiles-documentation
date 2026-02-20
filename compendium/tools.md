@@ -1,4 +1,3 @@
-
 # Tools
 
 In our roadmap we plan to develop a number of useful tools aimed at improving the usability and functionality of web-based mapping solutions:

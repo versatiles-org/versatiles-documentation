@@ -21,6 +21,7 @@ You will also need our prepared map tiles. You can find more information on this
 # Usage
 
 You can then start the server by using `versatiles` with the subcommand `server` and then simply adding the versatiles file as argument:
+
 ```bash
 versatiles server planet.versatiles
 ```
@@ -28,11 +29,13 @@ versatiles server planet.versatiles
 ## Multiple sources
 
 If you want to serve more than one source, you can easily add them:
+
 ```bash
 versatiles server planet.versatiles satellite_imagery.mbtiles my_overlay.tar
 ```
 
 When the server is started, all sources and their URL are listed:
+
 ```
    /tiles/planet/*                 <-  /tiles/planet.versatiles
    /tiles/satellite_imagery/*      <-  /tiles/satellite_imagery.mbtiles
@@ -40,11 +43,13 @@ When the server is started, all sources and their URL are listed:
 ```
 
 Each source gets an URL based on the file name (without extension). If you want to use a different URL, you can use this special notation with square brackets:
+
 ```bash
 versatiles server "[osm]planet.versatiles" "[satellite]satellite_imagery.mbtiles" "[heatmap]my_overlay.tar"
 ```
 
 Now the URLs look like this:
+
 ```
    /tiles/osm/*                    <-  /tiles/planet.versatiles
    /tiles/satellite/*              <-  /tiles/satellite_imagery.mbtiles
@@ -54,6 +59,7 @@ Now the URLs look like this:
 ## Optional frontend
 
 You can extend the VersaTiles server with an optional frontend. This frontend includes the latest version of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), map styles, fonts and symbols. You can [download the frontend](../basics/frontend.md#download-the-frontend):
+
 ```bash
 wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 ```
@@ -67,6 +73,7 @@ versatiles server -s frontend.br.tar.gz planet.versatiles
 ## Different IP/Port
 
 Per default versatiles uses 0.0.0.0:8080. If you want to change IP/Port use the options:
+
 - `-i`/`--ip`: e.g. `-i 127.0.0.1`
 - `-p`/`--port`: e.g. `-p 3000`
 
@@ -77,4 +84,3 @@ The VersaTiles server implements only core functionality to keep the project sim
 # Scalability and performance
 
 Rust, the programming language used to develop the VersaTiles server, is known for its performance and low resource consumption. As a result, the VersaTiles server can handle a large number of concurrent requests while maintaining fast response times. This makes it ideal for applications ranging from small projects to large, data-intensive infrastructures.
-

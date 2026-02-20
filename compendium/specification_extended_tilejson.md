@@ -21,7 +21,7 @@ This extension defines **four optional metadata fields** for the [TileJSON 3.0 s
 `tile_type` indicates whether the source is a `"raster"` or `"vector"` tile source. All values must be lowercase.
 
 | Value     | Meaning                           |
-|-----------|-----------------------------------|
+| --------- | --------------------------------- |
 | `raster`  | Pixel tiles (imagery, DEM, etc.)  |
 | `vector`  | Geometry/feature tiles (MVT, MLT) |
 | `unknown` | Other types                       |
@@ -35,7 +35,7 @@ This extension defines **four optional metadata fields** for the [TileJSON 3.0 s
 ### Raster values
 
 | Value            | Use case                                                                                                                       |
-|------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `rgb`            | 3-band imagery (no alpha)                                                                                                      |
 | `rgba`           | 4-band imagery with alpha                                                                                                      |
 | `dem/mapbox`     | Elevation data in [Mapbox Terrain-RGB](https://docs.mapbox.com/data/tilesets/guides/access-elevation-data/#decode-data) format |
@@ -45,7 +45,7 @@ This extension defines **four optional metadata fields** for the [TileJSON 3.0 s
 ### Vector values
 
 | Value            | Vector tiles follow…                                                  |
-|------------------|-----------------------------------------------------------------------|
+| ---------------- | --------------------------------------------------------------------- |
 | `openmaptiles`   | The [OpenMapTiles schema](https://openmaptiles.org/schema/)           |
 | `shortbread@1.0` | The [Shortbread 1.0 schema](https://shortbread-tiles.org/schema/1.0/) |
 | `other`          | An unspecified, unknown, or custom schema                             |
@@ -62,7 +62,7 @@ Any valid media type is allowed. All values must be lowercase. Non-standard type
 ### Common raster formats
 
 | Value        | Meaning     |
-|--------------|-------------|
+| ------------ | ----------- |
 | `image/png`  | PNG images  |
 | `image/jpeg` | JPEG images |
 | `image/webp` | WebP images |
@@ -71,7 +71,7 @@ Any valid media type is allowed. All values must be lowercase. Non-standard type
 ### Common vector formats
 
 | Value                                | Notes                                                                                                           |
-|--------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
 | `application/vnd.mapbox-vector-tile` | Tiles follow the [Mapbox Vector Tile Specification](https://github.com/mapbox/vector-tile-spec/tree/master/2.1) |
 
 > [!NOTE]  

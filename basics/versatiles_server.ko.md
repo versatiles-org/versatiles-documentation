@@ -14,60 +14,62 @@ HTTP 바이트 범위 요청을 통해 액세스할 수 있는 컨테이너를 �
 
 # 설치 및 설정
 
-* VersaTiles를 설치해야 합니다: [VersaTiles 설치](../guides/install_versatiles.ko.md)
-* VersaTiles 실행을 위하여 행성 전체, 또는 일부를 포함한 벡터 타일이 필요합니다: [VersaTiles 벡터 타일 다운로드](../guides/download_tiles.ko.md)
+- VersaTiles를 설치해야 합니다: [VersaTiles 설치](../guides/install_versatiles.ko.md)
+- VersaTiles 실행을 위하여 행성 전체, 또는 일부를 포함한 벡터 타일이 필요합니다: [VersaTiles 벡터 타일 다운로드](../guides/download_tiles.ko.md)
 
 # 사용법
 
-
 ## 서버 시작 및 기본 사용
 
- * **서버 시작**: `versatiles server` 명령어를 사용하여 서버를 시작합니다. 기본적인 사용 방법은 다음과 같습니다.
+- **서버 시작**: `versatiles server` 명령어를 사용하여 서버를 시작합니다. 기본적인 사용 방법은 다음과 같습니다.
 
-    ```bash
-    versatiles server osm.versatiles
-    ```
+  ```bash
+  versatiles server osm.versatiles
+  ```
 
-    이 명령어는 `osm.versatiles` 파일을 소스로 사용하여 서버를 시작합니다.
+  이 명령어는 `osm.versatiles` 파일을 소스로 사용하여 서버를 시작합니다.
 
-* **두 개 이상의 소스**: 파일 이름을 나열하는 방법으로 서버에 두 개 이상의 소스를 추가할 수 있습니다.
+- **두 개 이상의 소스**: 파일 이름을 나열하는 방법으로 서버에 두 개 이상의 소스를 추가할 수 있습니다.
 
-     ```bash
-     versatiles server osm.versatiles satellite_imagery.mbtiles my_overlay.tar
-     ```
-     위 예는 `osm.versatiles`, `satellite_imagery.mbtiles`, `my_overlay.tar`의 세 가지 소스를 서버에 추가합니다.
+  ```bash
+  versatiles server osm.versatiles satellite_imagery.mbtiles my_overlay.tar
+  ```
+
+  위 예는 `osm.versatiles`, `satellite_imagery.mbtiles`, `my_overlay.tar`의 세 가지 소스를 서버에 추가합니다.
 
   서버가 시작되면 *각 소스의 파일 이름에서 확장자를 제외한 부분*이 URL 경로로 자동 매핑됩니다.
-     - `/tiles/osm/*` <- `osm.versatiles`
-     - `/tiles/satellite_imagery/*` <- `satellite_imagery.mbtiles`
-     - `/tiles/my_overlay/*` <- `my_overlay.tar`
+  - `/tiles/osm/*` <- `osm.versatiles`
+  - `/tiles/satellite_imagery/*` <- `satellite_imagery.mbtiles`
+  - `/tiles/my_overlay/*` <- `my_overlay.tar`
 
 ## 사용자 정의 URL
 
 - **URL 사용자 정의**: 기본 URL 경로 대신 사용자 정의 URL을 설정할 수 있습니다. 이때 대괄호를 사용하여 소스와 URL을 매핑합니다.
 
-    ```bash
-    versatiles server "[planet]osm.versatiles" "[satellite]satellite_imagery.mbtiles" "[heatmap]my_overlay.tar"
-    ```
-    URL 매핑은 다음과 같이 변경됩니다:
-    - `/tiles/planet/*` <- `osm.versatiles`
-    - `/tiles/satellite/*` <- `satellite_imagery.mbtiles`
-    - `/tiles/heatmap/*` <- `my_overlay.tar`
+  ```bash
+  versatiles server "[planet]osm.versatiles" "[satellite]satellite_imagery.mbtiles" "[heatmap]my_overlay.tar"
+  ```
+
+  URL 매핑은 다음과 같이 변경됩니다:
+  - `/tiles/planet/*` <- `osm.versatiles`
+  - `/tiles/satellite/*` <- `satellite_imagery.mbtiles`
+  - `/tiles/heatmap/*` <- `my_overlay.tar`
 
 ## 다른 IP/포트
+
 `versatiles`는 기본적으로 `0.0.0.0:8080`을 사용합니다. 아래 옵션을 사용하여 IP 주소와 포트 번호를 변경할 수 있습니다.
 
-* **IP 주소 변경**: 여러 IP 대역을 사용하는 경우 `-i` 또는 `--ip` 옵션을 사용하여 IP 주소를 지정합니다.
+- **IP 주소 변경**: 여러 IP 대역을 사용하는 경우 `-i` 또는 `--ip` 옵션을 사용하여 IP 주소를 지정합니다.
 
-     ```bash
-     versatiles server --ip 127.0.0.1
-     ```
+  ```bash
+  versatiles server --ip 127.0.0.1
+  ```
 
-* **포트 번호 변경**: 다른 포트 번호를 사용하려면 `-p` 또는 `--port` 옵션을 사용하여 포트 번호를 지정합니다.
+- **포트 번호 변경**: 다른 포트 번호를 사용하려면 `-p` 또는 `--port` 옵션을 사용하여 포트 번호를 지정합니다.
 
-     ```bash
-     versatiles server --port 80
-     ```
+  ```bash
+  versatiles server --port 80
+  ```
 
 ## 프론트엔드
 
@@ -88,16 +90,16 @@ Rust로 작성되어 리소스 사용량이 적으면서도 뛰어난 성능을 
 
 # 구성 옵션
 
-*구성 옵션을 설명해 주세요*
+_구성 옵션을 설명해 주세요_
 
 # API 문서
 
-*API를 설명해 주세요*
+_API를 설명해 주세요_
 
 # 프런트엔드 사용자 지정
 
-*프런트엔드 설명*
+_프런트엔드 설명_
 
 # 업데이트 및 마이그레이션
 
-*여기에 유용한 내용을 추가해 주세요*
+_여기에 유용한 내용을 추가해 주세요_

@@ -1,4 +1,3 @@
-
 ```bash
 git clone sprites
 run in sprites: ./bin/build_png.js

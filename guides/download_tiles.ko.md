@@ -8,6 +8,7 @@
 - [Google Cloud Storage로 다운로드](#google-cloud-storage로-다운로드)
 
 ## 개인 서버로 다운로드
+
 ### 전체 다운로드
 
 [download.versatiles.org](https://download.versatiles.org/)에서 전 세계 타일을 다운로드할 수 있습니다.
@@ -32,6 +33,7 @@ wget -c "https://download.versatiles.org/osm.versatiles"
 ```bash
 versatiles convert [옵션] [소스 URL] [대상 파일명]
 ```
+
 #### 옵션 설명
 
 - `--bbox`: 다운로드할 지역의 경계 상자를 지정합니다. 값은 서경, 남위, 동경, 북위의 순서로 입력합니다.
@@ -54,7 +56,7 @@ versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://d
 
 이 명령어를 실행하면 지정된 경계 상자 내의 타일을 다운로드하여 `switzerland.versatiles` 파일로 저장합니다.
 
-- - -
+---
 
 ## Google Cloud Storage로 다운로드
 
@@ -67,19 +69,18 @@ VersaTiles 데이터를 Google Cloud Storage에 저장하려면 다음 단계를
   [download.versatiles.org](https://download.versatiles.org/)에서 `osm.versatiles` 파일을 버킷으로 전송합니다.
 
   세 가지 방법이 있습니다:
-
   1. **자동 전송**
-      - **버킷 세부정보**로 이동하여 **데이터 전송**을 클릭한 후 **데이터 전송 시작**을 선택합니다.
-      - **소스 유형: URL 목록**을 선택하고 다음 단계로 진행합니다.
-      - **URL 목록 파일**의 URL로 `https://download.versatiles.org/urllist_osm.tsv`를 입력하고 진행합니다.
-      - 대상 버킷과 폴더를 선택하면 **한 번 실행**, **지금 시작**을 선택하고 **생성**을 클릭하여 마무리합니다.
+     - **버킷 세부정보**로 이동하여 **데이터 전송**을 클릭한 후 **데이터 전송 시작**을 선택합니다.
+     - **소스 유형: URL 목록**을 선택하고 다음 단계로 진행합니다.
+     - **URL 목록 파일**의 URL로 `https://download.versatiles.org/urllist_osm.tsv`를 입력하고 진행합니다.
+     - 대상 버킷과 폴더를 선택하면 **한 번 실행**, **지금 시작**을 선택하고 **생성**을 클릭하여 마무리합니다.
 
-   2. **수동 전송**
-      - `wget` 또는 `versatiles convert`를 사용하여 전 세계 또는 특정 지역의 타일을 클라이언트에 다운로드할 수 있습니다.
-      - 버킷에 임의로 파일을 업로드합니다: [파일 시스템에서 Google 클라우드로 업로드](https://cloud.google.com/storage/docs/uploading-objects?hl=ko#upload-object-cli)
+  2. **수동 전송**
+     - `wget` 또는 `versatiles convert`를 사용하여 전 세계 또는 특정 지역의 타일을 클라이언트에 다운로드할 수 있습니다.
+     - 버킷에 임의로 파일을 업로드합니다: [파일 시스템에서 Google 클라우드로 업로드](https://cloud.google.com/storage/docs/uploading-objects?hl=ko#upload-object-cli)
 
-   3. **Google VM 전송**
-      - Google Compute Engine VM을 사용하여 다운로드와 업로드를 모두 수행할 수 있습니다.
+  3. **Google VM 전송**
+     - Google Compute Engine VM을 사용하여 다운로드와 업로드를 모두 수행할 수 있습니다.
 
 - **공개 액세스 설정**
   버킷 또는 파일을 [공개 액세스](https://cloud.google.com/storage/docs/access-control/making-data-public)로 설정해야 합니다.

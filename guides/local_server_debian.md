@@ -5,7 +5,6 @@ In this guide, we will explain how to set up and run a local VersaTiles server. 
 > [!NOTE]
 > The VersaTiles server is written in Rust (Repo: [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)).
 
-
 ## Step 1: Install the VersaTiles tool
 
 See ["Installing VersaTiles"](install_versatiles.md).

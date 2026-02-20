@@ -52,7 +52,7 @@ See the image documentation in the [`versatiles-frontend` directory](https://git
 
 ## Resources
 
-- **Server** — [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)  
-- **Dockerfiles** — [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)  
-- **Front‑end** — [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) · [latest release](https://github.com/versatiles-org/versatiles-frontend/releases/latest/)  
+- **Server** — [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)
+- **Dockerfiles** — [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)
+- **Front‑end** — [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) · [latest release](https://github.com/versatiles-org/versatiles-frontend/releases/latest/)
 - **Tile data** — <https://download.versatiles.org>

@@ -10,14 +10,15 @@
   - [MacOS](#macos)
 - [Rust와 Cargo를 사용하여 소스에서 빌드](#rust와-cargo를-사용하여-소스에서-빌드)
 
-##  바이너리 다운로드
+## 바이너리 다운로드
 
 [Releases 페이지](https://github.com/versatiles-org/versatiles-rs/releases/)에서 Linux와 Mac 운영체제를 위한 Rust로 사전 컴파일된 바이너리를 제공합니다.
 
 아래 스크립트는 사전 컴파일된 바이너리를 다운로드하여 `versatiles`를 설치합니다.
+
 <details><summary>접기/펼치기</summary>
 
-~~~shell
+```shell
 #!/bin/bash
 
 [ "$EUID" -ne 0 ] && echo "This script must be run as root." && exit 1
@@ -42,13 +43,16 @@ URL="https://github.com/versatiles-org/versatiles-rs/releases/latest/download/ve
 curl -Ls "$URL" | tar -xzf - -C /usr/local/bin versatiles && chmod +x /usr/local/bin/versatiles
 
 versatiles --version
-~~~
+```
+
 </details>
 
 ## 패키지 관리자 사용
+
 ### Debian 계열 Linux
 
 아래 스크립트는 Dpkg를 사용하여 `versatiles`를 설치합니다.
+
 <details><summary>접기/펼치기</summary>
 
 ```bash
@@ -74,6 +78,7 @@ curl -Ls -o "/tmp/$DEB_PACKAGE" "$URL" && dpkg -i "/tmp/$DEB_PACKAGE" && rm "/tm
 
 versatiles --version
 ```
+
 </details>
 
 ### MacOS

@@ -9,24 +9,28 @@
 타일, 글꼴, 아이콘에 대한 모든 URL이 포함되어 있는 사전 빌드된 스타일 중 하나를 사용할 수도 있습니다: [VersaTiles Style](https://github.com/versatiles-org/versatiles-style/releases/latest/)
 
 아래는 인터랙티브 맵을 위한 오픈소스 라이브러리인 Maplibre를 사용하여 맵을 구현하는 방법을 보여주는 HTML 예제입니다.
+
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-   <meta charset="utf-8" />
-   <title>VersaTiles - Demo</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <script src="https://tiles.versatiles.org/assets/lib/maplibre-gl/maplibre-gl.js"></script>
-   <link href="https://tiles.versatiles.org/assets/lib/maplibre-gl/maplibre-gl.css" rel="stylesheet" />
-</head>
-<body>
-   <div id="map" style="width: 100%; height: 80vh;"></div>
-   <script>
+  <head>
+    <meta charset="utf-8" />
+    <title>VersaTiles - Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://tiles.versatiles.org/assets/lib/maplibre-gl/maplibre-gl.js"></script>
+    <link
+      href="https://tiles.versatiles.org/assets/lib/maplibre-gl/maplibre-gl.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="map" style="width: 100%; height: 80vh;"></div>
+    <script>
       new maplibregl.Map({
-         container: 'map', // The container ID
-         style: 'https://tiles.versatiles.org/assets/styles/colorful/style.json' // Style URL
+        container: 'map', // The container ID
+        style: 'https://tiles.versatiles.org/assets/styles/colorful/style.json', // Style URL
       });
-   </script>
-</body>
+    </script>
+  </body>
 </html>
 ```
