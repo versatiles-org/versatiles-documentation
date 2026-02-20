@@ -32,6 +32,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Build
+        run: npm run build
+
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
