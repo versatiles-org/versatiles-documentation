@@ -35,7 +35,7 @@ async function main() {
 	for (const slug of pngSlugs) {
 		if (!yamlSlugs.has(slug)) {
 			console.warn(
-				`⚠ Unused PNG: compendium/showcases/${slug}.png (no YAML entry with thumbnail: ${slug})`,
+				`⚠ Unused PNG: showcases/${slug}.png (no YAML entry with thumbnail: ${slug})`,
 			);
 		}
 	}
@@ -43,7 +43,7 @@ async function main() {
 	// Error: missing PNG files (YAML references a thumbnail but no PNG exists)
 	for (const slug of yamlSlugs) {
 		if (!pngSlugs.has(slug)) {
-			console.error(`✗ Missing PNG: compendium/showcases/${slug}.png (referenced in YAML)`);
+			console.error(`✗ Missing PNG: showcases/${slug}.png (referenced in YAML)`);
 			hasError = true;
 		}
 	}
