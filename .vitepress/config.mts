@@ -1,3 +1,5 @@
+import { existsSync } from 'fs';
+import { resolve } from 'path';
 import { defineConfig } from 'vitepress';
 import GithubSlugger from 'github-slugger';
 
@@ -23,7 +25,13 @@ export default defineConfig({
 		['meta', { property: 'og:image:height', content: '675' }],
 		['meta', { property: 'og:image:alt', content: 'versatiles logo on a gradient background' }],
 	],
-	ignoreDeadLinks: 'localhostLinks',
+	ignoreDeadLinks: [
+		/^https?:\/\/localhost/,
+		(link: string) => {
+			// Allow links without trailing slash that resolve to a directory with index.md
+			return existsSync(resolve(link.replace(/^\.\//, ''), 'index.md'));
+		},
+	],
 	lastUpdated: true,
 	themeConfig: {
 		search: {
