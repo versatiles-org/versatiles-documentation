@@ -4,11 +4,11 @@ You can read this document in [English/영어](frontend.md) or [Korean/한국어
 
 The server only provides vector tiles. But you need more to have an interactive web map. You also need:
 
-- A JavaScript library like [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js), that will handle loading, drawing and user interactions.
-- Styles that define, how the vector tiles should be drawn.
+- A JavaScript library like [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) to handle loading, drawing and user interactions.
+- Styles that define how the vector tiles should be drawn.
 - Fonts and symbols for labels and markers on the map.
 
-To make it easier for you we prepared and bundled everything in a compact package that is ready to use.
+To make it easier for you, we prepared and bundled everything in a compact, ready-to-use package.
 
 ## Download the frontend
 
@@ -20,7 +20,7 @@ To download it just run:
 wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 ```
 
-## How is it build?
+## How is it built?
 
 We maintain the frontend in the repo: [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend). A GitHub workflow triggers the build script. It then bundles:
 
