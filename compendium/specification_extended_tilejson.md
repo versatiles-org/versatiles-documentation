@@ -87,10 +87,21 @@ Any valid media type is allowed. All values must be lowercase. Non-standard type
 
 ## Relaxed rule for `tiles`
 
-- `tiles` **may** contain relative URLs.
+The [TileJSON 3.0 spec](https://github.com/mapbox/tilejson-spec/blob/master/3.0.0/README.md#32-tiles) requires absolute URLs in the `tiles` property. This was designed with the assumption that tiles are served from a single, known domain. For self-hosted tile servers, this assumption does not hold:
+
+- **Hardcoding the server URL at startup** breaks when the server is behind a CDN, a reverse proxy, or reachable under multiple hostnames.
+- **Deriving the URL from the HTTP request** requires correct forwarding of `Host` and `X-Forwarded-*` headers through every proxy, adding fragile configuration.
+
+Since TileJSON references resources on the same host under the same path prefix, this is precisely the use case relative URLs were designed for.
+
+### Rule
+
+- `tiles` **may** contain relative URL templates.
 - Each URL **must** be resolved relative to the JSON document’s own location.
 
-Example: the file at `https://example.org/tiles/osm/tiles.json` contains
+### Example
+
+The file at `https://example.org/tiles/osm/tiles.json` contains:
 
 ```json
 {
@@ -99,10 +110,19 @@ Example: the file at `https://example.org/tiles/osm/tiles.json` contains
 }
 ```
 
-so tiles are fetched from `https://example.org/tiles/osm/{z}/{x}/{y}`.
+A client resolves this to `https://example.org/tiles/osm/{z}/{x}/{y}`.
 
-> [!WARNING]  
-> When resolving a template such as `{z}/{x}/{y}` with the JavaScript `URL` class, you may receive a URL-encoded result like `https://example.org/tiles/osm/%7Bz%7D/%7Bx%7D/%7By%7D`.
+### Client implementation note
+
+> [!WARNING]
+> JavaScript’s `URL` class will percent-encode curly braces in template variables (e.g. `%7Bz%7D` instead of `{z}`). After resolving, replace `%7B` → `{` and `%7D` → `}`:
+>
+> ```js
+> function resolveUrl(base, url) {
+>   url = new URL(url, base).href;
+>   return url.replace(/%7B/gi, ‘{‘).replace(/%7D/gi, ‘}’);
+> }
+> ```
 
 ---
 
