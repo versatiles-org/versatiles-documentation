@@ -33,7 +33,7 @@
     "eslint-plugin-vue": "^10.8.0",
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.1.1",
-    "npm-check-updates": "^19.6.3",
+    "npm-check-updates": "^20.0.0",
     "prettier": "^3.8.1",
     "sharp": "^0.34.5",
     "tsx": "^4.21.0",
