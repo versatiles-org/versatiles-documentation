@@ -47,15 +47,15 @@ Users can skip the tile generation process altogether and download our pre-built
 
 - [x] Implement the generator using Tilemaker ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
 - [x] Use the Shortbread schema ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
-- [ ] Add more languages besides local, english and german ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
-- [x] generate `.versatiles` instead of `.mbtiles` ([repo](https://github.com/versatiles-org/versatiles-converter))
+- [x] Add more languages besides local, english and german ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
+- [x] Generate `.versatiles` instead of `.mbtiles` ([repo](https://github.com/versatiles-org/versatiles-converter))
 - [x] merge the converter into the generator and use docker ([issue](https://github.com/versatiles-org/versatiles-generator/issues/1))
 - [x] use Tilemaker 3.0.0 to reduce memory usage ([issue](https://github.com/versatiles-org/shortbread-tilemaker/issues/7))
 - [x] migrate to a cheaper cloud provider (like Hetzner)
 - [ ] Reduce the size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
 - [ ] improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
-- [x] generate hill shading ([issue](https://registry.opendata.aws/terrain-tiles/))
-- [ ] Generate satellite imagery (using Landsat/SENTINEL, aerial imagery from national open data platforms and open MAXAR imagery)
+- [x] Generate hill shading ([data source](https://registry.opendata.aws/terrain-tiles/))
+- [x] Generate satellite imagery (using Landsat/SENTINEL, aerial imagery from national open data platforms and open MAXAR imagery)
 
 ## Interface: Container
 
@@ -69,7 +69,7 @@ The most commonly used container format is [MBTiles](https://wiki.openstreetmap.
 2. SQLite becomes a necessary dependency. (like libsqlite3-dev)
 3. Processing many tiles is inefficient given SQLite's limited throughput.
 
-In response, some have turned to cloud-optimised map tile container formats such as [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored to specific use cases; for example, PMTiles is designed for storage on public cloud storage such as AWS S3 and can be accessed serverlessly via JavaScript using HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialisation, uncompressed tile data and caching challenges. Our goal is to remain independent of container formats that are application specific or prone to divergent future development paths.
+In response, some have turned to cloud-optimised map tile container formats such as [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored to specific use cases; for example, PMTiles is designed for storage on public cloud storage such as AWS S3 and can be accessed serverlessly via JavaScript using HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialisation and caching challenges. Our goal is to remain independent of container formats that are application specific or prone to divergent future development paths.
 
 Accordingly, we have taken the lessons learned from COMTiles and PMTiles to create a uniquely simple container format, which is described here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
 
@@ -100,7 +100,7 @@ The server provides map tiles and static files via HTTP. These static files can 
 
 ### Requirements/Recommendations
 
-- It MUST recognise and process [VersaTiles containers](https://github.com/versatiles-org/versatiles-spec/blob/v02/v02/container/readme.md).
+- It MUST recognise and process [VersaTiles containers](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
 - It SHOULD handle HTTP headers in particular:
   - `Content-Type` must accurately represent the MIME type.
   - `Accept-Encoding` and `Content-Encoding` for data compression; recompress data if necessary.
@@ -119,7 +119,7 @@ The server provides map tiles and static files via HTTP. These static files can 
 
 ```yaml
 server:
-  host: '127.0.0.1' # Listen on all network interfaces. Default: 0.0.0.0
+  host: '127.0.0.1' # Listen on localhost only. Default: 0.0.0.0
   port: 3000 # Port number for the server. Default: 8080
   domain: 'https://example.org' # Publicly accessible URL of the server
 
@@ -146,12 +146,12 @@ cors:
   # List of URL patterns to explicitly allow for CORS requests
   allow_patterns:
     - '^https?://trusteddomain\.com'
-    - '^https?://*.example\.com'
+    - '^https?://.*\.example\.com'
 
   # List of URL patterns to explicitly block for CORS requests
   block_patterns:
     - '^https?://untrusteddomain\.com'
-    - '^https?://*.malicious\.com'
+    - '^https?://.*\.malicious\.com'
 
 logging:
   level: 'info' # Options: 'debug', 'info', 'warning', 'error'
@@ -173,21 +173,21 @@ In addition to the source code, which can be [compiled using cargo](https://docs
 - [x] [Binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
 - [x] Installation scripts for [Linux/MacOS](https://github.com/versatiles-org/versatiles-rs/blob/main/scripts/install-unix.sh) and [Windows](https://github.com/versatiles-org/versatiles-rs/blob/main/scripts/install-windows.ps1)
 - [x] [Homebrew](https://github.com/versatiles-org/homebrew-versatiles)
-- [ ] NixOS
-- [ ] Snap ?
-- [ ] Flatpak ?
+- [x] NixOS
+- [ ] Snap
+- [ ] Flatpak
 
 Our [Docker images](https://hub.docker.com/u/versatiles) ([Repository](https://github.com/versatiles-org/versatiles-docker)) use Debian, Alpine and Scratch environments. They include variations with and without [all static frontend files](https://hub.docker.com/r/versatiles/versatiles-frontend/tags).
 
 Future improvements will focus on:
 
-- [ ] Proper CORS handling
-- [ ] Full `config.yaml` support
+- [x] Proper CORS handling
+- [x] Full `config.yaml` support
 - [x] Generation of tile size statistics
 - [ ] Vector tile content debugging
 - [ ] Implementing "diff" and "patch" commands for tile updates
-- [ ] Implement a tile processing pipeline (alpha version already released. Run `versatiles help pipeline`)
-- [ ] Develop an "overlay" command to overlay image tiles
+- [x] Implement a tile processing pipeline (alpha version already released. Run `versatiles help pipeline`)
+- [x] Develop an "overlay" command to overlay image tiles
 - [ ] Improve the "overlay" command by implementing a [multi-scale approach](https://en.wikipedia.org/wiki/Multi-scale_approaches) to seamlessly overlay image tiles (see also [gradient-domain image processing](https://en.wikipedia.org/wiki/Gradient-domain_image_processing))
 
 ### NodeJS Implementations
@@ -197,9 +197,9 @@ Our NodeJS implementation includes
 - [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
 - [x] A basic [server](https://github.com/versatiles-org/node-versatiles-server)
 - [ ] Full `config.yaml` support
-- [ ] Comprehensive CORS management
+- [x] Comprehensive CORS management
 
-A specific solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `\*.versatiles' file, including a preview mode:
+A specific solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `*.versatiles` file, including a preview mode:
 
 - [x] [VersaTiles - Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies the integration of map data into data visualisations for editorial departments.
 
@@ -240,16 +240,16 @@ Currently we recommend:
 
 Efforts have been made to evaluate and document CDN solutions, with a focus on price estimates:
 
-- [x] ✅ [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be the default solution for single server setups. We should publish some Docker Compose examples using NGINX and Let's Encrypt. ([SWAG](https://docs.linuxserver.io/general/swag/), [traefik](https://github.com/traefik/traefik))
-- [x] ✅ [Google CDN](https://cloud.google.com/cdn) (80€/TB): Tested and used by SWR.
-- [x] ✅ Akamai CDN: Tested and used by NDR.
-- [x] 🟨 [Bunny CDN](https://bunny.net/cdn/) (5€/TB): Tested for [tiles.versatiles.org](https://tiles.versatiles.org). Unfortunately, BunnyCDN is currently unable to fetch or return compressed vector tiles. The "content-encoding" and "vary: accept-encoding" headers are being ignored. The CDN engineering team has been notified, but there is no ETA.
-- [x] 🟨 [BlazingCDN](https://blazingcdn.com) (5€/TB): Tested, but also unable to serve compressed vector tiles.
+- [x] [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be the default solution for single server setups. We should publish some Docker Compose examples using NGINX and Let's Encrypt. ([SWAG](https://docs.linuxserver.io/general/swag/), [traefik](https://github.com/traefik/traefik))
+- [x] [Google CDN](https://cloud.google.com/cdn) (~80€/TB): Tested and used by SWR.
+- [x] Akamai CDN: Tested and used by NDR.
+- [x] [Bunny CDN](https://bunny.net/cdn/) (~5€/TB): Tested for [tiles.versatiles.org](https://tiles.versatiles.org). Unfortunately, BunnyCDN is currently unable to fetch or return compressed vector tiles. The "content-encoding" and "vary: accept-encoding" headers are being ignored. The CDN engineering team has been notified, but there is no ETA.
+- [x] [BlazingCDN](https://blazingcdn.com) (~5€/TB): Tested, but also unable to serve compressed vector tiles.
 - [ ] [Amazon CloudFront](https://aws.amazon.com/cloudfront) (90€/TB): Not tested yet.
 - [ ] [Cachefly](https://www.cachefly.com/) ($30/TB, min. 300€/month): not tested yet
 - [ ] [CDN77](https://www.cdn77.com/) (4\$/TB, min. 990\$/month): not tested yet
 - [ ] [CDNetworks](https://www.cdnetworks.com/) (40\$/TB, min. 50\$/month): not tested yet
-- [ ] [Cloudflare CDN](https://www.cloudflare.com/en-gb/application-services/products/cdn/) (0$/TB, minimum cost: your soul): not yet tested
+- [ ] [Cloudflare CDN](https://www.cloudflare.com/en-gb/application-services/products/cdn/) (0$/TB): not yet tested
 - [ ] Edgecast CDN: Not yet tested
 - [ ] [EdgeNext](https://www.edgenext.com/cdn/): not yet tested
 - [ ] [Fastly CDN](https://www.fastly.com/) (130$/TB): not yet tested
@@ -257,7 +257,7 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 - [ ] [Leaseweb](https://www.leaseweb.com/en/products-services/cdn) (7$/TB, min. 150€/month): not tested yet
 - [ ] [Medianova CDN](https://www.medianova.com/cdn/) (200\$/TB, min. 100\$/month): not tested yet
 - [ ] [Microsoft Azure CDN](https://azure.microsoft.com/en-us/products/cdn) ($75/TB): not tested yet
-- [ ] [OHV CDN](https://www.ovhcloud.com/en-gb/network/cdn/) (12€/TB, prepaid): not tested yet
+- [ ] [OVH CDN](https://www.ovhcloud.com/en-gb/network/cdn/) (12€/TB, prepaid): not tested yet
 
 Documentation on how to use NGINX, including setup, configuration and a Docker image is under development.
 
