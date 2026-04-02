@@ -2,6 +2,7 @@ import { existsSync } from 'fs';
 import { resolve } from 'path';
 import { defineConfig } from 'vitepress';
 import GithubSlugger from 'github-slugger';
+import taskLists from 'markdown-it-task-lists';
 
 export default defineConfig({
 	title: 'VersaTiles',
@@ -142,6 +143,9 @@ export default defineConfig({
 				const slugger = new GithubSlugger();
 				return slugger.slug(str);
 			},
+		},
+		config: (md) => {
+			md.use(taskLists);
 		},
 	},
 });
