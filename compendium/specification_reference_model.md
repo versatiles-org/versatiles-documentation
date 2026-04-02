@@ -47,13 +47,13 @@ Users can skip the tile generation process altogether and download our pre-built
 
 - [x] Implement the generator using Tilemaker ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
 - [x] Use the Shortbread schema ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
-- [x] Add more languages besides local, english and german ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
+- [x] Add more languages besides local, English and German ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
 - [x] Generate `.versatiles` instead of `.mbtiles` ([repo](https://github.com/versatiles-org/versatiles-converter))
-- [x] merge the converter into the generator and use docker ([issue](https://github.com/versatiles-org/versatiles-generator/issues/1))
-- [x] use Tilemaker 3.0.0 to reduce memory usage ([issue](https://github.com/versatiles-org/shortbread-tilemaker/issues/7))
-- [x] migrate to a cheaper cloud provider (like Hetzner)
+- [x] Merge the converter into the generator and use docker ([issue](https://github.com/versatiles-org/versatiles-generator/issues/1))
+- [x] Use Tilemaker 3.0.0 to reduce memory usage ([issue](https://github.com/versatiles-org/shortbread-tilemaker/issues/7))
+- [x] Migrate to a cheaper cloud provider (like Hetzner)
 - [ ] Reduce the size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
-- [ ] improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
+- [ ] Improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
 - [x] Generate hill shading ([data source](https://registry.opendata.aws/terrain-tiles/))
 - [x] Generate satellite imagery (using Landsat/SENTINEL, aerial imagery from national open data platforms and open MAXAR imagery)
 
@@ -66,7 +66,7 @@ A critical need within the OSM community is for map tile servers to automaticall
 The most commonly used container format is [MBTiles](https://wiki.openstreetmap.org/wiki/MBTiles), which is essentially a SQLite database containing a row for each tile, with the tile data stored as gzipped blobs. Despite its flexibility, MBTiles has several drawbacks:
 
 1. It requires local or mounted server storage and cannot be hosted on remote cloud storage.
-2. SQLite becomes a necessary dependency. (like libsqlite3-dev)
+2. SQLite becomes a necessary dependency (like libsqlite3-dev).
 3. Processing many tiles is inefficient given SQLite's limited throughput.
 
 In response, some have turned to cloud-optimised map tile container formats such as [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored to specific use cases; for example, PMTiles is designed for storage on public cloud storage such as AWS S3 and can be accessed serverlessly via JavaScript using HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialisation and caching challenges. Our goal is to remain independent of container formats that are application specific or prone to divergent future development paths.
@@ -192,7 +192,7 @@ Future improvements will focus on:
 
 ### NodeJS Implementations
 
-Our NodeJS implementation includes
+Our NodeJS implementation includes:
 
 - [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
 - [x] A basic [server](https://github.com/versatiles-org/node-versatiles-server)
@@ -213,11 +213,12 @@ In the future we plan to:
 
 ## Interface: Private/Internal Network
 
-We recommend to divide the server into two parts:
+We recommend dividing the server into two parts:
 
 1. A map server running on a private network ("Server" layer)
 2. A public facing server ("Network" layer)
-   Communication between these two layers should be via plain, unencrypted HTTP.
+
+Communication between these two layers should be via plain, unencrypted HTTP.
 
 ## Layer: Network
 
@@ -245,17 +246,17 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 - [x] Akamai CDN: Tested and used by NDR.
 - [x] [Bunny CDN](https://bunny.net/cdn/) (~5€/TB): Tested for [tiles.versatiles.org](https://tiles.versatiles.org). Unfortunately, BunnyCDN is currently unable to fetch or return compressed vector tiles. The "content-encoding" and "vary: accept-encoding" headers are being ignored. The CDN engineering team has been notified, but there is no ETA.
 - [x] [BlazingCDN](https://blazingcdn.com) (~5€/TB): Tested, but also unable to serve compressed vector tiles.
-- [ ] [Amazon CloudFront](https://aws.amazon.com/cloudfront) (90€/TB): Not tested yet.
+- [ ] [Amazon CloudFront](https://aws.amazon.com/cloudfront) (90€/TB): not tested yet
 - [ ] [Cachefly](https://www.cachefly.com/) ($30/TB, min. 300€/month): not tested yet
-- [ ] [CDN77](https://www.cdn77.com/) (4\$/TB, min. 990\$/month): not tested yet
-- [ ] [CDNetworks](https://www.cdnetworks.com/) (40\$/TB, min. 50\$/month): not tested yet
-- [ ] [Cloudflare CDN](https://www.cloudflare.com/en-gb/application-services/products/cdn/) (0$/TB): not yet tested
-- [ ] Edgecast CDN: Not yet tested
-- [ ] [EdgeNext](https://www.edgenext.com/cdn/): not yet tested
-- [ ] [Fastly CDN](https://www.fastly.com/) (130$/TB): not yet tested
-- [ ] [KeyCDN](https://www.keycdn.com/) (40$/TB): not tested yet
-- [ ] [Leaseweb](https://www.leaseweb.com/en/products-services/cdn) (7$/TB, min. 150€/month): not tested yet
-- [ ] [Medianova CDN](https://www.medianova.com/cdn/) (200\$/TB, min. 100\$/month): not tested yet
+- [ ] [CDN77](https://www.cdn77.com/) ($4/TB, min. $990/month): not tested yet
+- [ ] [CDNetworks](https://www.cdnetworks.com/) ($40/TB, min. $50/month): not tested yet
+- [ ] [Cloudflare CDN](https://www.cloudflare.com/en-gb/application-services/products/cdn/) ($0/TB): not tested yet
+- [ ] [Edgio CDN](https://edg.io/) (formerly Edgecast): not tested yet
+- [ ] [EdgeNext](https://www.edgenext.com/cdn/): not tested yet
+- [ ] [Fastly CDN](https://www.fastly.com/) ($130/TB): not tested yet
+- [ ] [KeyCDN](https://www.keycdn.com/) ($40/TB): not tested yet
+- [ ] [Leaseweb](https://www.leaseweb.com/en/products-services/cdn) ($7/TB, min. 150€/month): not tested yet
+- [ ] [Medianova CDN](https://www.medianova.com/cdn/) ($200/TB, min. $100/month): not tested yet
 - [ ] [Microsoft Azure CDN](https://azure.microsoft.com/en-us/products/cdn) ($75/TB): not tested yet
 - [ ] [OVH CDN](https://www.ovhcloud.com/en-gb/network/cdn/) (12€/TB, prepaid): not tested yet
 
@@ -276,7 +277,7 @@ The frontend layer is the graphical interface that presents the map tiles to the
 
 ### Status
 
-Progress in the development and implementation of the frontend layer includes
+Progress in the development and implementation of the frontend layer includes:
 
 - [x] **Style Templating Engine**: Implemented to allow dynamic generation of map styles. ([Repository](https://github.com/versatiles-org/versatiles-style))
 - [x] **Style Library**: A collection of predefined map styles is available. ([Repository](https://github.com/versatiles-org/versatiles-style))
