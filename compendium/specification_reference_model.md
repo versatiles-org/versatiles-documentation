@@ -48,7 +48,7 @@ Users can skip the tile generation process altogether and download our pre-built
 - [x] Implement the generator using Tilemaker ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
 - [x] Use the Shortbread schema ([repo](https://github.com/versatiles-org/shortbread-tilemaker))
 - [x] Add more languages besides local, English and German ([issue](https://github.com/shortbread-tiles/shortbread-docs/issues/22))
-- [x] Generate `.versatiles` instead of `.mbtiles` ([repo](https://github.com/versatiles-org/versatiles-converter))
+- [x] Generate `.versatiles` instead of `.mbtiles`
 - [x] Merge the converter into the generator and use docker ([issue](https://github.com/versatiles-org/versatiles-generator/issues/1))
 - [x] Use Tilemaker 3.0.0 to reduce memory usage ([issue](https://github.com/versatiles-org/shortbread-tilemaker/issues/7))
 - [x] Migrate to a cheaper cloud provider (like Hetzner)
