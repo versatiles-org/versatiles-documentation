@@ -251,8 +251,7 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 - [ ] [CDN77](https://www.cdn77.com/) ($4/TB, min. $990/month): not tested yet
 - [ ] [CDNetworks](https://www.cdnetworks.com/) ($40/TB, min. $50/month): not tested yet
 - [ ] [Cloudflare CDN](https://www.cloudflare.com/en-gb/application-services/products/cdn/) ($0/TB): not tested yet
-- [ ] [Edgio CDN](https://edg.io/) (formerly Edgecast): not tested yet
-- [ ] [EdgeNext](https://www.edgenext.com/cdn/): not tested yet
+- [ ] [EdgeNext](https://www.edgenext.com/global_cdn): not tested yet
 - [ ] [Fastly CDN](https://www.fastly.com/) ($130/TB): not tested yet
 - [ ] [KeyCDN](https://www.keycdn.com/) ($40/TB): not tested yet
 - [ ] [Leaseweb](https://www.leaseweb.com/en/products-services/cdn) ($7/TB, min. 150€/month): not tested yet
