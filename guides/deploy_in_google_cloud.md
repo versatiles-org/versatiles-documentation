@@ -28,10 +28,7 @@ EXPOSE $PORT
 #      - make sure, this file is publicly accessible
 #      - "[osm]" sets the name of the tile source
 #      - you can append more entries if you want to host multiple tile sources
-CMD versatiles serve \
-    -p $PORT \
-    -s frontend-dev.br.tar \
-    "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"
+CMD ["-p", "$PORT", "[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles"]
 ```
 
 - Don't forget to update the last line of `Dockerfile` to point to your Google Bucket
