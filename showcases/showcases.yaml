@@ -431,3 +431,13 @@
   tags:
     - leisure
     - interactive-map
+
+- title: 'Olvid'
+  url: 'https://olvid.io'
+  source: 'Olvid'
+  country: 'France'
+  category: 'commercial'
+  description: 'Host your map server for a fully private location sharing feature in Olvid.'
+  thumbnail: olvid
+  tags:
+    - interactive-map
