@@ -7,6 +7,16 @@ import taskLists from 'markdown-it-task-lists';
 export default defineConfig({
 	title: 'VersaTiles',
 	description: 'A completely FLOSS map stack.',
+	vite: {
+		build: {
+			target: 'esnext',
+		},
+		optimizeDeps: {
+			esbuildOptions: {
+				target: 'esnext',
+			},
+		},
+	},
 	head: [
 		['link', { rel: 'canonical', href: 'https://docs.versatiles.org' }],
 		[
