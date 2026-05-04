@@ -25,24 +25,24 @@
   "license": "Unlicense",
   "type": "commonjs",
   "overrides": {
-    "esbuild": "0.28.0"
+    "vite": ">=7.3.2 <8"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^25.6.0",
     "esbuild": "0.28.0",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.9.0",
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.1.1",
     "markdown-it-task-lists": "^2.1.1",
-    "npm-check-updates": "^22.0.1",
+    "npm-check-updates": "^22.1.0",
     "prettier": "^3.8.3",
     "sharp": "^0.34.5",
     "tsx": "^4.21.0",
-    "typescript-eslint": "^8.59.1",
+    "typescript-eslint": "^8.59.2",
     "vitepress": "^1.6.4",
     "vue-eslint-parser": "^10.4.0"
   }
