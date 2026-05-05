@@ -441,3 +441,13 @@
   thumbnail: olvid
   tags:
     - interactive-map
+
+- title: 'OpenAleph'
+  url: 'https://search.openaleph.org'
+  source: 'OpenAleph'
+  country: 'Germany'
+  category: 'journalism'
+  description: 'The open source platform for investigative reporting.'
+  thumbnail: openaleph
+  tags:
+    - politics
