@@ -30,6 +30,7 @@ export default {
 
 		showcases.forEach((s) => {
 			if (s.thumbnail) s.thumbnail = `/showcases/${s.thumbnail}.webp`;
+			if (!s.tags.includes(s.category)) s.tags = [s.category, ...s.tags];
 		});
 
 		const countries = [...new Set(showcases.map((s) => s.country))].sort();

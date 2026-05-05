@@ -121,9 +121,12 @@ function domain(url: string) {
 					</div>
 					<div class="card-desc">{{ item.description }}</div>
 					<div class="card-tags">
-						<span v-for="tag in item.tags" :key="tag" class="card-tag">{{
-							formatTag(tag)
-						}}</span>
+						<span
+							v-for="tag in item.tags.filter((t) => t !== item.category)"
+							:key="tag"
+							class="card-tag"
+							>{{ formatTag(tag) }}</span
+						>
 					</div>
 					<div class="card-url">{{ domain(item.url) }}</div>
 				</div>
