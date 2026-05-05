@@ -17,7 +17,6 @@
   description: 'Map of cannabis legalization zones'
   thumbnail: cannabis-legalisierung
   tags:
-    - politics
     - interactive-map
 
 - title: 'Verkehr in Berlin live: Stau, Sperrungen, Störungen'
@@ -40,7 +39,6 @@
   description: 'Map of "Hands Off!" protest events'
   thumbnail: hands-off-protests
   tags:
-    - politics
     - interactive-map
 
 - title: 'Mapnificent'
@@ -64,6 +62,7 @@
   tags:
     - housing
     - data-visualization
+    - storytelling
 
 - title: 'Zensus 2022'
   url: 'https://www.ndr.de/nachrichten/ndrdata/Zensus-Mietpreise-im-Norden-im-Ueberblick,zensus308.html'
@@ -75,6 +74,7 @@
   tags:
     - housing
     - data-visualization
+    - storytelling
 
 - title: 'Wetter'
   url: 'https://www.ndr.de/wetter'
@@ -108,6 +108,7 @@
   tags:
     - health
     - data-visualization
+    - storytelling
 
 - title: 'So viel kosten Benzin und Diesel in Ihrer Nähe'
   url: 'https://www.swr.de/swraktuell/diesel-und-benzinpreise-aktuell-so-tanken-sie-heute-clever-100.html'
@@ -119,6 +120,7 @@
   tags:
     - transport
     - live-data
+    - interactive-map
 
 - title: 'Baden-Württemberg heizt noch größtenteils fossil'
   url: 'https://www.swr.de/swraktuell/baden-wuerttemberg/waermewende-bw-heizt-groesstenteils-fossil-oel-und-gas-100.html'
@@ -130,6 +132,7 @@
   tags:
     - energy
     - data-visualization
+    - climate
 
 - title: 'Wie Städte klimaneutral heizen wollen'
   url: 'https://www.swr.de/swraktuell/baden-wuerttemberg/wie-staedte-klimaneutral-heizen-wollen-100.html'
@@ -141,6 +144,7 @@
   tags:
     - energy
     - data-visualization
+    - climate
 
 - title: 'Wann fährt der letzte Bus in Rheinland-Pfalz?'
   url: 'https://www.swr.de/swraktuell/rheinland-pfalz/wann-faehrt-der-letzte-bus-in-rlp-100.html'
@@ -152,6 +156,7 @@
   tags:
     - transport
     - data-visualization
+    - storytelling
 
 - title: 'Wann fährt der letzte Bus in Baden-Württemberg?'
   url: 'https://www.swr.de/swraktuell/baden-wuerttemberg/wann-faehrt-der-letzte-bus-in-bw-100.html'
@@ -163,6 +168,7 @@
   tags:
     - transport
     - data-visualization
+    - storytelling
 
 - title: 'Wann lohnt sich ein E-Auto für Sie wirklich?'
   url: 'https://www.swr.de/swraktuell/auto-kosten-rechner-100.html'
@@ -174,6 +180,7 @@
   tags:
     - transport
     - interactive-map
+    - climate
 
 - title: 'Energiewende auf Abstand'
   url: 'https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/'
@@ -183,8 +190,8 @@
   description: 'German regulations on wind energy distance requirements'
   thumbnail: taz-energiewende-abstand
   tags:
-    - politics
     - data-visualization
+    - climate
 
 - title: 'So hat Sachsen bei der Landtagswahl gestimmt'
   url: 'https://www.thueringer-allgemeine.de/landtagswahl-sachsen-2024-umfragen-ergebnisse-karte/'
@@ -194,7 +201,6 @@
   description: 'Election results map for the Saxony state election'
   thumbnail: landtagswahl-sachsen
   tags:
-    - politics
     - interactive-map
 
 - title: 'So hat Thüringen bei der Landtagswahl gestimmt'
@@ -205,7 +211,6 @@
   description: 'Election results map for the Thuringia state election'
   thumbnail: landtagswahl-thueringen
   tags:
-    - politics
     - interactive-map
 
 - title: 'veganguide.org'
@@ -246,13 +251,12 @@
   url: 'https://relight-regensburg.de/map/'
   source: 'Re.Light / Stadt Regensburg'
   country: 'Germany'
-  category: 'government'
+  category: 'events'
   description: 'Interactive map of light art installations in Regensburg'
   thumbnail: relight-regensburg
   tags:
     - culture
     - interactive-map
-    - events
 
 - title: 'Student Accommodation'
   url: 'https://www.unihomes.co.uk/'
@@ -275,6 +279,7 @@
   tags:
     - leisure
     - interactive-map
+    - game
 
 - title: 'Build My Transit'
   url: 'https://buildmytransit.nyc/'
@@ -286,6 +291,7 @@
   tags:
     - transport
     - interactive-map
+    - game
 
 - title: 'Climate Action Navigator'
   url: 'https://climate-action.heigit.org/'
@@ -341,7 +347,6 @@
   thumbnail: notion-map-view
   tags:
     - interactive-map
-    - component
 
 - title: 'OldNYC'
   url: 'https://www.oldnyc.org/'
@@ -408,14 +413,13 @@
   description: "Visualization of the Netherlands' digital infrastructure dependencies on non-European providers"
   thumbnail: zijn-we-al-autonoom
   tags:
-    - politics
     - data-visualization
 
 - title: 'Engagement finden'
   url: 'https://freiwillig.hamburg/engagement-finden/'
   source: 'freiwillig.hamburg'
   country: 'Germany'
-  category: 'government'
+  category: 'independent'
   description: 'Map-based search for volunteer opportunities across Hamburg districts'
   thumbnail: engagement-finden
   tags:
@@ -450,4 +454,4 @@
   description: 'The open source platform for investigative reporting.'
   thumbnail: openaleph
   tags:
-    - politics
+    - research
