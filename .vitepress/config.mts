@@ -74,7 +74,6 @@ export default defineConfig({
 					{ text: 'Install VersaTiles', link: '/guides/install_versatiles' },
 					{ text: 'Download Tiles', link: '/guides/download_tiles' },
 					{ text: 'Convert Tilesets', link: '/guides/converter' },
-					// { text: "Develop Frontend",           link: "/guides/develop_frontend" }, // unpolished
 					{ text: 'Deploy on Google Cloud', link: '/guides/deploy_in_google_cloud' },
 					{ text: 'Deploy on Debian', link: '/guides/deploy_on_debian' },
 					{ text: 'Deploy with Docker', link: '/guides/deploy_using_docker' },
