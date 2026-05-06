@@ -455,3 +455,116 @@
   thumbnail: openaleph
   tags:
     - research
+
+- title: 'Hummingbirds Canada'
+  url: 'https://hummingbirdscanada.ca'
+  source: 'Hummingbirds Canada'
+  country: 'Canada'
+  category: 'independent'
+  description: 'Citizen science platform tracking hummingbird migration, sightings and breeding ranges across Canada'
+  thumbnail: hummingbirds-canada
+  tags:
+    - research
+    - interactive-map
+
+- title: 'Feux en direct'
+  url: 'https://app.feuxdeforet.fr/feux-en-direct'
+  source: 'Feux de Forêt'
+  country: 'France'
+  category: 'independent'
+  description: 'Live map of forest fires across France with public reporting'
+  thumbnail: feux-de-foret
+  tags:
+    - interactive-map
+    - live-data
+
+- title: 'Info Trafic Transport Public Timișoara'
+  url: 'https://live.stpt.ro'
+  source: 'STPT'
+  country: 'Romania'
+  category: 'independent'
+  description: 'Real-time tracking of trams, trolleybuses and buses operated by STPT in Timișoara'
+  thumbnail: stpt-timisoara
+  tags:
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'Lynk Taxi'
+  url: 'https://book.lynk.ie'
+  source: 'Lynk'
+  country: 'Ireland'
+  category: 'commercial'
+  description: 'Online booking platform for Dublin''s Lynk taxi service'
+  thumbnail: lynk
+  tags:
+    - transport
+    - interactive-map
+
+- title: 'Referendum 2026 — Mappe per sezione'
+  url: 'https://cities.youtrend.it/roma'
+  source: 'YouTrend'
+  country: 'Italy'
+  category: 'journalism'
+  description: 'Interactive maps of the 2026 Italian referendum results, broken down by electoral section across major cities'
+  thumbnail: youtrend-rome
+  tags:
+    - interactive-map
+    - data-visualization
+
+- title: 'Les bonnes adresses'
+  url: 'https://adresses.frc.ch'
+  source: 'FRC'
+  country: 'Switzerland'
+  category: 'independent'
+  description: 'Directory of local food, repair and reuse businesses across French-speaking Switzerland by the Fédération romande des consommateurs'
+  thumbnail: frc-adresses
+  tags:
+    - leisure
+    - interactive-map
+
+- title: 'Radar de Trenes'
+  url: 'https://radardetrenes.com'
+  source: 'Radar de Trenes'
+  country: 'Spain'
+  category: 'independent'
+  description: 'Live tracking of trains across Spain''s rail network, updated every 20 seconds'
+  thumbnail: radar-de-trenes
+  tags:
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'Bodensee-Navigator Seekarte'
+  url: 'https://bodensee-navigator.com/seekarte'
+  source: 'Bodensee-Navigator'
+  country: 'Germany'
+  category: 'independent'
+  description: 'Interactive depth and relief map of Lake Constance with live water levels, temperatures and storm warnings'
+  thumbnail: bodensee-navigator
+  tags:
+    - leisure
+    - interactive-map
+    - live-data
+
+- title: 'Dive Champ'
+  url: 'https://divechamp.com/destination/phuket'
+  source: 'Dive Champ'
+  country: 'International'
+  category: 'independent'
+  description: 'Curated guide to scuba diving destinations and dive sites worldwide'
+  thumbnail: divechamp-phuket
+  tags:
+    - leisure
+    - interactive-map
+
+- title: 'Tralster'
+  url: 'https://tralster.com/'
+  source: 'Tralster'
+  country: 'Germany'
+  category: 'independent'
+  description: 'Audio guide platform for cultural and natural attractions across Bavaria'
+  thumbnail: tralster
+  tags:
+    - culture
+    - interactive-map
