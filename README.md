@@ -7,6 +7,10 @@ You can read this document in [English/영어](README.md) or [Korean/한국어](
 
 Try the live demo at **[tiles.versatiles.org](https://tiles.versatiles.org)**.
 
+## Showcases
+
+[51+ projects](showcases) use VersaTiles in production, from journalism and transit trackers to commercial platforms and research tools.
+
 ## VersaTiles components
 
 The VersaTiles ecosystem consists of several components, each playing a role in the **end-to-end map tile workflow**:
@@ -14,7 +18,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 ### Tile generation and processing
 
 - **[VersaTiles Generator](https://github.com/versatiles-org/versatiles-generator)**: Converts [OpenStreetMap](https://www.openstreetmap.org/) data into vector tiles using **Tilemaker** and the **Shortbread schema**.
-- **[VersaTiles tools](https://github.com/versatiles-org/versatiles-rs)**: A toolbox for converting, checking and serving map tiles in various formats.
+- **[VersaTiles Tools](https://github.com/versatiles-org/versatiles-rs)**: A toolbox for converting, checking and serving map tiles in various formats.
 
 ### Tile storage & distribution
 
@@ -38,8 +42,8 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 ### Integrations
 
-- **[Svelte Components for VersaTiles](https://github.com/versatiles-org/node-versatiles-svelte)**
-- **[MapLibre plugin for editing VersaTiles styles](https://github.com/versatiles-org/maplibre-versatiles-styler)**
+- **[Svelte Components for VersaTiles](https://github.com/versatiles-org/node-versatiles-svelte)**: Svelte components and bindings for displaying VersaTiles in MapLibre GL JS.
+- **[MapLibre Style Editor](https://github.com/versatiles-org/maplibre-versatiles-styler)**: Browser-based plugin for editing VersaTiles map styles in MapLibre GL JS.
 
 ## Learning resources
 
@@ -51,7 +55,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - [Use our public tileserver](guides/use_tiles_versatiles_org.md)
 - [Install VersaTiles](guides/install_versatiles.md)
 - [Download Tilesets or regional subsets](guides/download_tiles.md)
-- Run a local VersaTiles Server on [Linux](guides/local_server_debian.md), [MacOS](guides/local_server_mac.md) or with [Docker](guides/local_server_docker.md)
+- Run a local VersaTiles Server on [Linux](guides/local_server_debian.md), [macOS](guides/local_server_mac.md) or with [Docker](guides/local_server_docker.md)
 
 ## Deploy a public VersaTiles server
 
@@ -74,7 +78,6 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 ## Awesome VersaTiles
 
-- **[Showcases](showcases)**: VersaTiles in use.
 - **[Ansible Playbook](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/versatiles.md)**: Run VersaTiles with Ansible.
 - **[Tileblaster](https://github.com/yetzt/tileblaster)**: A map tile caching and processing proxy with support for VersaTiles.
 
