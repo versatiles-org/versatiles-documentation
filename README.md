@@ -3,7 +3,7 @@ You can read this document in [English/영어](README.md) or [Korean/한국어](
 ---
 
 **VersaTiles** is an open-source ecosystem for generating, processing, storing, serving and rendering [map tiles](basics/web_maps.md).
-It provides a open, modular and high-performance alternative to proprietary solutions, offering full control over the map data pipeline.
+It provides an open, modular and high-performance alternative to proprietary solutions, offering full control over the map data pipeline.
 It enables developers and organizations to self-host and serve map tiles without relying on commercial providers.
 [Learn more](basics/versatiles.md)
 
