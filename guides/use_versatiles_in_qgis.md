@@ -1,5 +1,3 @@
-You can read this document in [English/영어](use_versatiles_in_qgis.md) or [Korean/한국어](use_versatiles_in_qgis.ko.md).
-
 # Using VersaTiles in QGIS
 
 ## **Access the Layer Menu**

@@ -1,7 +1,3 @@
-You can read this document in [English/영어](README.md) or [Korean/한국어](README.ko.md).
-
----
-
 **VersaTiles** is an open-source ecosystem for generating, processing, storing, serving and rendering [map tiles](basics/web_maps.md) — a self-hosted alternative to commercial providers, with full control over the pipeline.
 [Learn more](basics/versatiles.md)
 
