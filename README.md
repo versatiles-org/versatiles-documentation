@@ -7,7 +7,7 @@ It provides a open, modular and high-performance alternative to proprietary solu
 It enables developers and organizations to self-host and serve map tiles without relying on commercial providers.
 [Learn more](basics/versatiles.md)
 
-## Why Use VersaTiles?
+## Why use VersaTiles?
 
 - **Optimized Performance** – The VersaTiles container format ensures **fast** and **efficient** tile access.
 - **Modular & Flexible** – Can be used as a complete system or integrated with existing map solutions.
@@ -21,37 +21,37 @@ vector tile pipeline**, VersaTiles provides the tools to build and serve modern,
 
 The VersaTiles ecosystem consists of several components, each playing a role in the **end-to-end map tile workflow**:
 
-### Tile Generation and Processing
+### Tile generation and processing
 
 - **[VersaTiles Generator](https://github.com/versatiles-org/versatiles-generator)**: Converts [OpenStreetMap](https://www.openstreetmap.org/) data into vector tiles using **Tilemaker** and the **Shortbread schema**.
 - **[VersaTiles tools](https://github.com/versatiles-org/versatiles-rs)**: A toolbox for converting, checking and serving map tiles in various formats.
 
-### Tile Storage & Distribution
+### Tile storage & distribution
 
 - **[Tilesets](basics/tilesets.md)**: Ready-to-use vector tilesets available for download.
 - **[Container Format](compendium/specification_container.md)**: A highly efficient and web-accessible format for storing map tiles, offering great performance and flexibility.
 - **[VersaTiles Node](https://github.com/versatiles-org/node-versatiles-container)**: An npm package for integrating VersaTiles into JavaScript applications.
 
-### Tile Serving
+### Tile serving
 
-- **[VersaTiles Server](basics/versatiles_server.md)** A high-performance, Rust-based server that efficiently serves tiles over HTTP.
-- **[VersaTiles Server Node](https://github.com/versatiles-org/node-versatiles-server)** Node.js implementation of a VersaTiles server
-- **[VersaTiles Frontend](basics/frontend.md)** Pre-packaged assets for VersaTiles Server
+- **[VersaTiles Server](basics/versatiles_server.md)**: A high-performance, Rust-based server that efficiently serves tiles over HTTP.
+- **[VersaTiles Server Node](https://github.com/versatiles-org/node-versatiles-server)**: Node.js implementation of a VersaTiles server.
+- **[VersaTiles Frontend](basics/frontend.md)**: Pre-packaged assets for VersaTiles Server.
 <!-- - **VersaTiles Caching** (TBD) -->
 
-### Tile Display and Rendering
+### Tile display and rendering
 
-- **[VersaTiles Style](https://github.com/versatiles-org/versatiles-style)** Generate [map styles](https://maplibre.org/maplibre-style-spec/) and sprites
-- **[VersaTiles Fonts](https://github.com/versatiles-org/versatiles-fonts)** Generate font glyphs for map use
-- **[VersaTiles Glyphs](https://github.com/versatiles-org/versatiles-glyphs-rs)** Generate signed distance field glyphs for map use
-- **[VersaTiles Renderer](https://github.com/versatiles-org/versatiles-svg-renderer)**: Render a map view as image (WIP)
+- **[VersaTiles Style](https://github.com/versatiles-org/versatiles-style)**: Generate [map styles](https://maplibre.org/maplibre-style-spec/) and sprites.
+- **[VersaTiles Fonts](https://github.com/versatiles-org/versatiles-fonts)**: Generate font glyphs for map use.
+- **[VersaTiles Glyphs](https://github.com/versatiles-org/versatiles-glyphs-rs)**: Generate signed distance field glyphs for map use.
+- **[VersaTiles Renderer](https://github.com/versatiles-org/versatiles-svg-renderer)**: Render a map view as image (WIP).
 
 ### Integrations
 
 - **[Svelte Components for VersaTiles](https://github.com/versatiles-org/node-versatiles-svelte)**
 - **[MapLibre plugin for editing VersaTiles styles](https://github.com/versatiles-org/maplibre-versatiles-styler)**
 
-## Learning Resources
+## Learning resources
 
 - [Introduction](compendium/introduction.md)
 - [The World of Interactive Web Maps](basics/web_maps.md)
@@ -76,7 +76,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - **AWS**
   -->
 
-## Advanced Guides
+## Advanced guides
 
 - [Use VersaTiles in **Android and iOS** apps](guides/what_about_mobile.md)
 - [Use VersaTiles in **QGIS**](guides/use_versatiles_in_qgis.md)
