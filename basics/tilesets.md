@@ -13,7 +13,7 @@ A set of general purpose vector tiles based on [OpenStreetMap](https://www.opens
 
 There are [several ready-made Public Domain styles](https://github.com/versatiles-org/versatiles-style) available.
 
-### License / Attribution
+### Licence / Attribution
 
 - OpenStreetMap data is licensed under [Open Database License 1.0](https://opendatacommons.org/licenses/odbl/) and requires attribution to [OpenStreetMap contributors](https://www.openstreetmap.org/copyright)
 - The Shortbread Scheme [is licensed](https://shortbread-tiles.org/copyright/) under [CC-0](https://shortbread-tiles.org/copyright/CC0-1.0-LICENSE.txt) and does not require additional attribution.
@@ -88,7 +88,7 @@ There is one layer called `hillshade-vectors` with a property `shade`:
 }
 ```
 
-### License / Attribution
+### Licence / Attribution
 
 - [Mapzen Jörð Terrain Tiles](https://github.com/tilezen/joerd) ([Access via AWS](https://registry.opendata.aws/terrain-tiles/)) uses variously licensed sources with [attribution requirements](https://github.com/tilezen/joerd/blob/master/docs/attribution.md)
 - The VersaTiles Hillshade Vectors tileset is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) carrying forward these attribution requirements
@@ -161,7 +161,7 @@ There is one layer called `landcover-vectors` with a property `kind`:
 
 ```
 
-### License / Attribution
+### Licence / Attribution
 
 - [ESA Worldcover](https://esa-worldcover.org/en/data-access) is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 - The VersaTiles Landcover Vectors tileset is derived from ESA Worldcover and therefore also licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
@@ -255,7 +255,7 @@ There is one layer called `bathymetry` with a property `mindepth` with values
 
 ```
 
-### License / Attribution
+### Licence / Attribution
 
 - The GEBCO Grid is placed in the public domain and may be used free of charge. Use of the GEBCO Grid indicates that the user accepts the [conditions of use and disclaimer information](https://www.gebco.net/data-products/gridded-bathymetry-data/gebco-2021#section8).
 - Attribution: Derived product from the [GEBCO 2021 Grid](https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2021), made with [NaturalEarth](https://www.naturalearthdata.com/) by [OpenDEM](https://opendem.info)

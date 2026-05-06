@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This extension defines **four optional metadata fields** for the [TileJSON 3.0 spec](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), enabling clients to understand tile content **before downloading the first tile**. These fields allow clients to pre-configure appropriate renderers and display fallback messages when unsupported tile types are encountered. Clients and servers that do not recognize these properties remain fully compatible, as this extension adds no required fields and preserves existing TileJSON semantics.
+This extension defines **four optional metadata fields** for the [TileJSON 3.0 spec](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), enabling clients to understand tile content **before downloading the first tile**. These fields allow clients to pre-configure appropriate renderers and display fallback messages when unsupported tile types are encountered. Clients and servers that do not recognise these properties remain fully compatible, as this extension adds no required fields and preserves existing TileJSON semantics.
 
 ### Why extend TileJSON?
 

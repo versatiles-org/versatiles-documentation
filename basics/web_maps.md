@@ -2,8 +2,8 @@
 
 ## Introduction
 
-Maps are not merely tools for navigation; they represent a convergence of technology, art, and data visualization.
-In today's digital age, web maps offer functionalities that extend from driving directions to intricate data visualization.
+Maps are not merely tools for navigation; they represent a convergence of technology, art, and data visualisation.
+In today's digital age, web maps offer functionalities that extend from driving directions to intricate data visualisation.
 This guide demystifies the intricate world of web maps and the technologies that make them possible.
 
 ## Map Projections

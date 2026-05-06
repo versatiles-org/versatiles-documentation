@@ -61,7 +61,7 @@
   thumbnail: hamburg-mieten
   tags:
     - housing
-    - data-visualization
+    - data-visualisation
     - storytelling
 
 - title: 'Zensus 2022'
@@ -73,7 +73,7 @@
   thumbnail: zensus-2022
   tags:
     - housing
-    - data-visualization
+    - data-visualisation
     - storytelling
 
 - title: 'Wetter'
@@ -107,7 +107,7 @@
   thumbnail: notfall-deutschland
   tags:
     - health
-    - data-visualization
+    - data-visualisation
     - storytelling
 
 - title: 'So viel kosten Benzin und Diesel in Ihrer Nähe'
@@ -131,7 +131,7 @@
   thumbnail: bw-heizt-fossil
   tags:
     - energy
-    - data-visualization
+    - data-visualisation
     - climate
 
 - title: 'Wie Städte klimaneutral heizen wollen'
@@ -143,7 +143,7 @@
   thumbnail: swr-staedte-klimaneutral-heizen
   tags:
     - energy
-    - data-visualization
+    - data-visualisation
     - climate
 
 - title: 'Wann fährt der letzte Bus in Rheinland-Pfalz?'
@@ -155,7 +155,7 @@
   thumbnail: swr-letzter-bus-rlp
   tags:
     - transport
-    - data-visualization
+    - data-visualisation
     - storytelling
 
 - title: 'Wann fährt der letzte Bus in Baden-Württemberg?'
@@ -167,7 +167,7 @@
   thumbnail: swr-letzter-bus-bw
   tags:
     - transport
-    - data-visualization
+    - data-visualisation
     - storytelling
 
 - title: 'Wann lohnt sich ein E-Auto für Sie wirklich?'
@@ -190,7 +190,7 @@
   description: 'German regulations on wind energy distance requirements'
   thumbnail: taz-energiewende-abstand
   tags:
-    - data-visualization
+    - data-visualisation
     - climate
 
 - title: 'So hat Sachsen bei der Landtagswahl gestimmt'
@@ -298,12 +298,12 @@
   source: 'HeiGIT'
   country: 'Germany'
   category: 'research'
-  description: 'Interactive tool for cities to analyze walkability, bikeability and heating emissions'
+  description: 'Interactive tool for cities to analyse walkability, bikeability and heating emissions'
   thumbnail: climate-action-navigator
   tags:
     - energy
     - climate
-    - data-visualization
+    - data-visualisation
 
 - title: 'Luchtballonradar'
   url: 'https://www.luchtballonradar.nl/'
@@ -410,10 +410,10 @@
   source: 'Studio Falkland'
   country: 'Netherlands'
   category: 'independent'
-  description: "Visualization of the Netherlands' digital infrastructure dependencies on non-European providers"
+  description: "Visualisation of the Netherlands' digital infrastructure dependencies on non-European providers"
   thumbnail: zijn-we-al-autonoom
   tags:
-    - data-visualization
+    - data-visualisation
 
 - title: 'Engagement finden'
   url: 'https://freiwillig.hamburg/engagement-finden/'
@@ -510,7 +510,7 @@
   thumbnail: youtrend-rome
   tags:
     - interactive-map
-    - data-visualization
+    - data-visualisation
 
 - title: 'Les bonnes adresses'
   url: 'https://adresses.frc.ch'
