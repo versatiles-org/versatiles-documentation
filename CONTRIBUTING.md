@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in VersaTiles! This repository hosts the documentation and the [Showcases](showcases/) gallery. Code for the various components lives in [other repositories under versatiles-org](https://github.com/versatiles-org).
+Thanks for your interest in VersaTiles! This repository hosts the documentation and the [Showcases](showcases) gallery. Code for the various components lives in [other repositories under versatiles-org](https://github.com/versatiles-org).
 
 The contributions most useful to us, in order:
 
