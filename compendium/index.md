@@ -1,6 +1,19 @@
-- [Introduction into map servers and VersaTiles](introduction.md)
-- [VersaTiles Layer Specification](specification_reference_model.md)
-- [VersaTiles Container Specification](specification_container.md)
-- [VersaTiles Frontend Specification](specification_frontend.md)
-- [Tools using VersaTiles](tools.md)
-- [A wider perspective on VersaTiles](wider_perspective.md)
+# Compendium
+
+Reference material and specifications for the VersaTiles ecosystem. Where **Basics** introduces concepts and **Guides** walks through specific tasks, the **Compendium** documents the canonical details — the ideas, formats and contracts the project is built on.
+
+## Foundations
+
+- [**Introduction**](introduction.md) — How web maps work, why building one is hard, and how VersaTiles approaches the problem.
+- [**A wider perspective**](wider_perspective.md) — Mission, core values and the principles that guide the project.
+
+## Specifications
+
+- [**Reference model**](specification_reference_model.md) — The four-layer architecture and the contracts between layers.
+- [**Container format**](specification_container.md) — The on-disk structure of `.versatiles` files.
+- [**Frontend bundle**](specification_frontend.md) — Contents and conventions of the prebuilt frontend package.
+- [**Extended TileJSON**](specification_extended_tilejson.md) — Optional metadata fields that extend the TileJSON 3.0 spec.
+
+## Ecosystem
+
+- [**Tools**](tools.md) — Web tools and libraries built around VersaTiles.
