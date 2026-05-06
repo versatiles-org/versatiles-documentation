@@ -79,5 +79,4 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 ## Contributing
 
-We are gratefully welcoming contributions of data, code, artwork, documentation and translations under the licenses or dedications stated.
-Take a look at issues tagged [`help wanted`](https://github.com/search?q=org%3Aversatiles-org+label%3A%22help+wanted%22+state%3Aopen&type=issues) or contact us on [matrix](https://matrix.to/#/#versatiles:matrix.org).
+Contributions of data, code, artwork and documentation are warmly welcome. The most useful starting points — adding a showcase, fixing typos, reporting bugs — are described in [CONTRIBUTING.md](CONTRIBUTING.md).
