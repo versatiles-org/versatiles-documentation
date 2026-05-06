@@ -54,7 +54,7 @@ The number of tiles grows exponentially, so the frontend only loads the tiles th
 
 The frontend handles the interaction and loading of the image tiles.
 So the frontend needs to know where to load the tiles from.
-To do this, the tiles are organised in folders using a specific URL pattern: `/\$z/\$x/\$y.png`, where `\$z` is the zoom level, and `\$x` and `\$y` are the column and row of the tile.
+To do this, the tiles are organised in folders using a specific URL pattern: `/{z}/{x}/{y}.png`, where `{z}` is the zoom level, and `{x}` and `{y}` are the column and row of the tile.
 
 Each zoom level quadruples the number of tiles, reaching staggering numbers.
 For example, zoom level 10 has over 1 million tiles (4^10), while zoom level 15 has over 1 billion (4^15).
@@ -67,7 +67,7 @@ These are actually SQLite databases.
 One of the tables inside the database stores all the tiles as table rows.
 
 Accessing a tile is done via SQL queries.
-To serve tiles under a URL like `/\$z/\$x/\$y.png`, you need a map server that translates incoming HTTP requests with this URL pattern into SQL queries and returns the requested tile.
+To serve tiles under a URL like `/{z}/{x}/{y}.png`, you need a map server that translates incoming HTTP requests with this URL pattern into SQL queries and returns the requested tile.
 
 Despite its disadvantages and added complexity, using a tile container like `.mbtiles` makes it much easier to manage millions of tiles.
 
