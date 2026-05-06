@@ -44,7 +44,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - **[VersaTiles Style](https://github.com/versatiles-org/versatiles-style)** Generate [map styles](https://maplibre.org/maplibre-style-spec/) and sprites
 - **[VersaTiles Fonts](https://github.com/versatiles-org/versatiles-fonts)** Generate font glyphs for map use
 - **[VersaTiles Glyphs](https://github.com/versatiles-org/versatiles-glyphs-rs)** Generate signed distance field glyphs for map use
-- **[VersaTiles Renderer](https://github.com/versatiles-org/versatiles-renderer)**: Render a map view as image (WIP)
+- **[VersaTiles Renderer](https://github.com/versatiles-org/versatiles-svg-renderer)**: Render a map view as image (WIP)
 
 ### Integrations
 
