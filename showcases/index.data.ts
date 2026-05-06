@@ -33,9 +33,7 @@ export default {
 			if (!s.tags.includes(s.category)) s.tags = [s.category, ...s.tags];
 		});
 
-		showcases.sort((a, b) =>
-			a.source.localeCompare(b.source, 'en', { sensitivity: 'base' }),
-		);
+		showcases.sort((a, b) => a.source.localeCompare(b.source, 'en', { sensitivity: 'base' }));
 
 		const countries = [...new Set(showcases.map((s) => s.country))].sort();
 		const categories = [...new Set(showcases.map((s) => s.category))].sort();

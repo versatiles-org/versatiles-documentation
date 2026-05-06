@@ -15,7 +15,7 @@ If you use VersaTiles in a public project, we'd love to feature it.
      url: 'https://example.org'
      source: 'Your Org'
      country: 'Germany'
-     category: 'journalism'  # or: independent, commercial, research, events
+     category: 'commercial' # or: journalism,independent, research, events
      description: 'One sentence about what the project shows'
      thumbnail: your-project-slug
      tags:

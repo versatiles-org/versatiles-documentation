@@ -495,7 +495,7 @@
   source: 'Lynk'
   country: 'Ireland'
   category: 'commercial'
-  description: 'Online booking platform for Dublin''s Lynk taxi service'
+  description: "Online booking platform for Dublin's Lynk taxi service"
   thumbnail: lynk
   tags:
     - transport
@@ -528,7 +528,7 @@
   source: 'Radar de Trenes'
   country: 'Spain'
   category: 'independent'
-  description: 'Live tracking of trains across Spain''s rail network, updated every 20 seconds'
+  description: "Live tracking of trains across Spain's rail network, updated every 20 seconds"
   thumbnail: radar-de-trenes
   tags:
     - transport
