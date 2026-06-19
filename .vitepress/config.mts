@@ -98,6 +98,10 @@ export default defineConfig({
 						text: 'Shortbread Extensions',
 						link: '/compendium/specification_shortbread_extensions',
 					},
+					{
+						text: 'Shortbread Low-Zoom Land Cover',
+						link: '/compendium/specification_shortbread_landcover',
+					},
 					{ text: 'Reference Model', link: '/compendium/specification_reference_model' },
 				],
 			},
