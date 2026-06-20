@@ -1,10 +1,10 @@
 # Shortbread Low-Zoom Land Cover
 
-> **Status** Experimental | Last updated 2026-06-19
+> **Status** Experimental | Last updated 2026-06-20
 
 ## Introduction
 
-[Shortbread](https://shortbread-tiles.org/)'s `land` layer is derived purely from OpenStreetMap, and most of its kinds only appear at higher zoom levels (`forest` from z7, the other land kinds later still; `water_polygons` from z4). A worldwide map at zoom 0–6 therefore shows almost no land cover — only ocean, large water bodies, boundaries and labels.
+[Shortbread](https://shortbread-tiles.org/)'s `land` layer is derived purely from OpenStreetMap, and most of its kinds only appear at higher zoom levels (`forest` from z7, the other land kinds later still); the separate `water_polygons` layer starts at z4. A worldwide map at zoom 0–6 therefore shows almost no land cover — only ocean, large water bodies, boundaries and labels.
 
 This page describes an **optional, complementary tileset** that fills that gap. It is derived from [ESA WorldCover](https://esa-worldcover.org/) — a global 10 m satellite land-cover classification — and populates Shortbread's **existing** `land` and `water_polygons` layers, using their **existing** `kind` values, at the low zoom levels where OSM does not yet provide them. Where OSM begins, the satellite data stops.
 
@@ -57,19 +57,34 @@ Open ocean (ESA no-data) is dropped, leaving those areas to Shortbread's `ocean`
 
 ## Using it
 
-1. **Obtain the tileset** — [Download our prepared `landcover.versatiles`](https://download.versatiles.org/#landcover-vectors) or build it yourself using the [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors) repo.
-2. **Merge** it with an OSM-based Shortbread tileset at the feature level, so both populate the same `land` / `water_polygons` layers (see the [VersaTiles CLI](https://github.com/versatiles-org/versatiles-rs)). The result is one tileset with continuous land cover from z0.
+### 1. Get a merged OSM + land-cover tileset
 
-> [!TIP]
-> The **easiest way to do both steps in one go** is to use the [VersaTiles CLI](https://github.com/versatiles-org/versatiles-rs) and to merge the data with a VPL pipeline directly from the download server:
->
-> ```bash
-> versatiles convert '[,vpl](from_merged_vector [ from_container filename="https://download.versatiles.org/osm.versatiles", from_container filename="https://download.versatiles.org/landcover-vectors.versatiles" ])' osm.versatiles
-> ```
->
-> (The download will be slow at first for the lower zoom levels, but then speed up significantly.)
+You need one tileset in which the land cover and the OSM data populate the same `land` / `water_polygons` layers. There are two ways to get there.
 
-3. **Render at low zoom** — most Shortbread styles only style these kinds from their OSM minimum zoom. To _see_ the low-zoom cover, the style must draw `land` / `water_polygons` at the lower zooms too ([versatiles-style #115](https://github.com/versatiles-org/versatiles-style/issues/115)).
+#### Shortcut: download the pre-merged tileset (recommended)
+
+We publish the OSM and land-cover tilesets already merged, so you can skip the merge entirely:
+
+- **[Download `osm-landcover.versatiles`](https://download.versatiles.org/#osm-landcover)** — the OSM Shortbread tileset with low-zoom land cover already blended in, ready to use with no further processing.
+
+This is the fastest option and avoids the lengthy merge step.
+
+#### Merge it yourself
+
+If you need a custom combination — for example a different OSM build, or land cover only over a region — merge the two source tilesets at the feature level so both populate the same `land` / `water_polygons` layers. The result is one tileset with continuous land cover from z0.
+
+Obtain the [prepared `landcover-vectors.versatiles`](https://download.versatiles.org/#landcover-vectors) (or build it yourself from [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors)), then merge it with an OSM-based Shortbread tileset using the [VersaTiles CLI](https://github.com/versatiles-org/versatiles-rs). A VPL pipeline can do the download and merge in one go:
+
+```bash
+versatiles convert '[,vpl](from_merged_vector [ from_container filename="https://download.versatiles.org/osm.versatiles", from_container filename="https://download.versatiles.org/landcover-vectors.versatiles" ])' combined.versatiles
+```
+
+> [!NOTE]
+> The merge is processing-heavy: it is slow at first for the lower zoom levels, then speeds up, but can still take hours overall. This is exactly the work the pre-merged `osm-landcover.versatiles` saves you.
+
+### 2. Render at low zoom
+
+Most Shortbread styles only style these kinds from their OSM minimum zoom. To _see_ the low-zoom cover, the style must draw `land` / `water_polygons` at the lower zooms too ([versatiles-style #115](https://github.com/versatiles-org/versatiles-style/issues/115)).
 
 Because it is purely additive, omitting the merge (or the style rules) changes nothing.
 
