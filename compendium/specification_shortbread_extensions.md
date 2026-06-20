@@ -13,7 +13,7 @@ Two principles hold for every experiment:
 1. **Opt-in.** Nothing beyond the spec is emitted unless explicitly enabled. A bare build is strict Shortbread.
 2. **Additive.** Experiments only _add_ attributes or features to existing layers — layer names, geometry types and zoom ranges are unchanged, and the `buildings` layer still carries the spec's `dummy=1`. A consumer that only understands base Shortbread can ignore the extras safely.
 
-> This page documents the **schema contract** (what extra attributes/features exist and how to use them in a style). It is not the build manual — see the [profile README](https://github.com/versatiles-org/planetiler/blob/main/planetiler-shortbread/README.md) for how tiles are generated.
+> This page documents the **schema contract** (what extra attributes/features exist and how to use them in a style). It is not the build manual — see the [profile README](https://github.com/versatiles-org/planetiler/blob/feature/shortbread-java-profile/planetiler-shortbread/README.md) for how tiles are generated.
 
 ---
 
@@ -33,7 +33,7 @@ java -jar planetiler.jar shortbread --area=monaco \
   --shortbread_experiments=building_heights,building_parts,locale_names
 ```
 
-The default is **`none`**. The token registry is defined in [`Experiment.java`](https://github.com/versatiles-org/planetiler/blob/main/planetiler-shortbread/src/main/java/com/onthegomap/planetiler/shortbread/Experiment.java) and is the source of truth.
+The default is **`none`**. The token registry is defined in [`Experiment.java`](https://github.com/versatiles-org/planetiler/blob/feature/shortbread-java-profile/planetiler-shortbread/src/main/java/com/onthegomap/planetiler/shortbread/Experiment.java) and is the source of truth.
 
 > **For map authors:** experiments are chosen by whoever builds the tiles ([versatiles-generator](https://github.com/versatiles-org/versatiles-generator)), not by the map client. The published VersaTiles tiles ship a fixed set — check the generator configuration to see which. There is currently no per-tile metadata flag indicating which experiments were enabled (see [Future](#future)).
 
@@ -145,7 +145,7 @@ Separate from the opt-in experiments above, the profile intentionally differs fr
 - **`ocean`** — non-polygonal slivers (thin polygons that collapse to lines at low zoom) are dropped so the layer stays polygon-only.
 - **`way_area`** is reported in Web-Mercator m² (matching the spec's projection note), not geodesic.
 
-These (and smaller ones) are marked with `// DEVIATION:` in the code and listed in the [profile README](https://github.com/versatiles-org/planetiler/blob/main/planetiler-shortbread/README.md#reference-and-deviations).
+These (and smaller ones) are marked with `// DEVIATION:` in the code and listed in the [profile README](https://github.com/versatiles-org/planetiler/blob/feature/shortbread-java-profile/planetiler-shortbread/README.md#reference-and-deviations).
 
 ---
 
@@ -166,7 +166,7 @@ These (and smaller ones) are marked with `// DEVIATION:` in the code and listed 
 
 ## References
 
-- VersaTiles profile: [`planetiler-shortbread`](https://github.com/versatiles-org/planetiler/tree/main/planetiler-shortbread) · [README](https://github.com/versatiles-org/planetiler/blob/main/planetiler-shortbread/README.md) · [`Experiment.java`](https://github.com/versatiles-org/planetiler/blob/main/planetiler-shortbread/src/main/java/com/onthegomap/planetiler/shortbread/Experiment.java)
+- VersaTiles profile: [`planetiler-shortbread`](https://github.com/versatiles-org/planetiler/tree/feature/shortbread-java-profile/planetiler-shortbread) · [README](https://github.com/versatiles-org/planetiler/blob/feature/shortbread-java-profile/planetiler-shortbread/README.md) · [`Experiment.java`](https://github.com/versatiles-org/planetiler/blob/feature/shortbread-java-profile/planetiler-shortbread/src/main/java/com/onthegomap/planetiler/shortbread/Experiment.java)
 - Shortbread schema: [shortbread-tiles.org](https://shortbread-tiles.org/) · [shortbread-docs](https://github.com/shortbread-tiles/shortbread-docs) (issues [#77](https://github.com/shortbread-tiles/shortbread-docs/issues/77), [#137](https://github.com/shortbread-tiles/shortbread-docs/issues/137), [#141](https://github.com/shortbread-tiles/shortbread-docs/issues/141))
 - VersaTiles ecosystem: [versatiles-generator](https://github.com/versatiles-org/versatiles-generator) (build) · [versatiles-style](https://github.com/versatiles-org/versatiles-style) (consumer)
 - OSM: [Simple 3D Buildings](https://wiki.openstreetmap.org/wiki/Simple3DBuildingsV1) · [`building:height`](https://wiki.openstreetmap.org/wiki/Key:height) · [`addr:*`](https://wiki.openstreetmap.org/wiki/Key:addr) · [semicolon value separator](https://wiki.openstreetmap.org/wiki/Semi-colon_value_separator)

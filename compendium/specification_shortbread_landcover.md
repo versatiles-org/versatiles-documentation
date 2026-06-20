@@ -108,4 +108,4 @@ When merged with OpenStreetMap data (ODbL), **both** attributions must be shown.
 - Shortbread schema: [shortbread-tiles.org](https://shortbread-tiles.org/) · scope decision [shortbread-docs #144](https://github.com/shortbread-tiles/shortbread-docs/issues/144)
 - Rendering: [versatiles-style #115](https://github.com/versatiles-org/versatiles-style/issues/115)
 - Data-source listing: [versatiles.org/sources](https://versatiles.org/sources/)
-- Coverage figure: [FAO Forest Resources Assessment 2020](https://www.fao.org/forest-resources-assessment/2020)
+- Coverage figure: [FAO Forest Resources Assessment 2020](https://www.fao.org/interactive/forest-resources-assessment/2020/en/)
