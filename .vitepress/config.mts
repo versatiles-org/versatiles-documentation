@@ -62,7 +62,7 @@ export default defineConfig({
 				items: [
 					{ text: 'VersaTiles', link: '/basics/versatiles' },
 					{ text: 'VersaTiles Server', link: '/basics/versatiles_server' },
-					{ text: 'Front-end', link: '/basics/frontend' },
+					{ text: 'Frontend', link: '/basics/frontend' },
 					{ text: 'Web Maps', link: '/basics/web_maps' },
 					{ text: 'Available Tilesets', link: '/basics/tilesets' },
 				],
@@ -70,20 +70,45 @@ export default defineConfig({
 			{
 				text: 'Guides',
 				items: [
-					{ text: 'Use the Public Tile Server', link: '/guides/use_tiles_versatiles_org' },
-					{ text: 'Install VersaTiles', link: '/guides/install_versatiles' },
-					{ text: 'Download Tiles', link: '/guides/download_tiles' },
-					{ text: 'Generate Tiles from OSM', link: '/guides/generate_tiles_from_osm' },
-					{ text: 'Convert Tilesets', link: '/guides/converter' },
-					{ text: 'Deploy on Google Cloud', link: '/guides/deploy_in_google_cloud' },
-					{ text: 'Deploy on Debian', link: '/guides/deploy_on_debian' },
-					{ text: 'Deploy with Docker', link: '/guides/deploy_using_docker' },
-					{ text: 'Deploy on Uberspace', link: '/guides/deploy_on_uberspace' },
-					{ text: 'Local Server on Debian', link: '/guides/local_server_debian' },
-					{ text: 'Local Server with Docker', link: '/guides/local_server_docker' },
-					{ text: 'Local Server on macOS', link: '/guides/local_server_mac' },
-					{ text: 'Use VersaTiles in QGIS', link: '/guides/use_versatiles_in_qgis' },
-					{ text: 'VersaTiles on Mobile', link: '/guides/what_about_mobile' },
+					{
+						text: 'Getting Started',
+						items: [
+							{ text: 'Use the Public Tile Server', link: '/guides/use_tiles_versatiles_org' },
+							{ text: 'Install VersaTiles', link: '/guides/install_versatiles' },
+							{ text: 'Download Tiles', link: '/guides/download_tiles' },
+						],
+					},
+					{
+						text: 'Run Locally',
+						items: [
+							{ text: 'Local Server on macOS', link: '/guides/local_server_mac' },
+							{ text: 'Local Server on Debian', link: '/guides/local_server_debian' },
+							{ text: 'Local Server with Docker', link: '/guides/local_server_docker' },
+						],
+					},
+					{
+						text: 'Deploy to Production',
+						items: [
+							{ text: 'Deploy with Docker', link: '/guides/deploy_using_docker' },
+							{ text: 'Deploy on Debian', link: '/guides/deploy_on_debian' },
+							{ text: 'Deploy on Google Cloud', link: '/guides/deploy_in_google_cloud' },
+							{ text: 'Deploy on Uberspace', link: '/guides/deploy_on_uberspace' },
+						],
+					},
+					{
+						text: 'Tile Generation',
+						items: [
+							{ text: 'Generate Tiles from OSM', link: '/guides/generate_tiles_from_osm' },
+							{ text: 'Convert Tilesets', link: '/guides/converter' },
+						],
+					},
+					{
+						text: 'Other Clients',
+						items: [
+							{ text: 'Use VersaTiles in QGIS', link: '/guides/use_versatiles_in_qgis' },
+							{ text: 'VersaTiles on Mobile', link: '/guides/what_about_mobile' },
+						],
+					},
 				],
 			},
 			{
@@ -93,7 +118,7 @@ export default defineConfig({
 					{ text: 'Wider Perspective', link: '/compendium/wider_perspective' },
 					{ text: 'Tools', link: '/compendium/tools' },
 					{ text: 'Container Specification', link: '/compendium/specification_container' },
-					{ text: 'Front-end Specification', link: '/compendium/specification_frontend' },
+					{ text: 'Frontend Specification', link: '/compendium/specification_frontend' },
 					{ text: 'TileJSON Extension', link: '/compendium/specification_extended_tilejson' },
 					{
 						text: 'Shortbread Extensions',
