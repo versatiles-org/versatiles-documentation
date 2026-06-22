@@ -190,7 +190,7 @@ For a tile set with the ID `city_map`, the folder structure for a tile at zoom l
 
 ### File: `/tiles/{tileset_id}/tiles.json`
 
-The `tiles.json` describes the metadata of the map tiles and follows the official [TileJSON specification](https://github.com/mapbox/tilejson-spec). However, due to limitations imposed by Mapbox, we recommend using our [Extended TileJSON 3.0 specification](https://docs.versatiles.org/compendium/specification_extended_tilejson.html) instead, as this allows you to specify relative paths to be resolved in the frontend.
+The `tiles.json` describes the metadata of the map tiles and follows the official [TileJSON specification](https://github.com/mapbox/tilejson-spec). However, due to limitations imposed by Mapbox, we recommend using our [Extended TileJSON 3.0 specification](./specification_extended_tilejson.md) instead, as this allows you to specify relative paths to be resolved in the frontend.
 
 ### File: `/tiles/index.json`
 

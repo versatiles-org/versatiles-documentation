@@ -82,7 +82,7 @@ A unique feature of our format is the ability to perform fast spatial queries re
 versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
 ```
 
-HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://docs.versatiles.org/guides/download_tiles#partial-download) for more information.
+HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](../guides/download_tiles.md#partial-download) for more information.
 
 ### Requirements/Recommendations
 
@@ -241,7 +241,7 @@ Supported platforms include x86 and ARM (64 Bit) across:
 - [x] MacOS
 - [x] Windows
 
-In addition to the source code, which can be [compiled using cargo](https://docs.versatiles.org/guides/install_versatiles.html#building-from-source), we provide:
+In addition to the source code, which can be [compiled using cargo](../guides/install_versatiles.md#building-from-source), we provide:
 
 - [x] [Binary releases](https://github.com/versatiles-org/versatiles-rs/releases) via GitHub
 - [x] Installation scripts for [Linux/MacOS](https://github.com/versatiles-org/versatiles-rs/blob/main/scripts/install-unix.sh) and [Windows](https://github.com/versatiles-org/versatiles-rs/blob/main/scripts/install-windows.ps1)
