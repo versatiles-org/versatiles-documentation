@@ -66,10 +66,10 @@ export default withMermaid(
 					text: 'Basics',
 					items: [
 						{ text: 'VersaTiles', link: '/basics/versatiles' },
+						{ text: 'Available Tilesets', link: '/basics/tilesets' },
 						{ text: 'VersaTiles Server', link: '/basics/versatiles_server' },
 						{ text: 'Frontend', link: '/basics/frontend' },
 						{ text: 'Web Maps', link: '/basics/web_maps' },
-						{ text: 'Available Tilesets', link: '/basics/tilesets' },
 					],
 				},
 				{
@@ -89,9 +89,9 @@ export default withMermaid(
 						{
 							text: 'Run Locally',
 							items: [
+								{ text: 'Local Server with Docker', link: '/guides/local_server_docker' },
 								{ text: 'Local Server on macOS', link: '/guides/local_server_mac' },
 								{ text: 'Local Server on Debian', link: '/guides/local_server_debian' },
-								{ text: 'Local Server with Docker', link: '/guides/local_server_docker' },
 							],
 						},
 						{
@@ -136,6 +136,10 @@ export default withMermaid(
 						{
 							text: 'Specifications',
 							items: [
+								{
+									text: 'Reference Model',
+									link: '/compendium/specification_reference_model',
+								},
 								{ text: 'Container', link: '/compendium/specification_container' },
 								{ text: 'Frontend', link: '/compendium/specification_frontend' },
 								{
@@ -149,10 +153,6 @@ export default withMermaid(
 								{
 									text: 'Shortbread Low-Zoom Landcover',
 									link: '/compendium/specification_shortbread_landcover',
-								},
-								{
-									text: 'Reference Model',
-									link: '/compendium/specification_reference_model',
 								},
 							],
 						},
