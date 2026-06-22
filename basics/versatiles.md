@@ -8,7 +8,7 @@ VersaTiles is a stack that defines how geo data like OpenStreetMap can be proces
 
 <p align="center"><img src="../assets/architecture.svg"></p>
 
-- **MAP TILES** are pre-rendered and stored in a [VersaTiles container](../compendium/specification_container.md). We currently use [planetiler](https://github.com/onthegomap/planetiler) to generate OpenStreetMap (OSM) vector tiles in the [Shortbread scheme](https://shortbread-tiles.org/). All map tiles are available to download for free from [download.versatiles.org](https://download.versatiles.org/)
+- **MAP TILES** are pre-rendered and stored in a [VersaTiles container](../compendium/specification_container.md). We currently use [planetiler](https://github.com/onthegomap/planetiler) to generate OpenStreetMap (OSM) vector tiles in the [Shortbread schema](https://shortbread-tiles.org/schema/1.0/). All map tiles are available to download for free from [download.versatiles.org](https://download.versatiles.org/)
 - The web **FRONTEND** contains everything needed to render maps. We use [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/), prepared [glyphs](https://github.com/versatiles-org/versatiles-fonts), [sprites and styles](https://github.com/versatiles-org/versatiles-style), and have [bundled everything together in a TAR file](https://github.com/versatiles-org/versatiles-frontend), ready to use.
 - The **MAP SERVER** serves the frontend and map tiles via HTTP. We have a [powerful Rust implementation](https://github.com/versatiles-org/versatiles-rs) and a [flexible Node.js implementation](https://github.com/versatiles-org/node-versatiles-server), as well as special packages (e.g. for [Google Cloud Run](https://github.com/versatiles-org/node-versatiles-google-cloud)).
 - The **OPTIONAL PROXY** covers additional network-related topics such as TLS certificates, caching, load balancing and CORS.
@@ -26,7 +26,7 @@ To ensure the [four essential freedoms of Free Software](https://en.wikipedia.or
 - **Keep it simple**  
   _We focus on core functionality that everyone needs. Less features for special cases. We prefer simple solutions that allow more flexibility. Minimal dependencies._
 - **Include everyone**  
-  _We don't focus on our use cases or the problems of a particular group. Instead, we build solutions that everyone needs: from beginners to professionals, from amateurs to cooperations. Keep in mind, that the world is big and diverse._
+  _We don't focus on our use cases or the problems of a particular group. Instead, we build solutions that everyone needs: from beginners to professionals, from amateurs to corporations. Keep in mind, that the world is big and diverse._
 - **Look forward**  
   _Focus on solutions that have a long-term future._
 

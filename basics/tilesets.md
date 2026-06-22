@@ -4,7 +4,7 @@
 
 ![Example of OSM Shortbread](../assets/example-osm-shortbread.png)
 
-A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread Scheme](https://shortbread-tiles.org/schema/).
+A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread schema](https://shortbread-tiles.org/schema/1.0/).
 
 - [Download](https://download.versatiles.org/osm.versatiles)
 - [How to generate tiles](https://docs.versatiles.org/guides/generate_tiles_from_osm)
@@ -16,7 +16,7 @@ There are [several ready-made Public Domain styles](https://github.com/versatile
 ### Licence / Attribution
 
 - OpenStreetMap data is licensed under [Open Database License 1.0](https://opendatacommons.org/licenses/odbl/) and requires attribution to [OpenStreetMap contributors](https://www.openstreetmap.org/copyright)
-- The Shortbread Scheme [is licensed](https://shortbread-tiles.org/copyright/) under [CC-0](https://shortbread-tiles.org/copyright/CC0-1.0-LICENSE.txt) and does not require additional attribution.
+- The Shortbread schema [is licensed](https://shortbread-tiles.org/copyright/) under [CC-0](https://shortbread-tiles.org/copyright/CC0-1.0-LICENSE.txt) and does not require additional attribution.
 
 ## Hillshade
 
@@ -64,7 +64,6 @@ There is one layer called `hillshade-vectors` with a property `shade`:
       "filter": [ "all", ["==", "shade", "light"] ],
       "paint": {
         "fill-color": "#ffffff",
-        "fill-opacity": 1,
         "fill-opacity": { "stops": [[0, 0], [4, 0.2]] },
         "fill-antialias": true,
         "fill-outline-color": "#ffffff00"
@@ -78,7 +77,6 @@ There is one layer called `hillshade-vectors` with a property `shade`:
       "filter": [ "all", ["==", "shade", "dark"] ],
       "paint": {
         "fill-color": "#000000",
-        "fill-opacity": 1,
         "fill-opacity": { "stops": [[0, 0], [4, 0.05]] },
         "fill-antialias": true,
         "fill-outline-color": "#00000000"
@@ -128,7 +126,7 @@ There is one layer called `landcover-vectors` with a property `kind`:
     "versatiles-landcover": {
       "tilejson": "3.0.0",
       "name": "VersaTiles Landcover Vectors",
-      "description": "VersaTiles Hillshade Vectors based on ESA Worldcover 2021",
+      "description": "VersaTiles Landcover Vectors based on ESA WorldCover 2021",
       "attribution": "<a href=\"https://esa-worldcover.org/en/data-access\">© ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021)</a>",
       "version": "1.0.0",
       "tiles": ["https://tiles.versatiles.org/tiles/landcover-vectors/{z}/{x}/{y}"],
@@ -138,7 +136,7 @@ There is one layer called `landcover-vectors` with a property `kind`:
       "bounds": [ -180, -85.0511287798066, 180, 85.0511287798066 ],
       "minzoom": 0,
       "maxzoom": 8,
-      "vector_layers":[{ "id": "landcover-vectors", "fields": { "kind": "String" }, "minzoom": 0 ,"maxzoom": 12 }]
+      "vector_layers":[{ "id": "landcover-vectors", "fields": { "kind": "String" }, "minzoom": 0 ,"maxzoom": 8 }]
     }
   },
   "layers": [
@@ -194,7 +192,7 @@ There is one layer called `bathymetry` with a property `mindepth` with values
       "tilejson": "3.0.0",
       "name": "OpenDEM GEBCO Bathymetry",
       "description": "Bathymetry Vectors based on GEBCO 2021 derived contour polys provided by OpenDEM",
-      "attribution": "Derived product from the <a href=\"https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2019\">GEBCO 2019 Grid</a>, made with <a href=\"https://www.naturalearthdata.com/\">NaturalEarth</a> by <a href=\"https://opendem.info\">OpenDEM</a>",
+      "attribution": "Derived product from the <a href=\"https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2021\">GEBCO 2021 Grid</a>, made with <a href=\"https://www.naturalearthdata.com/\">NaturalEarth</a> by <a href=\"https://opendem.info\">OpenDEM</a>",
       "version": "1.0.0",
       "tiles": ["https://tiles.versatiles.org/tiles/bathymetry-vectors/{z}/{x}/{y}"],
       "type": "vector",

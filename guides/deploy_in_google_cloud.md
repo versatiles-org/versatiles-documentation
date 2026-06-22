@@ -48,7 +48,7 @@ CMD ["-p", "$PORT", "[osm]https://storage.googleapis.com/bucket_name/folder_name
   - When finished click button "CREATE".
 - Check if the service is running correctly: Open the link in "Service details" (something like: https://\*\*\*.run.app). You should see an interactive map.
 
-## 4. Add a load balancer
+## 5. Add a load balancer
 
 - Add a domain/subdomain, point it to an IP. (better: IPv4+IPv6)
 - Use these IPs as frontend for a load balancer.

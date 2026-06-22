@@ -36,6 +36,6 @@ In the meantime we recommend using [tippecanoe](https://github.com/mapbox/tippec
 
 ```sh
 tippecanoe -o tmp.mbtiles src.geojson
-versatiles convert tmp.mbtiles dest.pmtiles
+versatiles convert tmp.mbtiles dest.versatiles
 rm tmp.mbtiles
 ```

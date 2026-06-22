@@ -88,7 +88,7 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 
 - Tiles SHOULD be packed in a [\*.versatiles container](https://github.com/versatiles-org/versatiles-spec/).
 - A container MUST conform to the [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
-- Vector tiles SHOULD follow the [Shortbread Schema](https://shortbread-tiles.org/).
+- Vector tiles SHOULD follow the [Shortbread schema](https://shortbread-tiles.org/).
 - Containers SHOULD include detailed metadata conforming to [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
   - `attribution` detailing the copyright of the source data.
   - `vector_layers` describing the vector tile layers and their properties.

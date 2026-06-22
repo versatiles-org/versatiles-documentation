@@ -82,7 +82,7 @@ It would be better if the labels could somehow float independently, always stayi
 To achieve this and to overcome other problems with image tiles, vector tiles have been developed.
 They contain the raw vector data of each object, stored as points, lines and polygons, describing labels, roads and lakes.
 Each object stores additional properties such as "type" or "name".
-A separate file (tile.json) [describes the structure and properties of the vector data](https://docs.mapbox.com/help/glossary/tilejson/).
+A separate file (tiles.json) [describes the structure and properties of the vector data](https://docs.mapbox.com/help/glossary/tilejson/).
 A second file (style.json) [describes the visual appearance](https://maplibre.org/maplibre-style-spec/) of this vector data.
 For example, what colour to use for water, forests or highways, how many pixels wide is a road or country boundary, etc.
 

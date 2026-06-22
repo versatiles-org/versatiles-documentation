@@ -6,7 +6,7 @@ Several factors contribute to this challenge:
 
 1. Geospatial data, satellite imagery and aerial photography, is often copyrighted, making it expensive and inaccessible for open use.  
    Some governments have not yet embraced the idea of open data and instead produce geospatial data mainly for commercial purposes.
-1. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements and the intricacies of front-end frameworks.
+2. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements and the intricacies of front-end frameworks.
 
 Despite these challenges, the wealth of available data, standards and frameworks - many of which are open or freely available - provides a unique opportunity to build a web mapping infrastructure. However, the diversity of solutions makes it difficult to put the pieces together.
 
@@ -35,7 +35,7 @@ A frontend such as [MapLibre](https://maplibre.org/), [Leaflet](https://leafletj
 
 This approach works well for image tiles, such as satellite and aerial imagery. However, it has some disadvantages when displaying [thematic maps](https://en.wikipedia.org/wiki/Thematic_map), such as city maps. When zooming in, the map has to transition from one zoom level to another, causing labels to disappear and reappear. Image tiles do not provide a smooth zooming experience.
 
-So the concept of "slippy maps" has been improved by using vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons and their properties - much like SVG. But because SVG is too cumbersome, Mapbox has developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as compact [protobufs](https://protobuf.dev/) (PBF). The frontend should read the geographic data and draw the map accordingly. One advantage is that the map style can be defined in the frontend, so that the colour or even the language of the map can be adjusted. Rendering large amounts of vector data can be computationally expensive, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL or Vulcan.
+So the concept of "slippy maps" has been improved by using vector data instead of images. [Vector tiles](https://wiki.openstreetmap.org/wiki/Vector_tiles) can store points, paths, polygons and their properties - much like SVG. But because SVG is too cumbersome, Mapbox has developed a [vector tiles standard](https://docs.mapbox.com/data/tilesets/guides/vector-tiles-standards) that stores geographic data as compact [protobufs](https://protobuf.dev/) (PBF). The frontend should read the geographic data and draw the map accordingly. One advantage is that the map style can be defined in the frontend, so that the colour or even the language of the map can be adjusted. Rendering large amounts of vector data can be computationally expensive, so vector tiles are typically rendered on the GPU using libraries such as WebGL, OpenGL or Vulkan.
 
 ## Why is there no simple solution?
 
