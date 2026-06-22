@@ -11,6 +11,10 @@ Your server requires as an absolute minimum:
 
 ## 0. Create a user "versatiles"
 
+```bash
+sudo adduser --disabled-password --gecos "" versatiles
+```
+
 ## 1. Update the server and install dependencies
 
 ```bash

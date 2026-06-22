@@ -3,7 +3,9 @@
 This guide outlines different ways to install VersaTiles on your system:
 
 - [Using Homebrew (macOS)](#using-homebrew-macos)
-- [Using the Install Script](#using-the-install-script)
+- [Using the Install Script (Linux / macOS)](#using-the-install-script-linux--macos)
+- [Using PowerShell (Windows)](#using-powershell-windows)
+- [NixOS](#nixos)
 - [Building with Cargo](#building-with-cargo)
 - [Building from Source](#building-from-source)
 
@@ -26,7 +28,7 @@ brew update
 brew upgrade versatiles
 ```
 
-## Using the Install Script
+## Using the Install Script (Linux / macOS)
 
 You can use the install script to download and install the appropriate [precompiled binary](https://github.com/versatiles-org/versatiles-rs/releases/latest) for your system. The script automatically places the binary in `/usr/local/bin/`.
 
@@ -34,6 +36,24 @@ Run the following command:
 
 ```sh
 curl -Ls "https://github.com/versatiles-org/versatiles-rs/releases/latest/download/install-unix.sh" | sudo sh
+```
+
+## Using PowerShell (Windows)
+
+Open PowerShell and run:
+
+```powershell
+irm "https://github.com/versatiles-org/versatiles-rs/releases/latest/download/install-windows.ps1" | iex
+```
+
+This downloads and installs the latest precompiled Windows binary.
+
+## NixOS
+
+VersaTiles is available in Nixpkgs. Search for it in the [NixOS package index](https://search.nixos.org/packages?show=versatiles) or install directly:
+
+```sh
+nix-env -iA nixpkgs.versatiles
 ```
 
 ## Building with Cargo
@@ -57,4 +77,4 @@ cp ./target/release/versatiles /usr/local/bin/
 
 ## Additional Information
 
-For more details, including Docker support and installation on NixOS, refer to the [Installation section](https://github.com/versatiles-org/versatiles-rs/?tab=readme-ov-file#installation) of the [VersaTiles repository](https://github.com/versatiles-org/versatiles-rs).
+For Docker-based installation and further details, refer to the [Installation section](https://github.com/versatiles-org/versatiles-rs/?tab=readme-ov-file#installation) of the [VersaTiles repository](https://github.com/versatiles-org/versatiles-rs).

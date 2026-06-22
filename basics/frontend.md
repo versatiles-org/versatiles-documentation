@@ -12,13 +12,34 @@ To make it easier for you, we prepared and bundled everything in a compact, read
 
 We release the frontend as a TAR file on the [releases page](https://github.com/versatiles-org/versatiles-frontend/releases/latest).
 
-The package is named `frontend.br.tar.gz` — note the unusual `.br.tar` extension. This means the individual files *inside* the TAR are each pre-compressed with Brotli, so the server can stream them with minimal CPU load. The TAR container itself is not compressed (which is why `.tar.br` would be the wrong order).
+Each package uses the unusual `.br.tar` extension inside the filename. This means the individual files *inside* the TAR are each pre-compressed with Brotli, so the server can stream them with minimal CPU load. The TAR container itself is not compressed (which is why `.tar.br` would be the wrong order).
 
-To download it:
+### Variants
+
+Several variants are available to match different deployment needs:
+
+| Variant | Size | Contents |
+|---|---|---|
+| `frontend.br.tar.gz` | ~92 MB | All fonts, MapLibre GL JS, all styles, sprites — the standard choice |
+| `frontend-dev.br.tar.gz` | ~92 MB | Same as `frontend` plus MapLibre Inspect and SVG renderer for development |
+| `frontend-min.br.tar.gz` | ~45 MB | Noto Sans only (drops other font families), otherwise identical to `frontend` |
+| `frontend-blank.br.tar.gz` | ~85 MB | Fonts and sprites only — no JS libraries; bring your own scripts |
+| `frontend-tiny.br.tar.gz` | ~1 MB | Bare minimum: MapLibre, one style, Latin Noto Sans only |
+
+To download the standard variant:
 
 ```bash
 wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 ```
+
+## What's included
+
+The bundle contains:
+
+- **[MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js)** — the map rendering library
+- **Map styles** — six ready-to-use themes: `colorful`, `graybeard`, `eclipse`, `neutrino`, `shadow`, `satellite`
+- **Fonts (glyphs)** — ten open-source typefaces prepared as SDF glyphs: Roboto, Open Sans, Noto Sans, Fira Sans, and others
+- **Sprites** — icon sets for use with the map styles
 
 ## How is it built?
 

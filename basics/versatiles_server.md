@@ -75,6 +75,16 @@ By default versatiles uses 0.0.0.0:8080. If you want to change IP/Port use the o
 - `-i`/`--ip`: e.g. `-i 127.0.0.1`
 - `-p`/`--port`: e.g. `-p 3000`
 
+## Configuration file
+
+For more complex setups — multiple tile sources, CORS rules, custom domain, logging — the server can be configured via a `config.yaml` file:
+
+```bash
+versatiles serve --config config.yaml
+```
+
+See the [reference model](../compendium/specification_reference_model.md#server) for the full `config.yaml` schema.
+
 ## What's not included?
 
 The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. But you can use a CDN or nginx for this. You can find HowTos on CDNs and nginx in the [documentation](https://docs.versatiles.org/).

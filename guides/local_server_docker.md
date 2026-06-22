@@ -3,17 +3,26 @@
 This short guide shows how to launch a VersaTiles server on your machine in just a few commands.
 
 > [!TIP]
-> To expose the server on a public domain, see **[Deploy a VersaTiles server with Nginx](./deploy_using_docker.md)**.
+> To expose the server on a public domain, see **[Deploy a VersaTiles server with Nginx](./deploy_using_docker.md)**.
 
 ## Prerequisites
 
-Before you begin, make sure you have [docker](https://www.docker.com/) properly installed.
+Before you begin, make sure you have [Docker](https://www.docker.com/) properly installed.
 
 ---
 
-## Option A — Minimal image: `versatiles`
+## Option A — Minimal image: `versatiles`
 
-The image **`versatiles`** contains only the [VersaTiles Rust server](https://github.com/versatiles-org/versatiles-rs). Choose it if you already have your own front‑end or want finer control.
+The image **`versatiles`** contains only the [VersaTiles Rust server](https://github.com/versatiles-org/versatiles-rs). Choose it if you already have your own frontend or want finer control.
+
+First, download the frontend and tile data into your current directory:
+
+```bash
+wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend-dev.br.tar.gz"
+wget -c "https://download.versatiles.org/osm.versatiles"
+```
+
+Then start the server (the `-s` flag accepts `.br.tar.gz` directly):
 
 ```bash
 docker run --rm -it \
@@ -21,7 +30,7 @@ docker run --rm -it \
   --mount type=bind,src="$(pwd)",dst=/data,readonly \
   versatiles/versatiles:latest \
   serve \
-  -s /data/frontend-dev.br.tar \
+  -s /data/frontend-dev.br.tar.gz \
   '/data/osm.versatiles'
 ```
 
@@ -31,9 +40,13 @@ See the full image documentation in the [`versatiles` directory](https://github.
 
 ---
 
-## Option B — Bundled front‑end image: `versatiles-frontend`
+## Option B — Bundled frontend image: `versatiles-frontend`
 
-The image **`versatiles-frontend`** packages the [VersaTiles server](https://github.com/versatiles-org/versatiles-rs) together with the latest [developer front‑end](https://github.com/versatiles-org/versatiles-frontend). This is the quickest way to spin up a local map viewer.
+The image **`versatiles-frontend`** packages the [VersaTiles server](https://github.com/versatiles-org/versatiles-rs) together with the latest [developer frontend](https://github.com/versatiles-org/versatiles-frontend) already baked in. Only the tile data needs to be on disk:
+
+```bash
+wget -c "https://download.versatiles.org/osm.versatiles"
+```
 
 ```bash
 docker run --rm -it \
@@ -52,7 +65,7 @@ See the image documentation in the [`versatiles-frontend` directory](https://git
 
 ## Resources
 
-- **Server** — [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)
-- **Dockerfiles** — [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)
-- **Front‑end** — [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) · [latest release](https://github.com/versatiles-org/versatiles-frontend/releases/latest/)
-- **Tile data** — <https://download.versatiles.org>
+- **Server** — [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)
+- **Dockerfiles** — [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)
+- **Frontend** — [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) · [latest release](https://github.com/versatiles-org/versatiles-frontend/releases/latest/)
+- **Tile data** — <https://download.versatiles.org>

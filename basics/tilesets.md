@@ -95,11 +95,18 @@ There is one layer called `hillshade-vectors` with a property `shade`:
 
 ![Example of Landcover](../assets/example-landcover.png)
 
-A set of vector tiles based on [ESA Worldcover](https://esa-worldcover.org/en/data-access) raster.
-They are used to complement OSM tiles on lower zoom levels.
+A set of vector tiles based on [ESA Worldcover](https://esa-worldcover.org/en/data-access) satellite data. They fill in landcover detail at low and mid zoom levels where OpenStreetMap does not yet carry that information.
 
-- [Download](https://download.versatiles.org/landcover-vectors.versatiles)
-- [Repository](https://github.com/versatiles-org/landcover-vectors)
+The tileset has received a major update — see the [repository](https://github.com/versatiles-org/landcover-vectors) for details.
+
+### Downloads
+
+Two download options are available:
+
+- **[landcover-vectors.versatiles](https://download.versatiles.org/landcover-vectors.versatiles)** (1.9 GB) — Landcover tiles only; merge with an OSM tileset using the VersaTiles CLI.
+- **[osm-landcover.versatiles](https://download.versatiles.org/osm-landcover.versatiles)** (63.7 GB, Beta) — Pre-merged combination of OSM Shortbread vector tiles and landcover; ready to use without any further processing.
+
+[Repository](https://github.com/versatiles-org/landcover-vectors)
 
 ### Style
 
@@ -170,6 +177,7 @@ There is one layer called `landcover-vectors` with a property `kind`:
 
 A set of vector tiles based on [Bathymetry Shapefiles from OpenDEM](https://www.opendem.info/download_bathymetry.html)
 
+- [Download](https://download.versatiles.org/bathymetry-vectors.versatiles)
 - [Repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)
 
 ### Style
@@ -257,3 +265,84 @@ There is one layer called `bathymetry` with a property `mindepth` with values
 
 - The GEBCO Grid is placed in the public domain and may be used free of charge. Use of the GEBCO Grid indicates that the user accepts the [conditions of use and disclaimer information](https://www.gebco.net/data-products/gridded-bathymetry-data/gebco-2021#section8).
 - Attribution: Derived product from the [GEBCO 2021 Grid](https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2021), made with [NaturalEarth](https://www.naturalearthdata.com/) by [OpenDEM](https://opendem.info)
+
+## Elevation
+
+![Example of Elevation](../assets/example-elevation.png)
+
+Global elevation data encoded as raster tiles in [Terrarium format](https://github.com/tilezen/joerd/blob/master/docs/formats.md#terrarium). The underlying DEM data is sourced from [mapterhorn.com](https://mapterhorn.com). To reduce file size by roughly 40 %, the elevation values are quantised before encoding — the resulting precision loss is visually unnoticeable for hillshading and 3D terrain.
+
+- [Download](https://download.versatiles.org/elevation.versatiles)
+- [Repository](https://github.com/versatiles-org/elevation)
+
+### Format
+
+Each pixel encodes the elevation in metres as:
+
+```
+elevation (m) = (red × 256 + green + blue / 256) − 32768
+```
+
+### Style
+
+Use it as a `raster-dem` source in MapLibre for hillshading or 3D terrain:
+
+```js
+{
+  // ...
+  "sources": {
+    "versatiles-elevation": {
+      "type": "raster-dem",
+      "tiles": ["https://tiles.versatiles.org/tiles/elevation/{z}/{x}/{y}"],
+      "tileSize": 512,
+      "encoding": "terrarium"
+    }
+  },
+  "terrain": { "source": "versatiles-elevation", "exaggeration": 1.5 },
+  "layers": [
+    {
+      "id": "hillshade",
+      "type": "hillshade",
+      "source": "versatiles-elevation",
+      "paint": { "hillshade-exaggeration": 0.5 }
+    }
+  ]
+}
+```
+
+### Licence & Attribution
+
+See the [repository](https://github.com/versatiles-org/elevation) for the full list of data sources and their attribution requirements.
+
+## Satellite
+
+Global satellite imagery composited from open data sources, available as raster tiles.
+
+- [Download](https://download.versatiles.org/satellite.versatiles)
+- [Repository](https://github.com/versatiles-org/orthophotos)
+
+### Style
+
+```js
+{
+  // ...
+  "sources": {
+    "versatiles-satellite": {
+      "type": "raster",
+      "tiles": ["https://tiles.versatiles.org/tiles/satellite/{z}/{x}/{y}"],
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "satellite",
+      "type": "raster",
+      "source": "versatiles-satellite"
+    }
+  ]
+}
+```
+
+### Licence & Attribution
+
+See the [repository](https://github.com/versatiles-org/orthophotos) for the full list of data sources and their attribution requirements.

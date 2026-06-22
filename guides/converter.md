@@ -25,9 +25,17 @@ Convert an directory containing tiles in `dir/z/x/y.ext` format to `pmtiles`:
 versatiles convert dir dest.pmtiles
 ```
 
-## Options
+## Key Options
 
-See `versatiles convert --help` for a full listing of options.
+| Option | Description |
+|---|---|
+| `--bbox <W,S,E,N>` | Crop tiles to this geographic bounding box (decimal degrees) |
+| `--bbox-border <tiles>` | Expand the bounding box by this many extra tiles on each side |
+| `--min-zoom <z>` | Discard tiles below this zoom level |
+| `--max-zoom <z>` | Discard tiles above this zoom level |
+| `--format <fmt>` | Re-encode tile data — e.g. `png`, `jpg`, `webp`, `pbf` |
+
+Run `versatiles convert --help` for the full option listing.
 
 ## Convert GeoJSON to VersaTiles container
 
