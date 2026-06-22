@@ -268,7 +268,7 @@ There is one layer called `bathymetry` with a property `mindepth` with values
 
 ## Elevation
 
-![Example of Elevation](../assets/example-elevation.png)
+![Example of Elevation](../assets/example-elevation.jpg)
 
 Global elevation data encoded as raster tiles in [Terrarium format](https://github.com/tilezen/joerd/blob/master/docs/formats.md#terrarium). The underlying DEM data is sourced from [mapterhorn.com](https://mapterhorn.com). To reduce file size by roughly 40 %, the elevation values are quantised before encoding — the resulting precision loss is visually unnoticeable for hillshading and 3D terrain.
 
