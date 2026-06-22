@@ -117,21 +117,34 @@ export default defineConfig({
 			{
 				text: 'Compendium',
 				items: [
-					{ text: 'Introduction', link: '/compendium/introduction' },
-					{ text: 'Wider Perspective', link: '/compendium/wider_perspective' },
-					{ text: 'Tools', link: '/compendium/tools' },
-					{ text: 'Container Specification', link: '/compendium/specification_container' },
-					{ text: 'Frontend Specification', link: '/compendium/specification_frontend' },
-					{ text: 'TileJSON Extension', link: '/compendium/specification_extended_tilejson' },
 					{
-						text: 'Shortbread Extensions',
-						link: '/compendium/specification_shortbread_extensions',
+						text: 'Background',
+						items: [
+							{ text: 'Introduction', link: '/compendium/introduction' },
+							{ text: 'Wider Perspective', link: '/compendium/wider_perspective' },
+							{ text: 'Tools', link: '/compendium/tools' },
+						],
 					},
 					{
-						text: 'Shortbread Low-Zoom Land Cover',
-						link: '/compendium/specification_shortbread_landcover',
+						text: 'Specifications',
+						items: [
+							{ text: 'Container', link: '/compendium/specification_container' },
+							{ text: 'Frontend', link: '/compendium/specification_frontend' },
+							{
+								text: 'TileJSON Extension',
+								link: '/compendium/specification_extended_tilejson',
+							},
+							{
+								text: 'Shortbread Extensions',
+								link: '/compendium/specification_shortbread_extensions',
+							},
+							{
+								text: 'Shortbread Low-Zoom Landcover',
+								link: '/compendium/specification_shortbread_landcover',
+							},
+							{ text: 'Reference Model', link: '/compendium/specification_reference_model' },
+						],
 					},
-					{ text: 'Reference Model', link: '/compendium/specification_reference_model' },
 				],
 			},
 			{ text: 'Showcases', link: '/showcases/' },
