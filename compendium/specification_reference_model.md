@@ -26,9 +26,9 @@ e1@{ curve: linear }
 e2@{ curve: linear }
 ```
 
-1. **Map Data:** Contains all the geographics data, prepared as map tiles, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial imagery.
+1. **Map Data:** Contains all the geographic data, prepared as map tiles, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial imagery.
 2. **Frontend:** Provides the map style information, icons, libraries, and anything else you need for the user interface.
-3. **Server:** Manages the distribution of map tiles, including handling of http header for caching etc.
+3. **Server:** Manages the distribution of map tiles, including handling HTTP headers for caching and more.
 4. **Optional Proxy:** We make a clear cut between the tile server and any additional network-related issues, including TLS certificates, load balancing and caching.
 
 > [!WARNING] VersaTiles is still under development.
@@ -74,7 +74,7 @@ The most commonly used container format is [MBTiles](https://wiki.openstreetmap.
 
 In response, some have turned to cloud-optimised map tile container formats such as [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored to specific use cases; for example, PMTiles is designed for storage on public cloud storage such as AWS S3 and can be accessed serverlessly via JavaScript using HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialisation and caching challenges. Our goal is to remain independent of container formats that are application specific or prone to divergent future development paths.
 
-Accordingly, we have taken the lessons learned from COMTiles and PMTiles to create a uniquely simple container format, which is described here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
+Accordingly, we have taken the lessons learned from COMTiles and PMTiles to create a uniquely simple container format, which is described here: [VersaTiles Container Specification](specification_container.md) ([GitHub](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)).
 
 A unique feature of our format is the ability to perform fast spatial queries remotely. Users who only need a specific region, such as a continent, country or city, do not need to download the entire planet. Instead, they can use our [VersaTiles CLI](https://github.com/versatiles-org/versatiles-rs) to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
 
@@ -165,7 +165,7 @@ Progress in the development and implementation of the frontend includes:
 - [x] **Fonts**: Prepared default fonts. ([Repository](https://github.com/versatiles-org/versatiles-fonts))
 - [x] **Sprites using signed distance fields**: ... to ensure that icons and symbols are scalable, colourable and clear at any zoom level. ([Repository](https://github.com/versatiles-org/versatiles-style))
 - [x] **Multiple frontends** are available: a minimal version and a large developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
-- [x] **Right-to-left (RTL) label support**: Efforts are underway to add support for RTL languages, such as Arabic, to ensure that maps are accessible to a global audience. ([Issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
+- [ ] **Right-to-left (RTL) label support**: Efforts are underway to add support for RTL languages, such as Arabic, to ensure that maps are accessible to a global audience. ([Issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
 
 ## Server
 
@@ -185,7 +185,7 @@ The server provides map tiles and static files via HTTP. These static files can 
   - `/tiles/`: The primary directory for retrieving tiles.
     - `/tiles/index.json`: An index of available tile sources.
     - `/tiles/{name}/{z}/{x}/{y}`: Standardised endpoints for accessing tiles.
-    - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0).
+    - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0) — see also [VersaTiles Extended TileJSON](specification_extended_tilejson.md) for the recommended superset.
   - `/assets/`: Houses additional resources such as styles, fonts, sprites and MapLibre GL JS files.
   - See [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
 - SHOULD be configured via `config.yaml` for a customised server setup, including domain setup, IP/port listening preferences, operation modes (development vs. production), tile source specification and static content management:
@@ -204,7 +204,7 @@ tile_sources:
   - name: 'osm'
     source: './osm.versatiles' # Local source for OpenStreetMap tiles
   - name: 'landsat'
-    source: 'https://example.org/landsat.versatiles' # Remote source for Landsat tiles
+    source: 'https://example.org/my-own-landsat-data.versatiles' # Remote source
 
 # Optional configuration for serving static content
 static_content:
@@ -269,7 +269,7 @@ Our NodeJS implementation includes:
 
 - [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
 - [x] A [Node.js server](https://github.com/versatiles-org/node-versatiles-server) (NPM package `@versatiles/server`) with configurable hostname/port, static file serving, CORS management, and data compression.
-- [x] Full `config.yaml` support
+- [ ] Full `config.yaml` support
 - [x] Comprehensive CORS management
 
 A specific solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `*.versatiles` file, including a preview mode:
@@ -315,7 +315,7 @@ Currently we recommend:
 
 Efforts have been made to evaluate and document CDN solutions, with a focus on price estimates:
 
-- [x] [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be the default solution for single server setups. We should publish some Docker Compose examples using NGINX and Let's Encrypt. ([SWAG](https://docs.linuxserver.io/general/swag/), [traefik](https://github.com/traefik/traefik))
+- [x] [NGINX](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/): could be the default solution for single server setups.
 - [x] [Google CDN](https://cloud.google.com/cdn) (~80€/TB): Tested and used by SWR.
 - [x] Akamai CDN: Tested and used by NDR.
 - [x] [Bunny CDN](https://bunny.net/cdn/) (~5€/TB): Tested for [tiles.versatiles.org](https://tiles.versatiles.org). Unfortunately, BunnyCDN is currently unable to fetch or return compressed vector tiles. The "content-encoding" and "vary: accept-encoding" headers are being ignored. The CDN engineering team has been notified, but there is no ETA.
