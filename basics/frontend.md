@@ -12,19 +12,19 @@ To make it easier for you, we prepared and bundled everything in a compact, read
 
 We release the frontend as a TAR file on the [releases page](https://github.com/versatiles-org/versatiles-frontend/releases/latest).
 
-Each package uses the unusual `.br.tar` extension inside the filename. This means the individual files *inside* the TAR are each pre-compressed with Brotli, so the server can stream them with minimal CPU load. The TAR container itself is not compressed (which is why `.tar.br` would be the wrong order).
+Each package uses the unusual `.br.tar` extension inside the filename. This means the individual files _inside_ the TAR are each pre-compressed with Brotli, so the server can stream them with minimal CPU load. The TAR container itself is not compressed (which is why `.tar.br` would be the wrong order).
 
 ### Variants
 
 Several variants are available to match different deployment needs:
 
-| Variant | Size | Contents |
-|---|---|---|
-| `frontend.br.tar.gz` | ~92 MB | All fonts, MapLibre GL JS, all styles, sprites — the standard choice |
-| `frontend-dev.br.tar.gz` | ~92 MB | Same as `frontend` plus MapLibre Inspect and SVG renderer for development |
-| `frontend-min.br.tar.gz` | ~45 MB | Noto Sans only (drops other font families), otherwise identical to `frontend` |
-| `frontend-blank.br.tar.gz` | ~85 MB | Fonts and sprites only — no JS libraries; bring your own scripts |
-| `frontend-tiny.br.tar.gz` | ~1 MB | Bare minimum: MapLibre, one style, Latin Noto Sans only |
+| Variant                    | Size   | Contents                                                                      |
+| -------------------------- | ------ | ----------------------------------------------------------------------------- |
+| `frontend.br.tar.gz`       | ~92 MB | All fonts, MapLibre GL JS, all styles, sprites — the standard choice          |
+| `frontend-dev.br.tar.gz`   | ~92 MB | Same as `frontend` plus MapLibre Inspect and SVG renderer for development     |
+| `frontend-min.br.tar.gz`   | ~45 MB | Noto Sans only (drops other font families), otherwise identical to `frontend` |
+| `frontend-blank.br.tar.gz` | ~85 MB | Fonts and sprites only — no JS libraries; bring your own scripts              |
+| `frontend-tiny.br.tar.gz`  | ~1 MB  | Bare minimum: MapLibre, one style, Latin Noto Sans only                       |
 
 To download the standard variant:
 

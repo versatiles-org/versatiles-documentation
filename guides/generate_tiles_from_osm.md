@@ -34,7 +34,7 @@ The `--checksum` flag writes `.md5` and `.sha256` sidecar files next to the outp
 **Common `--area` values:**
 
 | Region  | `--area` value |
-|---------|----------------|
+| ------- | -------------- |
 | Planet  | `planet`       |
 | Europe  | `europe`       |
 | Germany | `germany`      |

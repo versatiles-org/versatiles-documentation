@@ -73,7 +73,10 @@ export default defineConfig({
 					{
 						text: 'Getting Started',
 						items: [
-							{ text: 'Use the Public Tile Server', link: '/guides/use_tiles_versatiles_org' },
+							{
+								text: 'Use the Public Tile Server',
+								link: '/guides/use_tiles_versatiles_org',
+							},
 							{ text: 'Install VersaTiles', link: '/guides/install_versatiles' },
 							{ text: 'Download Tiles', link: '/guides/download_tiles' },
 						],

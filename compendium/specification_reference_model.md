@@ -9,7 +9,7 @@ p[optional Proxy]
 s[Server]
 d[Map Data]
 f[Frontend]
-d e1@---> s 
+d e1@---> s
 f e2@---> s
 s e3@---> p
 p e4@---> u

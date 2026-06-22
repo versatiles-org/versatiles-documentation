@@ -27,13 +27,13 @@ versatiles convert dir dest.pmtiles
 
 ## Key Options
 
-| Option | Description |
-|---|---|
-| `--bbox <W,S,E,N>` | Crop tiles to this geographic bounding box (decimal degrees) |
+| Option                  | Description                                                   |
+| ----------------------- | ------------------------------------------------------------- |
+| `--bbox <W,S,E,N>`      | Crop tiles to this geographic bounding box (decimal degrees)  |
 | `--bbox-border <tiles>` | Expand the bounding box by this many extra tiles on each side |
-| `--min-zoom <z>` | Discard tiles below this zoom level |
-| `--max-zoom <z>` | Discard tiles above this zoom level |
-| `--format <fmt>` | Re-encode tile data — e.g. `png`, `jpg`, `webp`, `pbf` |
+| `--min-zoom <z>`        | Discard tiles below this zoom level                           |
+| `--max-zoom <z>`        | Discard tiles above this zoom level                           |
+| `--format <fmt>`        | Re-encode tile data — e.g. `png`, `jpg`, `webp`, `pbf`        |
 
 Run `versatiles convert --help` for the full option listing.
 

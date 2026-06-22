@@ -42,7 +42,7 @@ The default is **`none`**. The token registry is defined in [`Experiment.java`](
 ## Experiments
 
 | Token              | Layer(s)         | Adds                                                              |
-|--------------------|------------------|-------------------------------------------------------------------|
+| ------------------ | ---------------- | ----------------------------------------------------------------- |
 | `building_heights` | `buildings`      | `height`, `min_height`                                            |
 | `building_parts`   | `buildings`      | `building:part` polygons + `hide_3d` (implies `building_heights`) |
 | `locale_names`     | all label layers | geofenced `name_<lang>` fallback                                  |
@@ -99,7 +99,7 @@ Refines name localisation. Base Shortbread emits `name` and `name:<code>` from t
 This makes three frontend label modes possible:
 
 | Mode                  | Expression                                       |
-|-----------------------|--------------------------------------------------|
+| --------------------- | ------------------------------------------------ |
 | Local name            | `["get", "name"]`                                |
 | Prefer language _X_   | `["coalesce", ["get","name_X"], ["get","name"]]` |
 | **Only** language _X_ | `["get", "name_X"]` (blank elsewhere)            |
@@ -125,7 +125,7 @@ Adds `name` (and, with `locale_names`, `name_<lang>`) to `man_made=bridge` polyg
 Attributes a style can always rely on, versus those that only appear when an experiment is enabled:
 
 | Layer          | Spec attributes (always)      | Experiment attributes / features                                  |
-|----------------|-------------------------------|-------------------------------------------------------------------|
+| -------------- | ----------------------------- | ----------------------------------------------------------------- |
 | `buildings`    | `dummy`                       | `height`, `min_height`, `hide_3d`; extra `building:part` polygons |
 | `addresses`    | `housename`, `housenumber`    | `unit`, `block`                                                   |
 | `bridges`      | `kind`                        | `name`, `name_<lang>`                                             |
