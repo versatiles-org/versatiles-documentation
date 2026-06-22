@@ -73,6 +73,7 @@ export default defineConfig({
 					{ text: 'Use the Public Tile Server', link: '/guides/use_tiles_versatiles_org' },
 					{ text: 'Install VersaTiles', link: '/guides/install_versatiles' },
 					{ text: 'Download Tiles', link: '/guides/download_tiles' },
+					{ text: 'Generate Tiles from OSM', link: '/guides/generate_tiles_from_osm' },
 					{ text: 'Convert Tilesets', link: '/guides/converter' },
 					{ text: 'Deploy on Google Cloud', link: '/guides/deploy_in_google_cloud' },
 					{ text: 'Deploy on Debian', link: '/guides/deploy_on_debian' },
