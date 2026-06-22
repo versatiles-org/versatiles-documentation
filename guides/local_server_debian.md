@@ -1,4 +1,4 @@
-# How to run a local VersaTiles server on debian
+# How to run a local VersaTiles server on Debian
 
 In this guide, we will explain how to set up and run a local VersaTiles server. We will also discuss how to download the necessary files and start the server with an optional frontend.
 

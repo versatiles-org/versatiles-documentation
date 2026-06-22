@@ -1,3 +1,5 @@
+# VersaTiles
+
 Running your own map server can be quite challenging. Not only do you have to store all the data in a huge database and generate map tiles, but you also have to deploy a map server, handle all the network traffic and prepare a frontend with all the necessary JavaScript libraries and assets.
 
 Rather than trying to improve this setup, VersaTiles specifies a much simpler architecture.
