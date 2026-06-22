@@ -87,6 +87,18 @@
     - weather
     - live-data
 
+- title: 'Verkehrsmeldungen für Norddeutschland'
+  url: 'https://www.ndr.de/verkehr'
+  source: 'NDR'
+  country: 'Germany'
+  category: 'journalism'
+  description: 'Live traffic map for northern Germany showing jams, construction sites and hazard warnings across Hamburg, Lower Saxony, Schleswig-Holstein and Mecklenburg-Vorpommern'
+  thumbnail: ndr-verkehr
+  tags:
+    - transport
+    - interactive-map
+    - live-data
+
 - title: 'Dorfgeschichten aus Mecklenburg-Vorpommern'
   url: 'https://www.ndr.de/fernsehen/sendungen/nordmagazin/dorfgeschichte'
   source: 'NDR'
@@ -568,3 +580,83 @@
   tags:
     - culture
     - interactive-map
+
+- title: 'MapBiomas Brasil'
+  url: 'https://plataforma.brasil.mapbiomas.org'
+  source: 'MapBiomas'
+  country: 'Brazil'
+  category: 'research'
+  description: 'Satellite-based land-use and land-cover monitoring platform tracking deforestation, vegetation change, fire scars, mining and more across all Brazilian biomes from 1985 to present'
+  thumbnail: mapbiomas-brasil
+  tags:
+    - data-visualisation
+    - research
+    - climate
+
+- title: 'Bliksemdetectie Radar'
+  url: 'https://radar.bliksemdetectie.nl'
+  source: 'Bliksemdetectie.nl'
+  country: 'Netherlands'
+  category: 'independent'
+  description: 'Real-time lightning detection and thunderstorm radar for the Netherlands, showing live electrical discharges, storm locations and precipitation'
+  thumbnail: bliksemdetectie
+  tags:
+    - weather
+    - interactive-map
+    - live-data
+
+- title: 'Cultour'
+  url: 'https://app.cultour.se/map'
+  source: 'Cultour'
+  country: 'Sweden'
+  category: 'independent'
+  description: 'Map-based guide for discovering cultural and historical sites along Swedish roads, with offline support and driving-mode navigation'
+  thumbnail: cultour
+  tags:
+    - culture
+    - interactive-map
+    - leisure
+
+- title: 'Wikigeo'
+  url: 'https://wikigeo.org/'
+  source: 'Wikigeo'
+  country: 'International'
+  category: 'independent'
+  description: 'Community-edited interactive map for attaching wiki-style articles and knowledge to geographic coordinates worldwide'
+  thumbnail: wikigeo
+  tags:
+    - interactive-map
+
+- title: 'Interaktywna Mapa Powodzi'
+  url: 'https://newsmap.pl/mapshare/2a6767258d5e9fc3e1c9ce62155bb77f/'
+  source: 'newsmap.pl'
+  country: 'Poland'
+  category: 'journalism'
+  description: 'Interactive map documenting the September 2024 flooding in Poland, showing affected locations and counties under a state of natural disaster'
+  thumbnail: newsmap-pl
+  tags:
+    - interactive-map
+    - data-visualisation
+
+- title: 'explore.flights'
+  url: 'https://explore.flights/'
+  source: 'explore.flights'
+  country: 'International'
+  category: 'independent'
+  description: 'Interactive flight route visualisation showing great-circle paths between airports worldwide, with terrain rendering and hillshading'
+  thumbnail: explore-flights
+  tags:
+    - transport
+    - interactive-map
+
+- title: 'Burgas Public Transport Planner'
+  url: 'https://transport.burgasbus.info/app/planner'
+  source: 'JSP Burgas'
+  country: 'Bulgaria'
+  category: 'independent'
+  description: 'Live route planner for the Burgas public transport network with an interactive map'
+  thumbnail: burgasbus
+  tags:
+    - transport
+    - interactive-map
+    - live-data
