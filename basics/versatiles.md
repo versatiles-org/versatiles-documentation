@@ -51,3 +51,10 @@ The OpenMapTiles schema is "open" but not free, so we removed it. We use and sup
 ### Covering use cases from private projects to scalable infrastructures
 
 An infrastructure is perfect, when everyone loves and uses it. That's why we want everyone to be able to use their own map server ... as a hobby project on a Raspberry Pi or as a powerful scalable infrastructure in the cloud.
+
+## Get started
+
+- **Quickest start** — [use our public tile server](../guides/use_tiles_versatiles_org.md): no setup required.
+- **Run locally** — [download tiles](../guides/download_tiles.md) and run a server on [Linux](../guides/local_server_debian.md), [macOS](../guides/local_server_mac.md) or with [Docker](../guides/local_server_docker.md).
+- **Deploy publicly** — serve tiles under your own domain with [Docker + nginx](../guides/deploy_using_docker.md) or on [Google Cloud](../guides/deploy_in_google_cloud.md).
+- **Generate custom tiles** — [build your own tileset from OSM data](../guides/generate_tiles_from_osm.md).

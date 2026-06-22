@@ -1,5 +1,8 @@
 # How to run a VersaTiles server with nginx on Debian
 
+> [!TIP]
+> For most users, the **[Docker + nginx guide](deploy_using_docker.md)** is simpler and fully tested. Use this guide only if you need a manual, non-Docker setup.
+
 Your server requires as an absolute minimum:
 
 - 2 CPU cores
@@ -12,7 +15,9 @@ Your server requires as an absolute minimum:
 
 ```bash
 sudo apt update
-sudo apt -q install -y curl nginx build-essential libsqlite3-dev pkg-config openssl libssl-dev # git wget unzip tmux htop sysstat brotli cmake ifstat gnupg2 ca-certificates lsb-release
+# build-essential, libsqlite3-dev, pkg-config, openssl, libssl-dev are needed
+# to compile VersaTiles from source via Cargo (libsqlite3-dev for MBTiles support).
+sudo apt -q install -y curl nginx build-essential libsqlite3-dev pkg-config openssl libssl-dev
 ```
 
 ## 2. Install Rust
@@ -43,18 +48,28 @@ curl -Lo osm.versatiles "https://download.versatiles.org/osm.versatiles"
 > [!WARNING]
 > The following steps (5-7) have not been fully tested. Please verify carefully and report any issues.
 
-## 5. config nginx
+## 5. Configure nginx
+
+Write the nginx configuration and reload:
 
 ```bash
-sudo nano /etc/nginx/sites-available/default
-# add:
-# location / {
-#   proxy_pass http://localhost:8080/;
-# }
-sudo systemctl restart nginx
+sudo tee /etc/nginx/sites-available/default > /dev/null << 'EOF'
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+
+    location / {
+        proxy_pass http://localhost:8080/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+EOF
+sudo nginx -t && sudo systemctl reload nginx
 ```
 
-## 6. prepare a VersaTiles service
+## 6. Prepare a VersaTiles service
 
 ```bash
 sudo cat > /etc/systemd/system/versatiles.service <<EOF
@@ -76,7 +91,7 @@ SyslogIdentifier=%n
 EOF
 ```
 
-## 7. start service
+## 7. Start service
 
 ```bash
 sudo systemctl start versatiles

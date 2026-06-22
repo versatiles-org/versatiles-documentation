@@ -26,12 +26,9 @@ To address these challenges, we are actively seeking grants and partnerships to 
 
 ## Legal entity
 
-Determining the most appropriate legal structure to handle donations, financial transactions and governance is a critical factor in the future of VersaTiles. This decision is essential to establish a solid foundation for the project, enabling us to accept donations, manage resources and ensure long-term sustainability.
+Finding the right legal structure to handle donations, financial transactions and governance is an open question for VersaTiles. The two main options under consideration are:
 
-Options under consideration include
+- **Independent entity**: Full control over decisions and operations, but carries significant administrative overhead for legal, financial and organisational matters.
+- **Part of an existing foundation**: Leverages an established legal and financial framework, letting the project focus on its core mission — though it may involve conforming to the governance structures of the parent organisation.
 
-- **Independent entity**: Setting up VersaTiles as a fully independent legal entity. This would allow full control over decision making and operations, but would also mean taking on full responsibility for organisational management, including legal, financial and administrative tasks. This route requires significant effort to build and maintain a robust organisation from scratch, which could take focus away from development.
-
-- **Part of an existing foundation**: Integrate VersaTiles as part of an existing foundation or organisation. This option has the advantage of using existing legal and financial frameworks, allowing the project to focus on its core mission of developing open source mapping tools. However, it may involve a loss of autonomy, as we would have to conform to the policies and governance structures of the parent organisation.
-
-There are benefits and risks to both options. Establishing an independent entity requires significant resources and expertise, and could impose a heavy administrative burden, potentially slowing the growth of the project. On the other hand, joining an existing foundation could limit our autonomy and force us to deal with the constraints of external governance. These risks are why we are carefully evaluating both paths and taking the time to find a clear way forward that balances autonomy with sustainability and ensures that VersaTiles continues to thrive without compromising its values.
+Both have genuine trade-offs. This remains an ongoing discussion; the project welcomes input from the community.

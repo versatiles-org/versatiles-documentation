@@ -36,3 +36,5 @@ Below is a minimal HTML example showing how to implement a map using MapLibre GL
 > [!WARNING]
 > We regularly update all frontend libraries, including MapLibre GL JS, plugins and styles, to the latest versions to ensure optimal performance and incorporate bug fixes. However, this may include major version updates with breaking changes.
 > If your project depends on the assets hosted at tiles.versatiles.org, please be aware that these assets may change. To maintain full control, we recommend bundling the necessary libraries and styles directly into your project.
+
+To pin a specific version, download the frontend release of your choice from the [versatiles-frontend releases page](https://github.com/versatiles-org/versatiles-frontend/releases) and serve it from your own infrastructure. See the [frontend documentation](../basics/frontend.md) and the [server guides](local_server_debian.md) for how to do this.
