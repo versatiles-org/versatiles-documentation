@@ -44,7 +44,21 @@ But if we're going to start from scratch, let's get it right from the beginning.
 
 While users are free to deviate from our recommendations and use the OpenMapTiles schema, we will continue to focus our efforts on the Shortbread schema.
 
-Users can skip the tile generation process altogether and download our pre-built map tiles for the entire planet directly from [download.versatiles.org](https://download.versatiles.org).
+Users can skip the tile generation process altogether and download our pre-built map tiles for the entire planet directly from [download.versatiles.org](https://download.versatiles.org) ([repository](https://github.com/versatiles-org/download.versatiles.org)).
+
+### Available Tilesets
+
+We provide a range of pre-built tilesets ready for use:
+
+- **OSM vector tiles** (`osm.versatiles`): OpenStreetMap data in the [Shortbread schema](https://shortbread-tiles.org/), generated with [Planetiler](https://github.com/onthegomap/planetiler). An extended variant (`osm-landcover.versatiles`) merges in low-zoom land cover from ESA WorldCover satellite data — see [Shortbread Low-Zoom Land Cover](specification_shortbread_landcover.md). Optional schema extensions for features such as 3D buildings and localised labels are documented in [Shortbread Schema Extensions](specification_shortbread_extensions.md).
+- **Land cover** (`landcover-vectors.versatiles`): Global land classification vector tiles at low zoom levels, derived from ESA WorldCover satellite data ([repository](https://github.com/versatiles-org/landcover-vectors)).
+- **Elevation** (`elevation.versatiles`): Terrarium-encoded raster elevation tiles built from Copernicus DEM GLO-30 and GLO-90 sources ([repository](https://github.com/versatiles-org/elevation)).
+- **Bathymetry** (`bathymetry.versatiles`): Vector depth-contour tiles derived from GEBCO bathymetry data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)).
+- **Aerial imagery / Orthophotos**: Raster tiles from European national mapping agencies ([repository](https://github.com/versatiles-org/orthophotos)).
+
+### Generating Tiles
+
+If pre-built tiles don't meet your needs, you can generate custom tiles for a specific region, date, or configuration. We are currently transitioning from [Tilemaker](https://tilemaker.org/) to [Planetiler](https://github.com/onthegomap/planetiler) for OSM vector tile generation; see the guide: [How to generate tiles from OSM](../guides/generate_tiles_from_osm.md).
 
 ### Container Format
 
@@ -98,8 +112,11 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - [x] Migrate to a cheaper cloud provider (like Hetzner)
 - [x] Reduce the size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
 - [x] Improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
-- [x] Generate hill shading ([data source](https://registry.opendata.aws/terrain-tiles/))
-- [x] Generate satellite imagery (using Landsat/SENTINEL, aerial imagery from national open data platforms and open MAXAR imagery)
+- [ ] Complete migration from Tilemaker to Planetiler for OSM vector tile generation ([guide](../guides/generate_tiles_from_osm.md))
+- [x] Generate elevation tiles from Copernicus DEM ([repository](https://github.com/versatiles-org/elevation))
+- [x] Generate land cover tiles from ESA WorldCover ([repository](https://github.com/versatiles-org/landcover-vectors))
+- [x] Generate bathymetry depth-contour tiles from GEBCO data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry))
+- [x] Generate aerial imagery / orthophotos from European national agencies ([repository](https://github.com/versatiles-org/orthophotos))
 - [x] Include metadata in container
 - [x] Support all tile formats (image and vector)
 - [x] Support all compression methods (gzip, brotli)
@@ -109,6 +126,30 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 ## Frontend
 
 The frontend is the graphical interface that presents the map tiles to the user. While numerous frameworks such as MapLibre GL JS, Mapbox, OpenLayers and Leaflet are available for this purpose, our focus is on MapLibre. This choice is due to MapLibre's ability to efficiently render vector tiles on the GPU, its open source licence and its comprehensive support for JavaScript, iOS and Android platforms.
+
+### Frontend Bundles
+
+The [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) package provides pre-built, pre-compressed asset bundles containing MapLibre GL JS, map styles, fonts, and sprites — ready to be served directly from the map server. Four size variants are available, from a minimal build to a full developer version with Brotli/gzip pre-compression.
+
+### Map Styles
+
+The [versatiles-style](https://github.com/versatiles-org/versatiles-style) library provides six pre-built map themes (colorful, graybeard, eclipse, neutrino, shadow, satellite) and a style templating engine for dynamic generation of MapLibre-compatible styles with configurable colour, language, and visual effects. It works in both browser and Node.js environments.
+
+### Fonts and Glyphs
+
+- [versatiles-fonts](https://github.com/versatiles-org/versatiles-fonts): A curated collection of ten open-source typefaces (Roboto, Open Sans, Noto Sans, Fira Sans, and others) prepared as signed distance field (SDF) glyphs in PBF format for use with MapLibre.
+- [versatiles-glyphs-rs](https://github.com/versatiles-org/versatiles-glyphs-rs): A Rust tool for converting TrueType/OpenType fonts into SDF glyph PBF files, with no C++ dependencies and high-precision vector outline rendering. Outputs per-font PBF range files plus index JSON, with optional TAR archive output.
+
+### Libraries and Integrations
+
+- [node-versatiles-svelte](https://github.com/versatiles-org/node-versatiles-svelte): Reusable Svelte components (BasicMap, BBoxMap, LocatorMap, MapEditor) for embedding VersaTiles maps in web applications, with light/dark mode theming.
+- [maplibre-versatiles-styler](https://github.com/versatiles-org/maplibre-versatiles-styler): A MapLibre GL JS plugin for interactively switching and customising map styles in the browser — includes colour, language, and font controls with style export.
+- [versatiles-svg-renderer](https://github.com/versatiles-org/versatiles-svg-renderer): Renders vector maps into SVG files from MapLibre-compatible styles, usable in both Node.js and browser environments.
+- [versatiles-map-animation](https://github.com/versatiles-org/versatiles-map-animation): Browser-based editor for composing and exporting camera animations and map annotations on VersaTiles maps, with MP4 export support.
+
+### Playground
+
+An interactive showcase of frontend integration examples with live code editing is available at [versatiles.org/playground](https://versatiles.org/playground/) ([repository](https://github.com/versatiles-org/playground)).
 
 ### Requirements/Recommendations
 
@@ -227,13 +268,21 @@ Future improvements will focus on:
 Our NodeJS implementation includes:
 
 - [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
-- [x] A basic [server](https://github.com/versatiles-org/node-versatiles-server)
-- [ ] Full `config.yaml` support
+- [x] A [Node.js server](https://github.com/versatiles-org/node-versatiles-server) (NPM package `@versatiles/server`) with configurable hostname/port, static file serving, CORS management, and data compression.
+- [x] Full `config.yaml` support
 - [x] Comprehensive CORS management
 
 A specific solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `*.versatiles` file, including a preview mode:
 
 - [x] [VersaTiles - Google Cloud Run server](https://github.com/versatiles-org/node-versatiles-google-cloud) simplifies the integration of map data into data visualisations for editorial departments.
+
+### Setup Tool
+
+A browser-based interactive tool for configuring your VersaTiles server is available at [versatiles.org/tools/setup_server](https://versatiles.org/tools/setup_server). It generates ready-to-use installation and configuration scripts tailored to your setup ([repository](https://github.com/versatiles-org/tools)).
+
+### Reference Server
+
+Our public tile server at [tiles.versatiles.org](https://tiles.versatiles.org) serves as the reference deployment, currently under active testing and improvement. It uses Docker Compose to orchestrate the VersaTiles tile server behind nginx with automatic TLS via Let's Encrypt, two-tier caching (RAM + disk), and zero-downtime dataset updates ([repository](https://github.com/versatiles-org/tiles.versatiles.org)).
 
 ### Status
 
@@ -283,5 +332,3 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 - [ ] [Medianova CDN](https://www.medianova.com/cdn/) ($200/TB, min. $100/month): not tested yet
 - [ ] [Microsoft Azure CDN](https://azure.microsoft.com/en-us/products/cdn) ($75/TB): not tested yet
 - [ ] [OVH CDN](https://www.ovhcloud.com/en-gb/network/cdn/) (12€/TB, prepaid): not tested yet
-
-Documentation on how to use NGINX, including setup, configuration and a Docker image is under development.
