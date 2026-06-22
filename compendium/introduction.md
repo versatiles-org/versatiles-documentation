@@ -6,7 +6,7 @@ Several factors contribute to this challenge:
 
 1. Geospatial data, satellite imagery and aerial photography, is often copyrighted, making it expensive and inaccessible for open use.  
    Some governments have not yet embraced the idea of open data and instead produce geospatial data mainly for commercial purposes.
-2. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements and the intricacies of front-end frameworks.
+2. Presenting map data on the web in an interactive format can be complex due to various factors such as data formats, geographic projections, server infrastructure requirements and the intricacies of frontend frameworks.
 
 Despite these challenges, the wealth of available data, standards and frameworks - many of which are open or freely available - provides a unique opportunity to build a web mapping infrastructure. However, the diversity of solutions makes it difficult to put the pieces together.
 
@@ -27,7 +27,7 @@ One of the most successful techniques for publishing interactive web maps is cal
 
 The first step is to project all geographic data onto a 2D plane using the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection). The Mercator projection has some limitations. For example, it cannot represent the north and south poles, and objects near the equator, such as Africa, appear smaller than those near the poles, such as Greenland. However, the Mercator projection has one major advantage: it always shows north as up, west as left, and does not distort small areas the size of a city. This makes it an excellent option for publishing a global map that can be easily zoomed in and out to accurately show any location.
 
-Once all the geographical data and/or images have been projected onto a world map, the challenge is to present this information on a web front-end without having to download large amounts of data. The solution provided by 'slippy maps' is to create a square world map at a very low resolution (zoom level 0). To increase the resolution at zoom level 1, the 'world map' is doubled in resolution and divided into four squares (northwest, northeast, southwest, southeast). Zoom level 2 consists of 16 tiles. The rule is that zoom level n has 4ⁿ tiles.
+Once all the geographical data and/or images have been projected onto a world map, the challenge is to present this information on a web frontend without having to download large amounts of data. The solution provided by 'slippy maps' is to create a square world map at a very low resolution (zoom level 0). To increase the resolution at zoom level 1, the 'world map' is doubled in resolution and divided into four squares (northwest, northeast, southwest, southeast). Zoom level 2 consists of 16 tiles. The rule is that zoom level n has 4ⁿ tiles.
 
 The tiles can be saved images (such as JPEG or PNG) with a resolution of 256x256 pixels. There is a [standard way of naming these files](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames), typically in the format: `{zoom_level}/{column}/{row}.jpg`.
 
@@ -39,7 +39,7 @@ So the concept of "slippy maps" has been improved by using vector data instead o
 
 ## Why is there no simple solution?
 
-Generating, serving, and visualising map tiles can be a complex process due to the variety of tile formats, hosting options, storage and generation methods, serving and display techniques, map data styling approaches, and data source combinations. In addition, front-ends must render vector data, satellite imagery, hillshading, data visualisation layers, and interactive front-end elements.
+Generating, serving, and visualising map tiles can be a complex process due to the variety of tile formats, hosting options, storage and generation methods, serving and display techniques, map data styling approaches, and data source combinations. In addition, frontends must render vector data, satellite imagery, hillshading, data visualisation layers, and interactive frontend elements.
 
 Commercial vendors such as Mapbox address these challenges by offering a comprehensive software suite. However, the solution is expensive, leads to vendor lock-in and raises privacy concerns.
 

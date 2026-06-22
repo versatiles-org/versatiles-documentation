@@ -1,10 +1,10 @@
 # A wider perspective on VersaTiles
 
-We don't own our planet. Imposing copyright or ownership on any representation of our world, including photographs or geographic data, is fundamentally misguided. Geographic information is a common resource that should remain freely available to all of us.
+Geographic information is a public good. Maps represent our shared world, and restricting access to geographic data — through copyright, licensing fees or proprietary infrastructure — limits who can participate in building and using it.
 
-Privatisation of infrastructure is harmful to society. It paves the way for monopolies that serve the interests of a few, often driven by personal greed and exploitation. When control of critical infrastructure is concentrated in the hands of private companies, it reduces access and stifles innovation. The consequences are clear: higher costs, reduced choice and a lack of transparency that benefits corporations over communities.
+When control of mapping infrastructure is concentrated in the hands of a few commercial providers, the consequences are predictable: high costs, limited transparency and growing dependency on platforms that may not serve the public interest. Open standards, open data and open source software are the tools to build a better alternative.
 
-VersaTiles is driven by the goal of democratising mapping data and tools. We believe that geographic information should be available to everyone, not just those with deep pockets. By providing open access to map data and infrastructure, VersaTiles ensures that individuals, communities and organisations around the world can freely build, use and share geographic knowledge. This empowerment fosters innovation, encourages collaboration and ultimately benefits society as a whole.
+VersaTiles is driven by the goal of making mapping data and tools accessible to everyone. By providing open access to map data and infrastructure, VersaTiles lets individuals, communities and organisations freely build, use and share geographic knowledge, fostering innovation and collaboration.
 
 ## Core Values
 

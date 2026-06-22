@@ -6,7 +6,7 @@ The VersaTiles server is built in Rust and provides excellent performance with l
 
 One of the core concepts of VersaTiles is the unique [.versatiles file format](https://github.com/versatiles-org/versatiles-spec) for storing map data. This format not only contains all the map tiles for the entire planet, but also has an index of all the map tiles with their respective byte offset and length within the file.
 
-The real magic of the .versatiles format is that it doesn't need to be stored locally. Instead, it can be accessed remotely using HTTP, for example. This is possible thanks to HTTP byte range requests, which allow the VersaTiles server to retrieve specific parts of the .versatiles file that contain the required map tile data. By using this feature, the VersaTiles server can efficiently serve map tiles without having the entire .versatiles file locally. This makes building scalable map infrastructures with VersaTiles much easier.
+The `.versatiles` format does not need to be stored locally. It can be accessed remotely over HTTP using byte range requests, which allow the server to fetch only the specific bytes that contain a requested tile. This means the server can serve tiles directly from a remote file without downloading it first, which makes it straightforward to build scalable map infrastructures backed by cloud storage.
 
 The idea to develop a container that can be accessed via HTTP byte range request is based on [COMTiles](https://github.com/mactrem/com-tiles) and [PMTiles](https://github.com/protomaps/PMTiles). However, since we have a slightly different focus and saw the need to deviate from the previous implementations if necessary, we decided to develop our own standard. However, we are very open to supporting COMTiles and PMTiles as alternatives in our pipeline.
 
@@ -70,7 +70,7 @@ versatiles serve -s frontend.br.tar.gz planet.versatiles
 
 ## Different IP/Port
 
-Per default versatiles uses 0.0.0.0:8080. If you want to change IP/Port use the options:
+By default versatiles uses 0.0.0.0:8080. If you want to change IP/Port use the options:
 
 - `-i`/`--ip`: e.g. `-i 127.0.0.1`
 - `-p`/`--port`: e.g. `-p 3000`

@@ -23,7 +23,7 @@ Once the download is complete, save the `.versatiles` file in a directory of you
 
 ## Step 3: Download the optional frontend
 
-The frontend might be helpful because it includes JavaScript libraries, map styles, and fonts. You can download the latest frontend using `wget` by running the following command:
+The frontend provides the JavaScript libraries, map styles, and fonts needed to display an interactive map. You can download the latest frontend using `wget` by running the following command:
 
 ```bash
 wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"

@@ -2,9 +2,7 @@
 
 ## Introduction
 
-Maps are not merely tools for navigation; they represent a convergence of technology, art, and data visualisation.
-In today's digital age, web maps offer functionalities that extend from driving directions to intricate data visualisation.
-This guide demystifies the intricate world of web maps and the technologies that make them possible.
+This page explains how interactive web maps work — from map projections and tile organisation to the vector tile pipeline that powers VersaTiles.
 
 ## Map Projections
 
@@ -86,13 +84,6 @@ A separate file (tiles.json) [describes the structure and properties of the vect
 A second file (style.json) [describes the visual appearance](https://maplibre.org/maplibre-style-spec/) of this vector data.
 For example, what colour to use for water, forests or highways, how many pixels wide is a road or country boundary, etc.
 
-## The Complexity and Advantages of Vector Tiles
+## Vector Tiles vs Image Tiles
 
-This system of encoding geodata into vector tiles and drawing them using a style definition is undoubtedly more complex than simply displaying images.
-However, this system allows much more flexibility and control over how maps are displayed, as you can style your map in any way you like in the frontend, including hiding unwanted layers such as labels.
-And because all drawing operations are performed on the graphics card (e.g. using WebGL), the speed is amazing, even when visualising 100,000 data points on the map.
-
-## Conclusion
-
-Interactive web maps using vector tiles are a blend of several technologies, combining mathematics, art and code.
-Although the technology is much more complex, with VersaTiles we have tried to provide you with everything you need to set up your own map service in just a few minutes.
+Encoding geodata as vector tiles and rendering via a style definition is more complex than serving image tiles, but it gives you much more control: you can restyle the map in the frontend, hide or highlight specific layers, switch languages, and so on. Because all drawing is done on the GPU (via WebGL), rendering is fast even with large datasets.

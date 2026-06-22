@@ -1,6 +1,6 @@
 # Deploy a VersaTiles Server Behind Nginx (Docker)
 
-This guide explains how to run a VersaTiles server behind an **Nginx reverse‑proxy** using Docker.  
+This guide explains how to run a VersaTiles server behind an **Nginx reverse proxy** using Docker.  
 The setup lets you serve map tiles under your own domain with HTTPS and caching.
 
 > [!TIP]
