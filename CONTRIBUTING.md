@@ -46,7 +46,7 @@ That's it — no code changes needed.
   - [`versatiles-rs`](https://github.com/versatiles-org/versatiles-rs) — Rust server and tooling
   - [`versatiles-frontend`](https://github.com/versatiles-org/versatiles-frontend) — prebuilt frontend bundle
   - [`versatiles-style`](https://github.com/versatiles-org/versatiles-style) — map styles and sprites
-  - [`versatiles-generator`](https://github.com/versatiles-org/versatiles-generator) — OSM tile generation
+  - [`versatiles-docker`](https://github.com/versatiles-org/versatiles-docker) — Docker images including OSM tile generation
 - **Not sure where it belongs?** Open it anywhere — we'll move it.
 
 ## Get in touch

@@ -13,7 +13,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 ### Tile generation and processing
 
-- **[VersaTiles Generator](https://github.com/versatiles-org/versatiles-generator)**: Converts [OpenStreetMap](https://www.openstreetmap.org/) data into vector tiles using **Tilemaker** and the **Shortbread schema**.
+- **[VersaTiles Generator](https://docs.versatiles.org/guides/generate_tiles_from_osm)**: Converts [OpenStreetMap](https://www.openstreetmap.org/) data into vector tiles using **Planetiler** and the **Shortbread schema**.
 - **[VersaTiles Tools](https://github.com/versatiles-org/versatiles-rs)**: A toolbox for converting, checking and serving map tiles in various formats.
 
 ### Tile storage & distribution

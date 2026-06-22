@@ -7,7 +7,7 @@
 A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread Scheme](https://shortbread-tiles.org/schema/).
 
 - [Download](https://download.versatiles.org/osm.versatiles)
-- [Repository](https://github.com/versatiles-org/versatiles-generator)
+- [How to generate tiles](https://docs.versatiles.org/guides/generate_tiles_from_osm)
 
 ### Style
 
