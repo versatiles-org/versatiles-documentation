@@ -1,23 +1,42 @@
 # VersaTiles Reference Model
 
-Our reference pipeline consists of four segments:
+Our reference architecture consists of four components:
 
 ```mermaid
 flowchart LR
-Generator --> Server --> Network --> Frontend
+u[User]
+p[optional Proxy]
+s[Server]
+d[Map Data]
+f[Frontend]
+d e1@---> s 
+f e2@---> s
+s e3@---> p
+p e4@---> u
+classDef node fill:none, stroke:#ddd, color:#ddd
+classDef optional opacity:0.5
+classDef empty stroke:none
+classDef edge stroke-dasharray:9,5, stroke-dashoffset:900,stroke:#ddd,animation:dash 25s linear infinite;
+  class e1 animate
+class d,f,s,p node
+class p optional
+class e1,e2,e3,e4 edge
+class u empty
+e1@{ curve: linear }
+e2@{ curve: linear }
 ```
 
-1. **Generator:** Creates map tiles from a data source, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial imagery.
-2. **Server:** Manages the storage and distribution of map tiles.
-3. **Network:** Handles all network-related issues, including TLS certificates, load balancing, CORS and caching.
-4. **Frontend:** Provides the user interface for interactive maps.
+1. **Map Data:** Contains all the geographics data, prepared as map tiles, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial imagery.
+2. **Frontend:** Provides the map style information, icons, libraries, and anything else you need for the user interface.
+3. **Server:** Manages the distribution of map tiles, including handling of http header for caching etc.
+4. **Optional Proxy:** We make a clear cut between the tile server and any additional network-related issues, including TLS certificates, load balancing and caching.
 
 > [!WARNING] VersaTiles is still under development.
 > Please note that not all pipeline specifications are final and we may encounter unforeseen use cases, problems or features that require minor adjustments. However, the majority of the pipeline is stable.
 
-## Layer: Generator
+## Map Data
 
-The generator layer creates map tiles, which can be either image or vector tiles.
+Map tiles can be either image or vector tiles. They are pre-generated and stored in a container file for efficient distribution.
 
 We have chosen not to use the [OpenMapTiles schema](https://openmaptiles.org/schema/) for vector tiles because we feel it does not embody the openness we are aiming for. In particular, the requirement to include links to the MapTiler website or to pay licensing fees seems more like a marketing strategy than a commitment to open standards. Instead, we have chosen to use the free [Shortbread schema](https://shortbread-tiles.org) originally developed by GeoFabrik. We acknowledge that this choice has implications, such as the incompatibility of map styles designed for OpenMapTiles vs. Shortbread.
 
@@ -27,9 +46,34 @@ While users are free to deviate from our recommendations and use the OpenMapTile
 
 Users can skip the tile generation process altogether and download our pre-built map tiles for the entire planet directly from [download.versatiles.org](https://download.versatiles.org).
 
+### Container Format
+
+A frequently asked question is why we decided to develop our own container format. The reasons are many:
+
+A critical need within the OSM community is for map tile servers to automatically and quickly reflect updates to OSM data. While this real-time updating is critical for some OSM contributors, it is not as important for a wider audience. News organisations, data journalists, NGOs and many front-end developers often only need a basic map background that may be a few months old. The need to monitor real-time changes is not a priority for these users. However, the insistence on up-to-the-minute updates adds significant complexity and resource requirements, requiring all OSM objects to be stored and indexed in a PostgreSQL/PostGIS database, and all changed tiles to be updated immediately. This requirement makes it difficult to develop simple, low-cost solutions. Instead, we will focus on pre-generated tiles stored in a file container.
+
+The most commonly used container format is [MBTiles](https://wiki.openstreetmap.org/wiki/MBTiles), which is essentially a SQLite database containing a row for each tile, with the tile data stored as gzipped blobs. Despite its flexibility, MBTiles has several drawbacks:
+
+1. It requires local or mounted server storage and cannot be hosted on remote cloud storage.
+2. SQLite becomes a necessary dependency (like libsqlite3-dev).
+3. Processing many tiles is inefficient given SQLite's limited throughput.
+
+In response, some have turned to cloud-optimised map tile container formats such as [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored to specific use cases; for example, PMTiles is designed for storage on public cloud storage such as AWS S3 and can be accessed serverlessly via JavaScript using HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialisation and caching challenges. Our goal is to remain independent of container formats that are application specific or prone to divergent future development paths.
+
+Accordingly, we have taken the lessons learned from COMTiles and PMTiles to create a uniquely simple container format, which is described here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
+
+A unique feature of our format is the ability to perform fast spatial queries remotely. Users who only need a specific region, such as a continent, country or city, do not need to download the entire planet. Instead, they can use our [VersaTiles tool](https://github.com/versatiles-org/versatiles-rs) to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
+
+```bash
+versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
+```
+
+HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://docs.versatiles.org/guides/download_tiles#partial-download) for more information.
+
 ### Requirements/Recommendations
 
 - Tiles SHOULD be packed in a [\*.versatiles container](https://github.com/versatiles-org/versatiles-spec/).
+- A container MUST conform to the [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
 - Vector tiles SHOULD follow the [Shortbread Schema](https://shortbread-tiles.org/).
 - Containers SHOULD include detailed metadata conforming to [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0), specifically:
   - `attribution` detailing the copyright of the source data.
@@ -56,45 +100,33 @@ Users can skip the tile generation process altogether and download our pre-built
 - [ ] Improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
 - [x] Generate hill shading ([data source](https://registry.opendata.aws/terrain-tiles/))
 - [x] Generate satellite imagery (using Landsat/SENTINEL, aerial imagery from national open data platforms and open MAXAR imagery)
-
-## Interface: Container
-
-A frequently asked question is why we decided to develop our own container format. The reasons are many:
-
-A critical need within the OSM community is for map tile servers to automatically and quickly reflect updates to OSM data. While this real-time updating is critical for some OSM contributors, it is not as important for a wider audience. News organisations, data journalists, NGOs and many front-end developers often only need a basic map background that may be a few months old. The need to monitor real-time changes is not a priority for these users. However, the insistence on up-to-the-minute updates adds significant complexity and resource requirements, requiring all OSM objects to be stored and indexed in a PostgreSQL/PostGIS database, and all changed tiles to be updated immediately. This requirement makes it difficult to develop simple, low-cost solutions. Instead, we will focus on pre-generated tiles stored in a file container.
-
-The most commonly used container format is [MBTiles](https://wiki.openstreetmap.org/wiki/MBTiles), which is essentially a SQLite database containing a row for each tile, with the tile data stored as gzipped blobs. Despite its flexibility, MBTiles has several drawbacks:
-
-1. It requires local or mounted server storage and cannot be hosted on remote cloud storage.
-2. SQLite becomes a necessary dependency (like libsqlite3-dev).
-3. Processing many tiles is inefficient given SQLite's limited throughput.
-
-In response, some have turned to cloud-optimised map tile container formats such as [COMTiles](https://github.com/mactrem/com-tiles) or [PMTiles](https://github.com/protomaps/PMTiles), which consolidate tiles into a single file with an appended index for byte-range lookups of each tile. These formats are tailored to specific use cases; for example, PMTiles is designed for storage on public cloud storage such as AWS S3 and can be accessed serverlessly via JavaScript using HTTP range requests. While the concept of serverless tile hosting is innovative, it has notable drawbacks such as slow initialisation and caching challenges. Our goal is to remain independent of container formats that are application specific or prone to divergent future development paths.
-
-Accordingly, we have taken the lessons learned from COMTiles and PMTiles to create a uniquely simple container format, which is described here: [VersaTiles Container Specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
-
-A unique feature of our format is the ability to perform fast spatial queries remotely. Users who only need a specific region, such as a continent, country or city, do not need to download the entire planet. Instead, they can use our [VersaTiles tool](https://github.com/versatiles-org/versatiles-rs) to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
-
-```bash
-versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
-```
-
-HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](https://docs.versatiles.org/guides/download_tiles#partial-download) for more information.
-
-### Requirements/Recommendations
-
-- A container MUST conform to the VersaTiles Container Specification: [VersaTiles Spec](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md).
-- Tile data SHOULD use optimal compression.
-
-### Status
-
-- [x] Include metadata
+- [x] Include metadata in container
 - [x] Support all tile formats (image and vector)
 - [x] Support all compression methods (gzip, brotli)
 - [x] Enable bbox downloads
-- [x] Finish the [specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
+- [x] Finish the [container specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
 
-## Layer: Server
+## Frontend
+
+The frontend is the graphical interface that presents the map tiles to the user. While numerous frameworks such as MapLibre GL JS, Mapbox, OpenLayers and Leaflet are available for this purpose, our focus is on MapLibre. This choice is due to MapLibre's ability to efficiently render vector tiles on the GPU, its open source licence and its comprehensive support for JavaScript, iOS and Android platforms.
+
+### Requirements/Recommendations
+
+- The frontend SHOULD be able to draw Shortbread vector tiles and raster tiles.
+- See the [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
+
+### Status
+
+Progress in the development and implementation of the frontend includes:
+
+- [x] **Style Templating Engine**: Implemented to allow dynamic generation of map styles. ([Repository](https://github.com/versatiles-org/versatiles-style))
+- [x] **Style Library**: A collection of predefined map styles is available. ([Repository](https://github.com/versatiles-org/versatiles-style))
+- [x] **Fonts**: Prepared default fonts. ([Repository](https://github.com/versatiles-org/versatiles-fonts))
+- [x] **Sprites using signed distance fields**: ... to ensure that icons and symbols are scalable, colourable and clear at any zoom level. ([Repository](https://github.com/versatiles-org/versatiles-style))
+- [x] **Multiple frontends** are available: a minimal version and a large developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
+- [ ] **Right-to-left (RTL) label support**: Efforts are underway to add support for RTL languages, such as Arabic, to ensure that maps are accessible to a global audience. ([Issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
+
+## Server
 
 The server provides map tiles and static files via HTTP. These static files can include styles, sprites, fonts, JavaScript libraries and more.
 
@@ -211,18 +243,11 @@ In the future we plan to:
 - [ ] Explore a tile server on ESP32 that demonstrates the simplicity and efficiency of VersaTiles.
 - [ ] Standardise the server configuration and API for seamless transitions between server implementations
 
-## Interface: Private/Internal Network
+## Optional Proxy
 
-We recommend dividing the server into two parts:
+We recommend separating the server from public network concerns. The server should run on a private network and communicate with the proxy via plain, unencrypted HTTP. The proxy then handles all public-facing aspects of the infrastructure.
 
-1. A map server running on a private network ("Server" layer)
-2. A public facing server ("Network" layer)
-
-Communication between these two layers should be via plain, unencrypted HTTP.
-
-## Layer: Network
-
-The network layer is critical to the delivery of files over the public Internet and addresses the security, availability and performance requirements associated with this.
+The proxy is critical to the delivery of files over the public Internet and addresses the security, availability and performance requirements associated with this.
 
 Currently we recommend:
 
@@ -260,27 +285,3 @@ Efforts have been made to evaluate and document CDN solutions, with a focus on p
 - [ ] [OVH CDN](https://www.ovhcloud.com/en-gb/network/cdn/) (12€/TB, prepaid): not tested yet
 
 Documentation on how to use NGINX, including setup, configuration and a Docker image is under development.
-
-## Interface: Public Network
-
-HTTP traffic encrypted with TLS.
-
-## Layer: Frontend
-
-The frontend layer is the graphical interface that presents the map tiles to the user. While numerous frameworks such as MapLibre GL JS, Mapbox, OpenLayers and Leaflet are available for this purpose, our focus is on MapLibre. This choice is due to MapLibre's ability to efficiently render vector tiles on the GPU, its open source licence and its comprehensive support for JavaScript, iOS and Android platforms.
-
-### Requirements/Recommendations
-
-- The frontend SHOULD be able to draw Shortbread vector tiles and raster tiles.
-- See the [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
-
-### Status
-
-Progress in the development and implementation of the frontend layer includes:
-
-- [x] **Style Templating Engine**: Implemented to allow dynamic generation of map styles. ([Repository](https://github.com/versatiles-org/versatiles-style))
-- [x] **Style Library**: A collection of predefined map styles is available. ([Repository](https://github.com/versatiles-org/versatiles-style))
-- [x] **Fonts**: Prepared default fonts. ([Repository](https://github.com/versatiles-org/versatiles-fonts))
-- [x] **Sprites using signed distance fields**: ... to ensure that icons and symbols are scalable, colourable and clear at any zoom level. ([Repository](https://github.com/versatiles-org/versatiles-style))
-- [x] **Multiple frontends** are available: a minimal version and a large developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
-- [ ] **Right-to-left (RTL) label support**: Efforts are underway to add support for RTL languages, such as Arabic, to ensure that maps are accessible to a global audience. ([Issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
