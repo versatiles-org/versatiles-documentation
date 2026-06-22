@@ -156,6 +156,6 @@ A client resolves this to `https://example.org/tiles/osm/{z}/{x}/{y}`.
 
   "tile_type": "vector",
   "tile_format": "application/vnd.mapbox-vector-tile",
-  "tile_schema": "shortbread@1.1"
+  "tile_schema": "shortbread@1.0"
 }
 ```

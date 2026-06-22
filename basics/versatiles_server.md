@@ -87,7 +87,7 @@ See the [reference model](../compendium/specification_reference_model.md#server)
 
 ## What's not included?
 
-The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. But you can use a CDN or nginx for this. You can find HowTos on CDNs and nginx in the [documentation](https://docs.versatiles.org/).
+The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. You can use a CDN or a reverse proxy such as nginx — see the [deployment guides](../guides/deploy_using_docker.md) for how to set this up.
 
 ## Scalability and performance
 
