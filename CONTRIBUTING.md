@@ -17,7 +17,7 @@ If you use VersaTiles in a public project, we'd love to feature it.
      country: 'Germany'
      category: 'commercial' # or: journalism,independent, research, events
      description: 'One sentence about what the project shows'
-     thumbnail: your-project-slug
+     image: your-project-slug.png
      tags:
        - interactive-map
        # - any other tags already used by other entries

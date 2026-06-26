@@ -103,8 +103,8 @@ function domain(url: string) {
 				rel="noopener noreferrer"
 				class="card"
 			>
-				<div v-if="item.thumbnail" class="card-thumb">
-					<img :src="item.thumbnail" :alt="item.title" loading="lazy" />
+				<div v-if="item.image" class="card-thumb">
+					<img :src="item.image" :alt="item.title" loading="lazy" />
 				</div>
 				<div v-else class="card-thumb placeholder">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

@@ -6,7 +6,7 @@ import yaml from 'js-yaml';
 
 interface Showcase {
 	title: string;
-	thumbnail?: string;
+	image?: string;
 }
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../..');
@@ -21,7 +21,7 @@ const WEBP_QUALITY = 80;
 async function main() {
 	// Parse YAML
 	const showcases = yaml.load(readFileSync(YAML_PATH, 'utf-8')) as Showcase[];
-	const yamlSlugs = new Set(showcases.filter((s) => s.thumbnail).map((s) => s.thumbnail!));
+	const yamlSlugs = new Set(showcases.filter((s) => s.image).map((s) => s.image!.replace(/\.png$/, '')));
 
 	// Collect PNG slugs
 	const pngFiles = existsSync(SHOWCASES_DIR)
@@ -35,12 +35,12 @@ async function main() {
 	for (const slug of pngSlugs) {
 		if (!yamlSlugs.has(slug)) {
 			console.warn(
-				`⚠ Unused PNG: showcases/${slug}.png (no YAML entry with thumbnail: ${slug})`,
+				`⚠ Unused PNG: showcases/${slug}.png (no YAML entry with image: ${slug}.png)`,
 			);
 		}
 	}
 
-	// Error: missing PNG files (YAML references a thumbnail but no PNG exists)
+	// Error: missing PNG files (YAML references an image but no PNG exists)
 	for (const slug of yamlSlugs) {
 		if (!pngSlugs.has(slug)) {
 			console.error(`✗ Missing PNG: showcases/${slug}.png (referenced in YAML)`);
@@ -50,8 +50,8 @@ async function main() {
 
 	// Warn: entries without screenshot
 	for (const s of showcases) {
-		if (!s.thumbnail) {
-			console.warn(`⚠ No thumbnail: "${s.title}"`);
+		if (!s.image) {
+			console.warn(`⚠ No image: "${s.title}"`);
 		}
 	}
 

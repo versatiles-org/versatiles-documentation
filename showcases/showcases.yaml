@@ -4,7 +4,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Interactive map of bathing spots in Berlin and Brandenburg'
-  thumbnail: badestellen-berlin-brandenburg
+  image: badestellen-berlin-brandenburg.png
   tags:
     - leisure
     - interactive-map
@@ -15,7 +15,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Map of cannabis legalization zones'
-  thumbnail: cannabis-legalisierung
+  image: cannabis-legalisierung.png
   tags:
     - interactive-map
 
@@ -25,7 +25,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Live traffic map for Berlin showing congestion, road closures and disruptions'
-  thumbnail: verkehr-berlin
+  image: verkehr-berlin.png
   tags:
     - transport
     - interactive-map
@@ -37,7 +37,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Map of "Hands Off!" protest events'
-  thumbnail: hands-off-protests
+  image: hands-off-protests.png
   tags:
     - interactive-map
 
@@ -47,7 +47,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Dynamic public transport travel time map'
-  thumbnail: mapnificent
+  image: mapnificent.png
   tags:
     - transport
     - interactive-map
@@ -58,7 +58,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Census 2022 data showing Hamburg as the state with the highest rents'
-  thumbnail: hamburg-mieten
+  image: hamburg-mieten.png
   tags:
     - housing
     - data-visualisation
@@ -70,7 +70,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Overview of rental prices in northern Germany from Census 2022'
-  thumbnail: zensus-2022
+  image: zensus-2022.png
   tags:
     - housing
     - data-visualisation
@@ -82,7 +82,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Weather map for northern Germany'
-  thumbnail: wetter-ndr
+  image: wetter-ndr.png
   tags:
     - weather
     - live-data
@@ -93,7 +93,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Live traffic map for northern Germany showing jams, construction sites and hazard warnings across Hamburg, Lower Saxony, Schleswig-Holstein and Mecklenburg-Vorpommern'
-  thumbnail: ndr-verkehr
+  image: ndr-verkehr.png
   tags:
     - transport
     - interactive-map
@@ -105,7 +105,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Interactive village stories from Mecklenburg-Vorpommern'
-  thumbnail: dorfgeschichten-mv
+  image: dorfgeschichten-mv.png
   tags:
     - storytelling
     - interactive-map
@@ -116,7 +116,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Emergency rescue response times across Germany'
-  thumbnail: notfall-deutschland
+  image: notfall-deutschland.png
   tags:
     - health
     - data-visualisation
@@ -128,7 +128,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Current petrol and diesel prices near you'
-  thumbnail: swr-benzin-diesel-preise
+  image: swr-benzin-diesel-preise.png
   tags:
     - transport
     - live-data
@@ -140,7 +140,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Heating energy sources in Baden-Württemberg — still mostly fossil fuels'
-  thumbnail: bw-heizt-fossil
+  image: bw-heizt-fossil.png
   tags:
     - energy
     - data-visualisation
@@ -152,7 +152,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'How cities aim to achieve climate-neutral heating'
-  thumbnail: swr-staedte-klimaneutral-heizen
+  image: swr-staedte-klimaneutral-heizen.png
   tags:
     - energy
     - data-visualisation
@@ -164,7 +164,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'When does the last bus run in Rhineland-Palatinate?'
-  thumbnail: swr-letzter-bus-rlp
+  image: swr-letzter-bus-rlp.png
   tags:
     - transport
     - data-visualisation
@@ -176,7 +176,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'When does the last bus run in Baden-Württemberg?'
-  thumbnail: swr-letzter-bus-bw
+  image: swr-letzter-bus-bw.png
   tags:
     - transport
     - data-visualisation
@@ -188,7 +188,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Calculator to find out when an electric car is worth it for you'
-  thumbnail: swr-e-auto-rechner
+  image: swr-e-auto-rechner.png
   tags:
     - transport
     - interactive-map
@@ -200,7 +200,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'German regulations on wind energy distance requirements'
-  thumbnail: taz-energiewende-abstand
+  image: taz-energiewende-abstand.png
   tags:
     - data-visualisation
     - climate
@@ -211,7 +211,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Election results map for the Saxony state election'
-  thumbnail: landtagswahl-sachsen
+  image: landtagswahl-sachsen.png
   tags:
     - interactive-map
 
@@ -221,7 +221,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'Election results map for the Thuringia state election'
-  thumbnail: landtagswahl-thueringen
+  image: landtagswahl-thueringen.png
   tags:
     - interactive-map
 
@@ -231,7 +231,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Map of vegan-friendly restaurants and shops'
-  thumbnail: veganguide
+  image: veganguide.png
   tags:
     - leisure
     - interactive-map
@@ -242,7 +242,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Interactive map of touring film programs and screenings'
-  thumbnail: arsenal-on-location
+  image: arsenal-on-location.png
   tags:
     - culture
     - interactive-map
@@ -254,7 +254,7 @@
   country: 'United States'
   category: 'commercial'
   description: 'Location finder for CoxHealth hospitals, clinics and facilities in Missouri'
-  thumbnail: coxhealth-locations
+  image: coxhealth-locations.png
   tags:
     - health
     - interactive-map
@@ -265,7 +265,7 @@
   country: 'Germany'
   category: 'events'
   description: 'Interactive map of light art installations in Regensburg'
-  thumbnail: relight-regensburg
+  image: relight-regensburg.png
   tags:
     - culture
     - interactive-map
@@ -276,7 +276,7 @@
   country: 'United Kingdom'
   category: 'commercial'
   description: 'Student housing search platform with interactive property maps across UK university cities'
-  thumbnail: unihomes
+  image: unihomes.png
   tags:
     - housing
     - interactive-map
@@ -287,7 +287,7 @@
   country: 'International'
   category: 'independent'
   description: 'Geography quiz game that tests how well you know your local streets'
-  thumbnail: back-of-your-hand
+  image: back-of-your-hand.png
   tags:
     - leisure
     - interactive-map
@@ -299,7 +299,7 @@
   country: 'United States'
   category: 'independent'
   description: 'Interactive game to design your own NYC subway system with ridership simulation'
-  thumbnail: build-my-transit
+  image: build-my-transit.png
   tags:
     - transport
     - interactive-map
@@ -311,7 +311,7 @@
   country: 'Germany'
   category: 'research'
   description: 'Interactive tool for cities to analyse walkability, bikeability and heating emissions'
-  thumbnail: climate-action-navigator
+  image: climate-action-navigator.png
   tags:
     - energy
     - climate
@@ -323,7 +323,7 @@
   country: 'Netherlands'
   category: 'independent'
   description: 'Live tracking radar for hot air balloon flights in the Netherlands and Belgium'
-  thumbnail: luchtballonradar
+  image: luchtballonradar.png
   tags:
     - leisure
     - interactive-map
@@ -335,7 +335,7 @@
   country: 'International'
   category: 'independent'
   description: "Map of Pallas's cat habitats and wildlife camera traps worldwide"
-  thumbnail: manulization
+  image: manulization.png
   tags:
     - leisure
     - interactive-map
@@ -346,7 +346,7 @@
   country: 'International'
   category: 'independent'
   description: 'Open-source collaborative mapping platform for creating and sharing custom maps'
-  thumbnail: mapforge
+  image: mapforge.png
   tags:
     - interactive-map
 
@@ -356,7 +356,7 @@
   country: 'United States'
   category: 'commercial'
   description: 'Map view in Notion uses basemaps designed by Stamen based on VersaTiles Shortbread tiles'
-  thumbnail: notion-map-view
+  image: notion-map-view.png
   tags:
     - interactive-map
 
@@ -366,7 +366,7 @@
   country: 'United States'
   category: 'independent'
   description: 'Historical photographs of New York City mapped to their original locations'
-  thumbnail: oldnyc
+  image: oldnyc.png
   tags:
     - culture
     - interactive-map
@@ -377,7 +377,7 @@
   country: 'Netherlands'
   category: 'independent'
   description: 'Live tracking of public transport buses, trams and metros across the Netherlands'
-  thumbnail: ov-live
+  image: ov-live.png
   tags:
     - transport
     - interactive-map
@@ -389,7 +389,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Demo application for the Valhalla open-source routing engine'
-  thumbnail: valhalla-routing
+  image: valhalla-routing.png
   tags:
     - transport
     - interactive-map
@@ -400,7 +400,7 @@
   country: 'Austria'
   category: 'independent'
   description: 'Location discovery app for finding places like restaurants, bars and natural spots in Styria'
-  thumbnail: wogibt-es
+  image: wogibt-es.png
   tags:
     - leisure
     - interactive-map
@@ -411,7 +411,7 @@
   country: 'Austria'
   category: 'independent'
   description: 'Event map for discovering local activities and gatherings in Austria'
-  thumbnail: zhaus
+  image: zhaus.png
   tags:
     - culture
     - interactive-map
@@ -423,7 +423,7 @@
   country: 'Netherlands'
   category: 'independent'
   description: "Visualisation of the Netherlands' digital infrastructure dependencies on non-European providers"
-  thumbnail: zijn-we-al-autonoom
+  image: zijn-we-al-autonoom.png
   tags:
     - data-visualisation
 
@@ -433,7 +433,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Map-based search for volunteer opportunities across Hamburg districts'
-  thumbnail: engagement-finden
+  image: engagement-finden.png
   tags:
     - interactive-map
 
@@ -443,7 +443,7 @@
   country: 'Israel'
   category: 'independent'
   description: 'Global database and map of zoos with species collections and visit documentation'
-  thumbnail: zoo-institutes
+  image: zoo-institutes.png
   tags:
     - leisure
     - interactive-map
@@ -454,7 +454,7 @@
   country: 'France'
   category: 'commercial'
   description: 'Host your map server for a fully private location sharing feature in Olvid.'
-  thumbnail: olvid
+  image: olvid.png
   tags:
     - interactive-map
 
@@ -464,7 +464,7 @@
   country: 'Germany'
   category: 'journalism'
   description: 'The open source platform for investigative reporting.'
-  thumbnail: openaleph
+  image: openaleph.png
   tags:
     - research
 
@@ -474,7 +474,7 @@
   country: 'Canada'
   category: 'independent'
   description: 'Citizen science platform tracking hummingbird migration, sightings and breeding ranges across Canada'
-  thumbnail: hummingbirds-canada
+  image: hummingbirds-canada.png
   tags:
     - research
     - interactive-map
@@ -485,7 +485,7 @@
   country: 'France'
   category: 'independent'
   description: 'Live map of forest fires across France with public reporting'
-  thumbnail: feux-de-foret
+  image: feux-de-foret.png
   tags:
     - interactive-map
     - live-data
@@ -496,7 +496,7 @@
   country: 'Romania'
   category: 'independent'
   description: 'Real-time tracking of trams, trolleybuses and buses operated by STPT in Timișoara'
-  thumbnail: stpt-timisoara
+  image: stpt-timisoara.png
   tags:
     - transport
     - interactive-map
@@ -508,7 +508,7 @@
   country: 'Ireland'
   category: 'commercial'
   description: "Online booking platform for Dublin's Lynk taxi service"
-  thumbnail: lynk
+  image: lynk.png
   tags:
     - transport
     - interactive-map
@@ -519,7 +519,7 @@
   country: 'Italy'
   category: 'journalism'
   description: 'Interactive maps of the 2026 Italian referendum results, broken down by electoral section across major cities'
-  thumbnail: youtrend-rome
+  image: youtrend-rome.png
   tags:
     - interactive-map
     - data-visualisation
@@ -530,7 +530,7 @@
   country: 'Switzerland'
   category: 'independent'
   description: 'Directory of local food, repair and reuse businesses across French-speaking Switzerland by the Fédération romande des consommateurs'
-  thumbnail: frc-adresses
+  image: frc-adresses.png
   tags:
     - leisure
     - interactive-map
@@ -541,7 +541,7 @@
   country: 'Spain'
   category: 'independent'
   description: "Live tracking of trains across Spain's rail network, updated every 20 seconds"
-  thumbnail: radar-de-trenes
+  image: radar-de-trenes.png
   tags:
     - transport
     - interactive-map
@@ -553,7 +553,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Interactive depth and relief map of Lake Constance with live water levels, temperatures and storm warnings'
-  thumbnail: bodensee-navigator
+  image: bodensee-navigator.png
   tags:
     - leisure
     - interactive-map
@@ -565,7 +565,7 @@
   country: 'International'
   category: 'independent'
   description: 'Curated guide to scuba diving destinations and dive sites worldwide'
-  thumbnail: divechamp-phuket
+  image: divechamp-phuket.png
   tags:
     - leisure
     - interactive-map
@@ -576,7 +576,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Audio guide platform for cultural and natural attractions across Bavaria'
-  thumbnail: tralster
+  image: tralster.png
   tags:
     - culture
     - interactive-map
@@ -587,7 +587,7 @@
   country: 'Brazil'
   category: 'research'
   description: 'Satellite-based land-use and land-cover monitoring platform tracking deforestation, vegetation change, fire scars, mining and more across all Brazilian biomes from 1985 to present'
-  thumbnail: mapbiomas-brasil
+  image: mapbiomas-brasil.png
   tags:
     - data-visualisation
     - research
@@ -599,7 +599,7 @@
   country: 'Netherlands'
   category: 'independent'
   description: 'Real-time lightning detection and thunderstorm radar for the Netherlands, showing live electrical discharges, storm locations and precipitation'
-  thumbnail: bliksemdetectie
+  image: bliksemdetectie.png
   tags:
     - weather
     - interactive-map
@@ -611,7 +611,7 @@
   country: 'Sweden'
   category: 'independent'
   description: 'Map-based guide for discovering cultural and historical sites along Swedish roads, with offline support and driving-mode navigation'
-  thumbnail: cultour
+  image: cultour.png
   tags:
     - culture
     - interactive-map
@@ -623,7 +623,7 @@
   country: 'International'
   category: 'independent'
   description: 'Community-edited interactive map for attaching wiki-style articles and knowledge to geographic coordinates worldwide'
-  thumbnail: wikigeo
+  image: wikigeo.png
   tags:
     - interactive-map
 
@@ -633,7 +633,7 @@
   country: 'Poland'
   category: 'journalism'
   description: 'Interactive map documenting the September 2024 flooding in Poland, showing affected locations and counties under a state of natural disaster'
-  thumbnail: newsmap-pl
+  image: newsmap-pl.png
   tags:
     - interactive-map
     - data-visualisation
@@ -644,7 +644,7 @@
   country: 'International'
   category: 'independent'
   description: 'Interactive flight route visualisation showing great-circle paths between airports worldwide, with terrain rendering and hillshading'
-  thumbnail: explore-flights
+  image: explore-flights.png
   tags:
     - transport
     - interactive-map
@@ -655,7 +655,7 @@
   country: 'Bulgaria'
   category: 'independent'
   description: 'Live route planner for the Burgas public transport network with an interactive map'
-  thumbnail: burgasbus
+  image: burgasbus.png
   tags:
     - transport
     - interactive-map

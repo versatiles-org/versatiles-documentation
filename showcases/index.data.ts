@@ -10,7 +10,7 @@ export interface Showcase {
 	country: string;
 	category: string;
 	description: string;
-	thumbnail?: string;
+	image?: string;
 	tags: string[];
 }
 
@@ -29,7 +29,7 @@ export default {
 		const showcases = yaml.load(raw) as Showcase[];
 
 		showcases.forEach((s) => {
-			if (s.thumbnail) s.thumbnail = `/showcases/${s.thumbnail}.webp`;
+			if (s.image) s.image = `/showcases/${s.image.replace(/\.png$/, '.webp')}`;
 			if (!s.tags.includes(s.category)) s.tags = [s.category, ...s.tags];
 		});
 
