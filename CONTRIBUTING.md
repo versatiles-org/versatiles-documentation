@@ -17,7 +17,7 @@ If you use VersaTiles in a public project, we'd love to feature it.
      country: 'Germany'
      category: 'commercial' # or: journalism,independent, research, events
      description: 'One sentence about what the project shows'
-     image: your-project-slug.png  # also accepts .jpg, .jpeg, .webp
+     image: your-project-slug.png # also accepts .jpg, .jpeg, .webp
      tags:
        - interactive-map
        # - any other tags already used by other entries
