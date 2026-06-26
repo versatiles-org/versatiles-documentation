@@ -11,6 +11,7 @@ export interface Showcase {
 	category: string;
 	description: string;
 	image?: string;
+	slug?: string;
 	tags: string[];
 }
 
@@ -29,7 +30,10 @@ export default {
 		const showcases = yaml.load(raw) as Showcase[];
 
 		showcases.forEach((s) => {
-			if (s.image) s.image = `/showcases/${s.image.replace(/\.png$/, '.webp')}`;
+			if (s.image) {
+				s.slug = s.image.replace(/\.(png|jpe?g|webp)$/i, '');
+				s.image = `/showcases/${s.slug}.webp`;
+			}
 			if (!s.tags.includes(s.category)) s.tags = [s.category, ...s.tags];
 		});
 
