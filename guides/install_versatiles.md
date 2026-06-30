@@ -18,6 +18,7 @@ To install VersaTiles using Homebrew, run the following commands in your termina
 
 ```sh
 brew tap versatiles-org/versatiles
+brew trust versatiles-org/versatiles
 brew install versatiles
 ```
 
