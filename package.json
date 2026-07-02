@@ -48,5 +48,9 @@
     "vitepress": "^1.6.4",
     "vitepress-plugin-mermaid": "^2.0.17",
     "vue-eslint-parser": "^10.4.1"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "fsevents": true
   }
 }
