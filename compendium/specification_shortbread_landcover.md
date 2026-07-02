@@ -36,7 +36,8 @@ Each [ESA WorldCover](https://esa-worldcover.org/en/data-access) class maps to o
 | Tree cover                              | `land`           | `forest`      | z0–6  |
 | Cropland                                | `land`           | `farmland`    | z0–9  |
 | Built-up                                | `land`           | `residential` | z0–9  |
-| Bare / sparse vegetation, moss & lichen | `land`           | `sand`        | z0–9  |
+| Bare / sparse vegetation                | `land`           | `bare_rock`   | z0–9  |
+| Moss & lichen                           | `land`           | `heath`       | z0–9  |
 | Shrubland                               | `land`           | `scrub`       | z0–10 |
 | Grassland                               | `land`           | `grassland`   | z0–10 |
 | Herbaceous wetland                      | `land`           | `marsh`       | z0–10 |
@@ -45,10 +46,11 @@ Each [ESA WorldCover](https://esa-worldcover.org/en/data-access) class maps to o
 | Permanent water bodies                  | `water_polygons` | `water`       | z0–3  |
 | No data / open ocean                    | —                | _(dropped)_   | —     |
 
-Three mappings are deliberate, lossy generalisations — acceptable at these zooms, where the detail is not visible:
+Several mappings are deliberate, lossy generalisations — acceptable at these zooms, where the detail is not visible:
 
 - **Built-up → `residential`** — ESA's single built-up class cannot distinguish residential / industrial / commercial.
-- **Bare / sparse vegetation (+ moss & lichen) → `sand`** — Shortbread `land` has no generic "bare" value; `sand` matches the dominant case (deserts).
+- **Bare / sparse vegetation → `bare_rock`** — this class conflates rocky/gravelly barrens (Iceland, tundra, high mountains) with sandy deserts, which ESA cannot tell apart; `bare_rock` renders neutrally for both, where `sand` would tint every barren yellow. Sandy deserts lose their sand tint as a result.
+- **Moss & lichen → `heath`** — Shortbread has no moss/lichen value; `heath` is the closest low tundra vegetation fill.
 - **Wetland split** — herbaceous wetland → `marsh`, mangroves → `swamp`.
 
 Open ocean (ESA no-data) is dropped, leaving those areas to Shortbread's `ocean` layer. The canonical, versioned mapping lives in the repository: [ESA WorldCover → Shortbread mapping](https://github.com/versatiles-org/landcover-vectors#esa-worldcover--shortbread-mapping).
