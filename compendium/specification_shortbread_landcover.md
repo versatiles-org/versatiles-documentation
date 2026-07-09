@@ -31,20 +31,20 @@ This unevenness is part of why Shortbread introduces land cover only at higher z
 
 Each [ESA WorldCover](https://esa-worldcover.org/en/data-access) class maps to one Shortbread layer and `kind`, emitted only up to the zoom listed (one below Shortbread's minimum zoom for that value, so the satellite data hands over cleanly to OSM):
 
-| ESA WorldCover class                    | → layer          | `kind`        | fills |
-| --------------------------------------- | ---------------- | ------------- | ----- |
-| Tree cover                              | `land`           | `forest`      | z0–6  |
-| Cropland                                | `land`           | `farmland`    | z0–9  |
-| Built-up                                | `land`           | `residential` | z0–9  |
-| Bare / sparse vegetation                | `land`           | `bare_rock`   | z0–9  |
-| Moss & lichen                           | `land`           | `heath`       | z0–9  |
-| Shrubland                               | `land`           | `scrub`       | z0–10 |
-| Grassland                               | `land`           | `grassland`   | z0–10 |
-| Herbaceous wetland                      | `land`           | `marsh`       | z0–10 |
-| Mangroves                               | `land`           | `swamp`       | z0–10 |
-| Snow and ice                            | `water_polygons` | `glacier`     | z0–3  |
-| Permanent water bodies                  | `water_polygons` | `water`       | z0–3  |
-| No data / open ocean                    | —                | _(dropped)_   | —     |
+| ESA WorldCover class     | → layer          | `kind`        | fills |
+| ------------------------ | ---------------- | ------------- | ----- |
+| Tree cover               | `land`           | `forest`      | z0–6  |
+| Cropland                 | `land`           | `farmland`    | z0–9  |
+| Built-up                 | `land`           | `residential` | z0–9  |
+| Bare / sparse vegetation | `land`           | `bare_rock`   | z0–9  |
+| Moss & lichen            | `land`           | `heath`       | z0–9  |
+| Shrubland                | `land`           | `scrub`       | z0–10 |
+| Grassland                | `land`           | `grassland`   | z0–10 |
+| Herbaceous wetland       | `land`           | `marsh`       | z0–10 |
+| Mangroves                | `land`           | `swamp`       | z0–10 |
+| Snow and ice             | `water_polygons` | `glacier`     | z0–3  |
+| Permanent water bodies   | `water_polygons` | `water`       | z0–3  |
+| No data / open ocean     | —                | _(dropped)_   | —     |
 
 Several mappings are deliberate, lossy generalisations — acceptable at these zooms, where the detail is not visible:
 
