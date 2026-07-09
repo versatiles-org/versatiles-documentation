@@ -667,6 +667,7 @@
   country: 'Germany'
   category: 'commercial'
   description: 'Map of German fuel stations with live petrol and diesel prices'
+  image: mcsprit-fuel-prices.png
   tags:
     - transport
     - interactive-map
@@ -678,6 +679,7 @@
   country: 'Spain'
   category: 'commercial'
   description: 'Map comparing prices of EV charging stations by charging speed'
+  image: electroprecios.png
   tags:
     - energy
     - transport
@@ -689,6 +691,7 @@
   country: 'Canada'
   category: 'independent'
   description: 'Community map of Pride and queer spaces across Metro Vancouver'
+  image: metro-vancouver-pride-map.png
   tags:
     - culture
     - events
@@ -700,6 +703,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Finder map for local businesses and events around Waging am See'
+  image: waging-bewegt.png
   tags:
     - leisure
     - interactive-map
@@ -710,6 +714,7 @@
   country: 'Canada'
   category: 'commercial'
   description: 'Property search map for homes with workshop or garage space around Belleville, Ontario'
+  image: houses-with-shops.png
   tags:
     - housing
     - interactive-map
@@ -720,6 +725,7 @@
   country: 'Switzerland'
   category: 'events'
   description: 'Interactive map of the stalls and venues of the Montreux Christmas Market'
+  image: montreux-noel.png
   tags:
     - culture
     - interactive-map
@@ -730,6 +736,7 @@
   country: 'Indonesia'
   category: 'research'
   description: 'Live monitoring map of the automatic weather station network across Indonesia'
+  image: aws-center-bmkg.png
   tags:
     - weather
     - interactive-map
@@ -741,6 +748,7 @@
   country: 'Japan'
   category: 'commercial'
   description: 'Platform for digital stamp rallies, each with an interactive map of its checkpoints'
+  image: minrally.png
   tags:
     - game
     - leisure
@@ -752,6 +760,7 @@
   country: 'Germany'
   category: 'commercial'
   description: 'Map of bird presence recorded by AI-powered biodiversity sensors'
+  image: hula-bird-presence-map.png
   tags:
     - data-visualisation
     - interactive-map
@@ -762,6 +771,7 @@
   country: 'Germany'
   category: 'independent'
   description: 'Regional platform for Bavaria with mapped hiking routes, places and events'
+  image: hey-bayern.png
   tags:
     - leisure
     - interactive-map

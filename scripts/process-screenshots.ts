@@ -6,7 +6,8 @@ import yaml from 'js-yaml';
 
 interface Showcase {
 	title: string;
-	image?: string;
+	url: string;
+	image: string;
 }
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../..');
@@ -22,17 +23,13 @@ const IMAGE_EXTS = /\.(png|jpe?g|webp)$/i;
 async function main() {
 	// Parse YAML
 	const showcases = yaml.load(readFileSync(YAML_PATH, 'utf-8')) as Showcase[];
-	const yamlSlugs = new Set(
-		showcases.filter((s) => s.image).map((s) => s.image!.replace(IMAGE_EXTS, '')),
-	);
+	const yamlSlugs = new Set(showcases.map((s) => s.image.replace(IMAGE_EXTS, '')));
 
 	// Collect image slugs from source directory
 	const imageFiles = existsSync(SHOWCASES_DIR)
 		? readdirSync(SHOWCASES_DIR).filter((f) => IMAGE_EXTS.test(f))
 		: [];
 	const imageSlugs = new Set(imageFiles.map((f) => f.replace(IMAGE_EXTS, '')));
-
-	let hasError = false;
 
 	// Warn: unused image files (file exists but no YAML entry references it)
 	for (const slug of imageSlugs) {
@@ -41,23 +38,15 @@ async function main() {
 		}
 	}
 
-	// Error: missing image files (YAML references an image but no file exists)
-	for (const slug of yamlSlugs) {
-		if (!imageSlugs.has(slug)) {
-			console.error(`✗ Missing image: showcases/${slug}.* (referenced in YAML)`);
-			hasError = true;
-		}
+	// Warn: screenshot still missing. Show the file to create and the page to capture.
+	const missing = showcases.filter((s) => !imageSlugs.has(s.image.replace(IMAGE_EXTS, '')));
+	for (const s of missing) {
+		console.warn(`⚠ Missing screenshot: showcases/${s.image}\n    capture ${s.url}`);
 	}
-
-	// Warn: entries without screenshot
-	for (const s of showcases) {
-		if (!s.image) {
-			console.warn(`⚠ No image: "${s.title}"`);
-		}
-	}
-
-	if (hasError) {
-		process.exit(1);
+	if (missing.length) {
+		console.warn(
+			`⚠ ${missing.length} screenshot(s) missing — those cards render without an image.`,
+		);
 	}
 
 	// Process images
