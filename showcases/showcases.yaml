@@ -660,3 +660,108 @@
     - transport
     - interactive-map
     - live-data
+
+- title: 'McSprit Fuel Prices'
+  url: 'https://mcsprit.de/search?zoom=12&latitude=53.553538430698154&longitude=9.992408752441408'
+  source: 'McSprit'
+  country: 'Germany'
+  category: 'commercial'
+  description: 'Map of German fuel stations with live petrol and diesel prices'
+  tags:
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'ElectroPrecios'
+  url: 'https://www.electroprecios.com/'
+  source: 'ElectroPrecios'
+  country: 'Spain'
+  category: 'commercial'
+  description: 'Map comparing prices of EV charging stations by charging speed'
+  tags:
+    - energy
+    - transport
+    - interactive-map
+
+- title: 'Metro Vancouver Pride Map'
+  url: 'https://vanpride.ca/'
+  source: 'Van Pride Map'
+  country: 'Canada'
+  category: 'independent'
+  description: 'Community map of Pride and queer spaces across Metro Vancouver'
+  tags:
+    - culture
+    - events
+    - interactive-map
+
+- title: 'Waging Bewegt'
+  url: 'https://waging-bewegt.de/'
+  source: 'Waging Bewegt'
+  country: 'Germany'
+  category: 'independent'
+  description: 'Finder map for local businesses and events around Waging am See'
+  tags:
+    - leisure
+    - interactive-map
+
+- title: 'Houses With Shops'
+  url: 'https://houseswithshops.ca/map?clng=-77.202&clat=44.327&cz=8.16'
+  source: 'Houses With Shops'
+  country: 'Canada'
+  category: 'commercial'
+  description: 'Property search map for homes with workshop or garage space around Belleville, Ontario'
+  tags:
+    - housing
+    - interactive-map
+
+- title: 'Montreux Noël'
+  url: 'https://app.montreuxnoel.com/'
+  source: 'Montreux Noël'
+  country: 'Switzerland'
+  category: 'events'
+  description: 'Interactive map of the stalls and venues of the Montreux Christmas Market'
+  tags:
+    - culture
+    - interactive-map
+
+- title: 'AWS Center BMKG'
+  url: 'https://awscenter.manvis.com/'
+  source: 'BMKG'
+  country: 'Indonesia'
+  category: 'research'
+  description: 'Live monitoring map of the automatic weather station network across Indonesia'
+  tags:
+    - weather
+    - interactive-map
+    - live-data
+
+- title: 'MinRally'
+  url: 'https://37rally.com/ja/rally/e92140b7-d49e-4df3-9480-ef6efdaa20c9'
+  source: 'MinRally'
+  country: 'Japan'
+  category: 'commercial'
+  description: 'Platform for digital stamp rallies, each with an interactive map of its checkpoints'
+  tags:
+    - game
+    - leisure
+    - interactive-map
+
+- title: 'Hula Bird Presence Map'
+  url: 'https://visuals.hula.earth/'
+  source: 'Hula Technologies'
+  country: 'Germany'
+  category: 'commercial'
+  description: 'Map of bird presence recorded by AI-powered biodiversity sensors'
+  tags:
+    - data-visualisation
+    - interactive-map
+
+- title: 'hey.bayern'
+  url: 'https://hey.bayern/1000-m-steig-suedroute-mit-arzlohe'
+  source: 'hey.bayern'
+  country: 'Germany'
+  category: 'independent'
+  description: 'Regional platform for Bavaria with mapped hiking routes, places and events'
+  tags:
+    - leisure
+    - interactive-map
