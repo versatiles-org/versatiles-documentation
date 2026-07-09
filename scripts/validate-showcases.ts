@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { resolve } from 'path';
 import yaml from 'js-yaml';
 
@@ -10,7 +10,10 @@ interface Showcase {
 	tags: string[];
 }
 
-const raw = readFileSync(resolve(__dirname, '../showcases/showcases.yaml'), 'utf-8');
+const SHOWCASES_DIR = resolve(__dirname, '../showcases');
+const IMAGE_EXTS = /\.(png|jpe?g|webp)$/i;
+
+const raw = readFileSync(resolve(SHOWCASES_DIR, 'showcases.yaml'), 'utf-8');
 const showcases = yaml.load(raw) as Showcase[];
 
 let hasError = false;
@@ -61,6 +64,32 @@ if (singletons.length) {
 
 if (hasError) {
 	process.exit(1);
+}
+
+// Warnings below never fail validation: a missing screenshot only degrades the card.
+const imageSlugs = new Set(
+	(existsSync(SHOWCASES_DIR) ? readdirSync(SHOWCASES_DIR) : [])
+		.filter((f) => IMAGE_EXTS.test(f))
+		.map((f) => f.replace(IMAGE_EXTS, '')),
+);
+const yamlSlugs = new Set(showcases.map((s) => s.image.replace(IMAGE_EXTS, '')));
+
+for (const slug of imageSlugs) {
+	if (!yamlSlugs.has(slug)) {
+		console.warn(`⚠ Unused image: showcases/${slug}.* (no YAML entry with image: ${slug}.*)`);
+	}
+}
+
+const missingScreenshots = showcases.filter(
+	(s) => !imageSlugs.has(s.image.replace(IMAGE_EXTS, '')),
+);
+for (const s of missingScreenshots) {
+	console.warn(`⚠ Missing screenshot: showcases/${s.image}\n    capture ${s.url}`);
+}
+if (missingScreenshots.length) {
+	console.warn(
+		`⚠ ${missingScreenshots.length} screenshot(s) missing — those cards render without an image.`,
+	);
 }
 
 console.log(`[showcases] ${showcases.length} entries valid`);
