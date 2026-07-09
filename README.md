@@ -27,6 +27,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - **[VersaTiles Server](basics/versatiles_server.md)**: A high-performance, Rust-based server that efficiently serves tiles over HTTP.
 - **[VersaTiles Server Node](https://github.com/versatiles-org/node-versatiles-server)**: Node.js implementation of a VersaTiles server.
 - **[VersaTiles Frontend](basics/frontend.md)**: Pre-packaged assets for VersaTiles Server.
+
 <!-- - **VersaTiles Caching** (TBD) -->
 
 ### Tile display and rendering
@@ -59,6 +60,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 - [**Debian Linux**](guides/deploy_on_debian.md)
 - [**Google Cloud**](guides/deploy_in_google_cloud.md)
 - [**Uberspace**](guides/deploy_on_uberspace.md)
+
 <!--
 - **Digital Ocean**
 - **Kubernetes**
@@ -70,6 +72,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 - [Use VersaTiles in **Android and iOS** apps](guides/what_about_mobile.md)
 - [Use VersaTiles in **QGIS**](guides/use_versatiles_in_qgis.md)
+
 <!-- - *How to add maps into your mobile app with maximum privacy, e.g. by including a server into your app?* -->
 
 ## Awesome VersaTiles
