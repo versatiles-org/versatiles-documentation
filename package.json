@@ -11,9 +11,10 @@
     "url": "git+https://github.com/versatiles-org/versatiles-documentation.git"
   },
   "scripts": {
-    "build": "npm run validate:showcases && npm run build:showcase-images && npm run build:vitepress",
+    "build": "npm run validate:showcases && npm run build:showcase-images && npm run build:social-image && npm run build:vitepress",
     "build:vitepress": "vitepress build .",
     "build:showcase-images": "tsx scripts/build-showcase-images.ts",
+    "build:social-image": "tsx scripts/build-social-image.ts",
     "check": "npm run format && npm run lint && npm run build",
     "dev": "vitepress dev .",
     "format": "prettier --write .",

@@ -4,3 +4,4 @@
 .vitepress/dist
 node_modules
 /public/showcases/
+/public/showcases-social.jpg
