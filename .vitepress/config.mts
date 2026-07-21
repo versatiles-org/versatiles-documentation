@@ -5,6 +5,10 @@ import { withMermaid } from 'vitepress-plugin-mermaid';
 import GithubSlugger from 'github-slugger';
 import taskLists from 'markdown-it-task-lists';
 
+const SITE_URL = 'https://docs.versatiles.org';
+const SITE_TITLE = 'VersaTiles';
+const SITE_DESCRIPTION = 'A completely FLOSS map stack.';
+
 interface SocialImage {
 	path: string;
 	type: string;
@@ -27,10 +31,16 @@ const SOCIAL_IMAGES: Record<string, SocialImage> = {
 	},
 };
 
+/** Absolute URL of a page, e.g. "showcases/index.md" -> ".../showcases/". */
+function pageUrl(relativePath: string): string {
+	const path = relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '.html');
+	return `${SITE_URL}/${path}`;
+}
+
 export default withMermaid(
 	defineConfig({
-		title: 'VersaTiles',
-		description: 'A completely FLOSS map stack.',
+		title: SITE_TITLE,
+		description: SITE_DESCRIPTION,
 		vite: {
 			build: {
 				target: 'esnext',
@@ -42,7 +52,7 @@ export default withMermaid(
 			},
 		},
 		head: [
-			['link', { rel: 'canonical', href: 'https://docs.versatiles.org' }],
+			['meta', { name: 'twitter:card', content: 'summary_large_image' }],
 			[
 				'link',
 				{ rel: 'shortcut icon', sizes: '16x16 24x24 32x32 48x48 64x64', href: '/favicon.ico' },
@@ -52,14 +62,27 @@ export default withMermaid(
 			['link', { rel: 'icon', type: 'image/png', href: '/versatiles.64.png', sizes: '64x64' }],
 			['link', { rel: 'icon', type: 'image/png', href: '/versatiles.96.png', sizes: '96x96' }],
 		],
-		// og:image is added per page in transformHead, so pages can override it.
+		// Canonical URL and Open Graph tags are per page, so they can't live in
+		// the static head above. X/Twitter reads these too; only twitter:card
+		// has no Open Graph equivalent and is set site-wide.
 		transformHead({ pageData }) {
 			const social = SOCIAL_IMAGES[pageData.relativePath] ?? DEFAULT_SOCIAL_IMAGE;
+			const url = pageUrl(pageData.relativePath);
+			const title =
+				pageData.title && pageData.title !== SITE_TITLE
+					? `${pageData.title} | ${SITE_TITLE}`
+					: SITE_TITLE;
 			return [
+				['link', { rel: 'canonical', href: url }],
+				['meta', { property: 'og:type', content: 'website' }],
+				['meta', { property: 'og:site_name', content: SITE_TITLE }],
+				['meta', { property: 'og:url', content: url }],
+				['meta', { property: 'og:title', content: title }],
 				[
 					'meta',
-					{ property: 'og:image', content: `https://docs.versatiles.org${social.path}` },
+					{ property: 'og:description', content: pageData.description || SITE_DESCRIPTION },
 				],
+				['meta', { property: 'og:image', content: `${SITE_URL}${social.path}` }],
 				['meta', { property: 'og:image:type', content: social.type }],
 				['meta', { property: 'og:image:width', content: '1200' }],
 				['meta', { property: 'og:image:height', content: '675' }],
