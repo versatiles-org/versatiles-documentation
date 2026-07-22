@@ -194,6 +194,18 @@
     - interactive-map
     - climate
 
+- title: 'Hochwasser & Starkregen in RLP: So würde eine Überschwemmung Ihr Zuhause treffen'
+  url: 'https://www.swr.de/swraktuell/rheinland-pfalz/fuenf-jahre-ahrtal-hochwasser-starkregen-so-wuerde-eine-ueberschwemmung-ihr-zuhause-treffen-100.html'
+  source: 'SWR'
+  country: 'Germany'
+  category: 'journalism'
+  description: 'Interactive flood map showing which homes in Rhineland-Palatinate are at risk from flooding and heavy rain'
+  image: swr-hochwasser-rlp.png
+  tags:
+    - weather
+    - interactive-map
+    - data-visualisation
+
 - title: 'Energiewende auf Abstand'
   url: 'https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/'
   source: 'taz'
