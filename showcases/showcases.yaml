@@ -41,6 +41,18 @@
   tags:
     - interactive-map
 
+- title: 'Totale Sonnenfinsternis am 12. August 2026'
+  url: 'https://datajournal.org/eclipse-2026/de/'
+  source: 'datajournal.org'
+  country: 'Germany'
+  category: 'journalism'
+  description: 'Interactive guide to the total solar eclipse of 12 August 2026, showing the path of the moon shadow across Europe'
+  image: eclipse-2026.png
+  tags:
+    - interactive-map
+    - data-visualisation
+    - storytelling
+
 - title: 'Mapnificent'
   url: 'https://next.mapnificent.net/'
   source: 'Mapnificent'
