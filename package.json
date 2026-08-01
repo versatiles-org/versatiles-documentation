@@ -41,7 +41,7 @@
     "js-yaml": "^5.2.1",
     "markdown-it-task-lists": "^2.1.1",
     "mermaid": "^11.16.0",
-    "npm-check-updates": "^22.2.9",
+    "npm-check-updates": "^23.0.0",
     "prettier": "^3.9.4",
     "sharp": "^0.35.3",
     "tsx": "^4.22.4",
