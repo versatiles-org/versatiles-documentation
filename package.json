@@ -39,6 +39,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.10.0",
     "github-slugger": "^2.0.0",
+    "globals": "^17.11.0",
     "js-yaml": "^5.2.3",
     "markdown-it-task-lists": "^2.1.1",
     "mermaid": "^11.16.1",

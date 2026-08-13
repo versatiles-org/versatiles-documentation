@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import pluginVue from 'eslint-plugin-vue';
 import prettier from 'eslint-config-prettier';
+import globals from 'globals';
 
 export default tseslint.config(
 	{
@@ -30,9 +31,8 @@ export default tseslint.config(
 	{
 		files: ['**/*.vue'],
 		languageOptions: {
-			globals: {
-				URL: 'readonly',
-			},
+			// Components run in the browser: URL, document, ResizeObserver, rAF …
+			globals: globals.browser,
 			parserOptions: {
 				parser: tseslint.parser,
 			},
