@@ -799,3 +799,59 @@
   tags:
     - leisure
     - interactive-map
+
+- title: 'Vegan Hamburg — Kartenübersicht'
+  url: 'https://vegan-hamburg.com/karte/'
+  source: 'vegan-hamburg.com'
+  country: 'Germany'
+  category: 'independent'
+  description: 'Map of vegan and vegan-friendly restaurants, cafés and shops across Hamburg, served from a self-hosted VersaTiles server'
+  image: vegan-hamburg.png
+  tags:
+    - leisure
+    - interactive-map
+
+- title: 'Marin Airporter Bus Finder'
+  url: 'https://tix.marinairporter.com/en/app/lines/route/1'
+  source: 'Marin Airporter'
+  country: 'United States'
+  category: 'commercial'
+  description: 'Ticketing portal and live bus finder for the airport shuttle between Marin County and San Francisco International Airport'
+  image: marin-airporter.png
+  tags:
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'Dog Day Afternoon'
+  url: 'https://www.dogdayafternoon.co.uk/'
+  source: 'Dog Day Afternoon'
+  country: 'United Kingdom'
+  category: 'independent'
+  description: 'Finder for dog-friendly pubs, restaurants, cafés and accommodation across the UK, with verified ratings and walking directions'
+  image: dog-day-afternoon.png
+  tags:
+    - leisure
+    - interactive-map
+
+- title: 'L’annuaire des artistes équestres'
+  url: 'https://artistes-equestres.fr/'
+  source: 'L’annuaire des artistes équestres'
+  country: 'France'
+  category: 'independent'
+  description: 'Community-run directory and map of equestrian artists, companies and venues across France'
+  image: artistes-equestres.png
+  tags:
+    - culture
+    - interactive-map
+
+- title: 'Spot — Geospatial search for OpenStreetMap'
+  url: 'https://dev.findthatspot.io/'
+  source: 'DW Innovation'
+  country: 'Germany'
+  category: 'independent'
+  description: 'Turns a natural-language prompt into an OpenStreetMap query and maps the matching places, helping reporters verify where a photo or video was taken'
+  image: spot.png
+  tags:
+    - research
+    - interactive-map
