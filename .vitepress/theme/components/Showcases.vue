@@ -180,7 +180,8 @@ function domain(url: string) {
 
 .pill.active {
 	background: var(--vp-c-brand-1);
-	color: #fff;
+	/* white in light mode, near-black in dark mode — brand-1 flips with the theme */
+	color: var(--vp-c-neutral-inverse);
 	border-color: var(--vp-c-brand-1);
 }
 
@@ -237,7 +238,7 @@ function domain(url: string) {
 
 .result-count {
 	font-size: 14px;
-	color: var(--vp-c-text-3);
+	color: var(--vp-c-text-2);
 	margin-bottom: 16px;
 }
 
@@ -337,7 +338,7 @@ function domain(url: string) {
 	padding: 1px 8px;
 	border-radius: 10px;
 	background: var(--vp-c-default-soft);
-	color: var(--vp-c-text-3);
+	color: var(--vp-c-text-2);
 	text-transform: capitalize;
 }
 
@@ -365,7 +366,7 @@ function domain(url: string) {
 
 .card-url {
 	font-size: 12px;
-	color: var(--vp-c-text-3);
+	color: var(--vp-c-text-2);
 	margin-top: 4px;
 }
 </style>
