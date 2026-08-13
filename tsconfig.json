@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"lib": ["ES2022", "DOM"],
+		"module": "preserve",
+		"moduleResolution": "bundler",
+		"types": ["node"],
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"scripts/**/*.ts",
+		"showcases/**/*.ts",
+		".vitepress/**/*.ts",
+		".vitepress/**/*.mts",
+		".vitepress/**/*.d.ts",
+		".vitepress/**/*.vue"
+	],
+	"exclude": ["node_modules", ".vitepress/dist", ".vitepress/cache"]
+}
