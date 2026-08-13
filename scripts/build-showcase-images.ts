@@ -75,4 +75,7 @@ async function main() {
 	console.log(`Processed ${toProcess.length} screenshot(s).`);
 }
 
-main();
+main().catch((error: unknown) => {
+	console.error(error);
+	process.exit(1);
+});

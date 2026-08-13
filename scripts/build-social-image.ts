@@ -102,4 +102,7 @@ async function main() {
 	console.log(`✓ showcases-social.jpg (${cols}x${cols} of ${thumbs.length} screenshots)`);
 }
 
-main();
+main().catch((error: unknown) => {
+	console.error(error);
+	process.exit(1);
+});

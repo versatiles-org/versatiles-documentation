@@ -103,7 +103,9 @@ export default withMermaid(
 			},
 			editLink: {
 				pattern({ filePath, frontmatter }) {
-					const path = frontmatter.editLink || filePath;
+					// frontmatter is untyped, so only trust editLink when it really is a path
+					const path =
+						typeof frontmatter.editLink === 'string' ? frontmatter.editLink : filePath;
 					return `https://github.com/versatiles-org/versatiles-documentation/edit/main/${path}`;
 				},
 			},

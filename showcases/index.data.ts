@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
+import { defineLoader } from 'vitepress';
 
 export interface Showcase {
 	title: string;
@@ -20,7 +21,14 @@ export interface ShowcasesData {
 	tags: string[];
 }
 
-export default {
+/**
+ * VitePress generates this named export from `load()` at build time, so it has to be
+ * declared for the components that import it — there is no runtime value to export here.
+ */
+declare const data: ShowcasesData;
+export { data };
+
+export default defineLoader({
 	watch: ['./showcases.yaml'],
 	load(): ShowcasesData {
 		const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -39,4 +47,4 @@ export default {
 
 		return { showcases, countries, tags };
 	},
-};
+});

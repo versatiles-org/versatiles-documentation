@@ -9,4 +9,8 @@ declare module '*.vue' {
 declare module '*.css';
 
 /** Ships no types and has no @types package; used as a markdown-it plugin in config.mts. */
-declare module 'markdown-it-task-lists';
+declare module 'markdown-it-task-lists' {
+	import type { PluginSimple } from 'markdown-it';
+	const taskLists: PluginSimple;
+	export default taskLists;
+}
