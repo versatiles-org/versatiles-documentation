@@ -1,10 +1,72 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { data } from '../../../showcases/index.data';
 
 const searchQuery = ref('');
 const selectedCountry = ref<string | null>(null);
 const selectedTags = ref<Set<string>>(new Set());
+
+const tagGroup = ref<HTMLElement | null>(null);
+
+/** How many rows the pills currently occupy, counted by their distinct top offsets. */
+function rowCount(el: HTMLElement): number {
+	const tops = new Set<number>();
+	el.querySelectorAll('.pill').forEach((p) => tops.add(Math.round(p.getBoundingClientRect().top)));
+	return tops.size;
+}
+
+/**
+ * Even out the tag rows by capping the row's width at the narrowest value that still
+ * fits the same number of rows — otherwise the last row is left with a few stragglers.
+ *
+ * This is what `text-wrap: balance` does, and the CSS below asks for it, but Firefox
+ * reports support while ignoring it for inline-block content. Doing it here keeps the
+ * layout identical in every engine and adapts when tags are added or removed.
+ */
+function balanceTagRows() {
+	const el = tagGroup.value;
+	if (!el) return;
+	el.style.maxWidth = '';
+	const rows = rowCount(el);
+	if (rows < 2) return;
+
+	// Binary search the smallest width that does not push a pill onto an extra row.
+	let tooNarrow = 0;
+	let fits = el.getBoundingClientRect().width;
+	while (fits - tooNarrow > 8) {
+		const mid = (tooNarrow + fits) / 2;
+		el.style.maxWidth = `${mid}px`;
+		if (rowCount(el) > rows) tooNarrow = mid;
+		else fits = mid;
+	}
+	el.style.maxWidth = `${fits}px`;
+}
+
+let frame = 0;
+function scheduleBalance() {
+	cancelAnimationFrame(frame);
+	frame = requestAnimationFrame(balanceTagRows);
+}
+
+let resizeObserver: ResizeObserver | undefined;
+
+onMounted(() => {
+	balanceTagRows();
+	// Web fonts land after first paint and change every pill's width.
+	void document.fonts?.ready.then(balanceTagRows);
+	// Observe the parent, not the row itself: capping the row's own width would
+	// retrigger the observer and loop.
+	const parent = tagGroup.value?.parentElement;
+	if (parent) {
+		resizeObserver = new ResizeObserver(scheduleBalance);
+		resizeObserver.observe(parent);
+	}
+});
+
+onBeforeUnmount(() => {
+	resizeObserver?.disconnect();
+	cancelAnimationFrame(frame);
+});
 
 function toggleTag(tag: string) {
 	const next = new Set(selectedTags.value);
@@ -67,7 +129,7 @@ function domain(url: string) {
 			</select>
 			<button v-if="hasFilters" class="clear-btn" @click="clearFilters">Clear filters</button>
 		</div>
-		<div class="filter-group">
+		<div ref="tagGroup" class="filter-group">
 			<span class="filter-label">Tags</span>
 			<button
 				v-for="tag in data.tags"
@@ -130,22 +192,27 @@ function domain(url: string) {
 	margin-bottom: 8px;
 }
 
+/* Block rather than flex so the browser can even out the rows: `text-wrap: balance`
+   works on line boxes, and flex items don't produce any. Spacing therefore comes from
+   margins on the pills, and the negative margins below let the trailing ones hang the
+   way flex `gap` did — without that, a row loses 6px of usable width and drops a pill. */
 .filter-group {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 6px;
+	display: block;
+	text-wrap: balance;
+	margin-right: -6px;
+	margin-bottom: -6px;
 }
 
 .filter-label {
 	font-size: 13px;
 	font-weight: 600;
 	color: var(--vp-c-text-2);
-	margin-right: 2px;
+	margin-right: 8px;
 }
 
 .pill {
 	display: inline-block;
+	margin: 0 6px 6px 0;
 	padding: 4px 12px;
 	border-radius: 16px;
 	font-size: 13px;
