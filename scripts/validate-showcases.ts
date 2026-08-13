@@ -14,7 +14,7 @@ const SHOWCASES_DIR = resolve(__dirname, '../showcases');
 const README_PATH = resolve(__dirname, '../README.md');
 const IMAGE_EXTS = /\.(png|jpe?g|webp)$/i;
 /** The front page advertises how many projects are listed; it has to match the gallery. */
-const README_COUNT = /\[(\d+) projects\]\(showcases\)/;
+const README_COUNT = /\[(\d+) projects using VersaTiles\]\(showcases\)/;
 
 const raw = readFileSync(resolve(SHOWCASES_DIR, 'showcases.yaml'), 'utf-8');
 const showcases = yaml.load(raw) as Showcase[];
