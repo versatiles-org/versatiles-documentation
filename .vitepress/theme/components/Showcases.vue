@@ -224,6 +224,9 @@ function domain(url: string) {
 
 .clear-btn {
 	font-size: 13px;
+	/* Same line-height as the sibling controls: without it the button inherits the
+	   page's 24px and grows the bar, shifting the whole gallery down as it appears. */
+	line-height: 1.4;
 	color: var(--vp-c-text-3);
 	background: none;
 	border: none;
