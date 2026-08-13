@@ -15,11 +15,12 @@
     "build:vitepress": "vitepress build .",
     "build:showcase-images": "tsx scripts/build-showcase-images.ts",
     "build:social-image": "tsx scripts/build-social-image.ts",
-    "check": "npm run format && npm run lint && npm run build",
+    "check": "npm run format && npm run lint && npm run lint:types && npm run build",
     "dev": "vitepress dev .",
     "format": "prettier --log-level warn --write .",
     "format:check": "prettier --log-level warn --check .",
     "lint": "eslint .",
+    "lint:types": "vue-tsc --noEmit",
     "preview": "vitepress preview .",
     "upgrade": "npm-check-updates -u && npm i",
     "validate:showcases": "tsx scripts/validate-showcases.ts"
@@ -45,10 +46,12 @@
     "prettier": "^3.9.6",
     "sharp": "^0.35.3",
     "tsx": "^4.23.12",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.67.0",
     "vitepress": "^1.6.4",
     "vitepress-plugin-mermaid": "^2.0.17",
-    "vue-eslint-parser": "^10.4.1"
+    "vue-eslint-parser": "^10.4.1",
+    "vue-tsc": "^3.3.9"
   },
   "allowScripts": {
     "esbuild": true,
