@@ -2,10 +2,10 @@
   url: 'https://interaktiv.morgenpost.de/badestellen-berlin-brandenburg/index_morgenpost.html'
   source: 'Berliner Morgenpost'
   country: 'Germany'
-  category: 'journalism'
   description: 'Interactive map of bathing spots in Berlin and Brandenburg'
   image: badestellen-berlin-brandenburg.png
   tags:
+    - journalism
     - leisure
     - interactive-map
 
@@ -13,20 +13,20 @@
   url: 'https://interaktiv.morgenpost.de/cannabis-legalisierung-kiffen-karte/'
   source: 'Berliner Morgenpost'
   country: 'Germany'
-  category: 'journalism'
   description: 'Map of cannabis legalization zones'
   image: cannabis-legalisierung.png
   tags:
+    - journalism
     - interactive-map
 
 - title: 'Verkehr in Berlin live: Stau, Sperrungen, Störungen'
   url: 'https://interaktiv.morgenpost.de/verkehr-berlin/'
   source: 'Berliner Morgenpost'
   country: 'Germany'
-  category: 'journalism'
   description: 'Live traffic map for Berlin showing congestion, road closures and disruptions'
   image: verkehr-berlin.png
   tags:
+    - journalism
     - transport
     - interactive-map
     - live-data
@@ -35,20 +35,20 @@
   url: 'https://datajournal.org/hands-off/'
   source: 'datajournal.org'
   country: 'Germany'
-  category: 'journalism'
   description: 'Map of "Hands Off!" protest events'
   image: hands-off-protests.png
   tags:
+    - journalism
     - interactive-map
 
 - title: 'Total solar eclipse, 12 August 2026'
   url: 'https://datajournal.org/eclipse-2026/'
   source: 'datajournal.org'
   country: 'Germany'
-  category: 'journalism'
   description: 'Interactive guide to the total solar eclipse of 12 August 2026, showing the path of the moon shadow across Europe and simulating the eclipse from any location'
   image: eclipse-2026.png
   tags:
+    - journalism
     - interactive-map
     - data-visualisation
     - storytelling
@@ -57,10 +57,10 @@
   url: 'https://next.mapnificent.net/'
   source: 'Mapnificent'
   country: 'Germany'
-  category: 'independent'
   description: 'Dynamic public transport travel time map'
   image: mapnificent.png
   tags:
+    - independent
     - transport
     - interactive-map
 
@@ -68,10 +68,10 @@
   url: 'https://www.ndr.de/nachrichten/hamburg/Zensus-2022-Hamburg-ist-Bundesland-mit-hoechsten-Mieten,zensus340.html'
   source: 'NDR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Census 2022 data showing Hamburg as the state with the highest rents'
   image: hamburg-mieten.png
   tags:
+    - journalism
     - housing
     - data-visualisation
     - storytelling
@@ -80,10 +80,10 @@
   url: 'https://www.ndr.de/nachrichten/ndrdata/Zensus-Mietpreise-im-Norden-im-Ueberblick,zensus308.html'
   source: 'NDR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Overview of rental prices in northern Germany from Census 2022'
   image: zensus-2022.png
   tags:
+    - journalism
     - housing
     - data-visualisation
     - storytelling
@@ -92,10 +92,10 @@
   url: 'https://www.ndr.de/wetter'
   source: 'NDR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Weather map for northern Germany'
   image: wetter-ndr.png
   tags:
+    - journalism
     - weather
     - live-data
 
@@ -103,10 +103,10 @@
   url: 'https://www.ndr.de/verkehr'
   source: 'NDR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Live traffic map for northern Germany showing jams, construction sites and hazard warnings across Hamburg, Lower Saxony, Schleswig-Holstein and Mecklenburg-Vorpommern'
   image: ndr-verkehr.png
   tags:
+    - journalism
     - transport
     - interactive-map
     - live-data
@@ -115,10 +115,10 @@
   url: 'https://www.ndr.de/fernsehen/sendungen/nordmagazin/dorfgeschichte'
   source: 'NDR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Interactive village stories from Mecklenburg-Vorpommern'
   image: dorfgeschichten-mv.png
   tags:
+    - journalism
     - storytelling
     - interactive-map
 
@@ -126,10 +126,10 @@
   url: 'https://notfallrettung.swr.de/'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Emergency rescue response times across Germany'
   image: notfall-deutschland.png
   tags:
+    - journalism
     - health
     - data-visualisation
     - storytelling
@@ -138,10 +138,10 @@
   url: 'https://www.swr.de/swraktuell/diesel-und-benzinpreise-aktuell-so-tanken-sie-heute-clever-100.html'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Current petrol and diesel prices near you'
   image: swr-benzin-diesel-preise.png
   tags:
+    - journalism
     - transport
     - live-data
     - interactive-map
@@ -150,10 +150,10 @@
   url: 'https://www.swr.de/swraktuell/baden-wuerttemberg/waermewende-bw-heizt-groesstenteils-fossil-oel-und-gas-100.html'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Heating energy sources in Baden-Württemberg — still mostly fossil fuels'
   image: bw-heizt-fossil.png
   tags:
+    - journalism
     - energy
     - data-visualisation
     - climate
@@ -162,10 +162,10 @@
   url: 'https://www.swr.de/swraktuell/baden-wuerttemberg/wie-staedte-klimaneutral-heizen-wollen-100.html'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'How cities aim to achieve climate-neutral heating'
   image: swr-staedte-klimaneutral-heizen.png
   tags:
+    - journalism
     - energy
     - data-visualisation
     - climate
@@ -174,10 +174,10 @@
   url: 'https://www.swr.de/swraktuell/rheinland-pfalz/wann-faehrt-der-letzte-bus-in-rlp-100.html'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'When does the last bus run in Rhineland-Palatinate?'
   image: swr-letzter-bus-rlp.png
   tags:
+    - journalism
     - transport
     - data-visualisation
     - storytelling
@@ -186,10 +186,10 @@
   url: 'https://www.swr.de/swraktuell/baden-wuerttemberg/wann-faehrt-der-letzte-bus-in-bw-100.html'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'When does the last bus run in Baden-Württemberg?'
   image: swr-letzter-bus-bw.png
   tags:
+    - journalism
     - transport
     - data-visualisation
     - storytelling
@@ -198,10 +198,10 @@
   url: 'https://www.swr.de/swraktuell/auto-kosten-rechner-100.html'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Calculator to find out when an electric car is worth it for you'
   image: swr-e-auto-rechner.png
   tags:
+    - journalism
     - transport
     - interactive-map
     - climate
@@ -210,10 +210,10 @@
   url: 'https://www.swr.de/swraktuell/rheinland-pfalz/fuenf-jahre-ahrtal-hochwasser-starkregen-so-wuerde-eine-ueberschwemmung-ihr-zuhause-treffen-100.html'
   source: 'SWR'
   country: 'Germany'
-  category: 'journalism'
   description: 'Interactive flood map showing which homes in Rhineland-Palatinate are at risk from flooding and heavy rain'
   image: swr-hochwasser-rlp.png
   tags:
+    - journalism
     - weather
     - interactive-map
     - data-visualisation
@@ -222,10 +222,10 @@
   url: 'https://taz.de/Deutsche-Vorschriften-fuer-Windenergie/!5901969/'
   source: 'taz'
   country: 'Germany'
-  category: 'journalism'
   description: 'German regulations on wind energy distance requirements'
   image: taz-energiewende-abstand.png
   tags:
+    - journalism
     - data-visualisation
     - climate
 
@@ -233,30 +233,30 @@
   url: 'https://www.thueringer-allgemeine.de/landtagswahl-sachsen-2024-umfragen-ergebnisse-karte/'
   source: 'Thüringer Allgemeine'
   country: 'Germany'
-  category: 'journalism'
   description: 'Election results map for the Saxony state election'
   image: landtagswahl-sachsen.png
   tags:
+    - journalism
     - interactive-map
 
 - title: 'So hat Thüringen bei der Landtagswahl gestimmt'
   url: 'https://www.thueringer-allgemeine.de/landtagswahl-thueringen-2024-umfragen-ergebnisse-karte/'
   source: 'Thüringer Allgemeine'
   country: 'Germany'
-  category: 'journalism'
   description: 'Election results map for the Thuringia state election'
   image: landtagswahl-thueringen.png
   tags:
+    - journalism
     - interactive-map
 
 - title: 'veganguide.org'
   url: 'https://veganguide.org'
   source: 'veganguide.org'
   country: 'Germany'
-  category: 'independent'
   description: 'Map of vegan-friendly restaurants and shops'
   image: veganguide.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -264,10 +264,10 @@
   url: 'https://onlocation.arsenal-berlin.de/'
   source: 'Arsenal - Institut für Film und Videokunst'
   country: 'Germany'
-  category: 'independent'
   description: 'Interactive map of touring film programs and screenings'
   image: arsenal-on-location.png
   tags:
+    - independent
     - culture
     - interactive-map
     - events
@@ -276,10 +276,10 @@
   url: 'https://www.coxhealth.com/our-locations/'
   source: 'CoxHealth'
   country: 'United States'
-  category: 'commercial'
   description: 'Location finder for CoxHealth hospitals, clinics and facilities in Missouri'
   image: coxhealth-locations.png
   tags:
+    - commercial
     - health
     - interactive-map
 
@@ -287,10 +287,10 @@
   url: 'https://relight-regensburg.de/map/'
   source: 'Re.Light / Stadt Regensburg'
   country: 'Germany'
-  category: 'events'
   description: 'Interactive map of light art installations in Regensburg'
   image: relight-regensburg.png
   tags:
+    - events
     - culture
     - interactive-map
 
@@ -298,10 +298,10 @@
   url: 'https://www.unihomes.co.uk/'
   source: 'UniHomes'
   country: 'United Kingdom'
-  category: 'commercial'
   description: 'Student housing search platform with interactive property maps across UK university cities'
   image: unihomes.png
   tags:
+    - commercial
     - housing
     - interactive-map
 
@@ -309,10 +309,10 @@
   url: 'https://backofyourhand.com/'
   source: 'Back Of Your Hand'
   country: 'International'
-  category: 'independent'
   description: 'Geography quiz game that tests how well you know your local streets'
   image: back-of-your-hand.png
   tags:
+    - independent
     - leisure
     - interactive-map
     - game
@@ -321,10 +321,10 @@
   url: 'https://buildmytransit.nyc/'
   source: 'Jason Wright'
   country: 'United States'
-  category: 'independent'
   description: 'Interactive game to design your own NYC subway system with ridership simulation'
   image: build-my-transit.png
   tags:
+    - independent
     - transport
     - interactive-map
     - game
@@ -333,10 +333,10 @@
   url: 'https://climate-action.heigit.org/'
   source: 'HeiGIT'
   country: 'Germany'
-  category: 'research'
   description: 'Interactive tool for cities to analyse walkability, bikeability and heating emissions'
   image: climate-action-navigator.png
   tags:
+    - research
     - energy
     - climate
     - data-visualisation
@@ -345,10 +345,10 @@
   url: 'https://www.luchtballonradar.nl/'
   source: 'Luchtballonradar'
   country: 'Netherlands'
-  category: 'independent'
   description: 'Live tracking radar for hot air balloon flights in the Netherlands and Belgium'
   image: luchtballonradar.png
   tags:
+    - independent
     - leisure
     - interactive-map
     - live-data
@@ -357,10 +357,10 @@
   url: 'https://manulization.com/map'
   source: 'Manulization'
   country: 'International'
-  category: 'independent'
   description: "Map of Pallas's cat habitats and wildlife camera traps worldwide"
   image: manulization.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -368,30 +368,30 @@
   url: 'https://mapforge.org/'
   source: 'Mapforge'
   country: 'International'
-  category: 'independent'
   description: 'Open-source collaborative mapping platform for creating and sharing custom maps'
   image: mapforge.png
   tags:
+    - independent
     - interactive-map
 
 - title: 'Map View'
   url: 'https://www.notion.com/'
   source: 'Notion'
   country: 'United States'
-  category: 'commercial'
   description: 'Map view in Notion uses basemaps designed by Stamen based on VersaTiles Shortbread tiles'
   image: notion-map-view.png
   tags:
+    - commercial
     - interactive-map
 
 - title: 'OldNYC'
   url: 'https://www.oldnyc.org/'
   source: 'OldNYC'
   country: 'United States'
-  category: 'independent'
   description: 'Historical photographs of New York City mapped to their original locations'
   image: oldnyc.png
   tags:
+    - independent
     - culture
     - interactive-map
 
@@ -399,10 +399,10 @@
   url: 'https://www.ovlive.nl/map'
   source: 'OV Live'
   country: 'Netherlands'
-  category: 'independent'
   description: 'Live tracking of public transport buses, trams and metros across the Netherlands'
   image: ov-live.png
   tags:
+    - independent
     - transport
     - interactive-map
     - live-data
@@ -411,10 +411,10 @@
   url: 'https://valhalla.openstreetmap.de/'
   source: 'FOSSGIS'
   country: 'Germany'
-  category: 'independent'
   description: 'Demo application for the Valhalla open-source routing engine'
   image: valhalla-routing.png
   tags:
+    - independent
     - transport
     - interactive-map
 
@@ -422,10 +422,10 @@
   url: 'https://wogibt.es/'
   source: 'wogibt.es'
   country: 'Austria'
-  category: 'independent'
   description: 'Location discovery app for finding places like restaurants, bars and natural spots in Styria'
   image: wogibt-es.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -433,10 +433,10 @@
   url: 'https://zhaus.at/map.php'
   source: 'zHaus'
   country: 'Austria'
-  category: 'independent'
   description: 'Event map for discovering local activities and gatherings in Austria'
   image: zhaus.png
   tags:
+    - independent
     - culture
     - interactive-map
     - events
@@ -445,30 +445,30 @@
   url: 'https://zijnwealautonoom.nl/map/email-as/'
   source: 'Studio Falkland'
   country: 'Netherlands'
-  category: 'independent'
   description: "Visualisation of the Netherlands' digital infrastructure dependencies on non-European providers"
   image: zijn-we-al-autonoom.png
   tags:
+    - independent
     - data-visualisation
 
 - title: 'Engagement finden'
   url: 'https://freiwillig.hamburg/engagement-finden/'
   source: 'freiwillig.hamburg'
   country: 'Germany'
-  category: 'independent'
   description: 'Map-based search for volunteer opportunities across Hamburg districts'
   image: engagement-finden.png
   tags:
+    - independent
     - interactive-map
 
 - title: 'Zoo Institutes'
   url: 'https://zooinstitutes.com/zooinstitutes.html'
   source: 'Zoo Institutes'
   country: 'Israel'
-  category: 'independent'
   description: 'Global database and map of zoos with species collections and visit documentation'
   image: zoo-institutes.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -476,30 +476,30 @@
   url: 'https://olvid.io'
   source: 'Olvid'
   country: 'France'
-  category: 'commercial'
   description: 'Host your map server for a fully private location sharing feature in Olvid.'
   image: olvid.png
   tags:
+    - commercial
     - interactive-map
 
 - title: 'OpenAleph'
   url: 'https://search.openaleph.org'
   source: 'OpenAleph'
   country: 'Germany'
-  category: 'journalism'
   description: 'The open source platform for investigative reporting.'
   image: openaleph.png
   tags:
+    - journalism
     - research
 
 - title: 'Hummingbirds Canada'
   url: 'https://hummingbirdscanada.ca'
   source: 'Hummingbirds Canada'
   country: 'Canada'
-  category: 'independent'
   description: 'Citizen science platform tracking hummingbird migration, sightings and breeding ranges across Canada'
   image: hummingbirds-canada.png
   tags:
+    - independent
     - research
     - interactive-map
 
@@ -507,10 +507,10 @@
   url: 'https://app.feuxdeforet.fr/feux-en-direct'
   source: 'Feux de Forêt'
   country: 'France'
-  category: 'independent'
   description: 'Live map of forest fires across France with public reporting'
   image: feux-de-foret.png
   tags:
+    - independent
     - interactive-map
     - live-data
 
@@ -518,10 +518,10 @@
   url: 'https://live.stpt.ro'
   source: 'STPT'
   country: 'Romania'
-  category: 'independent'
   description: 'Real-time tracking of trams, trolleybuses and buses operated by STPT in Timișoara'
   image: stpt-timisoara.png
   tags:
+    - independent
     - transport
     - interactive-map
     - live-data
@@ -530,10 +530,10 @@
   url: 'https://book.lynk.ie'
   source: 'Lynk'
   country: 'Ireland'
-  category: 'commercial'
   description: "Online booking platform for Dublin's Lynk taxi service"
   image: lynk.png
   tags:
+    - commercial
     - transport
     - interactive-map
 
@@ -541,10 +541,10 @@
   url: 'https://cities.youtrend.it/roma'
   source: 'YouTrend'
   country: 'Italy'
-  category: 'journalism'
   description: 'Interactive maps of the 2026 Italian referendum results, broken down by electoral section across major cities'
   image: youtrend-rome.png
   tags:
+    - journalism
     - interactive-map
     - data-visualisation
 
@@ -552,10 +552,10 @@
   url: 'https://adresses.frc.ch'
   source: 'FRC'
   country: 'Switzerland'
-  category: 'independent'
   description: 'Directory of local food, repair and reuse businesses across French-speaking Switzerland by the Fédération romande des consommateurs'
   image: frc-adresses.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -563,10 +563,10 @@
   url: 'https://radardetrenes.com'
   source: 'Radar de Trenes'
   country: 'Spain'
-  category: 'independent'
   description: "Live tracking of trains across Spain's rail network, updated every 20 seconds"
   image: radar-de-trenes.png
   tags:
+    - independent
     - transport
     - interactive-map
     - live-data
@@ -575,10 +575,10 @@
   url: 'https://bodensee-navigator.com/seekarte'
   source: 'Bodensee-Navigator'
   country: 'Germany'
-  category: 'independent'
   description: 'Interactive depth and relief map of Lake Constance with live water levels, temperatures and storm warnings'
   image: bodensee-navigator.png
   tags:
+    - independent
     - leisure
     - interactive-map
     - live-data
@@ -587,10 +587,10 @@
   url: 'https://divechamp.com/destination/phuket'
   source: 'Dive Champ'
   country: 'International'
-  category: 'independent'
   description: 'Curated guide to scuba diving destinations and dive sites worldwide'
   image: divechamp-phuket.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -598,10 +598,10 @@
   url: 'https://tralster.com/'
   source: 'Tralster'
   country: 'Germany'
-  category: 'independent'
   description: 'Audio guide platform for cultural and natural attractions across Bavaria'
   image: tralster.png
   tags:
+    - independent
     - culture
     - interactive-map
 
@@ -609,7 +609,6 @@
   url: 'https://plataforma.brasil.mapbiomas.org'
   source: 'MapBiomas'
   country: 'Brazil'
-  category: 'research'
   description: 'Satellite-based land-use and land-cover monitoring platform tracking deforestation, vegetation change, fire scars, mining and more across all Brazilian biomes from 1985 to present'
   image: mapbiomas-brasil.png
   tags:
@@ -621,10 +620,10 @@
   url: 'https://radar.bliksemdetectie.nl'
   source: 'Bliksemdetectie.nl'
   country: 'Netherlands'
-  category: 'independent'
   description: 'Real-time lightning detection and thunderstorm radar for the Netherlands, showing live electrical discharges, storm locations and precipitation'
   image: bliksemdetectie.png
   tags:
+    - independent
     - weather
     - interactive-map
     - live-data
@@ -633,10 +632,10 @@
   url: 'https://app.cultour.se/map'
   source: 'Cultour'
   country: 'Sweden'
-  category: 'independent'
   description: 'Map-based guide for discovering cultural and historical sites along Swedish roads, with offline support and driving-mode navigation'
   image: cultour.png
   tags:
+    - independent
     - culture
     - interactive-map
     - leisure
@@ -645,20 +644,20 @@
   url: 'https://wikigeo.org/'
   source: 'Wikigeo'
   country: 'International'
-  category: 'independent'
   description: 'Community-edited interactive map for attaching wiki-style articles and knowledge to geographic coordinates worldwide'
   image: wikigeo.png
   tags:
+    - independent
     - interactive-map
 
 - title: 'Interaktywna Mapa Powodzi'
   url: 'https://newsmap.pl/mapshare/2a6767258d5e9fc3e1c9ce62155bb77f/'
   source: 'newsmap.pl'
   country: 'Poland'
-  category: 'journalism'
   description: 'Interactive map documenting the September 2024 flooding in Poland, showing affected locations and counties under a state of natural disaster'
   image: newsmap-pl.png
   tags:
+    - journalism
     - interactive-map
     - data-visualisation
 
@@ -666,10 +665,10 @@
   url: 'https://explore.flights/'
   source: 'explore.flights'
   country: 'International'
-  category: 'independent'
   description: 'Interactive flight route visualisation showing great-circle paths between airports worldwide, with terrain rendering and hillshading'
   image: explore-flights.png
   tags:
+    - independent
     - transport
     - interactive-map
 
@@ -677,10 +676,10 @@
   url: 'https://transport.burgasbus.info/app/planner'
   source: 'JSP Burgas'
   country: 'Bulgaria'
-  category: 'independent'
   description: 'Live route planner for the Burgas public transport network with an interactive map'
   image: burgasbus.png
   tags:
+    - independent
     - transport
     - interactive-map
     - live-data
@@ -689,10 +688,10 @@
   url: 'https://mcsprit.de/search?zoom=12&latitude=53.553538430698154&longitude=9.992408752441408'
   source: 'McSprit'
   country: 'Germany'
-  category: 'commercial'
   description: 'Map of German fuel stations with live petrol and diesel prices'
   image: mcsprit-fuel-prices.png
   tags:
+    - commercial
     - transport
     - interactive-map
     - live-data
@@ -701,10 +700,10 @@
   url: 'https://www.electroprecios.com/'
   source: 'ElectroPrecios'
   country: 'Spain'
-  category: 'commercial'
   description: 'Map comparing prices of EV charging stations by charging speed'
   image: electroprecios.png
   tags:
+    - commercial
     - energy
     - transport
     - interactive-map
@@ -713,10 +712,10 @@
   url: 'https://vanpride.ca/'
   source: 'Van Pride Map'
   country: 'Canada'
-  category: 'independent'
   description: 'Community map of Pride and queer spaces across Metro Vancouver'
   image: metro-vancouver-pride-map.png
   tags:
+    - independent
     - culture
     - events
     - interactive-map
@@ -725,10 +724,10 @@
   url: 'https://waging-bewegt.de/'
   source: 'Waging Bewegt'
   country: 'Germany'
-  category: 'independent'
   description: 'Finder map for local businesses and events around Waging am See'
   image: waging-bewegt.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -736,10 +735,10 @@
   url: 'https://houseswithshops.ca/map?clng=-77.202&clat=44.327&cz=8.16'
   source: 'Houses With Shops'
   country: 'Canada'
-  category: 'commercial'
   description: 'Property search map for homes with workshop or garage space around Belleville, Ontario'
   image: houses-with-shops.png
   tags:
+    - commercial
     - housing
     - interactive-map
 
@@ -747,10 +746,10 @@
   url: 'https://app.montreuxnoel.com/'
   source: 'Montreux Noël'
   country: 'Switzerland'
-  category: 'events'
   description: 'Interactive map of the stalls and venues of the Montreux Christmas Market'
   image: montreux-noel.png
   tags:
+    - events
     - culture
     - interactive-map
 
@@ -758,10 +757,10 @@
   url: 'https://awscenter.manvis.com/'
   source: 'BMKG'
   country: 'Indonesia'
-  category: 'research'
   description: 'Live monitoring map of the automatic weather station network across Indonesia'
   image: aws-center-bmkg.png
   tags:
+    - research
     - weather
     - interactive-map
     - live-data
@@ -770,10 +769,10 @@
   url: 'https://37rally.com/ja/rally/e92140b7-d49e-4df3-9480-ef6efdaa20c9'
   source: 'MinRally'
   country: 'Japan'
-  category: 'commercial'
   description: 'Platform for digital stamp rallies, each with an interactive map of its checkpoints'
   image: minrally.png
   tags:
+    - commercial
     - game
     - leisure
     - interactive-map
@@ -782,10 +781,10 @@
   url: 'https://visuals.hula.earth/'
   source: 'Hula Technologies'
   country: 'Germany'
-  category: 'commercial'
   description: 'Map of bird presence recorded by AI-powered biodiversity sensors'
   image: hula-bird-presence-map.png
   tags:
+    - commercial
     - data-visualisation
     - interactive-map
 
@@ -793,10 +792,10 @@
   url: 'https://hey.bayern/1000-m-steig-suedroute-mit-arzlohe'
   source: 'hey.bayern'
   country: 'Germany'
-  category: 'independent'
   description: 'Regional platform for Bavaria with mapped hiking routes, places and events'
   image: hey-bayern.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -804,10 +803,10 @@
   url: 'https://vegan-hamburg.com/karte/'
   source: 'vegan-hamburg.com'
   country: 'Germany'
-  category: 'independent'
   description: 'Map of vegan and vegan-friendly restaurants, cafés and shops across Hamburg, served from a self-hosted VersaTiles server'
   image: vegan-hamburg.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -815,10 +814,10 @@
   url: 'https://tix.marinairporter.com/en/app/lines/route/1'
   source: 'Marin Airporter'
   country: 'United States'
-  category: 'commercial'
   description: 'Ticketing portal and live bus finder for the airport shuttle between Marin County and San Francisco International Airport'
   image: marin-airporter.png
   tags:
+    - commercial
     - transport
     - interactive-map
     - live-data
@@ -827,10 +826,10 @@
   url: 'https://www.dogdayafternoon.co.uk/'
   source: 'Dog Day Afternoon'
   country: 'United Kingdom'
-  category: 'independent'
   description: 'Finder for dog-friendly pubs, restaurants, cafés and accommodation across the UK, with verified ratings and walking directions'
   image: dog-day-afternoon.png
   tags:
+    - independent
     - leisure
     - interactive-map
 
@@ -838,10 +837,10 @@
   url: 'https://artistes-equestres.fr/'
   source: 'L’annuaire des artistes équestres'
   country: 'France'
-  category: 'independent'
   description: 'Community-run directory and map of equestrian artists, companies and venues across France'
   image: artistes-equestres.png
   tags:
+    - independent
     - culture
     - interactive-map
 
@@ -849,9 +848,9 @@
   url: 'https://dev.findthatspot.io/'
   source: 'DW Innovation'
   country: 'Germany'
-  category: 'independent'
   description: 'Turns a natural-language prompt into an OpenStreetMap query and maps the matching places, helping reporters verify where a photo or video was taken'
   image: spot.png
   tags:
+    - independent
     - research
     - interactive-map

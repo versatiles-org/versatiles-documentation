@@ -5,7 +5,6 @@ import yaml from 'js-yaml';
 interface Showcase {
 	title: string;
 	url: string;
-	category: string;
 	image: string;
 	tags: string[];
 }
@@ -48,10 +47,7 @@ if (missingImages.length) {
 }
 
 const tagCounts = new Map<string, number>();
-showcases.forEach((s) => {
-	const merged = s.tags.includes(s.category) ? s.tags : [s.category, ...s.tags];
-	merged.forEach((t) => tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1));
-});
+showcases.forEach((s) => s.tags.forEach((t) => tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1)));
 
 const singletons = [...tagCounts.entries()]
 	.filter(([, n]) => n === 1)
@@ -59,8 +55,14 @@ const singletons = [...tagCounts.entries()]
 	.sort();
 
 if (singletons.length) {
+	console.error(`[showcases] tags used only once (possible typos): ${singletons.join(', ')}`);
+	hasError = true;
+}
+
+const duplicateTags = showcases.filter((s) => new Set(s.tags).size !== s.tags.length);
+if (duplicateTags.length) {
 	console.error(
-		`[showcases] tags/categories used only once (possible typos): ${singletons.join(', ')}`,
+		`[showcases] entries listing the same tag twice: ${duplicateTags.map((s) => s.title).join(', ')}`,
 	);
 	hasError = true;
 }

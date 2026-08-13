@@ -4,7 +4,6 @@ import { data } from '../../../showcases/index.data';
 
 const searchQuery = ref('');
 const selectedCountry = ref<string | null>(null);
-const selectedCategory = ref<string | null>(null);
 const selectedTags = ref<Set<string>>(new Set());
 
 function toggleTag(tag: string) {
@@ -17,16 +16,11 @@ function toggleTag(tag: string) {
 function clearFilters() {
 	searchQuery.value = '';
 	selectedCountry.value = null;
-	selectedCategory.value = null;
 	selectedTags.value = new Set();
 }
 
 const hasFilters = computed(
-	() =>
-		searchQuery.value !== '' ||
-		selectedCountry.value !== null ||
-		selectedCategory.value !== null ||
-		selectedTags.value.size > 0,
+	() => searchQuery.value !== '' || selectedCountry.value !== null || selectedTags.value.size > 0,
 );
 
 const filtered = computed(() => {
@@ -39,7 +33,6 @@ const filtered = computed(() => {
 			if (!haystack.includes(q)) return false;
 		}
 		if (selectedCountry.value && s.country !== selectedCountry.value) return false;
-		if (selectedCategory.value && s.category !== selectedCategory.value) return false;
 		if (selectedTags.value.size > 0 && !s.tags.some((t) => selectedTags.value.has(t)))
 			return false;
 		return true;
@@ -68,10 +61,6 @@ function domain(url: string) {
 				class="search-input"
 				placeholder="Search showcases…"
 			/>
-			<select v-if="data.categories.length > 1" v-model="selectedCategory" class="filter-select">
-				<option :value="null">All categories</option>
-				<option v-for="c in data.categories" :key="c" :value="c">{{ formatTag(c) }}</option>
-			</select>
 			<select v-if="data.countries.length > 1" v-model="selectedCountry" class="filter-select">
 				<option :value="null">All countries</option>
 				<option v-for="c in data.countries" :key="c" :value="c">{{ c }}</option>
@@ -117,16 +106,12 @@ function domain(url: string) {
 					<div class="card-title">{{ item.title }}</div>
 					<div class="card-meta">
 						<span class="card-source">{{ item.source }}</span>
-						<span class="card-category">{{ formatTag(item.category) }}</span>
 					</div>
 					<div class="card-desc">{{ item.description }}</div>
 					<div class="card-tags">
-						<span
-							v-for="tag in item.tags.filter((t) => t !== item.category)"
-							:key="tag"
-							class="card-tag"
-							>{{ formatTag(tag) }}</span
-						>
+						<span v-for="tag in item.tags" :key="tag" class="card-tag">{{
+							formatTag(tag)
+						}}</span>
 					</div>
 					<div class="card-url">{{ domain(item.url) }}</div>
 				</div>
@@ -334,15 +319,6 @@ function domain(url: string) {
 	font-size: 13px;
 	font-weight: 500;
 	color: var(--vp-c-brand-1);
-}
-
-.card-category {
-	font-size: 11px;
-	padding: 1px 8px;
-	border-radius: 10px;
-	background: var(--vp-c-default-soft);
-	color: var(--vp-c-text-2);
-	text-transform: capitalize;
 }
 
 .card-desc {

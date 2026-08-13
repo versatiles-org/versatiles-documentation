@@ -15,13 +15,16 @@ If you use VersaTiles in a public project, we'd love to feature it.
      url: 'https://example.org'
      source: 'Your Org'
      country: 'Germany'
-     category: 'commercial' # or: journalism,independent, research, events
      description: 'One sentence about what the project shows'
      image: your-project-slug.png # also accepts .jpg, .jpeg, .webp
      tags:
+       - commercial # who made it: journalism, independent, commercial, research, events
        - interactive-map
        # - any other tags already used by other entries
    ```
+
+   Every tag has to be used by at least one other entry — the build rejects one-offs, which
+   are almost always typos. Pick from the tag list on the [Showcases](showcases) page.
 
 2. Drop a screenshot at `showcases/your-project-slug.png` (PNG, 16:9, < 1 MB, it's auto-resized to 800×450 during build).
 

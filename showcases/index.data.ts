@@ -8,7 +8,6 @@ export interface Showcase {
 	url: string;
 	source: string;
 	country: string;
-	category: string;
 	description: string;
 	image: string;
 	slug: string;
@@ -18,7 +17,6 @@ export interface Showcase {
 export interface ShowcasesData {
 	showcases: Showcase[];
 	countries: string[];
-	categories: string[];
 	tags: string[];
 }
 
@@ -32,15 +30,13 @@ export default {
 		showcases.forEach((s) => {
 			s.slug = s.image.replace(/\.(png|jpe?g|webp)$/i, '');
 			s.image = `/showcases/${s.slug}.webp`;
-			if (!s.tags.includes(s.category)) s.tags = [s.category, ...s.tags];
 		});
 
 		showcases.sort((a, b) => a.source.localeCompare(b.source, 'en', { sensitivity: 'base' }));
 
 		const countries = [...new Set(showcases.map((s) => s.country))].sort();
-		const categories = [...new Set(showcases.map((s) => s.category))].sort();
 		const tags = [...new Set(showcases.flatMap((s) => s.tags))].sort();
 
-		return { showcases, countries, categories, tags };
+		return { showcases, countries, tags };
 	},
 };
