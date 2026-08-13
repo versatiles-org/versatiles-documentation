@@ -11,7 +11,10 @@ interface Showcase {
 }
 
 const SHOWCASES_DIR = resolve(__dirname, '../showcases');
+const README_PATH = resolve(__dirname, '../README.md');
 const IMAGE_EXTS = /\.(png|jpe?g|webp)$/i;
+/** The front page advertises how many projects are listed; it has to match the gallery. */
+const README_COUNT = /\[(\d+) projects\]\(showcases\)/;
 
 const raw = readFileSync(resolve(SHOWCASES_DIR, 'showcases.yaml'), 'utf-8');
 const showcases = yaml.load(raw) as Showcase[];
@@ -59,6 +62,18 @@ if (singletons.length) {
 	console.error(
 		`[showcases] tags/categories used only once (possible typos): ${singletons.join(', ')}`,
 	);
+	hasError = true;
+}
+
+const readmeMatch = readFileSync(README_PATH, 'utf-8').match(README_COUNT);
+if (!readmeMatch) {
+	console.error(`[showcases] no "[N projects](showcases)" link found in README.md`);
+	hasError = true;
+} else if (Number(readmeMatch[1]) !== showcases.length) {
+	console.error(
+		`[showcases] README.md advertises ${readmeMatch[1]} projects, but showcases.yaml has ${showcases.length}.`,
+	);
+	console.error(`Change the link text to "[${showcases.length} projects](showcases)".`);
 	hasError = true;
 }
 

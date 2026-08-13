@@ -5,7 +5,7 @@ Try the live demo at **[tiles.versatiles.org](https://tiles.versatiles.org)**.
 
 ## Showcases
 
-[51+ projects](showcases) use VersaTiles in production, from journalism and transit trackers to commercial platforms and research tools.
+[76 projects](showcases) use VersaTiles in production, from journalism and transit trackers to commercial platforms and research tools.
 
 ## VersaTiles components
 
