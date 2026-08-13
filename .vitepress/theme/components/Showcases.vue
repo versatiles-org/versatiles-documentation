@@ -298,23 +298,13 @@ function domain(url: string) {
 }
 
 /* Card grid */
+/* --columns and the two custom properties below it come from the page-width rule in
+   the unscoped block at the end of this file, which caps the whole column to match. */
 .card-grid {
 	display: grid;
-	grid-template-columns: 1fr;
-	gap: 16px;
+	grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width)));
+	gap: var(--card-gap);
 	justify-content: center;
-}
-
-@media (min-width: 640px) {
-	.card-grid {
-		grid-template-columns: repeat(2, minmax(0, 400px));
-	}
-}
-
-@media (min-width: 960px) {
-	.card-grid {
-		grid-template-columns: repeat(3, minmax(0, 400px));
-	}
 }
 
 /* Card */
@@ -418,9 +408,42 @@ function domain(url: string) {
 </style>
 
 <style>
+/**
+ * The showcase page is wider than a prose page, but not unbounded: the card grid stops
+ * growing at a whole number of 400px columns, so the page column stops there too. That
+ * keeps the heading, the search bar, the tag rows and the cards on one left and right
+ * edge instead of the header running wider than the cards it filters.
+ *
+ * The column count is the single knob — the grid reads it back as --columns.
+ */
+/* Release the prose width limit on the outer wrappers ... */
 .VPDoc:not(.has-aside) .container:has(.showcases),
-.VPDoc:not(.has-aside) .content:has(.showcases),
-.VPDoc:not(.has-aside) .content-container:has(.showcases) {
+.VPDoc:not(.has-aside) .content:has(.showcases) {
 	max-width: none !important;
+}
+
+/* ... and apply the cap to the innermost box instead. Capping an outer wrapper would
+   work too, but `.content` adds 32px of padding above 960px, which would come out of
+   the cards and stop them reaching their full 400px. */
+.VPDoc:not(.has-aside) .content-container:has(.showcases) {
+	--card-width: 400px;
+	--card-gap: 16px;
+	--columns: 1;
+	max-width: calc(
+		var(--columns) * var(--card-width) + (var(--columns) - 1) * var(--card-gap)
+	) !important;
+	margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+	.VPDoc:not(.has-aside) .content-container:has(.showcases) {
+		--columns: 2;
+	}
+}
+
+@media (min-width: 960px) {
+	.VPDoc:not(.has-aside) .content-container:has(.showcases) {
+		--columns: 3;
+	}
 }
 </style>
