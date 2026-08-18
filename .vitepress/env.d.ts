@@ -8,9 +8,12 @@ declare module '*.vue' {
 
 declare module '*.css';
 
-/** Ships no types and has no @types package; used as a markdown-it plugin in config.mts. */
+/**
+ * Ships no types and has no @types package; used as a markdown-it plugin in config.mts.
+ * The parameter is `unknown` on purpose: VitePress bundles its own markdown-it types,
+ * which drift from @types/markdown-it, so referencing either one breaks `md.use()`.
+ */
 declare module 'markdown-it-task-lists' {
-	import type { PluginSimple } from 'markdown-it';
-	const taskLists: PluginSimple;
+	const taskLists: (md: unknown, options?: unknown) => void;
 	export default taskLists;
 }
