@@ -35,7 +35,7 @@ java -jar planetiler.jar shortbread --area=monaco \
 
 The default is **`none`**. The token registry is defined in [`Experiment.java`](https://github.com/versatiles-org/planetiler/blob/feature/shortbread-java-profile/planetiler-shortbread/src/main/java/com/onthegomap/planetiler/shortbread/Experiment.java) and is the source of truth.
 
-> **For map authors:** experiments are chosen by whoever builds the tiles ([versatiles-planetiler](../guides/generate_tiles_from_osm.md)), not by the map client. The published VersaTiles tiles ship a fixed set — check the generator configuration to see which. There is currently no per-tile metadata flag indicating which experiments were enabled (see [Future](#future)).
+> **For map authors:** experiments are chosen by whoever builds the tiles ([versatiles-planetiler](../guides/generate_tiles_from_osm.md)), not by the map client. The [published VersaTiles tiles](../basics/tilesets.md) ship **all** of them: the `versatiles-planetiler` image defaults to `EXPERIMENTS=all`, with `LANGUAGES=en,fr,es,de,ar,el,it,nl,pl,pt,uk`. There is currently no per-tile metadata flag indicating which experiments were enabled (see [Future](#future)), but the `vector_layers` in `tiles.json` give it away — `buildings` carrying `height` / `hide_3d`, `addresses` carrying `unit` / `block`, and `bridges` carrying `name` mean the corresponding experiments were on.
 
 ---
 
