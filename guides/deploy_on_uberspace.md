@@ -16,9 +16,8 @@ cargo install versatiles
 
 ### Download the full planet
 
-::: warning
-Uberspace has a [↗ user quota of 10GB by default](https://manual.uberspace.de/basics-resources/#storage). You have to [↗ upgrade your storage](https://manual.uberspace.de/billing-general/#storage) if you want to serve the full planet.
-:::
+> [!WARNING]
+> Uberspace has a [↗ user quota of 10GB by default](https://manual.uberspace.de/basics-resources/#storage). You have to [↗ upgrade your storage](https://manual.uberspace.de/billing-general/#storage) if you want to serve the full planet.
 
 ```sh
 wget -c https://download.versatiles.org/osm.versatiles
@@ -45,18 +44,16 @@ The frontend contains static files such as libraries, map styles, and fonts.
 wget https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz
 ```
 
-::: info
-There is no need to extract this file.
-:::
+> [!NOTE]
+> There is no need to extract this file.
 
 ## Run Server
 
 Use your favourite editor to create `~/etc/services.d/versatiles.ini`.
 Use any port between `1024` and `65535` you like. This example uses `41241`.
 
-::: warning
-Make sure to replace `<username>` with your actual username and check if the paths correspond to the files you downloaded
-:::
+> [!WARNING]
+> Make sure to replace `<username>` with your actual username and check if the paths correspond to the files you downloaded.
 
 ```ini
 [program:versatiles]
