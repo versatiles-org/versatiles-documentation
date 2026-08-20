@@ -1,60 +1,58 @@
 # How to run a VersaTiles server with nginx on Debian
 
 > [!TIP]
-> For most users, the **[Docker + nginx guide](deploy_using_docker.md)** is simpler and fully tested. Use this guide only if you need a manual, non-Docker setup.
+> For most users, the **[Docker + nginx guide](deploy_using_docker.md)** is simpler. Use this guide if you need a manual, non-Docker setup.
 
 Your server requires as an absolute minimum:
 
 - 2 CPU cores
 - 4 GB RAM
-- 60 GB free disk space
+- 80 GB free disk space — `osm.versatiles` alone is ~62 GB and keeps growing. A [regional extract](download_tiles.md#partial-download) needs far less.
 
 ## 0. Create a user "versatiles"
+
+The server does not need root privileges, so it gets its own unprivileged account:
 
 ```bash
 sudo adduser --disabled-password --gecos "" versatiles
 ```
 
-## 1. Update the server and install dependencies
+## 1. Install dependencies
 
 ```bash
 sudo apt update
-# build-essential, libsqlite3-dev, pkg-config, openssl, libssl-dev are needed
-# to compile VersaTiles from source via Cargo (libsqlite3-dev for MBTiles support).
-sudo apt -q install -y curl nginx build-essential libsqlite3-dev pkg-config openssl libssl-dev
+sudo apt -q install -y curl nginx
 ```
 
-## 2. Install Rust
+## 2. Install VersaTiles
+
+The install script downloads the current release and places the binary in `/usr/local/bin`:
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source "$HOME/.cargo/env"
+curl -Ls "https://github.com/versatiles-org/versatiles-rs/releases/latest/download/install-unix.sh" | sudo sh
 ```
 
-## 3. Install VersaTiles
+The Linux build is statically linked, so it needs no further packages. See [Installing VersaTiles](install_versatiles.md) for other installation methods.
+
+## 3. Download frontend and tiles
+
+Download both into the `versatiles` user's home directory, so the service can read them. `adduser` creates that home directory with mode `0700`, so run the whole block as the `versatiles` user rather than reaching into it from your own account:
 
 ```bash
-cargo install versatiles
-```
-
-## 4. Download frontend and tiles
-
-```bash
-cd ~
-mkdir versatiles
-cd versatiles
+sudo -u versatiles bash << 'EOF'
+mkdir -p ~/versatiles
+cd ~/versatiles
 curl -Lo frontend.br.tar.gz "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
 curl -Lo osm.versatiles "https://download.versatiles.org/osm.versatiles"
+EOF
 ```
 
----
+> [!NOTE]
+> The planet download is ~62 GB and will take a while. To resume an interrupted download, add `-C -` to the `curl` command.
 
-> [!WARNING]
-> The following steps (5-7) have not been fully tested. Please verify carefully and report any issues.
+## 4. Configure nginx
 
-## 5. Configure nginx
-
-Write the nginx configuration and reload:
+VersaTiles listens on port 8080 and speaks plain HTTP; nginx faces the public internet:
 
 ```bash
 sudo tee /etc/nginx/sites-available/default > /dev/null << 'EOF'
@@ -73,30 +71,47 @@ EOF
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-## 6. Prepare a VersaTiles service
+> [!TIP]
+> This serves plain HTTP only. For HTTPS, run [certbot](https://certbot.eff.org/) against this nginx installation, or use the [Docker + nginx image](deploy_using_docker.md), which handles certificates automatically.
+
+## 5. Create a VersaTiles service
 
 ```bash
-sudo cat > /etc/systemd/system/versatiles.service <<EOF
+sudo tee /etc/systemd/system/versatiles.service > /dev/null << 'EOF'
 [Unit]
 Description=VersaTiles server
-
-[Install]
-WantedBy=multi-user.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=versatiles serve "[osm]osm.versatiles" -s frontend.br.tar.gz -p 8080
+User=versatiles
+Group=versatiles
 WorkingDirectory=/home/versatiles/versatiles
+ExecStart=/usr/local/bin/versatiles serve -p 8080 -s frontend.br.tar.gz "[osm]osm.versatiles"
 Restart=always
 RestartSec=5
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=%n
+SyslogIdentifier=versatiles
+
+[Install]
+WantedBy=multi-user.target
 EOF
 ```
 
-## 7. Start service
+`ExecStart` must be an absolute path: systemd only searches `/usr/local/bin`, `/usr/local/sbin`, `/usr/bin` and `/usr/sbin`, and it does not use your shell's `PATH`.
+
+## 6. Start the service
 
 ```bash
-sudo systemctl start versatiles
+sudo systemctl daemon-reload
+sudo systemctl enable --now versatiles
+sudo systemctl status versatiles
 ```
+
+`enable --now` starts the service and also brings it up again after a reboot. Logs go to the journal:
+
+```bash
+sudo journalctl -u versatiles -f
+```
+
+Your map is now available on port 80 of the server.
