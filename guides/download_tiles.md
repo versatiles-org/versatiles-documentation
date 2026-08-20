@@ -50,7 +50,7 @@ To store VersaTiles data on Google Cloud Storage, follow these steps:
   - Monitor the transfer status [here](https://console.cloud.google.com/transfer/jobs).
   - Note: Transfer speed may be limited to around 10 MB/s for unspecified reasons.
   2.  **Manual Transfer**
-  - Use `wget` or `curl` to download the file and `gscloud` to upload it, if you have a high-speed internet connection.
+  - Use `wget` or `curl` to download the file and [`gcloud storage cp`](https://cloud.google.com/sdk/gcloud/reference/storage/cp) to upload it, if you have a high-speed internet connection.
   3.  **Google VM Transfer**
   - Alternatively, use a Google Compute Engine VM for both downloading and uploading.
 
