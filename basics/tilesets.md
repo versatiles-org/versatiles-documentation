@@ -207,20 +207,22 @@ There is one layer called `landcover-vectors` with a property `kind`:
 
 ![Example of Bathymetry](../assets/example-bathymetry.png)
 
-A set of vector tiles based on [Bathymetry Shapefiles from OpenDEM](https://www.opendem.info/download_bathymetry.html)
+A set of vector tiles based on [Bathymetry Shapefiles from OpenDEM](https://www.opendem.info/download_bathymetry.html).
 
-- [Download](https://download.versatiles.org/bathymetry-vectors.versatiles)
+- [Download](https://download.versatiles.org/bathymetry-vectors.versatiles) (0.7 GB, alpha)
 - [Repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)
 
 ### Style
 
-There is one layer called `bathymetry` with a property `mindepth` with values
+There is one layer called `bathymetry` with a numeric property `mindepth`. Its values are **negative metres below sea level** (`0` being the coastline contour), and the steps get finer with each zoom tier:
 
-| Zoom | Depths                                                                                                                                                  |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0-5  | 100, 500, 2000, 6000, 8000                                                                                                                              |
-| 6-9  | 50, 100, 200, 500, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000                                                                           |
-| 10   | 25, 50, 100, 200, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500 |
+| Zoom | `mindepth` values                                                                                                                                                                  |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0–5  | 0, -100, -500, -1000, -2000, -4000, -6000, -8000                                                                                                                                   |
+| 6–9  | 0, -50, -100, -500, -1000, -1500, -2000, -3000, -4000, -5000, -6000, -7000, -8000, -9000                                                                                           |
+| 10   | -25, -50, -100, -200, -250, -500, -750, -1000, -1250, -1500, -1750, -2000, -2500, -3000, -3500, -4000, -4500, -5000, -5500, -6000, -6500, -7000, -7500, -8000, -8500, -9000, -9500 |
+
+The deepest steps only occur where such depths actually exist, so most tiles carry a subset of these values.
 
 #### Example
 
@@ -233,12 +235,11 @@ There is one layer called `bathymetry` with a property `mindepth` with values
       "name": "OpenDEM GEBCO Bathymetry",
       "description": "Bathymetry Vectors based on GEBCO 2021 derived contour polys provided by OpenDEM",
       "attribution": "Derived product from the <a href=\"https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2021\">GEBCO 2021 Grid</a>, made with <a href=\"https://www.naturalearthdata.com/\">NaturalEarth</a> by <a href=\"https://opendem.info\">OpenDEM</a>",
-      "version": "1.0.0",
       "tiles": ["https://tiles.versatiles.org/tiles/bathymetry-vectors/{z}/{x}/{y}"],
       "type": "vector",
       "scheme": "xyz",
       "format": "pbf",
-      "bounds": [ -180, -85.0511287798066, 180, 85.0511287798066 ],
+      "bounds": [ -180, -81.2550323, 180, 85.0511288 ],
       "minzoom": 0,
       "maxzoom": 10,
       "vector_layers":[{ "id": "bathymetry", "fields": { "mindepth": "Number" }, "minzoom": 0 ,"maxzoom": 10 }]
@@ -290,7 +291,6 @@ There is one layer called `bathymetry` with a property `mindepth` with values
     }
   ]
 }
-
 ```
 
 ### Licence & Attribution
