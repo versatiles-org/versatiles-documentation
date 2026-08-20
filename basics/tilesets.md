@@ -52,9 +52,12 @@ There are [several ready-made Public Domain styles](https://github.com/versatile
 
 ![Example of Hillshade](../assets/example-hillshade.png)
 
-A set of general purpose vector tiles for simulating a shaded relief. Based on [Mapzen Jörð Terrain Tiles](https://github.com/tilezen/joerd), inspired by [Datawrapper](https://www.datawrapper.de/blog/shaded-relief-with-gdal-python)
+A set of general purpose vector tiles for simulating a shaded relief. Based on [Mapzen Jörð Terrain Tiles](https://github.com/tilezen/joerd), inspired by [Datawrapper](https://www.datawrapper.de/blog/shaded-relief-with-gdal-python).
 
-- [Download](https://download.versatiles.org/hillshade-vectors.versatiles)
+- [Download](https://download.versatiles.org/hillshade-vectors.versatiles) (105 GB, alpha)
+
+> [!TIP]
+> Hillshading as vector polygons is cheap to render and works in any MapLibre style, but the container is large and the result is coarse above zoom level 12. If you can afford a `raster-dem` source and the larger download, [Elevation](#elevation) gives you MapLibre's own hillshading _and_ 3D terrain from a single tileset, at any zoom level up to 12.
 
 ### Style
 
@@ -74,7 +77,6 @@ There is one layer called `hillshade-vectors` with a property `shade`:
       "name": "VersaTiles Hillshade Vectors",
       "description": "VersaTiles Hillshade Vectors based on Mapzen Jörð Terrain Tiles",
       "attribution": "<a href=\"https://github.com/tilezen/joerd/blob/master/docs/attribution.md\">Mapzen Terrain Tiles, DEM Sources</a>",
-      "version": "1.0.0",
       "tiles": ["https://tiles.versatiles.org/tiles/hillshade-vectors/{z}/{x}/{y}"],
       "type": "vector",
       "scheme": "xyz",
