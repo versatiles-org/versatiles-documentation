@@ -66,12 +66,12 @@ The `/assets/glyphs/index.json` file should contain a JSON array listing all ava
 [
   "fira_sans_bold",
   "fira_sans_bold_italic",
-  "fira_sans_cond_bold",
-  "fira_sans_cond_bold_italic",
-  "fira_sans_cond_italic",
-  "fira_sans_cond_regular",
-  "fira_sans_italic",
-  "fira_sans_regular"
+  "fira_sans_condensed_bold",
+  "fira_sans_condensed_bold_italic",
+  "fira_sans_condensed_regular",
+  "fira_sans_condensed_regular_italic",
+  "fira_sans_regular",
+  "fira_sans_regular_italic"
 ]
 ```
 
@@ -118,19 +118,29 @@ interface FontFace {
   {
     "name": "Fira Sans",
     "faces": [
-      { "id": "fira_sans_bold_italic", "style": "italic", "weight": 700, "width": "normal" },
-      { "id": "fira_sans_bold", "style": "normal", "weight": 700, "width": "normal" },
-      { "id": "fira_sans_italic", "style": "italic", "weight": 400, "width": "normal" },
       { "id": "fira_sans_regular", "style": "normal", "weight": 400, "width": "normal" },
+      { "id": "fira_sans_regular_italic", "style": "italic", "weight": 400, "width": "normal" },
+      { "id": "fira_sans_bold", "style": "normal", "weight": 700, "width": "normal" },
+      { "id": "fira_sans_bold_italic", "style": "italic", "weight": 700, "width": "normal" },
       {
-        "id": "fira_sans_cond_bold_italic",
+        "id": "fira_sans_condensed_regular",
+        "style": "normal",
+        "weight": 400,
+        "width": "condensed"
+      },
+      {
+        "id": "fira_sans_condensed_regular_italic",
+        "style": "italic",
+        "weight": 400,
+        "width": "condensed"
+      },
+      { "id": "fira_sans_condensed_bold", "style": "normal", "weight": 700, "width": "condensed" },
+      {
+        "id": "fira_sans_condensed_bold_italic",
         "style": "italic",
         "weight": 700,
         "width": "condensed"
-      },
-      { "id": "fira_sans_cond_bold", "style": "normal", "weight": 700, "width": "condensed" },
-      { "id": "fira_sans_cond_italic", "style": "italic", "weight": 400, "width": "condensed" },
-      { "id": "fira_sans_cond_regular", "style": "normal", "weight": 400, "width": "condensed" }
+      }
     ]
   }
 ]
@@ -139,14 +149,14 @@ interface FontFace {
 Based on this example, the following glyphs must be present:
 
 ```shell
-/assets/glyphs/fira_sans_bold_italic/{range}.pbf
 /assets/glyphs/fira_sans_bold/{range}.pbf
-/assets/glyphs/fira_sans_cond_bold_italic/{range}.pbf
-/assets/glyphs/fira_sans_cond_bold/{range}.pbf
-/assets/glyphs/fira_sans_cond_italic/{range}.pbf
-/assets/glyphs/fira_sans_cond_regular/{range}.pbf
-/assets/glyphs/fira_sans_italic/{range}.pbf
+/assets/glyphs/fira_sans_bold_italic/{range}.pbf
+/assets/glyphs/fira_sans_condensed_bold/{range}.pbf
+/assets/glyphs/fira_sans_condensed_bold_italic/{range}.pbf
+/assets/glyphs/fira_sans_condensed_regular/{range}.pbf
+/assets/glyphs/fira_sans_condensed_regular_italic/{range}.pbf
 /assets/glyphs/fira_sans_regular/{range}.pbf
+/assets/glyphs/fira_sans_regular_italic/{range}.pbf
 ```
 
 ### Folder: `/assets/sprites/`
@@ -173,7 +183,7 @@ This file should contain a JSON array listing all available `{sprite_id}`s. Thes
 **Example:**
 
 ```json
-["versatiles", "markers", "traffic_signs", "animals"]
+["basics", "markers"]
 ```
 
 ## Folder: `/tiles/`
@@ -199,5 +209,5 @@ This file contains an array of all available `{tileset_id}`. For each `{tileset_
 **Example:**
 
 ```json
-["osm", "elevation", "hillshade-raster", "hillshade-vector", "landcover-vector"]
+["bathymetry-vectors", "elevation", "hillshade-vectors", "osm", "satellite"]
 ```
