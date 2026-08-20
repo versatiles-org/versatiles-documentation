@@ -5,7 +5,7 @@ MapLibre also provides [MapLibre Native](https://maplibre.org) an open-source ma
 Since both MapLibre GL JS and MapLibre Native share the same [Style Specification](https://maplibre.org/maplibre-style-spec/), nothing special needs to be done to use VersaTiles with MapLibre Native. For example, on iOS a VersaTiles style URL can be passed to the initializer of [`MLNMapView`](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/mlnmapview).
 
 ```swift
-MLNMapView(frame: .zero, styleURL: URL(string: "https://tiles.versatiles.org/assets/styles/colorful/style.json")
+MLNMapView(frame: .zero, styleURL: URL(string: "https://tiles.versatiles.org/assets/styles/colorful/style.json"))
 ```
 
 While on Android you would call the `setStyle` method on a `MapView` to set the style:
