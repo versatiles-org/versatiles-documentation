@@ -304,12 +304,12 @@ There is one layer called `bathymetry` with a property `mindepth` with values
 
 Global elevation data encoded as raster tiles in [Terrarium format](https://github.com/tilezen/joerd/blob/master/docs/formats.md#terrarium). The underlying DEM data is sourced from [mapterhorn.com](https://mapterhorn.com). To reduce file size by roughly 40 %, the elevation values are quantised before encoding — the resulting precision loss is visually unnoticeable for hillshading and 3D terrain.
 
-- [Download](https://download.versatiles.org/elevation.versatiles)
+- [Download](https://download.versatiles.org/elevation.versatiles) (407 GB, beta)
 - [Repository](https://github.com/versatiles-org/elevation)
 
 ### Format
 
-Each pixel encodes the elevation in metres as:
+512 × 512 pixel WebP tiles, zoom levels 0 to 12. Each pixel encodes the elevation in metres as:
 
 ```
 elevation (m) = (red × 256 + green + blue / 256) − 32768
@@ -327,7 +327,10 @@ Use it as a `raster-dem` source in MapLibre for hillshading or 3D terrain:
       "type": "raster-dem",
       "tiles": ["https://tiles.versatiles.org/tiles/elevation/{z}/{x}/{y}"],
       "tileSize": 512,
-      "encoding": "terrarium"
+      "minzoom": 0,
+      "maxzoom": 12,
+      "encoding": "terrarium",
+      "attribution": "<a href=\"https://mapterhorn.com/attribution\">© Mapterhorn</a>"
     }
   },
   "terrain": { "source": "versatiles-elevation", "exaggeration": 1.5 },
@@ -344,14 +347,18 @@ Use it as a `raster-dem` source in MapLibre for hillshading or 3D terrain:
 
 ### Licence & Attribution
 
-See the [repository](https://github.com/versatiles-org/elevation) for the full list of data sources and their attribution requirements.
+- Attribution: [© Mapterhorn](https://mapterhorn.com/attribution)
+- See the [repository](https://github.com/versatiles-org/elevation) for the full list of data sources and their attribution requirements.
 
 ## Satellite
 
-Global satellite imagery composited from open data sources, available as raster tiles.
+Satellite and orthophoto imagery from open data sources, available as 512 × 512 pixel WebP raster tiles.
 
-- [Download](https://download.versatiles.org/satellite.versatiles)
+- [Download](https://download.versatiles.org/satellite.versatiles) (1.6 TB, alpha)
 - [Repository](https://github.com/versatiles-org/orthophotos)
+
+> [!NOTE]
+> Coverage is not uniform. Satellite imagery covers the whole planet up to about zoom level 12. Beyond that, the tileset is built from high-resolution orthophotos published by European national mapping agencies, so deep zoom levels are only available for a growing set of European countries, and the maximum zoom differs per region. Outside those regions, tiles above zoom 12 do not exist.
 
 ### Style
 
@@ -362,7 +369,10 @@ Global satellite imagery composited from open data sources, available as raster 
     "versatiles-satellite": {
       "type": "raster",
       "tiles": ["https://tiles.versatiles.org/tiles/satellite/{z}/{x}/{y}"],
-      "tileSize": 256
+      "tileSize": 512,
+      "minzoom": 0,
+      "maxzoom": 12,
+      "attribution": "<a href=\"https://versatiles.org/sources/\">VersaTiles sources</a>"
     }
   },
   "layers": [
@@ -374,6 +384,8 @@ Global satellite imagery composited from open data sources, available as raster 
   ]
 }
 ```
+
+To make MapLibre zoom past the source's `maxzoom` by upscaling the last available tile, raise the layer's `maxzoom` above the source's — useful for the regions with deeper orthophoto coverage.
 
 ### Licence & Attribution
 
