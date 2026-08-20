@@ -34,6 +34,9 @@ docker run -it --rm \
 
 The `--checksum` flag writes `.md5` and `.sha256` sidecar files next to the output.
 
+> [!TIP]
+> Run the image with `-it` and **no arguments** to get an interactive wizard instead. It asks for the area, land cover, container format and output name, then runs the same pipeline.
+
 **Common `--area` values:**
 
 | Region  | `--area` value |
@@ -52,38 +55,48 @@ Once complete, the result is in `result/result/`:
 ```
 result/
 └── result/
-    ├── osm.planet.2026-06-22.versatiles
-    ├── osm.planet.2026-06-22.versatiles.md5
-    └── osm.planet.2026-06-22.versatiles.sha256
+    ├── osm.2026-06-22.versatiles
+    ├── osm.2026-06-22.versatiles.md5
+    └── osm.2026-06-22.versatiles.sha256
 ```
 
-The filename is auto-generated as `osm[.<area>].<date>.versatiles`.
+The filename is auto-generated as `osm[-landcover].<date>` for the planet, and `osm[-landcover].<region>.<date>` for a sub-region — so a Berlin build with land cover becomes `osm-landcover.berlin.2026-06-22.versatiles`.
 
 ## Optional flags
 
-**Add land cover data** - merges natural land cover into the tile layers:
+Every option has an environment-variable equivalent, so the image can also be driven from a `docker-compose.yml`. Flags take precedence over the environment.
 
-```bash
-  --landcover
+| Flag                  | Environment     | Default               | Description                                                                     |
+| --------------------- | --------------- | --------------------- | ------------------------------------------------------------------------------- |
+| `--landcover`         | `LANDCOVER=1`   | off                   | Merge low-zoom land cover into the Shortbread layers                            |
+| `--format <fmt>`      | `FORMAT`        | `versatiles`          | `versatiles` (brotli), `pmtiles` or `mbtiles`                                   |
+| `--name <basename>`   | `OUTPUT_NAME`   | see above             | Output filename, without the extension                                          |
+| `--xmx <size>`        | `XMX`           | from container memory | JVM heap for Planetiler, e.g. `20g`                                             |
+| `--torrent`           | `TORRENT=1`     | off                   | For `--area planet`: fetch the `.osm.pbf` via BitTorrent instead of HTTP        |
+| `--no-renumber`       | `RENUMBER=0`    | renumber is on        | Skip `osmium renumber` (dense IDs build faster and give slightly smaller tiles) |
+| `--checksum`          | `CHECKSUM=1`    | off                   | Write `<output>.md5` and `<output>.sha256`                                      |
+| `-i`, `--interactive` | `INTERACTIVE=1` | –                     | Force the interactive wizard                                                    |
+
+The same build as a Compose service:
+
+```yaml
+services:
+  planetiler:
+    image: versatiles/versatiles-planetiler:latest
+    environment:
+      AREA: planet
+      LANDCOVER: '1'
+      FORMAT: versatiles
+      XMX: 20g
+    volumes:
+      - ./result:/app/data
 ```
 
-**Choose output format** (default: `versatiles`):
+### Schema extensions and languages
 
-```bash
-  --format pmtiles   # or: versatiles, mbtiles
-```
+The image enables **all** [Shortbread schema extensions](../compendium/specification_shortbread_extensions.md) by default (`EXPERIMENTS=all`) — 3D building heights, building parts, localized names, island labels, address details and bridge names. Set `EXPERIMENTS=none` for strictly spec-conformant output, or a comma-separated list to pick individual ones.
 
-**Set a custom output name:**
-
-```bash
-  --name "my-tiles"
-```
-
-**Limit JVM heap size** (useful when RAM is constrained):
-
-```bash
-  --xmx 20g
-```
+Localized names default to `LANGUAGES=en,fr,es,de,ar,el,it,nl,pl,pt,uk`.
 
 ## Next steps
 
