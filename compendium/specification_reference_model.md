@@ -129,7 +129,7 @@ The frontend is the graphical interface that presents the map tiles to the user.
 
 ### Frontend Bundles
 
-The [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) package provides pre-built, pre-compressed asset bundles containing MapLibre GL JS, map styles, fonts, and sprites — ready to be served directly from the map server. Four size variants are available, from a minimal build to a full developer version with Brotli/gzip pre-compression.
+The [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend) package provides pre-built, pre-compressed asset bundles containing MapLibre GL JS, map styles, fonts, and sprites — ready to be served directly from the map server. Five size variants are available, from a ~1 MB minimal build to a full developer version; each is published both with the bundled files pre-compressed with Brotli (`*.br.tar.gz`) and without (`*.tar.gz`).
 
 ### Map Styles
 
