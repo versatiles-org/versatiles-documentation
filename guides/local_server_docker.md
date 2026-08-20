@@ -52,10 +52,11 @@ wget -c "https://download.versatiles.org/osm.versatiles"
 docker run --rm -it \
   -p 8080:8080 \
   --mount type=bind,src="$(pwd)",dst=/tiles,readonly \
-  versatiles/versatiles-frontend:latest-alpine \
-  -s frontend-dev.br.tar \
+  versatiles/versatiles-frontend:alpine \
   '/tiles/osm.versatiles'
 ```
+
+The image's entrypoint already runs `versatiles serve --static /app/frontend-dev.br.tar`, so only the tile source has to be passed. Variants are tagged `alpine`, `debian` and `scratch` (`latest` points at `alpine`); the older `latest-alpine` style names still work but are deprecated aliases.
 
 Then browse to <http://localhost:8080/>.
 

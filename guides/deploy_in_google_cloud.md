@@ -15,18 +15,21 @@ See also the [How to transfer the VersaTiles planet to Google Cloud Storage](../
 
 ```Dockerfile
 # Use the latest docker image of VersaTiles including the frontend.
-FROM versatiles/versatiles-frontend:latest-alpine
+FROM versatiles/versatiles-frontend:alpine
 
 EXPOSE 8080
 
 # Google Cloud Run injects $PORT at runtime. A shell wrapper is required so
 # the variable is expanded before the server starts.
+#   --static serves the frontend that is baked into the image. Overriding
+#      ENTRYPOINT discards the image's own default arguments, so it has to
+#      be repeated here - without it the map tiles work but the map does not.
 #   "[osm]https://..." is the URL of the VersaTiles container in your bucket.
 #      - make sure the file is publicly accessible
 #      - "[osm]" sets the name of the tile source (change to taste)
 #      - append more entries to serve multiple tile sources
 ENTRYPOINT []
-CMD ["sh", "-c", "exec versatiles serve -p \"${PORT:-8080}\" '[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles'"]
+CMD ["sh", "-c", "exec versatiles serve -p \"${PORT:-8080}\" --static /app/frontend-dev.br.tar '[osm]https://storage.googleapis.com/bucket_name/folder_name/planet_???.versatiles'"]
 ```
 
 - Don't forget to update the last line of `Dockerfile` to point to your Google Bucket
