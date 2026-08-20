@@ -29,10 +29,14 @@ Beyond the plain download links below, the download server also offers:
 
 ![Example of OSM Shortbread](../assets/example-osm-shortbread.png)
 
-A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread schema](https://shortbread-tiles.org/schema/1.0/).
+A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread schema](https://shortbread-tiles.org/schema/1.1/), covering the whole planet from zoom level 0 to 14.
 
-- [Download](https://download.versatiles.org/osm.versatiles)
+- [Download `osm.versatiles`](https://download.versatiles.org/osm.versatiles) (62 GB) — plain OSM Shortbread
+- [Download `osm-landcover.versatiles`](https://download.versatiles.org/osm-landcover.versatiles) (64 GB, beta) — the same tiles pre-merged with [Landcover](#landcover), ready to use without further processing
 - [How to generate tiles](../guides/generate_tiles_from_osm.md)
+
+> [!IMPORTANT]
+> The hosted tileset at `https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}` is the **merged** variant: it contains OpenStreetMap **and** landcover data. If you use it, you must also attribute ESA WorldCover — see [Landcover](#landcover) below.
 
 ### Style
 
@@ -42,6 +46,7 @@ There are [several ready-made Public Domain styles](https://github.com/versatile
 
 - OpenStreetMap data is licensed under [Open Database License 1.0](https://opendatacommons.org/licenses/odbl/) and requires attribution to [OpenStreetMap contributors](https://www.openstreetmap.org/copyright)
 - The Shortbread schema [is licensed](https://shortbread-tiles.org/copyright/) under [CC-0](https://shortbread-tiles.org/copyright/CC0-1.0-LICENSE.txt) and does not require additional attribution.
+- If you use the merged variant (including the hosted `osm` tileset), add the [Landcover attribution](#landcover) as well.
 
 ## Hillshade
 
