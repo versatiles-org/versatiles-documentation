@@ -2,13 +2,28 @@
 
 ## Direct download
 
-You can download tiles for the whole planet from the official site [download.versatiles.org](https://download.versatiles.org/).
+All tilesets are published at [download.versatiles.org](https://download.versatiles.org/). Every entry there has a **Download** button that builds the command for you: pick the whole planet or a bounding box, the container format (`.versatiles`, `.pmtiles`, `.mbtiles` or `.tar`), a zoom range, and whether to run the `versatiles` binary or Docker. Copy the generated command and run it.
 
-To make downloading easier, you can use `wget`. The `-c` flag can be added to resume an interrupted download:
+The sections below explain the same commands, for when you would rather write them yourself.
+
+To download a whole file directly, use `wget`. The `-c` flag resumes an interrupted download:
 
 ```bash
 wget -c "https://download.versatiles.org/osm.versatiles"
 ```
+
+Each file has `.md5` and `.sha256` companions to verify the download:
+
+```bash
+curl -O "https://download.versatiles.org/osm.versatiles.md5"
+md5sum -c osm.versatiles.md5
+```
+
+### Older versions and update notifications
+
+`osm.versatiles` always points at the newest build. Previous builds stay available under a dated name — `osm.20260608.versatiles` and so on — listed behind **Show all versions**. Pin one of those if you need a reproducible dataset.
+
+Each tileset also publishes an RSS feed (for example [`feed-osm.xml`](https://download.versatiles.org/feed-osm.xml)) announcing new builds, and a `urllist_<tileset>.tsv` for scripted or bulk transfers.
 
 ## Partial download
 
