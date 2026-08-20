@@ -58,7 +58,7 @@ We provide a range of pre-built tilesets ready for use:
 
 ### Generating Tiles
 
-If pre-built tiles don't meet your needs, you can generate custom tiles for a specific region, date, or configuration. We are currently transitioning from [Tilemaker](https://tilemaker.org/) to [Planetiler](https://github.com/onthegomap/planetiler) for OSM vector tile generation; see the guide: [How to generate tiles from OSM](../guides/generate_tiles_from_osm.md).
+If pre-built tiles don't meet your needs, you can generate custom tiles for a specific region, date, or configuration. OSM vector tiles are generated with [Planetiler](https://github.com/onthegomap/planetiler), using our [Shortbread profile](https://github.com/versatiles-org/planetiler); see the guide: [How to generate tiles from OSM](../guides/generate_tiles_from_osm.md). Planetiler already produces the published tilesets, replacing the earlier [Tilemaker](https://tilemaker.org/)-based generator, but the profile is still **beta** — output details may still change.
 
 ### Container Format
 
@@ -112,7 +112,7 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - [x] Migrate to a cheaper cloud provider (like Hetzner)
 - [x] Reduce the size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
 - [x] Improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
-- [ ] Complete migration from Tilemaker to Planetiler for OSM vector tile generation ([guide](../guides/generate_tiles_from_osm.md))
+- [ ] Migrate from Tilemaker to Planetiler for OSM vector tile generation ([guide](../guides/generate_tiles_from_osm.md)) — Planetiler generates the published tiles already, but the Shortbread profile is still in beta
 - [x] Generate elevation tiles ([repository](https://github.com/versatiles-org/elevation)) — the published tileset is derived from Mapterhorn; Copernicus DEM GLO-30 / GLO-90 is also supported
 - [x] Generate land cover tiles from ESA WorldCover ([repository](https://github.com/versatiles-org/landcover-vectors))
 - [x] Generate bathymetry depth-contour tiles from GEBCO data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry))

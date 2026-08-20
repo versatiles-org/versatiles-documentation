@@ -5,6 +5,9 @@
 
 This guide explains how to generate [Shortbread](https://shortbread-tiles.org) vector tiles from OpenStreetMap data using the [`versatiles-planetiler`](https://github.com/versatiles-org/versatiles-docker/tree/main/versatiles-planetiler) Docker image. The image bundles [Planetiler](https://github.com/onthegomap/planetiler), the Shortbread profile, and [VersaTiles](https://github.com/versatiles-org/versatiles-rs) for packaging the result.
 
+> [!NOTE]
+> Our Planetiler-based Shortbread profile is still **beta**. It generates the published tilesets, but output details may still change between builds.
+
 ## Requirements
 
 - [Docker](https://docs.docker.com/engine/install/)
