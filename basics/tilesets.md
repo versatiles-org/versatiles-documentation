@@ -140,7 +140,15 @@ It is not served standalone on `tiles.versatiles.org`; the hosted [`osm`](#osm-s
 > [!IMPORTANT]
 > This tileset does **not** define a layer of its own. It writes into Shortbread's **existing** `land` and `water_polygons` layers, using Shortbread's **existing** `kind` values (`forest`, `farmland`, `residential`, `bare_rock`, `heath`, `scrub`, `grassland`, `marsh`, `swamp`, `glacier`, `water`) — only _below_ the zoom level where OSM introduces each kind, so the two never overlap.
 
-Because it adds no new layers or attributes, no new style rules are needed for the data to validate and render as ordinary Shortbread. But most Shortbread styles only draw these kinds from their OSM minimum zoom upwards, so to actually _see_ the low-zoom cover, the style has to draw `land` / `water_polygons` at the lower zoom levels too (see [versatiles-style #115](https://github.com/versatiles-org/versatiles-style/issues/115)).
+Because it adds no new layers or attributes, no new style rules are needed for the data to validate and render as ordinary Shortbread. But the stock styles fade these kinds in at the zoom level where OSM introduces them, so the low-zoom cover stays invisible until you ask for it. Since [@versatiles/style v5.13.0](https://github.com/versatiles-org/versatiles-style/releases/tag/v5.13.0), one option does that:
+
+```js
+import { colorful } from '@versatiles/style';
+
+const style = colorful({ experimental: { landcover: true } });
+```
+
+This drops the zoom-based `fill-opacity` fade-in from every layer that renders a land cover kind, so `land` and `water_polygons` are drawn from zoom level 0. It affects `colorful` and its variants (`graybeard`, `eclipse`, `shadow`) as well as `neutrino`. Only enable it on a tileset that actually has the land cover merged in — on plain OSM tiles the affected layers would pop in abruptly instead of fading.
 
 The full ESA WorldCover → Shortbread mapping, the per-kind zoom cutoffs and the reasoning behind the lossy generalizations are documented in [Shortbread Low-Zoom Land Cover](../compendium/specification_shortbread_landcover.md).
 
