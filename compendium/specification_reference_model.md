@@ -52,8 +52,8 @@ We provide a range of pre-built tilesets ready for use:
 
 - **OSM vector tiles** (`osm.versatiles`): OpenStreetMap data in the [Shortbread schema](https://shortbread-tiles.org/), generated with [Planetiler](https://github.com/onthegomap/planetiler). An extended variant (`osm-landcover.versatiles`) merges in low-zoom land cover from ESA WorldCover satellite data — see [Shortbread Low-Zoom Land Cover](specification_shortbread_landcover.md). Optional schema extensions for features such as 3D buildings and localised labels are documented in [Shortbread Schema Extensions](specification_shortbread_extensions.md).
 - **Land cover** (`landcover-vectors.versatiles`): Global land classification vector tiles at low zoom levels, derived from ESA WorldCover satellite data ([repository](https://github.com/versatiles-org/landcover-vectors)).
-- **Elevation** (`elevation.versatiles`): Terrarium-encoded raster elevation tiles built from Copernicus DEM GLO-30 and GLO-90 sources ([repository](https://github.com/versatiles-org/elevation)).
-- **Bathymetry** (`bathymetry.versatiles`): Vector depth-contour tiles derived from GEBCO bathymetry data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)).
+- **Elevation** (`elevation.versatiles`): Terrarium-encoded raster elevation tiles (WebP, zoom levels 0–12) built from [Mapterhorn](https://mapterhorn.com) DEM data ([repository](https://github.com/versatiles-org/elevation)). The same tooling can also build a container from Copernicus DEM GLO-30 / GLO-90.
+- **Bathymetry** (`bathymetry-vectors.versatiles`): Vector depth-contour tiles derived from GEBCO bathymetry data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)).
 - **Aerial imagery / Orthophotos**: Raster tiles from European national mapping agencies ([repository](https://github.com/versatiles-org/orthophotos)).
 
 ### Generating Tiles
@@ -113,7 +113,7 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - [x] Reduce the size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
 - [x] Improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
 - [ ] Complete migration from Tilemaker to Planetiler for OSM vector tile generation ([guide](../guides/generate_tiles_from_osm.md))
-- [x] Generate elevation tiles from Copernicus DEM ([repository](https://github.com/versatiles-org/elevation))
+- [x] Generate elevation tiles ([repository](https://github.com/versatiles-org/elevation)) — the published tileset is derived from Mapterhorn; Copernicus DEM GLO-30 / GLO-90 is also supported
 - [x] Generate land cover tiles from ESA WorldCover ([repository](https://github.com/versatiles-org/landcover-vectors))
 - [x] Generate bathymetry depth-contour tiles from GEBCO data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry))
 - [x] Generate aerial imagery / orthophotos from European national agencies ([repository](https://github.com/versatiles-org/orthophotos))
