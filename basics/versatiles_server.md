@@ -35,9 +35,9 @@ versatiles serve planet.versatiles satellite_imagery.mbtiles my_overlay.tar
 When the server is started, all sources and their URL are listed:
 
 ```
-   /tiles/planet/*                 <-  /tiles/planet.versatiles
-   /tiles/satellite_imagery/*      <-  /tiles/satellite_imagery.mbtiles
-   /tiles/my_overlay/*             <-  /tiles/my_overlay.tar
+info: add tile source: /tiles/planet/* <- container 'versatiles' ('/data/planet.versatiles')
+info: add tile source: /tiles/satellite_imagery/* <- container 'mbtiles' ('/data/satellite_imagery.mbtiles')
+info: add tile source: /tiles/my_overlay/* <- container 'tar' ('/data/my_overlay.tar')
 ```
 
 Each source gets an URL based on the file name (without extension). If you want to use a different URL, you can use this special notation with square brackets:
@@ -49,10 +49,12 @@ versatiles serve "[osm]planet.versatiles" "[satellite]satellite_imagery.mbtiles"
 Now the URLs look like this:
 
 ```
-   /tiles/osm/*                    <-  /tiles/planet.versatiles
-   /tiles/satellite/*              <-  /tiles/satellite_imagery.mbtiles
-   /tiles/heatmap/*                <-  /tiles/my_overlay.tar
+info: add tile source: /tiles/osm/* <- container 'versatiles' ('/data/planet.versatiles')
+info: add tile source: /tiles/satellite/* <- container 'mbtiles' ('/data/satellite_imagery.mbtiles')
+info: add tile source: /tiles/heatmap/* <- container 'tar' ('/data/my_overlay.tar')
 ```
+
+The name can also be appended instead of prefixed — `"planet.versatiles[osm]"` is equivalent to `"[osm]planet.versatiles"`. Run `versatiles help source` for the full data-source syntax.
 
 ## Optional frontend
 
