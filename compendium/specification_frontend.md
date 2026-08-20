@@ -80,6 +80,20 @@ The `/assets/glyphs/index.json` file should contain a JSON array listing all ava
 The `/assets/glyphs/font_families.json` file should contain a JSON array that defines all the font families along with their respective faces. This allows map design tools to know which faces are available for each font family.
 The `id` of each `FontFace` object must match the corresponding `{font_id}` in `/assets/glyphs/`.
 
+The optional `codeblocks` property records which characters a face actually contains, so a client can pick a face that covers a script without downloading any glyphs first. It is a comma-separated list of **16-codepoint blocks**, written in uppercase hexadecimal, where a block number is the codepoint shifted right by four bits:
+
+| Block | Codepoints      |
+| ----- | --------------- |
+| `0`   | U+0000 – U+000F |
+| `4`   | U+0040 – U+004F |
+| `20A` | U+20A0 – U+20AF |
+
+Consecutive blocks are merged into ranges, so `0-1,4,A` means U+0000–U+001F, U+0040–U+004F and U+00A0–U+00AF. A face with no glyphs has an empty string.
+
+Note that the numbers are block indices, not codepoints. To test whether a face covers a character, shift its codepoint right by four and look for that value.
+
+This lets a frontend decide **whether a font family can render a given language** before it requests a single glyph.
+
 > [!NOTE]
 > The structure of `font_families.json` is based on the concepts of [Font Families and Faces in CSS 4](https://www.w3.org/TR/css-fonts-4/#font-families).
 > The `style`, `weight` and `width` properties and their values are based on the CSS 4 [`font-style`](https://www.w3.org/TR/css-fonts-4/#font-style-prop), [`font-weight`](https://www.w3.org/TR/css-fonts-4/#font-weight-numeric-values) and [`font-width`](https://www.w3.org/TR/css-fonts-4/#font-width-prop) properties.
@@ -108,10 +122,11 @@ interface FontFace {
     | 'expanded'
     | 'extra-expanded'
     | 'ultra-expanded';
+  codeblocks?: string;
 }
 ```
 
-**Example:**
+**Example** (`codeblocks` omitted for brevity):
 
 ```json
 [
