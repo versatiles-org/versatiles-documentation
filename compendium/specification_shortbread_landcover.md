@@ -86,7 +86,15 @@ versatiles convert '[,vpl](from_merged_vector [ from_container filename="https:/
 
 ### 2. Render at low zoom
 
-Most Shortbread styles only style these kinds from their OSM minimum zoom. To _see_ the low-zoom cover, the style must draw `land` / `water_polygons` at the lower zooms too ([versatiles-style #115](https://github.com/versatiles-org/versatiles-style/issues/115)).
+Most Shortbread styles fade these kinds in at the zoom level where the OSM data starts, so the low-zoom cover stays invisible until the style is told to draw it. [@versatiles/style](https://github.com/versatiles-org/versatiles-style) has done this since v5.13.0 via an opt-in flag:
+
+```js
+import { colorful } from '@versatiles/style';
+
+const style = colorful({ experimental: { landcover: true } });
+```
+
+It removes the zoom-based `fill-opacity` fade-in from every layer rendering one of the kinds above, so they are drawn from z0. Supported by `colorful` (and its `graybeard` / `eclipse` / `shadow` variants) and `neutrino`. Enable it only against a merged tileset — on plain OSM tiles those layers would appear abruptly rather than fading in.
 
 Because it is purely additive, omitting the merge (or the style rules) changes nothing.
 
@@ -108,6 +116,6 @@ When merged with OpenStreetMap data (ODbL), **both** attributions must be shown.
 - Related: [Shortbread schema extensions](specification_shortbread_extensions.md) (attribute extensions in the OSM tileset)
 - Source data: [ESA WorldCover](https://esa-worldcover.org/) · [data access & legend](https://esa-worldcover.org/en/data-access)
 - Shortbread schema: [shortbread-tiles.org](https://shortbread-tiles.org/) · scope decision [shortbread-docs #144](https://github.com/shortbread-tiles/shortbread-docs/issues/144)
-- Rendering: [versatiles-style #115](https://github.com/versatiles-org/versatiles-style/issues/115)
+- Rendering: [versatiles-style #114](https://github.com/versatiles-org/versatiles-style/issues/114) · [#115](https://github.com/versatiles-org/versatiles-style/issues/115) (both implemented in [v5.13.0](https://github.com/versatiles-org/versatiles-style/releases/tag/v5.13.0))
 - Data-source listing: [versatiles.org/sources](https://versatiles.org/sources/)
 - Coverage figure: [FAO Forest Resources Assessment 2020](https://www.fao.org/interactive/forest-resources-assessment/2020/en/)
