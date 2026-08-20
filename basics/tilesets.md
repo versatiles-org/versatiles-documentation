@@ -1,5 +1,30 @@
 # Tilesets
 
+We prepare and publish a number of ready-to-use tilesets. There are two ways to use them:
+
+- **Download** the [`.versatiles` container](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md) from [download.versatiles.org](https://download.versatiles.org/) and [serve it yourself](versatiles_server.md).
+- **Use our hosted tiles** at `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` for prototyping and small projects. See [Use tiles.versatiles.org](../guides/use_tiles_versatiles_org.md).
+
+| Tileset                                         | Type   | Zoom                           | Download | Maturity | Hosted as            |
+| ----------------------------------------------- | ------ | ------------------------------ | -------- | -------- | -------------------- |
+| [OSM Shortbread](#osm-shortbread-vector-tiles)  | vector | 0–14                           | 62 GB    | stable   | –                    |
+| [OSM + Landcover](#osm-shortbread-vector-tiles) | vector | 0–14                           | 64 GB    | beta     | `osm`                |
+| [Hillshade](#hillshade)                         | vector | 0–12                           | 105 GB   | alpha    | `hillshade-vectors`  |
+| [Landcover](#landcover)                         | vector | 0–10                           | 1.9 GB   | beta     | –                    |
+| [Bathymetry](#bathymetry)                       | vector | 0–10                           | 0.7 GB   | alpha    | `bathymetry-vectors` |
+| [Elevation](#elevation)                         | raster | 0–12                           | 407 GB   | beta     | `elevation`          |
+| [Satellite](#satellite)                         | raster | 0–12 globally, more regionally | 1.6 TB   | alpha    | `satellite`          |
+
+The hosted `osm` tileset is the merged OSM + Landcover variant. File sizes are approximate and grow over time — [download.versatiles.org](https://download.versatiles.org/) is the authoritative source.
+
+## Getting the containers
+
+Beyond the plain download links below, the download server also offers:
+
+- **Dated snapshots** of the OSM tilesets (e.g. `osm.20260608.versatiles`) next to the always-current `osm.versatiles`, plus an RSS feed per tileset so you can watch for new builds.
+- **Format conversion and bounding-box extracts** on the fly: pick `.versatiles`, `.pmtiles`, `.mbtiles` or `.tar` and an area, and the site generates the matching `versatiles convert` or `curl` command for you. A regional extract is usually a few hundred megabytes instead of tens of gigabytes.
+- A **URL list** (`urllist_<tileset>.tsv`) per tileset for scripted downloads.
+
 ## OSM Shortbread Vector Tiles
 
 ![Example of OSM Shortbread](../assets/example-osm-shortbread.png)
