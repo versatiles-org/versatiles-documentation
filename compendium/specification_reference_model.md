@@ -188,48 +188,14 @@ The server provides map tiles and static files via HTTP. These static files can 
     - `/tiles/{name}/tiles.json`: A valid [TileJSON 3.0.0](https://github.com/mapbox/tilejson-spec/tree/master/3.0.0) — see also [VersaTiles Extended TileJSON](specification_extended_tilejson.md) for the recommended superset.
   - `/assets/`: Houses additional resources such as styles, fonts, sprites and MapLibre GL JS files.
   - See [VersaTiles Frontend Specifications](specification_frontend.md) for more information.
-- SHOULD be configured via `config.yaml` for a customised server setup, including domain setup, IP/port listening preferences, operation modes (development vs. production), tile source specification and static content management:
+- SHOULD be configurable through a configuration file, so that a deployment can be reproduced without a long command line. The file SHOULD cover at least:
+  - the address and port to bind to,
+  - tile sources, each with a name and a location (local container, remote URL, or processing pipeline),
+  - static content roots, each with a URL prefix,
+  - the CORS policy,
+  - extra HTTP response headers, e.g. `Cache-Control` for a CDN in front of the server.
 
-```yaml
-server:
-  host: '127.0.0.1' # Listen on localhost only. Default: 0.0.0.0
-  port: 3000 # Port number for the server. Default: 8080
-  domain: 'https://example.org' # Publicly accessible URL of the server
-
-# Performance settings: Use minimal recompression for development
-fast: true # Set to false in production for full compression. Default: false
-
-# Configuration for tile sources
-tile_sources:
-  - name: 'osm'
-    source: './osm.versatiles' # Local source for OpenStreetMap tiles
-  - name: 'landsat'
-    source: 'https://example.org/my-own-landsat-data.versatiles' # Remote source
-
-# Optional configuration for serving static content
-static_content:
-  - source: './styles'
-    prefix: 'assets/styles' # URL path prefix for styles; default prefix is "/"
-  - source: './frontend.tar'
-
-cors:
-  # Default policy to allow or block CORS requests if they don't match any specific rules
-  default_policy: 'block' # Options: 'allow', 'block'
-
-  # List of URL patterns to explicitly allow for CORS requests
-  allow_patterns:
-    - '^https?://trusteddomain\.com'
-    - '^https?://.*\.example\.com'
-
-  # List of URL patterns to explicitly block for CORS requests
-  block_patterns:
-    - '^https?://untrusteddomain\.com'
-    - '^https?://.*\.malicious\.com'
-
-logging:
-  level: 'info' # Options: 'debug', 'info', 'warning', 'error'
-  path: '/var/log/myserver.log' # File path for log output
-```
+The reference implementation reads a YAML file via `versatiles serve --config`. See [VersaTiles Server → Configuration file](../basics/versatiles_server.md#configuration-file) for a worked example, and `versatiles help config` for the full annotated schema.
 
 ### Rust Implementation
 

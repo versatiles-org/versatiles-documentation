@@ -77,13 +77,39 @@ By default versatiles uses 0.0.0.0:8080. If you want to change IP/Port use the o
 
 ## Configuration file
 
-For more complex setups — multiple tile sources, CORS rules, custom domain, logging — the server can be configured via a `config.yaml` file:
+For more complex setups — several tile sources, CORS rules, static content, custom response headers — the server can be configured with a YAML file instead of a long command line:
 
 ```bash
 versatiles serve --config config.yaml
 ```
 
-See the [reference model](../compendium/specification_reference_model.md#server) for the full `config.yaml` schema.
+A small but complete example:
+
+```yaml
+server:
+  ip: 0.0.0.0 # default: 0.0.0.0
+  port: 8080 # default: 8080
+
+tiles:
+  - name: osm # served at /tiles/osm/...
+    src: osm.versatiles
+  - name: satellite
+    src: https://example.org/satellite.versatiles # remote container
+
+static:
+  - src: ./frontend.br.tar.gz # tar archive or directory
+    prefix: / # default: /
+
+cors:
+  allowed_origins: ['*.example.org'] # default: ["*"]
+
+extra_response_headers:
+  Cache-Control: public, max-age=86400, immutable
+```
+
+Every section and field is optional; omitted fields fall back to their defaults. A tile source can also point to a `.vpl` pipeline file — see `versatiles help pipeline`.
+
+Command line arguments override values from the configuration file. For the full annotated schema, run `versatiles help config` or read [`CONFIG.md`](https://github.com/versatiles-org/versatiles-rs/blob/main/versatiles/CONFIG.md) in the versatiles-rs repository.
 
 ## What's not included?
 
