@@ -40,6 +40,22 @@ versatiles convert dir dest.pmtiles
 
 Run `versatiles convert --help` for the full option listing, including `--flip-y` and `--swap-xy`.
 
+### Compression when writing MBTiles
+
+MBTiles cannot store arbitrary combinations of format and compression: vector tiles must be **gzipped**, raster tiles must be **uncompressed**. Set the compression explicitly with `-c`:
+
+```sh
+# vector tiles
+versatiles convert -c gzip osm.versatiles osm.mbtiles
+
+# raster tiles
+versatiles convert -c uncompressed satellite.versatiles satellite.mbtiles
+```
+
+Without `-c`, the output keeps the compression of the source, which MBTiles usually rejects.
+
+The `versatiles`, `pmtiles` and `tar` targets accept any combination.
+
 ## Convert GeoJSON and other GIS data
 
 `versatiles convert` also accepts a [VPL pipeline](https://github.com/versatiles-org/versatiles-rs) as its input, so vector geo data can be turned into tiles in a single step. The `from_geo` operation reads GeoJSON (`.geojson`, `.json`), line-delimited GeoJSON (`.ndjson`, `.geojsonl`, `.geojsonseq`) and Esri Shapefiles (`.shp`):
