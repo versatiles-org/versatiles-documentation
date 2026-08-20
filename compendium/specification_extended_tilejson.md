@@ -120,7 +120,7 @@ A client resolves this to `https://example.org/tiles/osm/{z}/{x}/{y}`.
 > ```js
 > function resolveUrl(base, url) {
 >   url = new URL(url, base).href;
->   return url.replace(/%7B/gi, ‘{‘).replace(/%7D/gi, ‘}’);
+>   return url.replace(/%7B/gi, '{').replace(/%7D/gi, '}');
 > }
 > ```
 
