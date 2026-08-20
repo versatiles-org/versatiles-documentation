@@ -57,4 +57,5 @@ To store VersaTiles data on Google Cloud Storage, follow these steps:
 - **Set Public Access**
   The bucket or the file must be set to [public access](https://cloud.google.com/storage/docs/access-control/making-data-public).
   <details><summary>Why Public Access is Required</summary>
-  VersaTiles currently does not support Google Cloud authentication. Therefore, public access is necessary for HTTPS retrieval. Future versions may include support for Google Cloud Run's automatic authentication. For more details, refer to [issue versatiles-rs#22](https://github.com/versatiles-org/versatiles-rs/issues/22).</details>
+  The Rust server reads containers over HTTP, HTTPS and SFTP only — it has no Google Cloud authentication, so it can only reach a bucket object that is publicly readable over HTTPS.
+  If you would rather keep the bucket private, use <a href="https://github.com/versatiles-org/node-versatiles-google-cloud">@versatiles/google-cloud</a> instead: that Node.js server takes the bucket name as an argument and reads it with the service account's own credentials, so nothing has to be public.</details>
