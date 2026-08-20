@@ -33,9 +33,12 @@ versatiles convert dir dest.pmtiles
 | `--bbox-border <tiles>` | Expand the bounding box by this many extra tiles on each side |
 | `--min-zoom <z>`        | Discard tiles below this zoom level                           |
 | `--max-zoom <z>`        | Discard tiles above this zoom level                           |
-| `--format <fmt>`        | Re-encode tile data — e.g. `png`, `jpg`, `webp`, `pbf`        |
+| `--tile-format <fmt>`   | Re-encode raster tiles — `avif`, `jpg`, `png` or `webp`       |
+| `-c, --compress <alg>`  | Re-compress tiles — `uncompressed`, `gzip`, `brotli`, `zstd`  |
 
-Run `versatiles convert --help` for the full option listing.
+`--tile-format` optionally takes a quality and an effort value, e.g. `webp,80` or `avif,90,50`. It only converts **between raster formats** — vector tiles cannot be re-encoded, so there is no `pbf` target.
+
+Run `versatiles convert --help` for the full option listing, including `--flip-y` and `--swap-xy`.
 
 ## Convert GeoJSON to VersaTiles container
 
