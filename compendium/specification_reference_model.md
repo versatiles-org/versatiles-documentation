@@ -58,7 +58,7 @@ We provide a range of pre-built tilesets ready for use:
 
 ### Generating Tiles
 
-If pre-built tiles don't meet your needs, you can generate custom tiles for a specific region, date, or configuration. OSM vector tiles are generated with [Planetiler](https://github.com/onthegomap/planetiler), using our [Shortbread profile](https://github.com/versatiles-org/planetiler); see the guide: [How to generate tiles from OSM](../guides/generate_tiles_from_osm.md). Planetiler already produces the published tilesets, replacing the earlier [Tilemaker](https://tilemaker.org/)-based generator, but the profile is still **beta** — output details may still change.
+If pre-built tiles don't meet your needs, you can generate custom tiles for a specific region, date, or configuration. OSM vector tiles are generated with [Planetiler](https://github.com/onthegomap/planetiler), using our [Shortbread profile](https://github.com/versatiles-org/planetiler-shortbread); see the guide: [How to generate tiles from OSM](../guides/generate_tiles_from_osm.md). Planetiler already produces the published tilesets, replacing the earlier [Tilemaker](https://tilemaker.org/)-based generator, but the profile is still **beta** — output details may still change.
 
 ### Container Format
 
