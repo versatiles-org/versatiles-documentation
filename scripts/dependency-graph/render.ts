@@ -78,20 +78,24 @@ function overviewDiagram(graph: Graph): string[] {
 	return lines;
 }
 
-/** One diagram per kind, showing only the repositories that kind connects. */
-function kindDiagram(edges: Edge[], kind: EdgeKind): string[] {
-	const lines = ['```mermaid', 'flowchart LR'];
-
-	for (const repo of [...new Set(edges.flatMap((edge) => [edge.from, edge.to]))].sort()) {
-		lines.push(`  ${nodeId(repo)}["${repo}"]`);
+/**
+ * Explains the arrows of the static diagram. Kinds that share an arrow share a
+ * row, so the table never claims a distinction the diagram cannot show.
+ */
+function arrowLegend(): string[] {
+	const byArrow = new Map<string, EdgeKind[]>();
+	for (const kind of EDGE_KINDS) {
+		const arrow = EDGE_KIND_META[kind].arrow;
+		byArrow.set(arrow, [...(byArrow.get(arrow) ?? []), kind]);
 	}
-	for (const key of groupEdges(edges).keys()) {
-		const [from, to] = key.split(' ');
-		lines.push(`  ${nodeId(from)} ${EDGE_KIND_META[kind].arrow} ${nodeId(to)}`);
-	}
-
-	lines.push('```');
-	return lines;
+	return table(
+		['Arrow', 'Meaning'],
+		[...byArrow].map(([arrow, kinds]) => [
+			`\`${arrow}\``,
+			`${kinds.map((kind) => `**${EDGE_KIND_META[kind].title}**`).join(' / ')} — ` +
+				kinds.map((kind) => EDGE_KIND_META[kind].summary).join(' '),
+		]),
+	);
 }
 
 export interface RenderOptions {
@@ -143,7 +147,9 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		'',
 		'::: details The same graph as a static diagram',
 		'Generated as Mermaid, and readable without JavaScript. It draws one arrow per pair of',
-		'repositories, using the most substantial of their links.',
+		'repositories, using the most substantial of their links:',
+		'',
+		...arrowLegend(),
 		'',
 		...overviewDiagram(graph),
 		':::',
@@ -179,29 +185,12 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		);
 	}
 
-	// Kinds that share an arrow share a legend row, so the table never claims a
-	// distinction the static diagrams cannot show.
-	const byArrow = new Map<string, EdgeKind[]>();
-	for (const kind of EDGE_KINDS) {
-		const arrow = EDGE_KIND_META[kind].arrow;
-		byArrow.set(arrow, [...(byArrow.get(arrow) ?? []), kind]);
-	}
-
 	lines.push(
 		'## How each link is declared',
 		'',
-		'A dependency can be written down in half a dozen different ways, and each one is found',
-		'in a different kind of file. The sections below take them one at a time, with the',
-		'arrows the static diagrams use for each:',
-		'',
-		...table(
-			['Arrow', 'Meaning'],
-			[...byArrow].map(([arrow, kinds]) => [
-				`\`${arrow}\``,
-				`${kinds.map((kind) => `**${EDGE_KIND_META[kind].title}**`).join(' / ')} — ` +
-					kinds.map((kind) => EDGE_KIND_META[kind].summary).join(' '),
-			]),
-		),
+		'A dependency can be written down in half a dozen different ways, each one found in a',
+		'different kind of file. Every arrow in the graph above comes from one of the lines',
+		'listed below, and can be followed back to it.',
 		'',
 	);
 
@@ -209,7 +198,7 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		const edges = graph.edges.filter((edge) => edge.kind === kind);
 		if (edges.length === 0) continue;
 		const meta = EDGE_KIND_META[kind];
-		lines.push(`## ${meta.title}`, '', meta.summary, '', ...kindDiagram(edges, kind), '');
+		lines.push(`### ${meta.title}`, '', meta.summary, '');
 
 		lines.push(`::: details Where these ${edges.length} links come from`, '');
 		lines.push(

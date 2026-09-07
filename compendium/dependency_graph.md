@@ -34,7 +34,14 @@ rather than the ones that support the work — those are drawn with a dashed out
 
 ::: details The same graph as a static diagram
 Generated as Mermaid, and readable without JavaScript. It draws one arrow per pair of
-repositories, using the most substantial of their links.
+repositories, using the most substantial of their links:
+
+| Arrow  | Meaning                                                                                                                                                                                                                              |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `-->`  | **npm packages** / **Rust crates** — The repository lists a `@versatiles/…` package among its npm dependencies. The repository depends on one of the project’s crates in `Cargo.toml`.                                               |
+| `==>`  | **Docker images** — A `Dockerfile` builds on an image produced by another repository.                                                                                                                                                |
+| `-.->` | **Downloaded artifacts** / **Declared by hand** — Build scripts or runtime code fetch release assets or raw files from another repository. A dependency no parser can see — recorded in `scripts/dependency-graph.yaml` with a note. |
+| `--o`  | **CI and release automation** — A GitHub Actions workflow uses an action, reusable workflow or dispatch of another repository.                                                                                                       |
 
 ```mermaid
 flowchart LR
@@ -233,71 +240,13 @@ How the software is shipped, deployed and kept running.
 
 ## How each link is declared
 
-A dependency can be written down in half a dozen different ways, and each one is found
-in a different kind of file. The sections below take them one at a time, with the
-arrows the static diagrams use for each:
+A dependency can be written down in half a dozen different ways, each one found in a
+different kind of file. Every arrow in the graph above comes from one of the lines
+listed below, and can be followed back to it.
 
-| Arrow  | Meaning                                                                                                                                                                                                                              |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `-->`  | **npm packages** / **Rust crates** — The repository lists a `@versatiles/…` package among its npm dependencies. The repository depends on one of the project’s crates in `Cargo.toml`.                                               |
-| `==>`  | **Docker images** — A `Dockerfile` builds on an image produced by another repository.                                                                                                                                                |
-| `-.->` | **Downloaded artifacts** / **Declared by hand** — Build scripts or runtime code fetch release assets or raw files from another repository. A dependency no parser can see — recorded in `scripts/dependency-graph.yaml` with a note. |
-| `--o`  | **CI and release automation** — A GitHub Actions workflow uses an action, reusable workflow or dispatch of another repository.                                                                                                       |
-
-## npm packages
+### npm packages
 
 The repository lists a `@versatiles/…` package among its npm dependencies.
-
-```mermaid
-flowchart LR
-  r_download_versatiles_org["download.versatiles.org"]
-  r_maplibre_versatiles_styler["maplibre-versatiles-styler"]
-  r_node_release_tool["node-release-tool"]
-  r_node_versatiles_container["node-versatiles-container"]
-  r_node_versatiles_google_cloud["node-versatiles-google-cloud"]
-  r_node_versatiles_server["node-versatiles-server"]
-  r_node_versatiles_svelte["node-versatiles-svelte"]
-  r_orthophotos["orthophotos"]
-  r_tools["tools"]
-  r_versatiles_choro["versatiles-choro"]
-  r_versatiles_frontend["versatiles-frontend"]
-  r_versatiles_map_animation["versatiles-map-animation"]
-  r_versatiles_map_editor["versatiles-map-editor"]
-  r_versatiles_rs["versatiles-rs"]
-  r_versatiles_studio["versatiles-studio"]
-  r_versatiles_style["versatiles-style"]
-  r_versatiles_svg_renderer["versatiles-svg-renderer"]
-  r_download_versatiles_org --> r_node_release_tool
-  r_download_versatiles_org --> r_node_versatiles_container
-  r_download_versatiles_org --> r_node_versatiles_svelte
-  r_maplibre_versatiles_styler --> r_node_release_tool
-  r_maplibre_versatiles_styler --> r_versatiles_style
-  r_node_versatiles_container --> r_node_release_tool
-  r_node_versatiles_google_cloud --> r_node_release_tool
-  r_node_versatiles_google_cloud --> r_node_versatiles_container
-  r_node_versatiles_google_cloud --> r_versatiles_style
-  r_node_versatiles_server --> r_node_release_tool
-  r_node_versatiles_server --> r_node_versatiles_container
-  r_node_versatiles_server --> r_versatiles_style
-  r_node_versatiles_svelte --> r_node_release_tool
-  r_node_versatiles_svelte --> r_versatiles_style
-  r_orthophotos --> r_node_release_tool
-  r_tools --> r_node_release_tool
-  r_tools --> r_node_versatiles_container
-  r_tools --> r_node_versatiles_svelte
-  r_versatiles_choro --> r_versatiles_rs
-  r_versatiles_choro --> r_versatiles_style
-  r_versatiles_frontend --> r_maplibre_versatiles_styler
-  r_versatiles_frontend --> r_node_release_tool
-  r_versatiles_frontend --> r_versatiles_style
-  r_versatiles_frontend --> r_versatiles_svg_renderer
-  r_versatiles_map_animation --> r_versatiles_style
-  r_versatiles_map_editor --> r_versatiles_style
-  r_versatiles_studio --> r_versatiles_style
-  r_versatiles_style --> r_node_release_tool
-  r_versatiles_svg_renderer --> r_node_release_tool
-  r_versatiles_svg_renderer --> r_versatiles_style
-```
 
 ::: details Where these 30 links come from
 
@@ -336,16 +285,9 @@ flowchart LR
 
 :::
 
-## Rust crates
+### Rust crates
 
 The repository depends on one of the project’s crates in `Cargo.toml`.
-
-```mermaid
-flowchart LR
-  r_versatiles_rs["versatiles-rs"]
-  r_versatiles_studio["versatiles-studio"]
-  r_versatiles_studio --> r_versatiles_rs
-```
 
 ::: details Where these 5 links come from
 
@@ -359,20 +301,9 @@ flowchart LR
 
 :::
 
-## Docker images
+### Docker images
 
 A `Dockerfile` builds on an image produced by another repository.
-
-```mermaid
-flowchart LR
-  r_orthophotos["orthophotos"]
-  r_tiles_versatiles_org["tiles.versatiles.org"]
-  r_versatiles_choro["versatiles-choro"]
-  r_versatiles_docker["versatiles-docker"]
-  r_orthophotos ==> r_versatiles_docker
-  r_tiles_versatiles_org ==> r_versatiles_docker
-  r_versatiles_choro ==> r_versatiles_docker
-```
 
 ::: details Where these 4 links come from
 
@@ -385,50 +316,9 @@ flowchart LR
 
 :::
 
-## Downloaded artifacts
+### Downloaded artifacts
 
 Build scripts or runtime code fetch release assets or raw files from another repository.
-
-```mermaid
-flowchart LR
-  r_homebrew_versatiles["homebrew-versatiles"]
-  r_node_versatiles_container["node-versatiles-container"]
-  r_node_versatiles_server["node-versatiles-server"]
-  r_orthophotos["orthophotos"]
-  r_planetiler["planetiler"]
-  r_tiles_versatiles_org["tiles.versatiles.org"]
-  r_tools["tools"]
-  r_versatiles_choro["versatiles-choro"]
-  r_versatiles_docker["versatiles-docker"]
-  r_versatiles_documentation["versatiles-documentation"]
-  r_versatiles_fonts["versatiles-fonts"]
-  r_versatiles_frontend["versatiles-frontend"]
-  r_versatiles_glyphs_rs["versatiles-glyphs-rs"]
-  r_versatiles_rs["versatiles-rs"]
-  r_versatiles_spec["versatiles-spec"]
-  r_versatiles_studio["versatiles-studio"]
-  r_versatiles_style["versatiles-style"]
-  r_homebrew_versatiles -.-> r_versatiles_rs
-  r_homebrew_versatiles -.-> r_versatiles_studio
-  r_node_versatiles_container -.-> r_versatiles_spec
-  r_node_versatiles_server -.-> r_versatiles_frontend
-  r_orthophotos -.-> r_versatiles_frontend
-  r_tiles_versatiles_org -.-> r_versatiles_frontend
-  r_tiles_versatiles_org -.-> r_versatiles_style
-  r_tools -.-> r_versatiles_frontend
-  r_tools -.-> r_versatiles_rs
-  r_versatiles_choro -.-> r_versatiles_rs
-  r_versatiles_docker -.-> r_planetiler
-  r_versatiles_docker -.-> r_versatiles_frontend
-  r_versatiles_docker -.-> r_versatiles_rs
-  r_versatiles_documentation -.-> r_versatiles_spec
-  r_versatiles_fonts -.-> r_versatiles_glyphs_rs
-  r_versatiles_frontend -.-> r_versatiles_fonts
-  r_versatiles_frontend -.-> r_versatiles_style
-  r_versatiles_studio -.-> r_versatiles_fonts
-  r_versatiles_studio -.-> r_versatiles_frontend
-  r_versatiles_studio -.-> r_versatiles_style
-```
 
 ::: details Where these 26 links come from
 
@@ -463,19 +353,9 @@ flowchart LR
 
 :::
 
-## CI and release automation
+### CI and release automation
 
 A GitHub Actions workflow uses an action, reusable workflow or dispatch of another repository.
-
-```mermaid
-flowchart LR
-  r_planetiler["planetiler"]
-  r_planetiler_shortbread["planetiler-shortbread"]
-  r_versatiles_docker["versatiles-docker"]
-  r_versatiles_frontend["versatiles-frontend"]
-  r_planetiler_shortbread --o r_planetiler
-  r_versatiles_frontend --o r_versatiles_docker
-```
 
 ::: details Where these 2 links come from
 

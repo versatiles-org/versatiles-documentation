@@ -177,6 +177,7 @@ function layering(names: string[], active: SimLink[]): Map<string, number> {
  * Simulation
  * ----------------------------------------------------------------------- */
 
+const figure = ref<HTMLElement>();
 const root = ref<HTMLElement>();
 const svg = ref<SVGSVGElement>();
 const ruler = ref<SVGTextElement>();
@@ -184,6 +185,7 @@ const ready = ref(false);
 const size = ref({ width: 960, height: 560 });
 const transform = shallowRef<ZoomTransform>(zoomIdentity);
 const hovered = ref<string | null>(null);
+const expanded = ref(false);
 
 /** Bumped on every simulation tick; the render reads it to stay in step. */
 const frame = ref(0);
@@ -440,6 +442,51 @@ function measure(): void {
 }
 
 /* --------------------------------------------------------------------------
+ * Full screen
+ * ----------------------------------------------------------------------- */
+
+/**
+ * The Fullscreen API where it exists, and a fixed overlay where it does not —
+ * iOS Safari allows it for video only. Both paths set the same class, so the
+ * styling has one shape to worry about, and the resize observer re-fits the
+ * camera either way.
+ */
+async function toggleExpanded(): Promise<void> {
+	const element = figure.value;
+	if (!element) return;
+
+	if (expanded.value) {
+		if (document.fullscreenElement) {
+			try {
+				await document.exitFullscreen();
+			} catch {
+				// Leaving the overlay behind would trap the reader; the class goes either way.
+			}
+		}
+		expanded.value = false;
+		return;
+	}
+
+	expanded.value = true;
+	try {
+		await element.requestFullscreen();
+	} catch {
+		// The overlay is the fallback, and it is already in place.
+	}
+}
+
+function onFullscreenChange(): void {
+	if (!document.fullscreenElement) expanded.value = false;
+}
+
+/** Escape leaves the overlay; real full screen handles that key itself. */
+function onKeydown(event: KeyboardEvent): void {
+	if (event.key === 'Escape' && expanded.value && !document.fullscreenElement) {
+		expanded.value = false;
+	}
+}
+
+/* --------------------------------------------------------------------------
  * Interaction
  * ----------------------------------------------------------------------- */
 
@@ -499,6 +546,8 @@ onMounted(() => {
 		fitView();
 	});
 	observer.observe(element);
+	document.addEventListener('fullscreenchange', onFullscreenChange);
+	document.addEventListener('keydown', onKeydown);
 
 	const box = element.getBoundingClientRect();
 	size.value = { width: Math.max(280, box.width), height: Math.max(280, box.height) };
@@ -521,11 +570,13 @@ onMounted(() => {
 onBeforeUnmount(() => {
 	simulation?.stop();
 	observer?.disconnect();
+	document.removeEventListener('fullscreenchange', onFullscreenChange);
+	document.removeEventListener('keydown', onKeydown);
 });
 </script>
 
 <template>
-	<figure class="dependency-graph">
+	<figure ref="figure" class="dependency-graph" :class="{ expanded }">
 		<div class="controls">
 			<div class="group" role="group" aria-label="Kinds of dependency">
 				<span class="group-label">Dependencies</span>
@@ -576,7 +627,17 @@ onBeforeUnmount(() => {
 				</button>
 			</div>
 
-			<button type="button" class="chip plain reset" @click="resetView">Reset view</button>
+			<div class="group end">
+				<button type="button" class="chip plain" @click="resetView">Reset view</button>
+				<button
+					type="button"
+					class="chip plain"
+					:aria-pressed="expanded"
+					@click="toggleExpanded"
+				>
+					{{ expanded ? 'Exit full screen' : 'Full screen' }}
+				</button>
+			</div>
 		</div>
 
 		<div ref="root" class="canvas">
@@ -786,8 +847,27 @@ onBeforeUnmount(() => {
 	border-style: dashed;
 }
 
-.reset {
+.group.end {
 	margin-left: auto;
+}
+
+/* Full screen ------------------------------------------------------------ */
+
+.dependency-graph.expanded {
+	position: fixed;
+	inset: 0;
+	z-index: 60;
+	display: flex;
+	flex-direction: column;
+	width: auto;
+	margin: 0;
+	padding: 12px 16px 8px;
+	background: var(--vp-c-bg);
+}
+
+.dependency-graph.expanded .canvas {
+	flex: 1;
+	height: auto;
 }
 
 /* Canvas ----------------------------------------------------------------- */

@@ -123,6 +123,10 @@ roles:
     - playground
     - versatiles-documentation
     - versatiles-org.github.io
+    - tools
+    - download.versatiles.org
+    - tiles.versatiles.org
+    - orthophotos
 
 # Dependencies no parser can see: data handed over between pipelines, services
 # that expect a particular tileset, agreements that only exist in a runbook.
