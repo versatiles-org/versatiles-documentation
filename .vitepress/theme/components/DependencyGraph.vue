@@ -55,12 +55,14 @@ const links: Link[] = (() => {
 const kindWeight = new Map(data.kinds.map((kind) => [kind.id, kind.weight]));
 const usedKinds = data.kinds.filter((kind) => links.some((link) => link.kind === kind.id));
 const hues = new Map(
-	data.groups.map((group, index) => [
-		group.id,
-		Math.round((index * 360) / data.groups.length + 25),
-	]),
+	data.tags.map((tag, index) => [tag.id, Math.round((index * 360) / data.tags.length + 25)]),
 );
-const groupTitles = new Map(data.groups.map((group) => [group.id, group.title]));
+const tagTitles = new Map(data.tags.map((tag) => [tag.id, tag.title]));
+
+/** A repository can carry several tags; the first one decides its colour. */
+function primaryTag(node: GraphNode): string {
+	return node.tags[0] ?? '';
+}
 
 /* --------------------------------------------------------------------------
  * Filters
@@ -69,7 +71,9 @@ const groupTitles = new Map(data.groups.map((group) => [group.id, group.title]))
 const kindOn = reactive<Record<string, boolean>>(
 	Object.fromEntries(usedKinds.map((kind) => [kind.id, true])),
 );
-const roleOn = reactive({ productive: true, supporting: true });
+const tagOn = reactive<Record<string, boolean>>(
+	Object.fromEntries(data.tags.map((tag) => [tag.id, true])),
+);
 const hideUnconnected = ref(true);
 
 /**
@@ -79,7 +83,14 @@ const hideUnconnected = ref(true);
  */
 const visible = computed(() => {
 	const shown = new Map<string, boolean>();
-	for (const node of nodes) shown.set(node.name, roleOn[node.role]);
+	// More than one tag can apply, so a repository stays as long as any of its
+	// tags is switched on.
+	for (const node of nodes) {
+		shown.set(
+			node.name,
+			node.tags.some((tag) => tagOn[tag]),
+		);
+	}
 
 	const activeLinks = links.filter(
 		(link) => kindOn[link.kind] && shown.get(link.source.name) && shown.get(link.target.name),
@@ -494,9 +505,8 @@ function pathOf(points: Point[]): string {
 
 /** Native tooltip: what the repository is, and where it sits in the project. */
 function describe(node: Box): string {
-	const group = groupTitles.get(node.group) ?? node.group;
-	const role = node.role === 'supporting' ? ', supporting' : '';
-	return `${node.name} — ${group}${role}${node.description ? `. ${node.description}` : ''}`;
+	const tags = node.tags.map((tag) => tagTitles.get(tag) ?? tag).join(', ');
+	return `${node.name} — ${tags}${node.description ? `. ${node.description}` : ''}`;
 }
 
 /** Reads the real width of every label, so boxes and ranks match the text. */
@@ -575,24 +585,18 @@ onBeforeUnmount(() => {
 			<div class="group" role="group" aria-label="Kinds of repository">
 				<span class="group-label">Repositories</span>
 				<button
+					v-for="tag in data.tags"
+					:key="tag.id"
 					type="button"
-					class="chip role"
-					:class="{ off: !roleOn.productive }"
-					:aria-pressed="roleOn.productive"
-					@click="roleOn.productive = !roleOn.productive"
+					class="chip tag"
+					:class="{ off: !tagOn[tag.id] }"
+					:style="{ '--dg-hue': hues.get(tag.id) ?? 0 }"
+					:aria-pressed="tagOn[tag.id]"
+					:title="tag.summary"
+					@click="tagOn[tag.id] = !tagOn[tag.id]"
 				>
 					<span class="box" aria-hidden="true" />
-					productive
-				</button>
-				<button
-					type="button"
-					class="chip role"
-					:class="{ off: !roleOn.supporting }"
-					:aria-pressed="roleOn.supporting"
-					@click="roleOn.supporting = !roleOn.supporting"
-				>
-					<span class="box supporting" aria-hidden="true" />
-					supporting
+					{{ tag.title }}
 				</button>
 				<button
 					type="button"
@@ -664,11 +668,8 @@ onBeforeUnmount(() => {
 						v-for="entry in view.nodes"
 						:key="entry.node.name"
 						class="node"
-						:class="[
-							`role-${entry.node.role}`,
-							{ dimmed: entry.dimmed, hidden: entry.hidden },
-						]"
-						:style="{ '--dg-hue': hues.get(entry.node.group) ?? 0 }"
+						:class="{ dimmed: entry.dimmed, hidden: entry.hidden }"
+						:style="{ '--dg-hue': hues.get(primaryTag(entry.node)) ?? 0 }"
 						:transform="`translate(${entry.at.x},${entry.at.y})`"
 						@pointerenter="hovered = entry.node.name"
 						@pointerleave="hovered = null"
@@ -813,16 +814,12 @@ onBeforeUnmount(() => {
 	stroke-dasharray: 1 4;
 }
 
-.chip .box {
+.chip.tag .box {
 	width: 20px;
 	height: 12px;
 	border-radius: 3px;
-	border: 1.2px solid var(--vp-c-text-3);
-	background: var(--vp-c-bg-soft);
-}
-
-.chip .box.supporting {
-	border-style: dashed;
+	border: 1.2px solid oklch(var(--dg-stroke-l) var(--dg-stroke-c) var(--dg-hue));
+	background: oklch(var(--dg-fill-l) var(--dg-fill-c) var(--dg-hue));
 }
 
 /* Full screen ------------------------------------------------------------ */
@@ -886,11 +883,6 @@ onBeforeUnmount(() => {
 	fill: oklch(var(--dg-fill-l) var(--dg-fill-c) var(--dg-hue));
 	stroke: oklch(var(--dg-stroke-l) var(--dg-stroke-c) var(--dg-hue));
 	stroke-width: 1.2;
-}
-
-.node.role-supporting rect {
-	stroke-dasharray: 4 3;
-	fill-opacity: 0.55;
 }
 
 .node .label {

@@ -1,23 +1,15 @@
 /**
  * Editorial input for the dependency graph.
  *
- * Everything a parser cannot know — how repositories group into layers, which
- * Docker image is built by which repository, which findings are noise — lives
- * in `scripts/dependency-graph.yaml` so the code stays free of special cases.
+ * Everything a parser cannot know — what a repository is for, which Docker
+ * image is built by which repository, which findings are noise — lives in
+ * `scripts/dependency-graph.yaml` so the code stays free of special cases.
  */
 
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import yaml from 'js-yaml';
-import { EDGE_KINDS, type EdgeKind } from './model';
-
-export interface GroupConfig {
-	id: string;
-	title: string;
-	/** Short line printed above the group's repositories on the page. */
-	summary: string;
-	repos: string[];
-}
+import { EDGE_KINDS, type EdgeKind, type TagInfo } from './model';
 
 export interface ManualEdgeConfig {
 	from: string;
@@ -38,13 +30,14 @@ export interface GraphConfig {
 	org: string;
 	includeArchived: boolean;
 	includeForks: boolean;
-	groups: GroupConfig[];
+	/** The vocabulary, in the order tags are presented. */
+	tags: TagInfo[];
+	/** Repository name to its tags, most characteristic first. */
+	repositories: Record<string, string[]>;
 	/** Docker image name (without tag) to the repository that builds it. */
 	images: Record<string, string>;
 	/** Repositories left out of the graph entirely. */
 	exclude: string[];
-	/** Repositories that support the work rather than being part of the product. */
-	supporting: string[];
 	manual: ManualEdgeConfig[];
 	ignore: IgnoreConfig[];
 }
@@ -72,7 +65,31 @@ export function loadConfig(root: string): GraphConfig {
 	if (typeof raw !== 'object' || raw === null) fail('expected a mapping at the top level');
 	const doc = raw as Record<string, unknown>;
 
-	const groups = (doc.groups as unknown[] | undefined) ?? [];
+	const tags = ((doc.tags as unknown[] | undefined) ?? []).map((entry, index) => {
+		const tag = entry as Record<string, unknown>;
+		return {
+			id: asString(tag.id, `tags[${index}].id`),
+			title: asString(tag.title, `tags[${index}].title`),
+			summary: asString(tag.summary, `tags[${index}].summary`),
+		};
+	});
+	if (tags.length === 0) fail('at least one tag has to be defined');
+
+	const known = new Set(tags.map((tag) => tag.id));
+	const repositories: Record<string, string[]> = {};
+	for (const [name, value] of Object.entries(
+		(doc.repositories as Record<string, unknown> | undefined) ?? {},
+	)) {
+		if (!Array.isArray(value) || value.length === 0) {
+			fail(`repositories.${name} must be a non-empty list of tags`);
+		}
+		repositories[name] = value.map((tag, index) => {
+			const id = asString(tag, `repositories.${name}[${index}]`);
+			if (!known.has(id)) fail(`repositories.${name} uses undefined tag "${id}"`);
+			return id;
+		});
+	}
+
 	const manual = (doc.manual as unknown[] | undefined) ?? [];
 	const ignore = (doc.ignore as unknown[] | undefined) ?? [];
 
@@ -80,23 +97,10 @@ export function loadConfig(root: string): GraphConfig {
 		org: asString(doc.org, 'org'),
 		includeArchived: doc.include_archived === true,
 		includeForks: doc.include_forks !== false,
-		groups: groups.map((entry, index) => {
-			const group = entry as Record<string, unknown>;
-			return {
-				id: asString(group.id, `groups[${index}].id`),
-				title: asString(group.title, `groups[${index}].title`),
-				summary: asString(group.summary, `groups[${index}].summary`),
-				repos: ((group.repos as string[] | undefined) ?? []).map((repo, position) =>
-					asString(repo, `groups[${index}].repos[${position}]`),
-				),
-			};
-		}),
+		tags,
+		repositories,
 		images: (doc.images as Record<string, string> | undefined) ?? {},
 		exclude: (doc.exclude as string[] | undefined) ?? [],
-		supporting: (
-			((doc.roles as Record<string, unknown> | undefined)?.supporting as string[] | undefined) ??
-			[]
-		).map((repo, index) => asString(repo, `roles.supporting[${index}]`)),
 		manual: manual.map((entry, index) => {
 			const edge = entry as Record<string, unknown>;
 			return {
@@ -124,22 +128,24 @@ export function loadConfig(root: string): GraphConfig {
  */
 export function validateConfig(config: GraphConfig, knownRepos: Set<string>): string[] {
 	const problems: string[] = [];
-	const seen = new Map<string, string>();
 
 	const checkRepo = (name: string, where: string): void => {
 		if (!knownRepos.has(name)) problems.push(`${where}: unknown repository "${name}"`);
 	};
 
-	for (const group of config.groups) {
-		for (const repo of group.repos) {
-			checkRepo(repo, `groups.${group.id}`);
-			const previous = seen.get(repo);
-			if (previous) problems.push(`"${repo}" is listed in both ${previous} and ${group.id}`);
-			seen.set(repo, group.id);
+	const seenTags = new Set<string>();
+	for (const tag of config.tags) {
+		if (seenTags.has(tag.id)) problems.push(`tags: "${tag.id}" is defined twice`);
+		seenTags.add(tag.id);
+	}
+
+	for (const [name, tags] of Object.entries(config.repositories)) {
+		checkRepo(name, 'repositories');
+		if (new Set(tags).size !== tags.length) {
+			problems.push(`repositories.${name} repeats a tag`);
 		}
 	}
 	for (const repo of config.exclude) checkRepo(repo, 'exclude');
-	for (const repo of config.supporting) checkRepo(repo, 'roles.supporting');
 	for (const image of Object.values(config.images)) checkRepo(image, 'images');
 	for (const edge of config.manual) {
 		checkRepo(edge.from, 'manual');

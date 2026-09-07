@@ -32,8 +32,8 @@ const ROOT = resolve(__dirname, '..');
 const TARGET_PAGE = 'compendium/dependency_graph.md';
 const TARGET_DATA = 'public/dependency-graph.json';
 
-/** Repositories that fit no configured group still have to go somewhere. */
-const FALLBACK_GROUP = {
+/** Repositories the configuration says nothing about still have to go somewhere. */
+const FALLBACK_TAG = {
 	id: 'uncategorised',
 	title: 'Not yet categorised',
 	summary: 'Added to the organisation since this page was last curated.',
@@ -111,37 +111,31 @@ async function main(): Promise<void> {
 		}
 	});
 
-	const groupOf = new Map<string, string>();
-	for (const group of config.groups) {
-		for (const repo of group.repos) groupOf.set(repo, group.id);
-	}
-	const uncategorised = repos.filter((repo) => !groupOf.has(repo.name)).map((repo) => repo.name);
+	const uncategorised = repos
+		.filter((repo) => !config.repositories[repo.name])
+		.map((repo) => repo.name);
 	if (uncategorised.length > 0) {
 		warnings.push(
-			`not listed under "groups:" in ${CONFIG_PATH}: ${uncategorised.sort().join(', ')}`,
+			`not listed under "repositories:" in ${CONFIG_PATH}: ${uncategorised.sort().join(', ')}`,
 		);
 	}
 
-	const supporting = new Set(config.supporting);
 	const nodes: RepoNode[] = repos.map((repo) => ({
 		name: repo.name,
-		group: groupOf.get(repo.name) ?? FALLBACK_GROUP.id,
-		role: supporting.has(repo.name) ? 'supporting' : 'productive',
+		tags: config.repositories[repo.name] ?? [FALLBACK_TAG.id],
 		description: repo.description,
 		language: repo.language,
 		fork: repo.fork,
 		archived: repo.archived,
 	}));
 
+	// Only tags that something actually carries are worth a filter or a heading.
+	const inUse = new Set(nodes.flatMap((node) => node.tags));
 	const graph: Graph = {
 		org: config.org,
-		groups: [
-			...config.groups.map((group) => ({
-				id: group.id,
-				title: group.title,
-				summary: group.summary,
-			})),
-			...(uncategorised.length > 0 ? [FALLBACK_GROUP] : []),
+		tags: [
+			...config.tags.filter((tag) => inUse.has(tag.id)),
+			...(uncategorised.length > 0 ? [FALLBACK_TAG] : []),
 		],
 		repos: nodes,
 		edges: sortEdges(edges),

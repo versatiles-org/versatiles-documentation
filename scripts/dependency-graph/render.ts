@@ -8,7 +8,14 @@
  * diagram of their own.
  */
 
-import { EDGE_KIND_META, EDGE_KINDS, type Edge, type EdgeKind, type Graph } from './model';
+import {
+	EDGE_KIND_META,
+	EDGE_KINDS,
+	type Edge,
+	type EdgeKind,
+	type Graph,
+	type RepoNode,
+} from './model';
 import { CONFIG_PATH } from './config';
 
 /** Mermaid identifiers allow far less than repository names do. */
@@ -56,14 +63,22 @@ function groupEdges(edges: Edge[]): Map<string, Edge[]> {
 	return pairs;
 }
 
-/** The overview: every repository, inside its group, with one arrow per pair. */
+/**
+ * A repository can carry several tags, but a diagram box and a table section
+ * can only hold it once, so the first tag wins wherever one has to be picked.
+ */
+function primaryTag(repo: RepoNode): string {
+	return repo.tags[0] ?? '';
+}
+
+/** The overview: every repository, inside its primary tag, one arrow per pair. */
 function overviewDiagram(graph: Graph): string[] {
 	const lines = ['```mermaid', 'flowchart LR'];
 
-	for (const group of graph.groups) {
-		const members = graph.repos.filter((repo) => repo.group === group.id);
+	for (const tag of graph.tags) {
+		const members = graph.repos.filter((repo) => primaryTag(repo) === tag.id);
 		if (members.length === 0) continue;
-		lines.push(`  subgraph ${nodeId(group.id)}_g["${group.title}"]`);
+		lines.push(`  subgraph ${nodeId(tag.id)}_g["${tag.title}"]`);
 		lines.push('    direction LR');
 		for (const repo of members) lines.push(`    ${nodeId(repo.name)}["${repo.name}"]`);
 		lines.push('  end');
@@ -137,11 +152,13 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		'',
 		'An arrow points **from a repository to what it depends on**, and the layout runs left to',
 		'right: whatever is built on most ends up on the right, with everything that builds on it',
-		'to the left. Colour and line style say how the dependency is expressed.',
+		'to the left. Line style says how the dependency is expressed; colour says what the',
+		'repository is.',
 		'',
-		'A graph of the whole organisation is a lot at once, so it can be narrowed down: one kind',
-		'of dependency at a time, or only the repositories that are part of what VersaTiles ships',
-		'rather than the ones that support the work — those are drawn with a dashed outline.',
+		'A graph of the whole organisation is a lot at once, so it can be narrowed down — by one',
+		'kind of dependency at a time, or to the repositories that carry a given tag. Several',
+		'repositories carry more than one: versatiles-rs is both a library to build on and the',
+		'tool that converts tilesets, and it shows up under either.',
 		'',
 		'<DependencyGraph />',
 		'',
@@ -167,15 +184,21 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		usedBy.get(edge.to)?.add(edge.from);
 	}
 
-	for (const group of graph.groups) {
-		const members = graph.repos.filter((repo) => repo.group === group.id);
+	const tagTitles = new Map(graph.tags.map((tag) => [tag.id, tag.title]));
+	for (const tag of graph.tags) {
+		const members = graph.repos.filter((repo) => primaryTag(repo) === tag.id);
 		if (members.length === 0) continue;
-		lines.push(`### ${group.title}`, '', group.summary, '');
+		lines.push(`### ${tag.title}`, '', tag.summary, '');
 		lines.push(
 			...table(
-				['Repository', 'Description', 'Depends on', 'Used by'],
+				['Repository', 'Also', 'Description', 'Depends on', 'Used by'],
 				members.map((repo) => [
 					`[${repo.name}](${repoUrl(org, repo.name)})`,
+					// Everything beyond the primary tag, which the heading already says.
+					repo.tags
+						.slice(1)
+						.map((id) => tagTitles.get(id) ?? id)
+						.join(', ') || '—',
 					cell(repo.description ?? '—'),
 					String(dependsOn.get(repo.name)?.size ?? 0),
 					String(usedBy.get(repo.name)?.size ?? 0),
@@ -232,7 +255,7 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		'operational dependencies, for instance — is declared by hand in',
 		`[\`${CONFIG_PATH}\`](https://github.com/${org}/versatiles-documentation/blob/main/${CONFIG_PATH}),`,
 		'which is also where false positives are filtered out and repositories are assigned to',
-		'the groups above.',
+		'the tags above.',
 		'',
 	);
 

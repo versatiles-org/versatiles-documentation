@@ -1,42 +1,36 @@
 {
 	"org": "versatiles-org",
-	"groups": [
-		{
-			"id": "core",
-			"title": "Core",
-			"summary": "The container format and the programs that read and write it."
-		},
+	"tags": [
 		{
 			"id": "libraries",
 			"title": "Libraries",
-			"summary": "Published npm packages that the rest of the ecosystem builds on."
+			"summary": "Code to build on — crates, npm packages and the container specification."
 		},
 		{
 			"id": "applications",
-			"title": "Applications and tools",
-			"summary": "What people open and use — desktop, browser and command line."
+			"title": "Applications",
+			"summary": "Programs and sites people open and use directly."
 		},
 		{
-			"id": "production",
-			"title": "Tile and asset production",
-			"summary": "Pipelines that turn open data into tilesets, fonts and sprites."
+			"id": "tile-production",
+			"title": "Tile production",
+			"summary": "Pipelines and images that turn open data into tilesets, fonts and sprites."
 		},
 		{
-			"id": "web",
-			"title": "Websites",
-			"summary": "The public pages of the project, including this documentation."
+			"id": "infrastructure",
+			"title": "Infrastructure",
+			"summary": "How the software is packaged, deployed and hosted."
 		},
 		{
-			"id": "operations",
-			"title": "Packaging and operations",
-			"summary": "How the software is shipped, deployed and kept running."
+			"id": "project",
+			"title": "Project",
+			"summary": "Documentation, release tooling and the rest of what keeps the project running."
 		}
 	],
 	"repos": [
 		{
 			"name": ".github",
-			"group": "operations",
-			"role": "supporting",
+			"tags": ["project"],
 			"description": "Shared GitHub workflows, templates, and issue configurations for all VersaTiles repositories.",
 			"language": null,
 			"fork": false,
@@ -44,8 +38,7 @@
 		},
 		{
 			"name": "consortium",
-			"group": "web",
-			"role": "supporting",
+			"tags": ["project"],
 			"description": null,
 			"language": "Svelte",
 			"fork": false,
@@ -53,8 +46,7 @@
 		},
 		{
 			"name": "download.versatiles.org",
-			"group": "web",
-			"role": "supporting",
+			"tags": ["applications", "infrastructure"],
 			"description": "Data download hub for VersaTiles datasets.",
 			"language": "TypeScript",
 			"fork": false,
@@ -62,8 +54,7 @@
 		},
 		{
 			"name": "editor",
-			"group": "applications",
-			"role": "productive",
+			"tags": ["applications"],
 			"description": "Modified Maputnik for Versatiles Styles",
 			"language": "HTML",
 			"fork": false,
@@ -71,8 +62,7 @@
 		},
 		{
 			"name": "elevation",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production"],
 			"description": null,
 			"language": "TypeScript",
 			"fork": false,
@@ -80,8 +70,7 @@
 		},
 		{
 			"name": "homebrew-versatiles",
-			"group": "operations",
-			"role": "productive",
+			"tags": ["infrastructure"],
 			"description": "Homebrew tap for installing VersaTiles CLI tools on macOS.",
 			"language": "Shell",
 			"fork": false,
@@ -89,8 +78,7 @@
 		},
 		{
 			"name": "landcover-vectors",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production"],
 			"description": "Generate landcover vector tiles from ESA Worldcover",
 			"language": "TypeScript",
 			"fork": false,
@@ -98,8 +86,7 @@
 		},
 		{
 			"name": "maplibre-versatiles-styler",
-			"group": "applications",
-			"role": "productive",
+			"tags": ["libraries", "applications"],
 			"description": "MapLibre GL JS plugin for editing and managing VersaTiles map styles directly in the browser.",
 			"language": "TypeScript",
 			"fork": false,
@@ -107,8 +94,7 @@
 		},
 		{
 			"name": "maputnik",
-			"group": "applications",
-			"role": "productive",
+			"tags": ["applications"],
 			"description": "An open source visual editor for the 'MapLibre Style Specification'",
 			"language": "TypeScript",
 			"fork": true,
@@ -116,8 +102,7 @@
 		},
 		{
 			"name": "node-release-tool",
-			"group": "libraries",
-			"role": "supporting",
+			"tags": ["project"],
 			"description": "Helper tool for automating Node.js package releases across VersaTiles repositories.",
 			"language": "TypeScript",
 			"fork": false,
@@ -125,8 +110,7 @@
 		},
 		{
 			"name": "node-versatiles-container",
-			"group": "libraries",
-			"role": "productive",
+			"tags": ["libraries"],
 			"description": "Node.js library for reading VersaTiles container files.",
 			"language": "TypeScript",
 			"fork": false,
@@ -134,8 +118,7 @@
 		},
 		{
 			"name": "node-versatiles-google-cloud",
-			"group": "libraries",
-			"role": "productive",
+			"tags": ["libraries", "infrastructure"],
 			"description": "Google Cloud integration tools for hosting and serving VersaTiles data.",
 			"language": "TypeScript",
 			"fork": false,
@@ -143,8 +126,7 @@
 		},
 		{
 			"name": "node-versatiles-server",
-			"group": "libraries",
-			"role": "productive",
+			"tags": ["libraries", "applications"],
 			"description": "Node.js implementation of a VersaTiles tile server.",
 			"language": "TypeScript",
 			"fork": false,
@@ -152,8 +134,7 @@
 		},
 		{
 			"name": "node-versatiles-svelte",
-			"group": "libraries",
-			"role": "productive",
+			"tags": ["libraries"],
 			"description": "Svelte components and bindings for displaying VersaTiles data in MapLibre GL JS.",
 			"language": "TypeScript",
 			"fork": false,
@@ -161,8 +142,7 @@
 		},
 		{
 			"name": "opendem-gebco-bathymetry",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production"],
 			"description": "Versatiles Container from GEBCO Bathymetry Data provided by OpenDEM",
 			"language": "Shell",
 			"fork": false,
@@ -170,8 +150,7 @@
 		},
 		{
 			"name": "orthophotos",
-			"group": "production",
-			"role": "supporting",
+			"tags": ["tile-production"],
 			"description": "Processing pipeline and hosting setup for global and regional orthophoto layers.",
 			"language": "TypeScript",
 			"fork": false,
@@ -179,8 +158,7 @@
 		},
 		{
 			"name": "photon-stack",
-			"group": "operations",
-			"role": "productive",
+			"tags": ["infrastructure"],
 			"description": null,
 			"language": "Shell",
 			"fork": false,
@@ -188,8 +166,7 @@
 		},
 		{
 			"name": "planetiler",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production"],
 			"description": "Flexible tool to build planet-scale vector tilesets from OpenStreetMap data fast",
 			"language": "Java",
 			"fork": true,
@@ -197,8 +174,7 @@
 		},
 		{
 			"name": "planetiler-shortbread",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production"],
 			"description": "Native Java Planetiler profile generating vector tiles in the Shortbread schema",
 			"language": "Java",
 			"fork": false,
@@ -206,8 +182,7 @@
 		},
 		{
 			"name": "playground",
-			"group": "applications",
-			"role": "supporting",
+			"tags": ["applications", "project"],
 			"description": "Interactive playground demonstrating how to use VersaTiles in web applications.",
 			"language": "TypeScript",
 			"fork": false,
@@ -215,8 +190,7 @@
 		},
 		{
 			"name": "shortbread-tilemaker",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production"],
 			"description": "Tilemaker configuration for generating Shortbread vector tiles.",
 			"language": "Lua",
 			"fork": true,
@@ -224,8 +198,7 @@
 		},
 		{
 			"name": "tiles.versatiles.org",
-			"group": "operations",
-			"role": "supporting",
+			"tags": ["infrastructure", "applications"],
 			"description": "Tile hosting service for public VersaTiles datasets.",
 			"language": "Shell",
 			"fork": false,
@@ -233,8 +206,7 @@
 		},
 		{
 			"name": "tools",
-			"group": "applications",
-			"role": "supporting",
+			"tags": ["applications"],
 			"description": "Utility scripts and helper tools built around the VersaTiles ecosystem.",
 			"language": "TypeScript",
 			"fork": false,
@@ -242,8 +214,7 @@
 		},
 		{
 			"name": "versatiles-choro",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production", "applications"],
 			"description": "Modular Docker-based pipeline for creating interactive choropleth maps",
 			"language": "TypeScript",
 			"fork": false,
@@ -251,8 +222,7 @@
 		},
 		{
 			"name": "versatiles-docker",
-			"group": "operations",
-			"role": "productive",
+			"tags": ["infrastructure", "tile-production"],
 			"description": "Docker images and build scripts for the VersaTiles ecosystem.",
 			"language": "Shell",
 			"fork": false,
@@ -260,8 +230,7 @@
 		},
 		{
 			"name": "versatiles-documentation",
-			"group": "web",
-			"role": "supporting",
+			"tags": ["project"],
 			"description": "Documentation for the VersaTiles ecosystem.",
 			"language": "TypeScript",
 			"fork": false,
@@ -269,8 +238,7 @@
 		},
 		{
 			"name": "versatiles-fonts",
-			"group": "production",
-			"role": "productive",
+			"tags": ["tile-production"],
 			"description": "Repository of open-source SDF fonts optimized for MapLibre GL JS rendering.",
 			"language": "JavaScript",
 			"fork": false,
@@ -278,8 +246,7 @@
 		},
 		{
 			"name": "versatiles-frontend",
-			"group": "applications",
-			"role": "productive",
+			"tags": ["libraries", "applications"],
 			"description": "Frontend web applications for exploring VersaTiles maps and datasets.",
 			"language": "TypeScript",
 			"fork": false,
@@ -287,8 +254,7 @@
 		},
 		{
 			"name": "versatiles-glyphs-rs",
-			"group": "core",
-			"role": "productive",
+			"tags": ["libraries", "tile-production"],
 			"description": "Rust implementation of a signed-distance-field (SDF) glyph renderer used in map rendering.",
 			"language": "Rust",
 			"fork": false,
@@ -296,8 +262,7 @@
 		},
 		{
 			"name": "versatiles-map-animation",
-			"group": "applications",
-			"role": "productive",
+			"tags": ["applications"],
 			"description": "Browser-based editor for composing keyframe camera animations on a VersaTiles map.",
 			"language": "TypeScript",
 			"fork": false,
@@ -305,8 +270,7 @@
 		},
 		{
 			"name": "versatiles-map-editor",
-			"group": "applications",
-			"role": "productive",
+			"tags": ["applications"],
 			"description": null,
 			"language": "TypeScript",
 			"fork": false,
@@ -314,8 +278,7 @@
 		},
 		{
 			"name": "versatiles-org.github.io",
-			"group": "web",
-			"role": "supporting",
+			"tags": ["project"],
 			"description": "Source code for the public website at versatiles.org.",
 			"language": "TypeScript",
 			"fork": false,
@@ -323,8 +286,7 @@
 		},
 		{
 			"name": "versatiles-rs",
-			"group": "core",
-			"role": "productive",
+			"tags": ["libraries", "tile-production"],
 			"description": "Core Rust implementation of the VersaTiles toolkit for converting, validating, and serving map tiles in multiple formats.",
 			"language": "Rust",
 			"fork": false,
@@ -332,8 +294,7 @@
 		},
 		{
 			"name": "versatiles-spec",
-			"group": "core",
-			"role": "productive",
+			"tags": ["libraries"],
 			"description": "Specification for VersaTiles containers.",
 			"language": null,
 			"fork": false,
@@ -341,8 +302,7 @@
 		},
 		{
 			"name": "versatiles-studio",
-			"group": "applications",
-			"role": "productive",
+			"tags": ["applications"],
 			"description": "Cross-platform desktop application for opening, inspecting, styling and converting map tiles.",
 			"language": "TypeScript",
 			"fork": false,
@@ -350,8 +310,7 @@
 		},
 		{
 			"name": "versatiles-style",
-			"group": "libraries",
-			"role": "productive",
+			"tags": ["libraries"],
 			"description": "Toolkit for generating MapLibre styles.",
 			"language": "TypeScript",
 			"fork": false,
@@ -359,8 +318,7 @@
 		},
 		{
 			"name": "versatiles-svg-renderer",
-			"group": "libraries",
-			"role": "productive",
+			"tags": ["libraries"],
 			"description": "renders maps as SVG",
 			"language": "TypeScript",
 			"fork": false,

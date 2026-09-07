@@ -71,32 +71,31 @@ export interface Edge {
 	line: number;
 }
 
-/**
- * Whether a repository is part of what the project ships, or part of what keeps
- * the project running. The split is editorial and lives in the configuration.
- */
-export type RepoRole = 'productive' | 'supporting';
+/** One value from the tag vocabulary in the configuration. */
+export interface TagInfo {
+	id: string;
+	title: string;
+	/** Short line printed above the repositories carrying this tag. */
+	summary: string;
+}
 
 export interface RepoNode {
 	name: string;
-	group: string;
-	role: RepoRole;
+	/**
+	 * What the repository is. Several are more than one thing, so this is a list
+	 * rather than a single value; the first entry is the primary one and decides
+	 * colour and placement where only one can be shown.
+	 */
+	tags: string[];
 	description: string | null;
 	language: string | null;
 	fork: boolean;
 	archived: boolean;
 }
 
-export interface GraphGroup {
-	id: string;
-	title: string;
-	/** Short line printed above the group's repositories. */
-	summary: string;
-}
-
 export interface Graph {
 	org: string;
-	groups: GraphGroup[];
+	tags: TagInfo[];
 	repos: RepoNode[];
 	edges: Edge[];
 }

@@ -17,7 +17,7 @@ import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { defineLoader } from 'vitepress';
 import { EDGE_KINDS, EDGE_KIND_META } from '../scripts/dependency-graph/model';
-import type { EdgeKind, Graph, RepoRole } from '../scripts/dependency-graph/model';
+import type { EdgeKind, Graph, TagInfo } from '../scripts/dependency-graph/model';
 
 export interface GraphKind {
 	id: EdgeKind;
@@ -28,8 +28,8 @@ export interface GraphKind {
 
 export interface GraphNode {
 	name: string;
-	group: string;
-	role: RepoRole;
+	/** Most characteristic first; the first entry decides the colour. */
+	tags: string[];
 	description: string | null;
 }
 
@@ -40,7 +40,7 @@ export interface GraphLink {
 }
 
 export interface GraphData {
-	groups: { id: string; title: string }[];
+	tags: TagInfo[];
 	kinds: GraphKind[];
 	nodes: GraphNode[];
 	links: GraphLink[];
@@ -68,7 +68,7 @@ export default defineLoader({
 		}
 
 		return {
-			groups: graph.groups.map((group) => ({ id: group.id, title: group.title })),
+			tags: graph.tags,
 			kinds: EDGE_KINDS.map((kind) => ({
 				id: kind,
 				title: EDGE_KIND_META[kind].title,
@@ -76,8 +76,7 @@ export default defineLoader({
 			})),
 			nodes: graph.repos.map((repo) => ({
 				name: repo.name,
-				group: repo.group,
-				role: repo.role,
+				tags: repo.tags,
 				description: repo.description,
 			})),
 			links,

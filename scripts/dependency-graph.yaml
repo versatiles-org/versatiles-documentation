@@ -1,8 +1,8 @@
 # Editorial input for scripts/build-dependency-graph.ts.
 #
-# The script can read manifests, but it cannot know how the repositories relate
-# to each other conceptually, which Docker image is built where, or which of its
-# findings are noise. That knowledge lives here.
+# The script can read manifests, but it cannot know what a repository is for,
+# which Docker image is built where, or which of its findings are noise. That
+# knowledge lives here.
 #
 # Every repository name below is checked against the organisation on each run,
 # so a rename or a deletion is reported instead of silently doing nothing.
@@ -14,76 +14,73 @@ include_archived: false
 # Forks are kept: the tile pipelines genuinely build on them.
 include_forks: true
 
-# How the repositories are laid out on the page. Anything missing here still
-# shows up, but in a "not yet categorised" box — which is the reminder to
-# come back and place it.
-groups:
-  - id: core
-    title: Core
-    summary: The container format and the programs that read and write it.
-    repos:
-      - versatiles-spec
-      - versatiles-rs
-      - versatiles-glyphs-rs
-
+# What a repository can be. Several of them are more than one thing —
+# versatiles-rs is a library to build on and the tool that converts tilesets —
+# so these are tags rather than folders, and a repository carries as many as
+# genuinely apply.
+tags:
   - id: libraries
     title: Libraries
-    summary: Published npm packages that the rest of the ecosystem builds on.
-    repos:
-      - node-versatiles-container
-      - node-versatiles-server
-      - node-versatiles-google-cloud
-      - node-versatiles-svelte
-      - versatiles-style
-      - versatiles-svg-renderer
-      - node-release-tool
+    summary: Code to build on — crates, npm packages and the container specification.
 
   - id: applications
-    title: Applications and tools
-    summary: What people open and use — desktop, browser and command line.
-    repos:
-      - versatiles-studio
-      - versatiles-frontend
-      - maplibre-versatiles-styler
-      - versatiles-map-animation
-      - versatiles-map-editor
-      - playground
-      - tools
-      - editor
-      - maputnik
+    title: Applications
+    summary: Programs and sites people open and use directly.
 
-  - id: production
-    title: Tile and asset production
-    summary: Pipelines that turn open data into tilesets, fonts and sprites.
-    repos:
-      - planetiler
-      - planetiler-shortbread
-      - shortbread-tilemaker
-      - landcover-vectors
-      - elevation
-      - opendem-gebco-bathymetry
-      - orthophotos
-      - versatiles-fonts
-      - versatiles-choro
+  - id: tile-production
+    title: Tile production
+    summary: Pipelines and images that turn open data into tilesets, fonts and sprites.
 
-  - id: web
-    title: Websites
-    summary: The public pages of the project, including this documentation.
-    repos:
-      - versatiles-org.github.io
-      - versatiles-documentation
-      - download.versatiles.org
-      - consortium
+  - id: infrastructure
+    title: Infrastructure
+    summary: How the software is packaged, deployed and hosted.
 
-  - id: operations
-    title: Packaging and operations
-    summary: How the software is shipped, deployed and kept running.
-    repos:
-      - versatiles-docker
-      - homebrew-versatiles
-      - tiles.versatiles.org
-      - photon-stack
-      - .github
+  - id: project
+    title: Project
+    summary: Documentation, release tooling and the rest of what keeps the project running.
+
+# Every public repository, and what it is. The first tag is the primary one: it
+# decides the colour in the graph and the section of the table a repository is
+# listed under. Anything not named here still appears, but uncategorised —
+# which is the reminder to come back and place it.
+repositories:
+  '.github': [project]
+  'consortium': [project]
+  'download.versatiles.org': [applications, infrastructure]
+  'editor': [applications]
+  'elevation': [tile-production]
+  'homebrew-versatiles': [infrastructure]
+  'landcover-vectors': [tile-production]
+  'maplibre-versatiles-styler': [libraries, applications]
+  'maputnik': [applications]
+  'node-release-tool': [project]
+  'node-versatiles-container': [libraries]
+  'node-versatiles-google-cloud': [libraries, infrastructure]
+  'node-versatiles-server': [libraries, applications]
+  'node-versatiles-svelte': [libraries]
+  'opendem-gebco-bathymetry': [tile-production]
+  'orthophotos': [tile-production]
+  'photon-stack': [infrastructure]
+  'planetiler': [tile-production]
+  'planetiler-shortbread': [tile-production]
+  'playground': [applications, project]
+  'shortbread-tilemaker': [tile-production]
+  'tiles.versatiles.org': [infrastructure, applications]
+  'tools': [applications]
+  'versatiles-choro': [tile-production, applications]
+  'versatiles-docker': [infrastructure, tile-production]
+  'versatiles-documentation': [project]
+  'versatiles-fonts': [tile-production]
+  'versatiles-frontend': [libraries, applications]
+  'versatiles-glyphs-rs': [libraries, tile-production]
+  'versatiles-map-animation': [applications]
+  'versatiles-map-editor': [applications]
+  'versatiles-org.github.io': [project]
+  'versatiles-rs': [libraries, tile-production]
+  'versatiles-spec': [libraries]
+  'versatiles-studio': [applications]
+  'versatiles-style': [libraries]
+  'versatiles-svg-renderer': [libraries]
 
 # Container images published by the project, and the repository that builds
 # them. Image names carry no hint of their origin, so this mapping is the only
@@ -110,23 +107,6 @@ images:
 
 # Repositories left out of the graph entirely.
 exclude: []
-
-# Which repositories are part of what VersaTiles ships, and which ones support
-# that work without being part of it. Everything not listed below counts as
-# productive, so a new repository is included by default rather than hidden.
-# The distinction is a judgement call — adjust it here, not in the code.
-roles:
-  supporting:
-    - .github
-    - consortium
-    - node-release-tool
-    - playground
-    - versatiles-documentation
-    - versatiles-org.github.io
-    - tools
-    - download.versatiles.org
-    - tiles.versatiles.org
-    - orthophotos
 
 # Dependencies no parser can see: data handed over between pipelines, services
 # that expect a particular tileset, agreements that only exist in a runbook.
