@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue';
+import { computed, onBeforeUnmount, onMounted, reactive, ref, shallowRef, watch } from 'vue';
 import {
 	forceCollide,
 	forceLink,
@@ -7,6 +7,7 @@ import {
 	forceSimulation,
 	forceX,
 	forceY,
+	type ForceLink,
 	type Simulation,
 	type SimulationLinkDatum,
 	type SimulationNodeDatum,
@@ -19,18 +20,37 @@ interface SimNode extends SimulationNodeDatum, GraphNode {
 	/** Label box, measured once from the rendered text. */
 	w: number;
 	h: number;
+	/** Where the layout wants this node, and how firmly it is held there. */
+	targetX: number;
+	targetY: number;
+	anchor: number;
 }
+
+/** The relation kinds the generator defines, without importing them twice. */
+type EdgeKind = GraphLink['kind'];
 
 interface SimLink extends SimulationLinkDatum<SimNode> {
 	source: SimNode;
 	target: SimNode;
-	kind: string;
+	kind: EdgeKind;
 	/** Sideways shift, so links between the same pair do not lie on top of each other. */
 	offset: number;
 }
 
+/** Horizontal distance between two layers, in layout units. */
+const COLUMN = 240;
+/** Smallest gap a dependency arrow has to span, measured between label boxes. */
+const MIN_SPAN = 40;
+
 /** The nodes are created once and never replaced: their positions are the state. */
-const nodes: SimNode[] = data.nodes.map((node) => ({ ...node, w: 90, h: 22 }));
+const nodes: SimNode[] = data.nodes.map((node) => ({
+	...node,
+	w: 90,
+	h: 22,
+	targetX: 0,
+	targetY: 0,
+	anchor: 0.35,
+}));
 const byName = new Map(nodes.map((node) => [node.name, node]));
 
 const links: SimLink[] = (() => {
@@ -48,6 +68,8 @@ const links: SimLink[] = (() => {
 	});
 })();
 
+const kindWeight = new Map(data.kinds.map((kind) => [kind.id, kind.weight]));
+const usedKinds = data.kinds.filter((kind) => links.some((link) => link.kind === kind.id));
 const hues = new Map(
 	data.groups.map((group, index) => [
 		group.id,
@@ -55,7 +77,105 @@ const hues = new Map(
 	]),
 );
 const groupTitles = new Map(data.groups.map((group) => [group.id, group.title]));
-const usedKinds = data.kinds.filter((kind) => links.some((link) => link.kind === kind.id));
+
+/* --------------------------------------------------------------------------
+ * Filters
+ * ----------------------------------------------------------------------- */
+
+const kindOn = reactive<Record<string, boolean>>(
+	Object.fromEntries(usedKinds.map((kind) => [kind.id, true])),
+);
+const roleOn = reactive({ productive: true, supporting: true });
+const hideUnconnected = ref(true);
+
+/**
+ * What the filters leave standing. Hidden nodes stay in the DOM and keep their
+ * position — they are only taken out of the simulation — so switching a filter
+ * back on brings them in from where they were rather than from nowhere.
+ */
+const visible = computed(() => {
+	const shown = new Map<string, boolean>();
+	for (const node of nodes) shown.set(node.name, roleOn[node.role]);
+
+	const activeLinks = links.filter(
+		(link) => kindOn[link.kind] && shown.get(link.source.name) && shown.get(link.target.name),
+	);
+
+	if (hideUnconnected.value) {
+		const touched = new Set(activeLinks.flatMap((link) => [link.source.name, link.target.name]));
+		for (const node of nodes) if (!touched.has(node.name)) shown.set(node.name, false);
+	}
+
+	return { shown, links: activeLinks, nodes: nodes.filter((node) => shown.get(node.name)) };
+});
+
+/* --------------------------------------------------------------------------
+ * Layering: which column a repository belongs in
+ * ----------------------------------------------------------------------- */
+
+/**
+ * Gives every repository a layer, such that each dependency runs from a higher
+ * layer to a lower one — left to right on screen.
+ *
+ * Dependencies are not quite a tree: versatiles-frontend triggers the Docker
+ * build, and that build downloads a frontend release. A cycle like this cannot
+ * be drawn in one direction, so the weakest link in it is set aside before the
+ * layers are counted. Links are considered strongest first, which means a
+ * build-time dependency is never the one sacrificed to a CI trigger.
+ */
+function layering(names: string[], active: SimLink[]): Map<string, number> {
+	const forward = new Map(names.map((name) => [name, new Set<string>()]));
+
+	const reaches = (from: string, to: string): boolean => {
+		const stack = [from];
+		const seen = new Set(stack);
+		while (stack.length > 0) {
+			const at = stack.pop() ?? '';
+			if (at === to) return true;
+			for (const next of forward.get(at) ?? []) {
+				if (!seen.has(next)) {
+					seen.add(next);
+					stack.push(next);
+				}
+			}
+		}
+		return false;
+	};
+
+	const strongestFirst = [...active].sort(
+		(a, b) =>
+			(kindWeight.get(b.kind) ?? 0) - (kindWeight.get(a.kind) ?? 0) ||
+			a.source.name.localeCompare(b.source.name) ||
+			a.target.name.localeCompare(b.target.name),
+	);
+	for (const link of strongestFirst) {
+		const from = link.source.name;
+		const to = link.target.name;
+		if (from === to || !forward.has(from) || !forward.has(to)) continue;
+		// Accepting this link would close a cycle, so it does not define a layer.
+		if (reaches(to, from)) continue;
+		forward.get(from)?.add(to);
+	}
+
+	const depth = new Map<string, number>();
+	const measureDepth = (name: string): number => {
+		const known = depth.get(name);
+		if (known !== undefined) return known;
+		depth.set(name, 0);
+		let deepest = 0;
+		for (const next of forward.get(name) ?? []) {
+			deepest = Math.max(deepest, 1 + measureDepth(next));
+		}
+		depth.set(name, deepest);
+		return deepest;
+	};
+	for (const name of names) measureDepth(name);
+	return depth;
+}
+
+/* --------------------------------------------------------------------------
+ * Simulation
+ * ----------------------------------------------------------------------- */
 
 const root = ref<HTMLElement>();
 const svg = ref<SVGSVGElement>();
@@ -69,27 +189,206 @@ const hovered = ref<string | null>(null);
 const frame = ref(0);
 
 let simulation: Simulation<SimNode, SimLink> | undefined;
+let linkForce: ForceLink<SimNode, SimLink> | undefined;
 let observer: ResizeObserver | undefined;
+/** The links the layout currently has to satisfy. */
+let activeLinks: SimLink[] = [];
+const activeLinkSet = new Set<SimLink>();
+
+/**
+ * Pushes the ends of every dependency apart until its arrow points rightwards
+ * with room to spare. The column force alone only expresses a preference; this
+ * one acts on the links themselves, so a node pulled off course by its
+ * neighbours still ends up on the correct side of what it depends on.
+ */
+function directionForce(alpha: number): void {
+	for (const link of activeLinks) {
+		const gap = link.source.w / 2 + link.target.w / 2 + MIN_SPAN;
+		const short = gap - ((link.target.x ?? 0) - (link.source.x ?? 0));
+		if (short <= 0) continue;
+		// Capped, so a badly placed node eases into position instead of bolting.
+		const push = Math.min(short, 160) * 0.5 * alpha;
+		link.source.vx = (link.source.vx ?? 0) - push;
+		link.target.vx = (link.target.vx ?? 0) + push;
+	}
+}
+
+function reducedMotion(): boolean {
+	return (
+		typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	);
+}
+
+/** Recomputes the columns and hands the simulation its new subgraph. */
+function applyFilters(): void {
+	if (!simulation || !linkForce) return;
+
+	const shownNodes = visible.value.nodes;
+	activeLinks = visible.value.links;
+	activeLinkSet.clear();
+	for (const link of activeLinks) activeLinkSet.add(link);
+
+	const names = shownNodes.map((node) => node.name);
+	const depth = layering(names, activeLinks);
+	const deepest = Math.max(0, ...depth.values());
+
+	// Repositories with nothing left to connect to get a quiet column of their
+	// own, ahead of the deepest layer, instead of drifting through the picture.
+	const loose = names.filter(
+		(name) => !activeLinks.some((link) => link.source.name === name || link.target.name === name),
+	);
+	const looseOrder = new Map(loose.map((name, index) => [name, index]));
+
+	for (const node of shownNodes) {
+		const order = looseOrder.get(node.name);
+		if (order === undefined) {
+			node.targetX = (deepest - (depth.get(node.name) ?? 0)) * COLUMN;
+			node.targetY = 0;
+			node.anchor = 0.35;
+		} else {
+			node.targetX = -COLUMN;
+			node.targetY = (order - (loose.length - 1) / 2) * 42;
+			node.anchor = 0.9;
+		}
+	}
+
+	simulation.nodes(shownNodes);
+	linkForce.links(activeLinks);
+	// A filter change reframes the picture; whatever the reader was looking at
+	// may not even be on screen any more.
+	userMoved = false;
+
+	if (reducedMotion()) {
+		simulation.alpha(1).stop();
+		for (let step = 0; step < 300; step++) simulation.tick();
+		frame.value++;
+		fitView();
+	} else {
+		simulation.alpha(0.9).restart();
+	}
+}
+
+function build(): void {
+	linkForce = forceLink<SimNode, SimLink>([])
+		.id((node) => node.name)
+		.distance(110)
+		.strength(0.3);
+
+	simulation = forceSimulation<SimNode, SimLink>([])
+		.force('link', linkForce)
+		.force('charge', forceManyBody<SimNode>().strength(-420).distanceMax(520))
+		.force(
+			'column',
+			forceX<SimNode>((node) => node.targetX).strength((node) => node.anchor),
+		)
+		.force('row', forceY<SimNode>((node) => node.targetY).strength(0.06))
+		.force('direction', directionForce)
+		// Registered last so it settles the overlaps the other forces create:
+		// d3 applies forces in the order they were added.
+		.force(
+			'collide',
+			forceCollide<SimNode>((node) => node.w / 2 + 12)
+				.strength(0.9)
+				.iterations(3),
+		)
+		.on('tick', () => {
+			frame.value++;
+			if (!userMoved) fitView();
+		});
+}
+
+/* --------------------------------------------------------------------------
+ * Camera
+ * ----------------------------------------------------------------------- */
+
+/**
+ * The layout lives in its own coordinates, so the camera follows it: every tick
+ * the view is refitted around the visible nodes. As soon as the reader pans,
+ * zooms or drags something, that stops — the view is theirs from then on, until
+ * they change a filter or ask for it back.
+ */
+let userMoved = false;
+
+function fitView(): void {
+	const element = svg.value;
+	if (!element) return;
+
+	let minX = Infinity;
+	let minY = Infinity;
+	let maxX = -Infinity;
+	let maxY = -Infinity;
+	for (const node of visible.value.nodes) {
+		minX = Math.min(minX, (node.x ?? 0) - node.w / 2);
+		maxX = Math.max(maxX, (node.x ?? 0) + node.w / 2);
+		minY = Math.min(minY, (node.y ?? 0) - node.h / 2);
+		maxY = Math.max(maxY, (node.y ?? 0) + node.h / 2);
+	}
+	if (!Number.isFinite(minX)) return;
+
+	const padding = 24;
+	const { width, height } = size.value;
+	const scale = Math.min(
+		1.1,
+		Math.max(0.2, (width - padding * 2) / Math.max(maxX - minX, 1)),
+		Math.max(0.2, (height - padding * 2) / Math.max(maxY - minY, 1)),
+	);
+	const next = zoomIdentity
+		.translate(width / 2 - ((minX + maxX) / 2) * scale, height / 2 - ((minY + maxY) / 2) * scale)
+		.scale(scale);
+
+	transform.value = next;
+	// Keep d3-zoom's own state in step, or the next pan would jump.
+	zoomBehaviour.transform(select(element), next);
+}
+
+function resetView(): void {
+	// Anything the reader dragged out of place goes back to the layout.
+	for (const node of nodes) {
+		node.fx = null;
+		node.fy = null;
+	}
+	userMoved = false;
+	simulation?.alpha(0.8).restart();
+	fitView();
+}
+
+const zoomBehaviour = zoom<SVGSVGElement, unknown>()
+	.scaleExtent([0.2, 3])
+	.on('zoom', (event: { transform: ZoomTransform; sourceEvent: unknown }) => {
+		transform.value = event.transform;
+		// sourceEvent is null when fitView moved the camera itself.
+		if (event.sourceEvent) userMoved = true;
+	});
+
+/* --------------------------------------------------------------------------
+ * Rendering
+ * ----------------------------------------------------------------------- */
 
 const view = computed(() => {
 	const active = hovered.value;
+	const shown = visible.value.shown;
+
+	const neighbours = new Set<string>();
+	if (active !== null) {
+		neighbours.add(active);
+		for (const link of activeLinks) {
+			if (link.source.name === active) neighbours.add(link.target.name);
+			if (link.target.name === active) neighbours.add(link.source.name);
+		}
+	}
+
 	return {
 		// Read so the render follows the simulation; the value itself is not used.
 		tick: frame.value,
 		nodes: nodes.map((node) => ({
 			node,
-			dimmed:
-				active !== null &&
-				active !== node.name &&
-				!links.some(
-					(link) =>
-						(link.source.name === active && link.target.name === node.name) ||
-						(link.target.name === active && link.source.name === node.name),
-				),
+			hidden: !shown.get(node.name),
+			dimmed: active !== null && !neighbours.has(node.name),
 		})),
 		links: links.map((link) => ({
 			link,
 			path: edgePath(link),
+			hidden: !activeLinkSet.has(link),
 			dimmed: active !== null && link.source.name !== active && link.target.name !== active,
 		})),
 	};
@@ -140,153 +439,9 @@ function measure(): void {
 	element.textContent = '';
 }
 
-/**
- * Repositories with no relations at all. They are part of the picture — a dozen
- * of them is itself worth seeing — but left to the force layout they drift
- * across the canvas and crowd out everything that does connect, so they get a
- * quiet column of their own down the left edge.
- */
-const isolated = new Map<string, number>();
-{
-	const connected = new Set(links.flatMap((link) => [link.source.name, link.target.name]));
-	for (const node of nodes) {
-		if (!connected.has(node.name)) isolated.set(node.name, isolated.size);
-	}
-}
-
-const maxDepth = Math.max(1, ...nodes.map((node) => node.depth));
-
-/**
- * Columns by dependency depth: what nothing is built on sits on the right, so
- * arrows point rightwards — the same reading order as the static diagram.
- */
-function columnX(node: SimNode, width: number): number {
-	if (isolated.has(node.name)) return width * 0.045;
-	return width * (0.92 - (node.depth / maxDepth) * 0.7);
-}
-
-/** Only the isolated column is placed vertically; the rest is up to the forces. */
-function rowY(node: SimNode, height: number): number {
-	const order = isolated.get(node.name);
-	if (order === undefined) return height / 2;
-	return height * (0.05 + (order / Math.max(isolated.size - 1, 1)) * 0.9);
-}
-
-/** Held together in one place because a resize has to reapply all of them. */
-function placementForces(
-	width: number,
-	height: number,
-): {
-	column: ReturnType<typeof forceX<SimNode>>;
-	row: ReturnType<typeof forceY<SimNode>>;
-} {
-	return {
-		column: forceX<SimNode>((node) => columnX(node, width)).strength((node) =>
-			isolated.has(node.name) ? 0.9 : 0.34,
-		),
-		row: forceY<SimNode>((node) => rowY(node, height)).strength((node) =>
-			isolated.has(node.name) ? 0.6 : 0.07,
-		),
-	};
-}
-
-function build(): void {
-	const { width, height } = size.value;
-
-	nodes.forEach((node, index) => {
-		if (node.x === undefined) {
-			node.x = columnX(node, width);
-			// Golden-ratio spread: deterministic, so the layout is reproducible.
-			node.y = isolated.has(node.name)
-				? rowY(node, height)
-				: height * (((index * 0.618033988749895) % 1) * 0.86 + 0.07);
-		}
-	});
-
-	const placement = placementForces(width, height);
-	simulation = forceSimulation<SimNode, SimLink>(nodes)
-		.force(
-			'link',
-			forceLink<SimNode, SimLink>(links)
-				.id((node) => node.name)
-				.distance(85)
-				.strength(0.45),
-		)
-		// Isolated nodes barely push: their column should stay narrow.
-		.force(
-			'charge',
-			forceManyBody<SimNode>()
-				.strength((node) => (isolated.has(node.name) ? -40 : -260))
-				.distanceMax(400),
-		)
-		.force('collide', forceCollide<SimNode>((node) => node.w / 2 + 12).strength(0.9))
-		.force('column', placement.column)
-		.force('row', placement.row)
-		.on('tick', () => {
-			frame.value++;
-			if (!userMoved) fitView();
-		});
-
-	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-		simulation.stop();
-		for (let step = 0; step < 300; step++) simulation.tick();
-		frame.value++;
-	}
-}
-
-/**
- * A force layout has no idea how big the viewport is, so the camera follows it:
- * every tick the view is refitted around the nodes. As soon as the reader pans,
- * zooms or drags something, that stops — the view is theirs from then on, until
- * they ask for it back.
- */
-let userMoved = false;
-
-function fitView(): void {
-	const element = svg.value;
-	if (!element) return;
-
-	let minX = Infinity;
-	let minY = Infinity;
-	let maxX = -Infinity;
-	let maxY = -Infinity;
-	for (const node of nodes) {
-		minX = Math.min(minX, (node.x ?? 0) - node.w / 2);
-		maxX = Math.max(maxX, (node.x ?? 0) + node.w / 2);
-		minY = Math.min(minY, (node.y ?? 0) - node.h / 2);
-		maxY = Math.max(maxY, (node.y ?? 0) + node.h / 2);
-	}
-	if (!Number.isFinite(minX)) return;
-
-	const padding = 24;
-	const { width, height } = size.value;
-	const scale = Math.min(
-		1.1,
-		Math.max(0.25, (width - padding * 2) / Math.max(maxX - minX, 1)),
-		Math.max(0.25, (height - padding * 2) / Math.max(maxY - minY, 1)),
-	);
-	const next = zoomIdentity
-		.translate(width / 2 - ((minX + maxX) / 2) * scale, height / 2 - ((minY + maxY) / 2) * scale)
-		.scale(scale);
-
-	transform.value = next;
-	// Keep d3-zoom's own state in step, or the next pan would jump.
-	zoomBehaviour.transform(select(element), next);
-}
-
-function resetView(): void {
-	userMoved = false;
-	simulation?.alpha(0.6).restart();
-	fitView();
-}
-
-const zoomBehaviour = zoom<SVGSVGElement, unknown>()
-	.scaleExtent([0.25, 3])
-	.on('zoom', (event: { transform: ZoomTransform; sourceEvent: unknown }) => {
-		transform.value = event.transform;
-		// sourceEvent is null when fitView moved the camera itself.
-		if (event.sourceEvent) userMoved = true;
-	});
+/* --------------------------------------------------------------------------
+ * Interaction
+ * ----------------------------------------------------------------------- */
 
 /** Node dragging. d3-zoom owns the canvas, so the nodes handle their own pointers. */
 let dragging: SimNode | undefined;
@@ -320,35 +475,45 @@ function moveDrag(event: PointerEvent): void {
 
 function endDrag(): void {
 	if (!dragging) return;
-	// Released nodes stay where they were put; a reset lets the layout reclaim them.
+	// Released nodes stay where they were put; "Reset view" reclaims them.
 	simulation?.alphaTarget(0);
 	dragging = undefined;
 }
+
+/* --------------------------------------------------------------------------
+ * Lifecycle
+ * ----------------------------------------------------------------------- */
+
+watch(visible, applyFilters);
 
 onMounted(() => {
 	const element = root.value;
 	if (!element) return;
 
 	observer = new ResizeObserver(([entry]) => {
-		const width = Math.max(320, entry.contentRect.width);
-		const height = Math.max(320, entry.contentRect.height);
+		const width = Math.max(280, entry.contentRect.width);
+		const height = Math.max(280, entry.contentRect.height);
 		if (width === size.value.width && height === size.value.height) return;
 		size.value = { width, height };
-		const placement = placementForces(width, height);
-		simulation
-			?.force('column', placement.column)
-			.force('row', placement.row)
-			.alpha(0.3)
-			.restart();
+		// The layout has its own coordinates, so only the camera has to react.
+		fitView();
 	});
 	observer.observe(element);
 
 	const box = element.getBoundingClientRect();
-	size.value = { width: Math.max(320, box.width), height: Math.max(320, box.height) };
+	size.value = { width: Math.max(280, box.width), height: Math.max(280, box.height) };
 
 	measure();
 	if (svg.value) select(svg.value).call(zoomBehaviour);
 	build();
+
+	// Deterministic starting positions, so the same filters always settle the same way.
+	nodes.forEach((node, index) => {
+		node.x = 0;
+		node.y = (((index * 0.618033988749895) % 1) - 0.5) * 520;
+	});
+
+	applyFilters();
 	fitView();
 	ready.value = true;
 });
@@ -361,6 +526,59 @@ onBeforeUnmount(() => {
 
 <template>
 	<figure class="dependency-graph">
+		<div class="controls">
+			<div class="group" role="group" aria-label="Kinds of dependency">
+				<span class="group-label">Dependencies</span>
+				<button
+					v-for="kind in usedKinds"
+					:key="kind.id"
+					type="button"
+					class="chip"
+					:class="[`kind-${kind.id}`, { off: !kindOn[kind.id] }]"
+					:aria-pressed="kindOn[kind.id]"
+					@click="kindOn[kind.id] = !kindOn[kind.id]"
+				>
+					<svg viewBox="0 0 26 8" aria-hidden="true"><path d="M1,4 L25,4" /></svg>
+					{{ kind.title }}
+				</button>
+			</div>
+
+			<div class="group" role="group" aria-label="Kinds of repository">
+				<span class="group-label">Repositories</span>
+				<button
+					type="button"
+					class="chip role"
+					:class="{ off: !roleOn.productive }"
+					:aria-pressed="roleOn.productive"
+					@click="roleOn.productive = !roleOn.productive"
+				>
+					<span class="box" aria-hidden="true" />
+					productive
+				</button>
+				<button
+					type="button"
+					class="chip role"
+					:class="{ off: !roleOn.supporting }"
+					:aria-pressed="roleOn.supporting"
+					@click="roleOn.supporting = !roleOn.supporting"
+				>
+					<span class="box supporting" aria-hidden="true" />
+					supporting
+				</button>
+				<button
+					type="button"
+					class="chip plain"
+					:class="{ off: !hideUnconnected }"
+					:aria-pressed="hideUnconnected"
+					@click="hideUnconnected = !hideUnconnected"
+				>
+					hide unconnected
+				</button>
+			</div>
+
+			<button type="button" class="chip plain reset" @click="resetView">Reset view</button>
+		</div>
+
 		<div ref="root" class="canvas">
 			<svg
 				ref="svg"
@@ -401,7 +619,7 @@ onBeforeUnmount(() => {
 						v-for="(edge, index) in view.links"
 						:key="index"
 						class="link"
-						:class="[`kind-${edge.link.kind}`, { dimmed: edge.dimmed }]"
+						:class="[`kind-${edge.link.kind}`, { dimmed: edge.dimmed, hidden: edge.hidden }]"
 						:d="edge.path"
 						:marker-end="`url(#dg-arrow-${edge.link.kind})`"
 					/>
@@ -410,7 +628,10 @@ onBeforeUnmount(() => {
 						v-for="entry in view.nodes"
 						:key="entry.node.name"
 						class="node"
-						:class="[`role-${entry.node.role}`, { dimmed: entry.dimmed }]"
+						:class="[
+							`role-${entry.node.role}`,
+							{ dimmed: entry.dimmed, hidden: entry.hidden },
+						]"
 						:style="{ '--dg-hue': hues.get(entry.node.group) ?? 0 }"
 						:transform="`translate(${entry.node.x ?? 0},${entry.node.y ?? 0})`"
 						@pointerdown="startDrag($event, entry.node)"
@@ -431,19 +652,13 @@ onBeforeUnmount(() => {
 			</svg>
 
 			<p v-if="!ready" class="loading">Preparing the layout…</p>
-
-			<button class="reset" type="button" @click="resetView">Reset view</button>
 		</div>
 
-		<figcaption class="legend">
-			<span v-for="kind in usedKinds" :key="kind.id" class="swatch" :class="`kind-${kind.id}`">
-				<svg viewBox="0 0 26 8" aria-hidden="true"><path d="M1,4 L25,4" /></svg>
-				{{ kind.title }}
-			</span>
-			<span class="swatch role"
-				><span class="box supporting" aria-hidden="true" /> supporting repository</span
-			>
-			<span class="hint">Drag the nodes, scroll to zoom, hover to isolate.</span>
+		<figcaption class="status">
+			Showing {{ visible.nodes.length }} of {{ nodes.length }} repositories and
+			{{ visible.links.length }} of {{ links.length }} dependencies. Arrows run left to right,
+			from a repository to what it depends on. Drag a node to pull it out, scroll to zoom, hover
+			to isolate.
 		</figcaption>
 	</figure>
 </template>
@@ -487,6 +702,96 @@ onBeforeUnmount(() => {
 	--dg-line-c: 0.12;
 }
 
+/* Controls --------------------------------------------------------------- */
+
+.controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 16px;
+	margin-bottom: 10px;
+}
+
+.group {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+
+.group-label {
+	color: var(--vp-c-text-3);
+	font-size: 13px;
+}
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 10px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	background: var(--vp-c-bg);
+	color: var(--vp-c-text-1);
+	font-size: 13px;
+	line-height: 1.5;
+	transition:
+		opacity 0.15s ease,
+		border-color 0.15s ease;
+}
+
+.chip:hover {
+	border-color: var(--vp-c-brand-1);
+}
+
+.chip.off {
+	opacity: 0.45;
+	color: var(--vp-c-text-3);
+}
+
+.chip svg {
+	width: 26px;
+	height: 8px;
+	overflow: visible;
+}
+
+.chip path {
+	fill: none;
+	stroke: oklch(var(--dg-line-l) var(--dg-line-c) var(--dg-hue));
+	stroke-width: 1.6;
+}
+
+.chip.kind-docker path {
+	stroke-width: 2.6;
+}
+.chip.kind-download path {
+	stroke-dasharray: 7 4;
+}
+.chip.kind-workflow path {
+	stroke-dasharray: 2 3;
+}
+.chip.kind-manual path {
+	stroke-dasharray: 1 4;
+}
+
+.chip .box {
+	width: 20px;
+	height: 12px;
+	border-radius: 3px;
+	border: 1.2px solid var(--vp-c-text-3);
+	background: var(--vp-c-bg-soft);
+}
+
+.chip .box.supporting {
+	border-style: dashed;
+}
+
+.reset {
+	margin-left: auto;
+}
+
+/* Canvas ----------------------------------------------------------------- */
+
 .canvas {
 	position: relative;
 	height: clamp(420px, 62vh, 720px);
@@ -517,28 +822,11 @@ onBeforeUnmount(() => {
 	color: var(--vp-c-text-3);
 }
 
-.reset {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	padding: 4px 10px;
-	border: 1px solid var(--vp-c-divider);
-	border-radius: 6px;
-	background: var(--vp-c-bg);
-	color: var(--vp-c-text-2);
-	font-size: 12px;
-}
-
-.reset:hover {
-	border-color: var(--vp-c-brand-1);
-	color: var(--vp-c-brand-1);
-}
-
 /* Nodes ------------------------------------------------------------------ */
 
 .node {
 	cursor: grab;
-	transition: opacity 0.2s ease;
+	transition: opacity 0.25s ease;
 }
 
 .node rect {
@@ -569,12 +857,18 @@ onBeforeUnmount(() => {
 	opacity: 0.12;
 }
 
+.node.hidden,
+.link.hidden {
+	opacity: 0;
+	pointer-events: none;
+}
+
 /* Links ------------------------------------------------------------------ */
 
 .link {
 	fill: none;
 	stroke-width: 1.4;
-	transition: opacity 0.2s ease;
+	transition: opacity 0.25s ease;
 }
 
 .kind-npm {
@@ -620,65 +914,19 @@ onBeforeUnmount(() => {
 	stroke: none;
 }
 
-/* Legend ----------------------------------------------------------------- */
+/* Caption ---------------------------------------------------------------- */
 
-.legend {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 6px 18px;
-	margin-top: 10px;
-	color: var(--vp-c-text-2);
+.status {
+	margin-top: 8px;
+	color: var(--vp-c-text-3);
 	font-size: 13px;
 	text-align: left;
 }
 
-.swatch {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-}
-
-.swatch svg {
-	width: 26px;
-	height: 8px;
-	overflow: visible;
-}
-
-.swatch path {
-	fill: none;
-	stroke: oklch(var(--dg-line-l) var(--dg-line-c) var(--dg-hue));
-	stroke-width: 1.6;
-}
-
-.swatch.kind-docker path {
-	stroke-width: 2.6;
-}
-.swatch.kind-download path {
-	stroke-dasharray: 7 4;
-}
-.swatch.kind-workflow path {
-	stroke-dasharray: 2 3;
-}
-.swatch.kind-manual path {
-	stroke-dasharray: 1 4;
-}
-
-.swatch .box {
-	width: 22px;
-	height: 12px;
-	border-radius: 3px;
-	border: 1.2px dashed var(--vp-c-text-3);
-	background: var(--vp-c-bg-soft);
-}
-
-.hint {
-	width: 100%;
-	color: var(--vp-c-text-3);
-}
-
 @media (prefers-reduced-motion: reduce) {
 	.node,
-	.link {
+	.link,
+	.chip {
 		transition: none;
 	}
 }

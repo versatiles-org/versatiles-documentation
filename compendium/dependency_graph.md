@@ -22,13 +22,13 @@ This page collects all of them in one place.
 
 ## Overview
 
-An arrow points **from a repository to what it depends on**, so the most heavily used
-repositories are the ones everything else aims at. Colour and line style say how the
-dependency is expressed, and a dashed box marks a repository that supports the work
-rather than being part of what VersaTiles ships.
+An arrow points **from a repository to what it depends on**, and the layout runs left to
+right: whatever is built on most ends up on the right, with everything that builds on it
+to the left. Colour and line style say how the dependency is expressed.
 
-Drag a repository to pull it out of the tangle, scroll to zoom, and hover over one to
-see what it is connected to.
+A graph of the whole organisation is a lot at once, so it can be narrowed down: one kind
+of dependency at a time, or only the repositories that are part of what VersaTiles ships
+rather than the ones that support the work — those are drawn with a dashed outline.
 
 <DependencyGraph />
 
