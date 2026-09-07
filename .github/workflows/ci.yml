@@ -64,7 +64,9 @@ jobs:
   deploy:
     name: Deploy
     needs: check
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # workflow_dispatch is included so the dependency-graph job can publish the
+    # page it just regenerated: a push made with GITHUB_TOKEN starts no workflow.
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
 
     permissions:
       pages: write

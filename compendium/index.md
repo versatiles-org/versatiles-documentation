@@ -19,3 +19,4 @@ Reference material and specifications for the VersaTiles ecosystem. Where **Basi
 ## Ecosystem
 
 - [**Tools**](tools.md) — Web tools and libraries built around VersaTiles.
+- [**Repository dependencies**](dependency_graph.md) — How the repositories of the project build on each other, and where each link is declared.

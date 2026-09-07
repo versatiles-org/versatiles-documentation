@@ -1,0 +1,126 @@
+# Editorial input for scripts/build-dependency-graph.ts.
+#
+# The script can read manifests, but it cannot know how the repositories relate
+# to each other conceptually, which Docker image is built where, or which of its
+# findings are noise. That knowledge lives here.
+#
+# Every repository name below is checked against the organisation on each run,
+# so a rename or a deletion is reported instead of silently doing nothing.
+
+org: versatiles-org
+
+# Archived repositories describe the past, not the current stack.
+include_archived: false
+# Forks are kept: the tile pipelines genuinely build on them.
+include_forks: true
+
+# How the repositories are laid out on the page. Anything missing here still
+# shows up, but in a "not yet categorised" box — which is the reminder to
+# come back and place it.
+groups:
+  - id: core
+    title: Core
+    summary: The container format and the programs that read and write it.
+    repos:
+      - versatiles-spec
+      - versatiles-rs
+      - versatiles-glyphs-rs
+
+  - id: libraries
+    title: Libraries
+    summary: Published npm packages that the rest of the ecosystem builds on.
+    repos:
+      - node-versatiles-container
+      - node-versatiles-server
+      - node-versatiles-google-cloud
+      - node-versatiles-svelte
+      - versatiles-style
+      - versatiles-svg-renderer
+      - node-release-tool
+
+  - id: applications
+    title: Applications and tools
+    summary: What people open and use — desktop, browser and command line.
+    repos:
+      - versatiles-studio
+      - versatiles-frontend
+      - maplibre-versatiles-styler
+      - versatiles-map-animation
+      - versatiles-map-editor
+      - playground
+      - tools
+      - editor
+      - maputnik
+
+  - id: production
+    title: Tile and asset production
+    summary: Pipelines that turn open data into tilesets, fonts and sprites.
+    repos:
+      - planetiler
+      - planetiler-shortbread
+      - shortbread-tilemaker
+      - landcover-vectors
+      - elevation
+      - opendem-gebco-bathymetry
+      - orthophotos
+      - versatiles-fonts
+      - versatiles-choro
+
+  - id: web
+    title: Websites
+    summary: The public pages of the project, including this documentation.
+    repos:
+      - versatiles-org.github.io
+      - versatiles-documentation
+      - download.versatiles.org
+      - consortium
+
+  - id: operations
+    title: Packaging and operations
+    summary: How the software is shipped, deployed and kept running.
+    repos:
+      - versatiles-docker
+      - homebrew-versatiles
+      - tiles.versatiles.org
+      - photon-stack
+      - .github
+
+# Container images published by the project, and the repository that builds
+# them. Image names carry no hint of their origin, so this mapping is the only
+# way to turn a `FROM` line into an arrow. Unmapped images that look like ours
+# are reported as a warning.
+images:
+  versatiles/versatiles: versatiles-docker
+  versatiles/versatiles-frontend: versatiles-docker
+  versatiles/versatiles-gdal: versatiles-docker
+  versatiles/versatiles-nginx: versatiles-docker
+  versatiles/versatiles-planetiler: versatiles-docker
+  versatiles/versatiles-tilemaker: versatiles-docker
+  versatiles/versatiles-tippecanoe: versatiles-docker
+  ghcr.io/versatiles-org/versatiles: versatiles-docker
+  ghcr.io/versatiles-org/versatiles-frontend: versatiles-docker
+  ghcr.io/versatiles-org/versatiles-gdal: versatiles-docker
+  ghcr.io/versatiles-org/versatiles-nginx: versatiles-docker
+  ghcr.io/versatiles-org/versatiles-planetiler: versatiles-docker
+  ghcr.io/versatiles-org/versatiles-tilemaker: versatiles-docker
+  ghcr.io/versatiles-org/versatiles-tippecanoe: versatiles-docker
+  ghcr.io/versatiles-org/versatiles-choro: versatiles-choro
+  ghcr.io/versatiles-org/versatiles-map-animation: versatiles-map-animation
+  ghcr.io/versatiles-org/planetiler-shortbread: planetiler-shortbread
+
+# Repositories left out of the graph entirely.
+exclude: []
+
+# Dependencies no parser can see: data handed over between pipelines, services
+# that expect a particular tileset, agreements that only exist in a runbook.
+# Each needs a note, which is shown instead of a source link.
+#
+#   - from: tiles.versatiles.org
+#     to: planetiler-shortbread
+#     kind: manual
+#     note: serves the OSM tilesets produced by this pipeline
+manual: []
+
+# False positives. A rule that stops matching is reported, so this list cannot
+# quietly outlive the problem it was written for.
+ignore: []

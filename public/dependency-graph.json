@@ -1,0 +1,871 @@
+{
+	"org": "versatiles-org",
+	"groups": [
+		{
+			"id": "core",
+			"title": "Core",
+			"summary": "The container format and the programs that read and write it."
+		},
+		{
+			"id": "libraries",
+			"title": "Libraries",
+			"summary": "Published npm packages that the rest of the ecosystem builds on."
+		},
+		{
+			"id": "applications",
+			"title": "Applications and tools",
+			"summary": "What people open and use — desktop, browser and command line."
+		},
+		{
+			"id": "production",
+			"title": "Tile and asset production",
+			"summary": "Pipelines that turn open data into tilesets, fonts and sprites."
+		},
+		{
+			"id": "web",
+			"title": "Websites",
+			"summary": "The public pages of the project, including this documentation."
+		},
+		{
+			"id": "operations",
+			"title": "Packaging and operations",
+			"summary": "How the software is shipped, deployed and kept running."
+		}
+	],
+	"repos": [
+		{
+			"name": ".github",
+			"group": "operations",
+			"description": "Shared GitHub workflows, templates, and issue configurations for all VersaTiles repositories.",
+			"language": null,
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "consortium",
+			"group": "web",
+			"description": null,
+			"language": "Svelte",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "download.versatiles.org",
+			"group": "web",
+			"description": "Data download hub for VersaTiles datasets.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "editor",
+			"group": "applications",
+			"description": "Modified Maputnik for Versatiles Styles",
+			"language": "HTML",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "elevation",
+			"group": "production",
+			"description": null,
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "homebrew-versatiles",
+			"group": "operations",
+			"description": "Homebrew tap for installing VersaTiles CLI tools on macOS.",
+			"language": "Shell",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "landcover-vectors",
+			"group": "production",
+			"description": "Generate landcover vector tiles from ESA Worldcover",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "maplibre-versatiles-styler",
+			"group": "applications",
+			"description": "MapLibre GL JS plugin for editing and managing VersaTiles map styles directly in the browser.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "maputnik",
+			"group": "applications",
+			"description": "An open source visual editor for the 'MapLibre Style Specification'",
+			"language": "TypeScript",
+			"fork": true,
+			"archived": false
+		},
+		{
+			"name": "node-release-tool",
+			"group": "libraries",
+			"description": "Helper tool for automating Node.js package releases across VersaTiles repositories.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "node-versatiles-container",
+			"group": "libraries",
+			"description": "Node.js library for reading VersaTiles container files.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "node-versatiles-google-cloud",
+			"group": "libraries",
+			"description": "Google Cloud integration tools for hosting and serving VersaTiles data.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "node-versatiles-server",
+			"group": "libraries",
+			"description": "Node.js implementation of a VersaTiles tile server.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "node-versatiles-svelte",
+			"group": "libraries",
+			"description": "Svelte components and bindings for displaying VersaTiles data in MapLibre GL JS.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "opendem-gebco-bathymetry",
+			"group": "production",
+			"description": "Versatiles Container from GEBCO Bathymetry Data provided by OpenDEM",
+			"language": "Shell",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "orthophotos",
+			"group": "production",
+			"description": "Processing pipeline and hosting setup for global and regional orthophoto layers.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "photon-stack",
+			"group": "operations",
+			"description": null,
+			"language": "Shell",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "planetiler",
+			"group": "production",
+			"description": "Flexible tool to build planet-scale vector tilesets from OpenStreetMap data fast",
+			"language": "Java",
+			"fork": true,
+			"archived": false
+		},
+		{
+			"name": "planetiler-shortbread",
+			"group": "production",
+			"description": "Native Java Planetiler profile generating vector tiles in the Shortbread schema",
+			"language": "Java",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "playground",
+			"group": "applications",
+			"description": "Interactive playground demonstrating how to use VersaTiles in web applications.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "shortbread-tilemaker",
+			"group": "production",
+			"description": "Tilemaker configuration for generating Shortbread vector tiles.",
+			"language": "Lua",
+			"fork": true,
+			"archived": false
+		},
+		{
+			"name": "tiles.versatiles.org",
+			"group": "operations",
+			"description": "Tile hosting service for public VersaTiles datasets.",
+			"language": "Shell",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "tools",
+			"group": "applications",
+			"description": "Utility scripts and helper tools built around the VersaTiles ecosystem.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-choro",
+			"group": "production",
+			"description": "Modular Docker-based pipeline for creating interactive choropleth maps",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-docker",
+			"group": "operations",
+			"description": "Docker images and build scripts for the VersaTiles ecosystem.",
+			"language": "Shell",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-documentation",
+			"group": "web",
+			"description": "Documentation for the VersaTiles ecosystem.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-fonts",
+			"group": "production",
+			"description": "Repository of open-source SDF fonts optimized for MapLibre GL JS rendering.",
+			"language": "JavaScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-frontend",
+			"group": "applications",
+			"description": "Frontend web applications for exploring VersaTiles maps and datasets.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-glyphs-rs",
+			"group": "core",
+			"description": "Rust implementation of a signed-distance-field (SDF) glyph renderer used in map rendering.",
+			"language": "Rust",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-map-animation",
+			"group": "applications",
+			"description": "Browser-based editor for composing keyframe camera animations on a VersaTiles map.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-map-editor",
+			"group": "applications",
+			"description": null,
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-org.github.io",
+			"group": "web",
+			"description": "Source code for the public website at versatiles.org.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-rs",
+			"group": "core",
+			"description": "Core Rust implementation of the VersaTiles toolkit for converting, validating, and serving map tiles in multiple formats.",
+			"language": "Rust",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-spec",
+			"group": "core",
+			"description": "Specification for VersaTiles containers.",
+			"language": null,
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-studio",
+			"group": "applications",
+			"description": "Cross-platform desktop application for opening, inspecting, styling and converting map tiles.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-style",
+			"group": "libraries",
+			"description": "Toolkit for generating MapLibre styles.",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "versatiles-svg-renderer",
+			"group": "libraries",
+			"description": "renders maps as SVG",
+			"language": "TypeScript",
+			"fork": false,
+			"archived": false
+		}
+	],
+	"edges": [
+		{
+			"from": "download.versatiles.org",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.1",
+			"path": "package.json",
+			"line": 59
+		},
+		{
+			"from": "download.versatiles.org",
+			"to": "node-versatiles-container",
+			"kind": "npm",
+			"detail": "@versatiles/container@^2.0.0",
+			"path": "package.json",
+			"line": 45
+		},
+		{
+			"from": "download.versatiles.org",
+			"to": "node-versatiles-svelte",
+			"kind": "npm",
+			"detail": "@versatiles/svelte@^2.3.1",
+			"path": "package.json",
+			"line": 46
+		},
+		{
+			"from": "homebrew-versatiles",
+			"to": "versatiles-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-rs/releases",
+			"path": "bin/make_formula.sh",
+			"line": 6
+		},
+		{
+			"from": "homebrew-versatiles",
+			"to": "versatiles-studio",
+			"kind": "download",
+			"detail": "\"versatiles-org/versatiles-studio\"",
+			"path": "bin/make_cask.sh",
+			"line": 21
+		},
+		{
+			"from": "maplibre-versatiles-styler",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.1",
+			"path": "package.json",
+			"line": 44
+		},
+		{
+			"from": "maplibre-versatiles-styler",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 45
+		},
+		{
+			"from": "node-versatiles-container",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.1",
+			"path": "package.json",
+			"line": 68
+		},
+		{
+			"from": "node-versatiles-container",
+			"to": "versatiles-spec",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-spec/blob",
+			"path": "src/index.ts",
+			"line": 162
+		},
+		{
+			"from": "node-versatiles-container",
+			"to": "versatiles-spec",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-spec/blob",
+			"path": "src/lib/interfaces.ts",
+			"line": 72
+		},
+		{
+			"from": "node-versatiles-google-cloud",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.1",
+			"path": "package.json",
+			"line": 77
+		},
+		{
+			"from": "node-versatiles-google-cloud",
+			"to": "node-versatiles-container",
+			"kind": "npm",
+			"detail": "@versatiles/container@^1.5.1",
+			"path": "package.json",
+			"line": 63
+		},
+		{
+			"from": "node-versatiles-google-cloud",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 64
+		},
+		{
+			"from": "node-versatiles-server",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.1",
+			"path": "package.json",
+			"line": 73
+		},
+		{
+			"from": "node-versatiles-server",
+			"to": "node-versatiles-container",
+			"kind": "npm",
+			"detail": "@versatiles/container@^1.5.1",
+			"path": "package.json",
+			"line": 63
+		},
+		{
+			"from": "node-versatiles-server",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
+			"path": "scripts/update-frontend.sh",
+			"line": 16
+		},
+		{
+			"from": "node-versatiles-server",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 64
+		},
+		{
+			"from": "node-versatiles-svelte",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.0",
+			"path": "package.json",
+			"line": 58
+		},
+		{
+			"from": "node-versatiles-svelte",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.0",
+			"path": "package.json",
+			"line": 85
+		},
+		{
+			"from": "orthophotos",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.1",
+			"path": "package.json",
+			"line": 36
+		},
+		{
+			"from": "orthophotos",
+			"to": "versatiles-docker",
+			"kind": "docker",
+			"detail": "ghcr.io/versatiles-org/versatiles-gdal",
+			"path": "Dockerfile",
+			"line": 2
+		},
+		{
+			"from": "orthophotos",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
+			"path": "src/server/frontend.ts",
+			"line": 25
+		},
+		{
+			"from": "planetiler-shortbread",
+			"to": "planetiler",
+			"kind": "workflow",
+			"detail": "versatiles-org/planetiler",
+			"path": ".github/workflows/ci.yml",
+			"line": 76
+		},
+		{
+			"from": "tiles.versatiles.org",
+			"to": "versatiles-docker",
+			"kind": "docker",
+			"detail": "versatiles/versatiles",
+			"path": "compose.yaml",
+			"line": 4
+		},
+		{
+			"from": "tiles.versatiles.org",
+			"to": "versatiles-docker",
+			"kind": "docker",
+			"detail": "versatiles/versatiles",
+			"path": "download/Dockerfile",
+			"line": 5
+		},
+		{
+			"from": "tiles.versatiles.org",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
+			"path": "bin/frontend/update.sh",
+			"line": 21
+		},
+		{
+			"from": "tiles.versatiles.org",
+			"to": "versatiles-style",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-style/releases",
+			"path": "bin/styles/update.sh",
+			"line": 21
+		},
+		{
+			"from": "tools",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.10.0",
+			"path": "package.json",
+			"line": 42
+		},
+		{
+			"from": "tools",
+			"to": "node-versatiles-container",
+			"kind": "npm",
+			"detail": "@versatiles/container@^2.0.0",
+			"path": "package.json",
+			"line": 41
+		},
+		{
+			"from": "tools",
+			"to": "node-versatiles-svelte",
+			"kind": "npm",
+			"detail": "@versatiles/svelte@^2.3.1",
+			"path": "package.json",
+			"line": 43
+		},
+		{
+			"from": "tools",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
+			"path": "src/routes/setup_server/generate_code.ts",
+			"line": 168
+		},
+		{
+			"from": "tools",
+			"to": "versatiles-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-rs/releases",
+			"path": "src/routes/setup_server/generate_code.ts",
+			"line": 102
+		},
+		{
+			"from": "versatiles-choro",
+			"to": "versatiles-docker",
+			"kind": "docker",
+			"detail": "versatiles/versatiles-tippecanoe",
+			"path": "docker/Dockerfile",
+			"line": 1
+		},
+		{
+			"from": "versatiles-choro",
+			"to": "versatiles-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-rs.git",
+			"path": "docker/Dockerfile",
+			"line": 16
+		},
+		{
+			"from": "versatiles-choro",
+			"to": "versatiles-rs",
+			"kind": "npm",
+			"detail": "@versatiles/versatiles-rs@^4.10.0",
+			"path": "package.json",
+			"line": 47
+		},
+		{
+			"from": "versatiles-choro",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 68
+		},
+		{
+			"from": "versatiles-docker",
+			"to": "planetiler",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/planetiler.git",
+			"path": "versatiles-planetiler/Dockerfile",
+			"line": 24
+		},
+		{
+			"from": "versatiles-docker",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "\"versatiles-org/versatiles-frontend\"",
+			"path": "versatiles-frontend/build.sh",
+			"line": 23
+		},
+		{
+			"from": "versatiles-docker",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
+			"path": "versatiles-frontend/Dockerfile",
+			"line": 12
+		},
+		{
+			"from": "versatiles-docker",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
+			"path": "versatiles-nginx/scripts/fetch_frontend.sh",
+			"line": 66
+		},
+		{
+			"from": "versatiles-docker",
+			"to": "versatiles-rs",
+			"kind": "download",
+			"detail": "\"versatiles-org/versatiles-rs\"",
+			"path": "scripts/utils.sh",
+			"line": 72
+		},
+		{
+			"from": "versatiles-docker",
+			"to": "versatiles-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-rs.git",
+			"path": "versatiles-gdal/Dockerfile",
+			"line": 13
+		},
+		{
+			"from": "versatiles-docker",
+			"to": "versatiles-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-rs/releases",
+			"path": "scripts/download_versatiles_binary.sh",
+			"line": 41
+		},
+		{
+			"from": "versatiles-documentation",
+			"to": "versatiles-spec",
+			"kind": "download",
+			"detail": "'versatiles-org/versatiles-spec'",
+			"path": "scripts/sync-spec.ts",
+			"line": 25
+		},
+		{
+			"from": "versatiles-fonts",
+			"to": "versatiles-glyphs-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-glyphs-rs/raw",
+			"path": ".github/workflows/release.yml",
+			"line": 31
+		},
+		{
+			"from": "versatiles-fonts",
+			"to": "versatiles-glyphs-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-glyphs-rs/raw",
+			"path": "scripts/build.ts",
+			"line": 12
+		},
+		{
+			"from": "versatiles-frontend",
+			"to": "maplibre-versatiles-styler",
+			"kind": "npm",
+			"detail": "maplibre-versatiles-styler@^1.3.2",
+			"path": "package.json",
+			"line": 59
+		},
+		{
+			"from": "versatiles-frontend",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.0",
+			"path": "package.json",
+			"line": 46
+		},
+		{
+			"from": "versatiles-frontend",
+			"to": "versatiles-docker",
+			"kind": "workflow",
+			"detail": "api.github.com/repos/versatiles-org/versatiles-docker/actions/workflows/release.yml/dispatches",
+			"path": ".github/workflows/release.yml",
+			"line": 68
+		},
+		{
+			"from": "versatiles-frontend",
+			"to": "versatiles-fonts",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-fonts/releases",
+			"path": "frontends/config.ts",
+			"line": 10
+		},
+		{
+			"from": "versatiles-frontend",
+			"to": "versatiles-style",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-style/releases",
+			"path": "frontends/config.ts",
+			"line": 33
+		},
+		{
+			"from": "versatiles-frontend",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 47
+		},
+		{
+			"from": "versatiles-frontend",
+			"to": "versatiles-svg-renderer",
+			"kind": "npm",
+			"detail": "@versatiles/svg-renderer@^1.1.0",
+			"path": "package.json",
+			"line": 48
+		},
+		{
+			"from": "versatiles-map-animation",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 35
+		},
+		{
+			"from": "versatiles-map-editor",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 25
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-fonts",
+			"kind": "download",
+			"detail": "'versatiles-org/versatiles-fonts'",
+			"path": "scripts/update-assets.ts",
+			"line": 33
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-frontend",
+			"kind": "download",
+			"detail": "'versatiles-org/versatiles-frontend'",
+			"path": "scripts/update-assets.ts",
+			"line": 34
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-rs",
+			"kind": "cargo",
+			"detail": "versatiles",
+			"path": "Cargo.toml",
+			"line": 23
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-rs",
+			"kind": "cargo",
+			"detail": "versatiles_container",
+			"path": "Cargo.toml",
+			"line": 18
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-rs",
+			"kind": "cargo",
+			"detail": "versatiles_core",
+			"path": "Cargo.toml",
+			"line": 17
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-rs",
+			"kind": "cargo",
+			"detail": "versatiles_geometry",
+			"path": "Cargo.toml",
+			"line": 20
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-rs",
+			"kind": "cargo",
+			"detail": "versatiles_pipeline",
+			"path": "Cargo.toml",
+			"line": 19
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-style",
+			"kind": "download",
+			"detail": "'versatiles-org/versatiles-style'",
+			"path": "scripts/update-assets.ts",
+			"line": 32
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 82
+		},
+		{
+			"from": "versatiles-style",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.0",
+			"path": "package.json",
+			"line": 65
+		},
+		{
+			"from": "versatiles-svg-renderer",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.9.0",
+			"path": "package.json",
+			"line": 92
+		},
+		{
+			"from": "versatiles-svg-renderer",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^5.13.1",
+			"path": "package.json",
+			"line": 93
+		}
+	]
+}

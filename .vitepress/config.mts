@@ -181,6 +181,10 @@ export default withMermaid(
 								{ text: 'Introduction', link: '/compendium/introduction' },
 								{ text: 'Wider Perspective', link: '/compendium/wider_perspective' },
 								{ text: 'Tools', link: '/compendium/tools' },
+								{
+									text: 'Repository Dependencies',
+									link: '/compendium/dependency_graph',
+								},
 							],
 						},
 						{
