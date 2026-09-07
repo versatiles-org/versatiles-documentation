@@ -71,9 +71,16 @@ export interface Edge {
 	line: number;
 }
 
+/**
+ * Whether a repository is part of what the project ships, or part of what keeps
+ * the project running. The split is editorial and lives in the configuration.
+ */
+export type RepoRole = 'productive' | 'supporting';
+
 export interface RepoNode {
 	name: string;
 	group: string;
+	role: RepoRole;
 	description: string | null;
 	language: string | null;
 	fork: boolean;

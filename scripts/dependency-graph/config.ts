@@ -43,6 +43,8 @@ export interface GraphConfig {
 	images: Record<string, string>;
 	/** Repositories left out of the graph entirely. */
 	exclude: string[];
+	/** Repositories that support the work rather than being part of the product. */
+	supporting: string[];
 	manual: ManualEdgeConfig[];
 	ignore: IgnoreConfig[];
 }
@@ -91,6 +93,10 @@ export function loadConfig(root: string): GraphConfig {
 		}),
 		images: (doc.images as Record<string, string> | undefined) ?? {},
 		exclude: (doc.exclude as string[] | undefined) ?? [],
+		supporting: (
+			((doc.roles as Record<string, unknown> | undefined)?.supporting as string[] | undefined) ??
+			[]
+		).map((repo, index) => asString(repo, `roles.supporting[${index}]`)),
 		manual: manual.map((entry, index) => {
 			const edge = entry as Record<string, unknown>;
 			return {
@@ -133,6 +139,7 @@ export function validateConfig(config: GraphConfig, knownRepos: Set<string>): st
 		}
 	}
 	for (const repo of config.exclude) checkRepo(repo, 'exclude');
+	for (const repo of config.supporting) checkRepo(repo, 'roles.supporting');
 	for (const image of Object.values(config.images)) checkRepo(image, 'images');
 	for (const edge of config.manual) {
 		checkRepo(edge.from, 'manual');

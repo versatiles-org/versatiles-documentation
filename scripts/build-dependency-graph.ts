@@ -122,9 +122,11 @@ async function main(): Promise<void> {
 		);
 	}
 
+	const supporting = new Set(config.supporting);
 	const nodes: RepoNode[] = repos.map((repo) => ({
 		name: repo.name,
 		group: groupOf.get(repo.name) ?? FALLBACK_GROUP.id,
+		role: supporting.has(repo.name) ? 'supporting' : 'productive',
 		description: repo.description,
 		language: repo.language,
 		fork: repo.fork,
