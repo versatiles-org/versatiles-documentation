@@ -46,6 +46,16 @@ export default withMermaid(
 				target: 'esnext',
 			},
 			optimizeDeps: {
+				/*
+				 * mermaid reaches the dev server as source rather than as a pre-bundled
+				 * dependency, because vitepress-plugin-mermaid imports it from a .ts file
+				 * it ships inside node_modules. Vite then converts mermaid's own imports
+				 * one by one, and misses these two: fastdom is UMD with no "exports"
+				 * field, so it is served unconverted and the default import it is asked
+				 * for does not exist. Naming them here has them pre-bundled properly.
+				 * Production builds are unaffected — Rollup handles the interop itself.
+				 */
+				include: ['fastdom', 'fastdom/extensions/fastdom-promised.js'],
 				esbuildOptions: {
 					target: 'esnext',
 				},

@@ -54,7 +54,7 @@
 		{
 			"name": "download.versatiles.org",
 			"group": "web",
-			"role": "productive",
+			"role": "supporting",
 			"description": "Data download hub for VersaTiles datasets.",
 			"language": "TypeScript",
 			"fork": false,
@@ -171,7 +171,7 @@
 		{
 			"name": "orthophotos",
 			"group": "production",
-			"role": "productive",
+			"role": "supporting",
 			"description": "Processing pipeline and hosting setup for global and regional orthophoto layers.",
 			"language": "TypeScript",
 			"fork": false,
@@ -225,7 +225,7 @@
 		{
 			"name": "tiles.versatiles.org",
 			"group": "operations",
-			"role": "productive",
+			"role": "supporting",
 			"description": "Tile hosting service for public VersaTiles datasets.",
 			"language": "Shell",
 			"fork": false,
@@ -234,7 +234,7 @@
 		{
 			"name": "tools",
 			"group": "applications",
-			"role": "productive",
+			"role": "supporting",
 			"description": "Utility scripts and helper tools built around the VersaTiles ecosystem.",
 			"language": "TypeScript",
 			"fork": false,
