@@ -1,59 +1,43 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, reactive, ref, shallowRef, watch } from 'vue';
-import {
-	forceCollide,
-	forceLink,
-	forceManyBody,
-	forceSimulation,
-	forceX,
-	forceY,
-	type ForceLink,
-	type Simulation,
-	type SimulationLinkDatum,
-	type SimulationNodeDatum,
-} from 'd3-force';
+import dagre from '@dagrejs/dagre';
 import { select } from 'd3-selection';
 import { zoom, zoomIdentity, type ZoomTransform } from 'd3-zoom';
 import { data, type GraphLink, type GraphNode } from '../../../compendium/dependency_graph.data';
 
-interface SimNode extends SimulationNodeDatum, GraphNode {
-	/** Label box, measured once from the rendered text. */
-	w: number;
-	h: number;
-	/** Where the layout wants this node, and how firmly it is held there. */
-	targetX: number;
-	targetY: number;
-	anchor: number;
-}
-
 /** The relation kinds the generator defines, without importing them twice. */
 type EdgeKind = GraphLink['kind'];
 
-interface SimLink extends SimulationLinkDatum<SimNode> {
-	source: SimNode;
-	target: SimNode;
+interface Point {
+	x: number;
+	y: number;
+}
+
+interface Box extends GraphNode {
+	/** Label box, measured once from the rendered text. */
+	w: number;
+	h: number;
+}
+
+interface Link {
+	source: Box;
+	target: Box;
 	kind: EdgeKind;
 	/** Sideways shift, so links between the same pair do not lie on top of each other. */
 	offset: number;
 }
 
-/** Horizontal distance between two layers, in layout units. */
-const COLUMN = 240;
-/** Smallest gap a dependency arrow has to span, measured between label boxes. */
-const MIN_SPAN = 40;
+/** Gap between layers, and between neighbours inside one. */
+const RANK_GAP = 90;
+const NODE_GAP = 26;
+/** How many points a routed edge is resampled to before being animated. */
+const SHAPE_POINTS = 20;
+const TWEEN_MS = 450;
 
-/** The nodes are created once and never replaced: their positions are the state. */
-const nodes: SimNode[] = data.nodes.map((node) => ({
-	...node,
-	w: 90,
-	h: 22,
-	targetX: 0,
-	targetY: 0,
-	anchor: 0.35,
-}));
+const nodes: Box[] = data.nodes.map((node) => ({ ...node, w: 90, h: 22 }));
 const byName = new Map(nodes.map((node) => [node.name, node]));
 
-const links: SimLink[] = (() => {
+const links: Link[] = (() => {
 	// Parallel links get alternating offsets. Both directions of a pair share a
 	// counter, so a mutual dependency draws as two arcs rather than one line.
 	const seen = new Map<string, number>();
@@ -64,7 +48,7 @@ const links: SimLink[] = (() => {
 		const pair = [link.from, link.to].sort().join(' ');
 		const index = seen.get(pair) ?? 0;
 		seen.set(pair, index + 1);
-		return [{ source, target, kind: link.kind, offset: (index % 2 ? -1 : 1) * (8 + 8 * index) }];
+		return [{ source, target, kind: link.kind, offset: (index % 2 ? -1 : 1) * (9 * index) }];
 	});
 })();
 
@@ -90,7 +74,7 @@ const hideUnconnected = ref(true);
 
 /**
  * What the filters leave standing. Hidden nodes stay in the DOM and keep their
- * position — they are only taken out of the simulation — so switching a filter
+ * last position — they are only left out of the layout — so switching a filter
  * back on brings them in from where they were rather than from nowhere.
  */
 const visible = computed(() => {
@@ -110,110 +94,164 @@ const visible = computed(() => {
 });
 
 /* --------------------------------------------------------------------------
- * Layering: which column a repository belongs in
+ * Layout
  * ----------------------------------------------------------------------- */
 
+interface Layout {
+	nodes: Map<string, Point>;
+	/** Routed polylines, keyed by the link's index in `links`. */
+	edges: Map<number, Point[]>;
+}
+
 /**
- * Gives every repository a layer, such that each dependency runs from a higher
- * layer to a lower one — left to right on screen.
+ * Lays the graph out with dagre, which is what this kind of picture actually
+ * needs: it ranks the repositories so every dependency points the same way,
+ * orders each rank to cut down on crossings, lines the ranks up, and routes
+ * long edges through the gaps between them instead of across the labels.
  *
- * Dependencies are not quite a tree: versatiles-frontend triggers the Docker
- * build, and that build downloads a frontend release. A cycle like this cannot
- * be drawn in one direction, so the weakest link in it is set aside before the
- * layers are counted. Links are considered strongest first, which means a
- * build-time dependency is never the one sacrificed to a CI trigger.
+ * Cycles — versatiles-frontend triggers the Docker build, which downloads a
+ * frontend release — are broken by dagre itself. Edge weights are the kind
+ * weights, so when it has to reverse one it reverses a CI trigger rather than
+ * a build-time dependency.
  */
-function layering(names: string[], active: SimLink[]): Map<string, number> {
-	const forward = new Map(names.map((name) => [name, new Set<string>()]));
+function computeLayout(): Layout {
+	const shownNodes = visible.value.nodes;
+	const activeLinks = visible.value.links;
+	const connected = new Set(activeLinks.flatMap((link) => [link.source.name, link.target.name]));
 
-	const reaches = (from: string, to: string): boolean => {
-		const stack = [from];
-		const seen = new Set(stack);
-		while (stack.length > 0) {
-			const at = stack.pop() ?? '';
-			if (at === to) return true;
-			for (const next of forward.get(at) ?? []) {
-				if (!seen.has(next)) {
-					seen.add(next);
-					stack.push(next);
-				}
-			}
-		}
-		return false;
-	};
+	const graph = new dagre.graphlib.Graph({ multigraph: true, directed: true });
+	graph.setGraph({
+		rankdir: 'LR',
+		ranksep: RANK_GAP,
+		nodesep: NODE_GAP,
+		edgesep: 14,
+		marginx: 8,
+		marginy: 8,
+		acyclicer: 'greedy',
+		ranker: 'network-simplex',
+	});
+	graph.setDefaultEdgeLabel(() => ({}));
 
-	const strongestFirst = [...active].sort(
-		(a, b) =>
-			(kindWeight.get(b.kind) ?? 0) - (kindWeight.get(a.kind) ?? 0) ||
-			a.source.name.localeCompare(b.source.name) ||
-			a.target.name.localeCompare(b.target.name),
-	);
-	for (const link of strongestFirst) {
-		const from = link.source.name;
-		const to = link.target.name;
-		if (from === to || !forward.has(from) || !forward.has(to)) continue;
-		// Accepting this link would close a cycle, so it does not define a layer.
-		if (reaches(to, from)) continue;
-		forward.get(from)?.add(to);
+	for (const node of shownNodes) {
+		if (connected.has(node.name)) graph.setNode(node.name, { width: node.w, height: node.h });
+	}
+	const indexed: { link: Link; index: number }[] = [];
+	links.forEach((link, index) => {
+		if (!activeLinks.includes(link)) return;
+		indexed.push({ link, index });
+		graph.setEdge(
+			link.source.name,
+			link.target.name,
+			{ weight: kindWeight.get(link.kind) ?? 1, minlen: 1 },
+			String(index),
+		);
+	});
+
+	dagre.layout(graph);
+
+	const placed = new Map<string, Point>();
+	for (const name of graph.nodes()) {
+		const node = graph.node(name) as { x?: number; y?: number } | undefined;
+		if (node?.x !== undefined && node.y !== undefined) placed.set(name, { x: node.x, y: node.y });
 	}
 
-	const depth = new Map<string, number>();
-	const measureDepth = (name: string): number => {
-		const known = depth.get(name);
-		if (known !== undefined) return known;
-		depth.set(name, 0);
-		let deepest = 0;
-		for (const next of forward.get(name) ?? []) {
-			deepest = Math.max(deepest, 1 + measureDepth(next));
+	// Repositories with nothing left to connect to get a quiet column of their
+	// own, to the left of everything, instead of padding out the first rank.
+	const loose = shownNodes.filter((node) => !connected.has(node.name));
+	if (loose.length > 0) {
+		const height = (graph.graph() as { height?: number }).height ?? 0;
+		const stack = loose.reduce((sum, node) => sum + node.h + 12, -12);
+		const widest = Math.max(...loose.map((node) => node.w));
+		let y = height / 2 - stack / 2;
+		for (const node of loose) {
+			placed.set(node.name, { x: -widest / 2 - RANK_GAP, y: y + node.h / 2 });
+			y += node.h + 12;
 		}
-		depth.set(name, deepest);
-		return deepest;
-	};
-	for (const name of names) measureDepth(name);
-	return depth;
+	}
+
+	const routed = new Map<number, Point[]>();
+	for (const { link, index } of indexed) {
+		const edge = graph.edge({
+			v: link.source.name,
+			w: link.target.name,
+			name: String(index),
+		}) as { points?: Point[] } | undefined;
+		const points = edge?.points ?? [];
+		routed.set(index, points.length >= 2 ? bow(points, link.offset) : points);
+	}
+
+	return { nodes: placed, edges: routed };
+}
+
+/**
+ * Bends parallel links apart. dagre routes them along the same line, so the
+ * middle of each is pushed sideways while the ends stay on the node borders.
+ */
+function bow(points: Point[], offset: number): Point[] {
+	if (offset === 0) return points;
+	const first = points[0];
+	const last = points[points.length - 1];
+	const length = Math.hypot(last.x - first.x, last.y - first.y) || 1;
+	const nx = -(last.y - first.y) / length;
+	const ny = (last.x - first.x) / length;
+	const span = points.length - 1;
+	return points.map((point, index) => {
+		const push = Math.sin((Math.PI * index) / span) * offset;
+		return { x: point.x + nx * push, y: point.y + ny * push };
+	});
+}
+
+/** Resamples a polyline to a fixed number of evenly spaced points. */
+function resample(points: Point[], count: number): Point[] {
+	if (points.length === 0) return [];
+	if (points.length === 1) return Array.from({ length: count }, () => points[0]);
+
+	const along = [0];
+	for (let i = 1; i < points.length; i++) {
+		along.push(
+			along[i - 1] + Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y),
+		);
+	}
+	const total = along[along.length - 1] || 1;
+
+	const out: Point[] = [];
+	let segment = 1;
+	for (let i = 0; i < count; i++) {
+		const target = (total * i) / (count - 1);
+		while (segment < points.length - 1 && along[segment] < target) segment++;
+		const from = points[segment - 1];
+		const to = points[segment];
+		const span = along[segment] - along[segment - 1] || 1;
+		const fraction = Math.min(1, Math.max(0, (target - along[segment - 1]) / span));
+		out.push({
+			x: from.x + (to.x - from.x) * fraction,
+			y: from.y + (to.y - from.y) * fraction,
+		});
+	}
+	return out;
 }
 
 /* --------------------------------------------------------------------------
- * Simulation
+ * Animation
  * ----------------------------------------------------------------------- */
 
-const figure = ref<HTMLElement>();
 const root = ref<HTMLElement>();
+const figure = ref<HTMLElement>();
 const svg = ref<SVGSVGElement>();
 const ruler = ref<SVGTextElement>();
 const ready = ref(false);
+const expanded = ref(false);
 const size = ref({ width: 960, height: 560 });
 const transform = shallowRef<ZoomTransform>(zoomIdentity);
 const hovered = ref<string | null>(null);
-const expanded = ref(false);
 
-/** Bumped on every simulation tick; the render reads it to stay in step. */
+/** Bumped on every animation frame; the render reads it to stay in step. */
 const frame = ref(0);
 
-let simulation: Simulation<SimNode, SimLink> | undefined;
-let linkForce: ForceLink<SimNode, SimLink> | undefined;
-let observer: ResizeObserver | undefined;
-/** The links the layout currently has to satisfy. */
-let activeLinks: SimLink[] = [];
-const activeLinkSet = new Set<SimLink>();
-
-/**
- * Pushes the ends of every dependency apart until its arrow points rightwards
- * with room to spare. The column force alone only expresses a preference; this
- * one acts on the links themselves, so a node pulled off course by its
- * neighbours still ends up on the correct side of what it depends on.
- */
-function directionForce(alpha: number): void {
-	for (const link of activeLinks) {
-		const gap = link.source.w / 2 + link.target.w / 2 + MIN_SPAN;
-		const short = gap - ((link.target.x ?? 0) - (link.source.x ?? 0));
-		if (short <= 0) continue;
-		// Capped, so a badly placed node eases into position instead of bolting.
-		const push = Math.min(short, 160) * 0.5 * alpha;
-		link.source.vx = (link.source.vx ?? 0) - push;
-		link.target.vx = (link.target.vx ?? 0) + push;
-	}
-}
+/** Where everything is drawn right now, which is what the tween moves. */
+const shown: Layout = { nodes: new Map(), edges: new Map() };
+let tween: { from: Layout; to: Layout; start: number } | undefined;
+let raf = 0;
 
 function reducedMotion(): boolean {
 	return (
@@ -221,82 +259,81 @@ function reducedMotion(): boolean {
 	);
 }
 
-/** Recomputes the columns and hands the simulation its new subgraph. */
-function applyFilters(): void {
-	if (!simulation || !linkForce) return;
+function ease(t: number): number {
+	return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
 
-	const shownNodes = visible.value.nodes;
-	activeLinks = visible.value.links;
-	activeLinkSet.clear();
-	for (const link of activeLinks) activeLinkSet.add(link);
+function settle(target: Layout): void {
+	for (const [name, point] of target.nodes) shown.nodes.set(name, point);
+	for (const [index, points] of target.edges) shown.edges.set(index, points);
+	frame.value++;
+	if (!userMoved) fitView();
+}
 
-	const names = shownNodes.map((node) => node.name);
-	const depth = layering(names, activeLinks);
-	const deepest = Math.max(0, ...depth.values());
-
-	// Repositories with nothing left to connect to get a quiet column of their
-	// own, ahead of the deepest layer, instead of drifting through the picture.
-	const loose = names.filter(
-		(name) => !activeLinks.some((link) => link.source.name === name || link.target.name === name),
-	);
-	const looseOrder = new Map(loose.map((name, index) => [name, index]));
-
-	for (const node of shownNodes) {
-		const order = looseOrder.get(node.name);
-		if (order === undefined) {
-			node.targetX = (deepest - (depth.get(node.name) ?? 0)) * COLUMN;
-			node.targetY = 0;
-			node.anchor = 0.35;
-		} else {
-			node.targetX = -COLUMN;
-			node.targetY = (order - (loose.length - 1) / 2) * 42;
-			node.anchor = 0.9;
-		}
+/**
+ * The layout is recomputed from scratch on every change, so both ends of the
+ * move are known: nodes slide from where they were to where they belong, and
+ * edges are resampled to a common point count so their shapes can do the same.
+ * Anything that was not on screen before starts at its destination and fades in.
+ */
+function animateTo(target: Layout): void {
+	if (reducedMotion()) {
+		settle(target);
+		return;
 	}
 
-	simulation.nodes(shownNodes);
-	linkForce.links(activeLinks);
+	const from: Layout = { nodes: new Map(), edges: new Map() };
+	for (const [name, point] of target.nodes) from.nodes.set(name, shown.nodes.get(name) ?? point);
+	for (const [index, points] of target.edges) {
+		const previous = shown.edges.get(index);
+		from.edges.set(
+			index,
+			resample(previous && previous.length >= 2 ? previous : points, SHAPE_POINTS),
+		);
+	}
+	const to: Layout = { nodes: target.nodes, edges: new Map() };
+	for (const [index, points] of target.edges) to.edges.set(index, resample(points, SHAPE_POINTS));
+
+	tween = { from, to, start: performance.now() };
+	cancelAnimationFrame(raf);
+	raf = requestAnimationFrame(step);
+}
+
+function step(now: number): void {
+	if (!tween) return;
+	const t = Math.min(1, (now - tween.start) / TWEEN_MS);
+	const k = ease(t);
+
+	for (const [name, end] of tween.to.nodes) {
+		const begin = tween.from.nodes.get(name) ?? end;
+		shown.nodes.set(name, {
+			x: begin.x + (end.x - begin.x) * k,
+			y: begin.y + (end.y - begin.y) * k,
+		});
+	}
+	for (const [index, end] of tween.to.edges) {
+		const begin = tween.from.edges.get(index) ?? end;
+		shown.edges.set(
+			index,
+			end.map((point, i) => ({
+				x: (begin[i]?.x ?? point.x) + (point.x - (begin[i]?.x ?? point.x)) * k,
+				y: (begin[i]?.y ?? point.y) + (point.y - (begin[i]?.y ?? point.y)) * k,
+			})),
+		);
+	}
+
+	frame.value++;
+	if (!userMoved) fitView();
+
+	if (t < 1) raf = requestAnimationFrame(step);
+	else tween = undefined;
+}
+
+function relayout(): void {
 	// A filter change reframes the picture; whatever the reader was looking at
 	// may not even be on screen any more.
 	userMoved = false;
-
-	if (reducedMotion()) {
-		simulation.alpha(1).stop();
-		for (let step = 0; step < 300; step++) simulation.tick();
-		frame.value++;
-		fitView();
-	} else {
-		simulation.alpha(0.9).restart();
-	}
-}
-
-function build(): void {
-	linkForce = forceLink<SimNode, SimLink>([])
-		.id((node) => node.name)
-		.distance(110)
-		.strength(0.3);
-
-	simulation = forceSimulation<SimNode, SimLink>([])
-		.force('link', linkForce)
-		.force('charge', forceManyBody<SimNode>().strength(-420).distanceMax(520))
-		.force(
-			'column',
-			forceX<SimNode>((node) => node.targetX).strength((node) => node.anchor),
-		)
-		.force('row', forceY<SimNode>((node) => node.targetY).strength(0.06))
-		.force('direction', directionForce)
-		// Registered last so it settles the overlaps the other forces create:
-		// d3 applies forces in the order they were added.
-		.force(
-			'collide',
-			forceCollide<SimNode>((node) => node.w / 2 + 12)
-				.strength(0.9)
-				.iterations(3),
-		)
-		.on('tick', () => {
-			frame.value++;
-			if (!userMoved) fitView();
-		});
+	animateTo(computeLayout());
 }
 
 /* --------------------------------------------------------------------------
@@ -304,10 +341,9 @@ function build(): void {
  * ----------------------------------------------------------------------- */
 
 /**
- * The layout lives in its own coordinates, so the camera follows it: every tick
- * the view is refitted around the visible nodes. As soon as the reader pans,
- * zooms or drags something, that stops — the view is theirs from then on, until
- * they change a filter or ask for it back.
+ * The layout has its own coordinates, so the camera fits itself around what is
+ * on screen. Panning or zooming takes it over, until a filter changes or the
+ * reader asks for it back.
  */
 let userMoved = false;
 
@@ -320,10 +356,12 @@ function fitView(): void {
 	let maxX = -Infinity;
 	let maxY = -Infinity;
 	for (const node of visible.value.nodes) {
-		minX = Math.min(minX, (node.x ?? 0) - node.w / 2);
-		maxX = Math.max(maxX, (node.x ?? 0) + node.w / 2);
-		minY = Math.min(minY, (node.y ?? 0) - node.h / 2);
-		maxY = Math.max(maxY, (node.y ?? 0) + node.h / 2);
+		const at = shown.nodes.get(node.name);
+		if (!at) continue;
+		minX = Math.min(minX, at.x - node.w / 2);
+		maxX = Math.max(maxX, at.x + node.w / 2);
+		minY = Math.min(minY, at.y - node.h / 2);
+		maxY = Math.max(maxY, at.y + node.h / 2);
 	}
 	if (!Number.isFinite(minX)) return;
 
@@ -344,13 +382,7 @@ function fitView(): void {
 }
 
 function resetView(): void {
-	// Anything the reader dragged out of place goes back to the layout.
-	for (const node of nodes) {
-		node.fx = null;
-		node.fy = null;
-	}
 	userMoved = false;
-	simulation?.alpha(0.8).restart();
 	fitView();
 }
 
@@ -361,85 +393,6 @@ const zoomBehaviour = zoom<SVGSVGElement, unknown>()
 		// sourceEvent is null when fitView moved the camera itself.
 		if (event.sourceEvent) userMoved = true;
 	});
-
-/* --------------------------------------------------------------------------
- * Rendering
- * ----------------------------------------------------------------------- */
-
-const view = computed(() => {
-	const active = hovered.value;
-	const shown = visible.value.shown;
-
-	const neighbours = new Set<string>();
-	if (active !== null) {
-		neighbours.add(active);
-		for (const link of activeLinks) {
-			if (link.source.name === active) neighbours.add(link.target.name);
-			if (link.target.name === active) neighbours.add(link.source.name);
-		}
-	}
-
-	return {
-		// Read so the render follows the simulation; the value itself is not used.
-		tick: frame.value,
-		nodes: nodes.map((node) => ({
-			node,
-			hidden: !shown.get(node.name),
-			dimmed: active !== null && !neighbours.has(node.name),
-		})),
-		links: links.map((link) => ({
-			link,
-			path: edgePath(link),
-			hidden: !activeLinkSet.has(link),
-			dimmed: active !== null && link.source.name !== active && link.target.name !== active,
-		})),
-	};
-});
-
-/** Native tooltip: what the repository is, and where it sits in the project. */
-function describe(node: SimNode): string {
-	const group = groupTitles.get(node.group) ?? node.group;
-	const role = node.role === 'supporting' ? ', supporting' : '';
-	return `${node.name} — ${group}${role}${node.description ? `. ${node.description}` : ''}`;
-}
-
-/** Where a line leaving `node` towards (dx, dy) crosses its label box. */
-function border(node: SimNode, dx: number, dy: number): { x: number; y: number } {
-	const halfWidth = node.w / 2 + 4;
-	const halfHeight = node.h / 2 + 4;
-	const scale = Math.min(
-		halfWidth / Math.max(Math.abs(dx), 1e-6),
-		halfHeight / Math.max(Math.abs(dy), 1e-6),
-	);
-	return { x: (node.x ?? 0) + dx * scale, y: (node.y ?? 0) + dy * scale };
-}
-
-function edgePath(link: SimLink): string {
-	const sx = link.source.x ?? 0;
-	const sy = link.source.y ?? 0;
-	const tx = link.target.x ?? 0;
-	const ty = link.target.y ?? 0;
-	const length = Math.hypot(tx - sx, ty - sy) || 1;
-	// The control point sits beside the midpoint, perpendicular to the line.
-	const cx = (sx + tx) / 2 - ((ty - sy) / length) * link.offset;
-	const cy = (sy + ty) / 2 + ((tx - sx) / length) * link.offset;
-	const from = border(link.source, cx - sx, cy - sy);
-	const to = border(link.target, cx - tx, cy - ty);
-	return `M${from.x.toFixed(1)},${from.y.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${to.x.toFixed(1)},${to.y.toFixed(1)}`;
-}
-
-/** Reads the real width of every label, so boxes and collisions match the text. */
-function measure(): void {
-	const element = ruler.value;
-	if (!element) return;
-	for (const node of nodes) {
-		element.textContent = node.name;
-		const box = element.getBBox();
-		node.w = Math.round(box.width) + 16;
-		node.h = Math.round(box.height) + 10;
-	}
-	element.textContent = '';
-}
 
 /* --------------------------------------------------------------------------
  * Full screen
@@ -487,51 +440,85 @@ function onKeydown(event: KeyboardEvent): void {
 }
 
 /* --------------------------------------------------------------------------
- * Interaction
+ * Rendering
  * ----------------------------------------------------------------------- */
 
-/** Node dragging. d3-zoom owns the canvas, so the nodes handle their own pointers. */
-let dragging: SimNode | undefined;
+const view = computed(() => {
+	const active = hovered.value;
+	const shownNodes = visible.value.shown;
+	const activeLinks = new Set(visible.value.links);
 
-function graphPoint(event: PointerEvent): { x: number; y: number } {
-	const box = svg.value?.getBoundingClientRect();
-	const scale = transform.value.k;
+	const neighbours = new Set<string>();
+	if (active !== null) {
+		neighbours.add(active);
+		for (const link of visible.value.links) {
+			if (link.source.name === active) neighbours.add(link.target.name);
+			if (link.target.name === active) neighbours.add(link.source.name);
+		}
+	}
+
 	return {
-		x: (event.clientX - (box?.left ?? 0) - transform.value.x) / scale,
-		y: (event.clientY - (box?.top ?? 0) - transform.value.y) / scale,
+		// Read so the render follows the animation; the value itself is not used.
+		tick: frame.value,
+		nodes: nodes.map((node) => ({
+			node,
+			at: shown.nodes.get(node.name) ?? { x: 0, y: 0 },
+			hidden: !shownNodes.get(node.name),
+			dimmed: active !== null && !neighbours.has(node.name),
+		})),
+		links: links.map((link, index) => ({
+			link,
+			path: pathOf(shown.edges.get(index) ?? []),
+			hidden: !activeLinks.has(link),
+			dimmed: active !== null && link.source.name !== active && link.target.name !== active,
+		})),
 	};
+});
+
+/** A polyline drawn as a smooth curve through its own corners. */
+function pathOf(points: Point[]): string {
+	if (points.length < 2) return '';
+	const at = (point: Point): string => `${point.x.toFixed(1)},${point.y.toFixed(1)}`;
+	if (points.length === 2) return `M${at(points[0])} L${at(points[1])}`;
+
+	let path = `M${at(points[0])}`;
+	for (let i = 1; i < points.length - 1; i++) {
+		const middle = {
+			x: (points[i].x + points[i + 1].x) / 2,
+			y: (points[i].y + points[i + 1].y) / 2,
+		};
+		path += ` Q${at(points[i])} ${at(middle)}`;
+	}
+	return `${path} L${at(points[points.length - 1])}`;
 }
 
-function startDrag(event: PointerEvent, node: SimNode): void {
-	event.stopPropagation();
-	(event.target as Element).setPointerCapture(event.pointerId);
-	dragging = node;
-	userMoved = true;
-	const point = graphPoint(event);
-	node.fx = point.x;
-	node.fy = point.y;
-	simulation?.alphaTarget(0.25).restart();
+/** Native tooltip: what the repository is, and where it sits in the project. */
+function describe(node: Box): string {
+	const group = groupTitles.get(node.group) ?? node.group;
+	const role = node.role === 'supporting' ? ', supporting' : '';
+	return `${node.name} — ${group}${role}${node.description ? `. ${node.description}` : ''}`;
 }
 
-function moveDrag(event: PointerEvent): void {
-	if (!dragging) return;
-	const point = graphPoint(event);
-	dragging.fx = point.x;
-	dragging.fy = point.y;
-}
-
-function endDrag(): void {
-	if (!dragging) return;
-	// Released nodes stay where they were put; "Reset view" reclaims them.
-	simulation?.alphaTarget(0);
-	dragging = undefined;
+/** Reads the real width of every label, so boxes and ranks match the text. */
+function measure(): void {
+	const element = ruler.value;
+	if (!element) return;
+	for (const node of nodes) {
+		element.textContent = node.name;
+		const box = element.getBBox();
+		node.w = Math.round(box.width) + 16;
+		node.h = Math.round(box.height) + 10;
+	}
+	element.textContent = '';
 }
 
 /* --------------------------------------------------------------------------
  * Lifecycle
  * ----------------------------------------------------------------------- */
 
-watch(visible, applyFilters);
+let observer: ResizeObserver | undefined;
+
+watch(visible, relayout);
 
 onMounted(() => {
 	const element = root.value;
@@ -543,7 +530,7 @@ onMounted(() => {
 		if (width === size.value.width && height === size.value.height) return;
 		size.value = { width, height };
 		// The layout has its own coordinates, so only the camera has to react.
-		fitView();
+		if (!userMoved) fitView();
 	});
 	observer.observe(element);
 	document.addEventListener('fullscreenchange', onFullscreenChange);
@@ -554,21 +541,12 @@ onMounted(() => {
 
 	measure();
 	if (svg.value) select(svg.value).call(zoomBehaviour);
-	build();
-
-	// Deterministic starting positions, so the same filters always settle the same way.
-	nodes.forEach((node, index) => {
-		node.x = 0;
-		node.y = (((index * 0.618033988749895) % 1) - 0.5) * 520;
-	});
-
-	applyFilters();
-	fitView();
+	settle(computeLayout());
 	ready.value = true;
 });
 
 onBeforeUnmount(() => {
-	simulation?.stop();
+	cancelAnimationFrame(raf);
 	observer?.disconnect();
 	document.removeEventListener('fullscreenchange', onFullscreenChange);
 	document.removeEventListener('keydown', onKeydown);
@@ -646,9 +624,6 @@ onBeforeUnmount(() => {
 				class="stage"
 				:viewBox="`0 0 ${size.width} ${size.height}`"
 				:aria-label="`Dependencies between ${nodes.length} repositories`"
-				@pointermove="moveDrag"
-				@pointerup="endDrag"
-				@pointercancel="endDrag"
 			>
 				<defs>
 					<marker
@@ -694,8 +669,7 @@ onBeforeUnmount(() => {
 							{ dimmed: entry.dimmed, hidden: entry.hidden },
 						]"
 						:style="{ '--dg-hue': hues.get(entry.node.group) ?? 0 }"
-						:transform="`translate(${entry.node.x ?? 0},${entry.node.y ?? 0})`"
-						@pointerdown="startDrag($event, entry.node)"
+						:transform="`translate(${entry.at.x},${entry.at.y})`"
 						@pointerenter="hovered = entry.node.name"
 						@pointerleave="hovered = null"
 					>
@@ -718,8 +692,8 @@ onBeforeUnmount(() => {
 		<figcaption class="status">
 			Showing {{ visible.nodes.length }} of {{ nodes.length }} repositories and
 			{{ visible.links.length }} of {{ links.length }} dependencies. Arrows run left to right,
-			from a repository to what it depends on. Drag a node to pull it out, scroll to zoom, hover
-			to isolate.
+			from a repository to what it depends on. Scroll to zoom, drag the background to pan, hover
+			a repository to isolate it.
 		</figcaption>
 	</figure>
 </template>
@@ -778,6 +752,10 @@ onBeforeUnmount(() => {
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 6px;
+}
+
+.group.end {
+	margin-left: auto;
 }
 
 .group-label {
@@ -847,10 +825,6 @@ onBeforeUnmount(() => {
 	border-style: dashed;
 }
 
-.group.end {
-	margin-left: auto;
-}
-
 /* Full screen ------------------------------------------------------------ */
 
 .dependency-graph.expanded {
@@ -905,7 +879,6 @@ onBeforeUnmount(() => {
 /* Nodes ------------------------------------------------------------------ */
 
 .node {
-	cursor: grab;
 	transition: opacity 0.25s ease;
 }
 
