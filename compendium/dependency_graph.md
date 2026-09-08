@@ -245,8 +245,9 @@ fetch release assets. Markdown is deliberately not searched — README badges an
 links mention half the organisation and say nothing about what a build needs.
 
 Every arrow therefore has a file and a line behind it, listed in the tables above and
-available as machine-readable data at
-[`/dependency-graph.json`](/dependency-graph.json). What no parser can see —
+available as machine-readable data in
+[`dependency-graph.json`](https://github.com/versatiles-org/versatiles-documentation/blob/main/public/dependency-graph.json),
+published alongside this page as `/dependency-graph.json`. What no parser can see —
 operational dependencies, for instance — is declared by hand in
 [`scripts/dependency-graph.yaml`](https://github.com/versatiles-org/versatiles-documentation/blob/main/scripts/dependency-graph.yaml),
 which is also where false positives are filtered out and repositories are assigned to

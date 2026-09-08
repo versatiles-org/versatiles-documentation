@@ -27,6 +27,15 @@ const SKIP_DIR =
 const SKIP_FILE =
 	/(^|\/)(package-lock\.json|.+\.lock|.+\.min\.js|.+\.d\.ts|.+\.map|.+\.(test|spec)\.[a-z]+)$/;
 
+/**
+ * This tool's own configuration and source code. Both are full of repository
+ * names — the image mapping, the URL patterns, an example in a comment — and
+ * none of them is a dependency of the repository that happens to host the
+ * generator. Left in, they show up as the documentation depending on half the
+ * organisation.
+ */
+const OWN_SOURCE = /^scripts\/dependency-graph(\.ya?ml|\/)/;
+
 const DOCKERFILE = /(^|\/)(Dockerfile(\.[\w.-]+)?|[\w.-]+\.dockerfile)$/i;
 const COMPOSE_FILE = /(^|\/)(docker-)?compose(\.[\w-]+)?\.ya?ml$/i;
 const WORKFLOW_FILE = /^\.github\/(workflows\/[\w.-]+\.ya?ml|actions\/.+\/action\.ya?ml)$/;
@@ -37,7 +46,7 @@ const SOURCE_FILE = /\.(sh|bash|ts|js|mjs|cjs|ya?ml)$/;
  * Returns null for the vast majority of files.
  */
 export function classify(path: string): FileRole | null {
-	if (SKIP_DIR.test(path) || SKIP_FILE.test(path)) return null;
+	if (SKIP_DIR.test(path) || SKIP_FILE.test(path) || OWN_SOURCE.test(path)) return null;
 	if (WORKFLOW_FILE.test(path)) return 'workflow';
 	if (path === 'package.json' || path.endsWith('/package.json')) return 'package';
 	if (path === 'Cargo.toml' || path.endsWith('/Cargo.toml')) return 'cargo';

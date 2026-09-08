@@ -11,6 +11,9 @@
 import { EDGE_KIND_META, EDGE_KINDS, type Edge, type Graph, type RepoNode } from './model';
 import { CONFIG_PATH } from './config';
 
+/** Where the machine-readable copy of the graph lives in the repository. */
+const DATA_PATH = 'public/dependency-graph.json';
+
 function repoUrl(org: string, repo: string): string {
 	return `https://github.com/${org}/${repo}`;
 }
@@ -169,8 +172,12 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		'links mention half the organisation and say nothing about what a build needs.',
 		'',
 		'Every arrow therefore has a file and a line behind it, listed in the tables above and',
-		'available as machine-readable data at',
-		`[\`/dependency-graph.json\`](/dependency-graph.json). What no parser can see —`,
+		'available as machine-readable data in',
+		// Linked at its place in the repository rather than at `/dependency-graph.json`:
+		// the site serves `public/` from the root, so the published path is right for a
+		// reader but resolves to nothing on disk, which is what link checking works on.
+		`[\`${DATA_PATH}\`](https://github.com/${org}/versatiles-documentation/blob/main/${DATA_PATH}),`,
+		'published alongside this page as `/dependency-graph.json`. What no parser can see —',
 		'operational dependencies, for instance — is declared by hand in',
 		`[\`${CONFIG_PATH}\`](https://github.com/${org}/versatiles-documentation/blob/main/${CONFIG_PATH}),`,
 		'which is also where false positives are filtered out and repositories are assigned to',

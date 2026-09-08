@@ -71,6 +71,16 @@ describe('classify', () => {
 		expect(classify('src/generate.spec.ts')).toBe(null);
 	});
 
+	it('never reads its own configuration or source', () => {
+		// Both name repositories for their own purposes: an image mapping, a URL
+		// pattern, an example in a comment. None of them is a dependency.
+		expect(classify('scripts/dependency-graph.yaml')).toBe(null);
+		expect(classify('scripts/dependency-graph/collect.ts')).toBe(null);
+		expect(classify('scripts/dependency-graph/model.ts')).toBe(null);
+		// Anything else under scripts/ is ordinary source and still counts.
+		expect(classify('scripts/sync-spec.ts')).toBe('source');
+	});
+
 	it('never reads Markdown, where badges and prose mention everything', () => {
 		expect(classify('README.md')).toBe(null);
 		expect(classify('docs/guide.md')).toBe(null);
