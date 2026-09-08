@@ -19,11 +19,11 @@ include_forks: true
 # so these are tags rather than folders, and a repository carries as many as
 # genuinely apply.
 tags:
-  - id: libraries
+  - id: library
     title: Libraries
     summary: Code to build on — crates, npm packages and the container specification.
 
-  - id: applications
+  - id: application
     title: Applications
     summary: Programs and sites people open and use directly.
 
@@ -44,43 +44,47 @@ tags:
 # listed under. Anything not named here still appears, but uncategorised —
 # which is the reminder to come back and place it.
 repositories:
-  '.github': [project]
-  'consortium': [project]
-  'download.versatiles.org': [applications, infrastructure]
-  'editor': [applications]
+  'node-versatiles-container': [library]
+  'node-versatiles-svelte': [library]
+  'versatiles-fonts': [library]
+  'versatiles-frontend': [library]
+  'versatiles-glyphs-rs': [library]
+  'versatiles-rs': [library, application]
+  'versatiles-style': [library]
+
+  'editor': [application]
+  'maplibre-versatiles-styler': [application]
+  'maputnik': [application]
+  'node-versatiles-google-cloud': [application]
+  'node-versatiles-server': [application]
+  'versatiles-choro': [application]
+  'versatiles-map-animation': [application]
+  'versatiles-map-editor': [application]
+  'versatiles-studio': [application]
+  'versatiles-svg-renderer': [application, library]
+
   'elevation': [tile-production]
-  'homebrew-versatiles': [infrastructure]
   'landcover-vectors': [tile-production]
-  'maplibre-versatiles-styler': [libraries, applications]
-  'maputnik': [applications]
-  'node-release-tool': [project]
-  'node-versatiles-container': [libraries]
-  'node-versatiles-google-cloud': [libraries, infrastructure]
-  'node-versatiles-server': [libraries, applications]
-  'node-versatiles-svelte': [libraries]
   'opendem-gebco-bathymetry': [tile-production]
   'orthophotos': [tile-production]
-  'photon-stack': [infrastructure]
-  'planetiler': [tile-production]
   'planetiler-shortbread': [tile-production]
-  'playground': [applications, project]
+  'planetiler': [tile-production]
   'shortbread-tilemaker': [tile-production]
-  'tiles.versatiles.org': [infrastructure, applications]
-  'tools': [applications]
-  'versatiles-choro': [tile-production, applications]
-  'versatiles-docker': [infrastructure, tile-production]
+
+  'download.versatiles.org': [infrastructure]
+  'homebrew-versatiles': [infrastructure]
+  'photon-stack': [infrastructure]
+  'versatiles-docker': [infrastructure]
+
+  '.github': [project]
+  'consortium': [project]
+  'node-release-tool': [project]
+  'playground': [project]
+  'tiles.versatiles.org': [project]
+  'tools': [project]
   'versatiles-documentation': [project]
-  'versatiles-fonts': [tile-production]
-  'versatiles-frontend': [libraries, applications]
-  'versatiles-glyphs-rs': [libraries, tile-production]
-  'versatiles-map-animation': [applications]
-  'versatiles-map-editor': [applications]
   'versatiles-org.github.io': [project]
-  'versatiles-rs': [libraries, tile-production]
-  'versatiles-spec': [libraries]
-  'versatiles-studio': [applications]
-  'versatiles-style': [libraries]
-  'versatiles-svg-renderer': [libraries]
+  'versatiles-spec': [project]
 
 # Container images published by the project, and the repository that builds
 # them. Image names carry no hint of their origin, so this mapping is the only
