@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, reactive, ref, shallowRef, watch } from 'vue';
-import dagre from '@dagrejs/dagre';
 import { select } from 'd3-selection';
 import { zoom, zoomIdentity, type ZoomTransform } from 'd3-zoom';
 import { data, type GraphLink, type GraphNode } from '../../../compendium/dependency_graph.data';
@@ -23,8 +22,6 @@ interface Link {
 	source: Box;
 	target: Box;
 	kind: EdgeKind;
-	/** Sideways shift, so links between the same pair do not lie on top of each other. */
-	offset: number;
 }
 
 /** Gap between layers, and between neighbours inside one. */
@@ -38,17 +35,11 @@ const nodes: Box[] = data.nodes.map((node) => ({ ...node, w: 90, h: 22 }));
 const byName = new Map(nodes.map((node) => [node.name, node]));
 
 const links: Link[] = (() => {
-	// Parallel links get alternating offsets. Both directions of a pair share a
-	// counter, so a mutual dependency draws as two arcs rather than one line.
-	const seen = new Map<string, number>();
 	return data.links.flatMap((link: GraphLink) => {
 		const source = byName.get(link.from);
 		const target = byName.get(link.to);
 		if (!source || !target) return [];
-		const pair = [link.from, link.to].sort().join(' ');
-		const index = seen.get(pair) ?? 0;
-		seen.set(pair, index + 1);
-		return [{ source, target, kind: link.kind, offset: (index % 2 ? -1 : 1) * (9 * index) }];
+		return [{ source, target, kind: link.kind }];
 	});
 })();
 
@@ -131,101 +122,126 @@ interface Layout {
 }
 
 /**
- * Lays the graph out with dagre, which is what this kind of picture actually
- * needs: it ranks the repositories so every dependency points the same way,
- * orders each rank to cut down on crossings, lines the ranks up, and routes
- * long edges through the gaps between them instead of across the labels.
- *
- * Cycles — versatiles-frontend triggers the Docker build, which downloads a
- * frontend release — are broken by dagre itself. Edge weights are the kind
- * weights, so when it has to reverse one it reverses a CI trigger rather than
- * a build-time dependency.
+ * elkjs is a megabyte of layout engine, so it is fetched once, on demand, and
+ * only by the page that draws the graph.
  */
-function computeLayout(): Layout {
-	const shownNodes = visible.value.nodes;
-	const activeLinks = visible.value.links;
-	const connected = new Set(activeLinks.flatMap((link) => [link.source.name, link.target.name]));
+let engine: { layout: (graph: ElkGraph) => Promise<ElkGraph> } | undefined;
 
-	const graph = new dagre.graphlib.Graph({ multigraph: true, directed: true });
-	graph.setGraph({
-		rankdir: 'LR',
-		ranksep: RANK_GAP,
-		nodesep: NODE_GAP,
-		edgesep: 14,
-		marginx: 8,
-		marginy: 8,
-		acyclicer: 'greedy',
-		ranker: 'network-simplex',
-	});
-	graph.setDefaultEdgeLabel(() => ({}));
-
-	for (const node of shownNodes) {
-		if (connected.has(node.name)) graph.setNode(node.name, { width: node.w, height: node.h });
+async function layoutEngine(): Promise<{ layout: (graph: ElkGraph) => Promise<ElkGraph> }> {
+	if (!engine) {
+		// elkjs types its graph loosely; the shape used here is declared below.
+		const { default: Elk } = (await import('elkjs/lib/elk.bundled.js')) as unknown as {
+			default: new () => { layout: (graph: ElkGraph) => Promise<ElkGraph> };
+		};
+		engine = new Elk();
 	}
-	const indexed: { link: Link; index: number }[] = [];
-	links.forEach((link, index) => {
-		if (!activeLinks.includes(link)) return;
-		indexed.push({ link, index });
-		graph.setEdge(
-			link.source.name,
-			link.target.name,
-			{ weight: kindWeight.get(link.kind) ?? 1, minlen: 1 },
-			String(index),
-		);
-	});
+	return engine;
+}
 
-	dagre.layout(graph);
-
-	const placed = new Map<string, Point>();
-	for (const name of graph.nodes()) {
-		const node = graph.node(name) as { x?: number; y?: number } | undefined;
-		if (node?.x !== undefined && node.y !== undefined) placed.set(name, { x: node.x, y: node.y });
-	}
-
-	// Repositories with nothing left to connect to get a quiet column of their
-	// own, to the left of everything, instead of padding out the first rank.
-	const loose = shownNodes.filter((node) => !connected.has(node.name));
-	if (loose.length > 0) {
-		const height = (graph.graph() as { height?: number }).height ?? 0;
-		const stack = loose.reduce((sum, node) => sum + node.h + 12, -12);
-		const widest = Math.max(...loose.map((node) => node.w));
-		let y = height / 2 - stack / 2;
-		for (const node of loose) {
-			placed.set(node.name, { x: -widest / 2 - RANK_GAP, y: y + node.h / 2 });
-			y += node.h + 12;
-		}
-	}
-
-	const routed = new Map<number, Point[]>();
-	for (const { link, index } of indexed) {
-		const edge = graph.edge({
-			v: link.source.name,
-			w: link.target.name,
-			name: String(index),
-		}) as { points?: Point[] } | undefined;
-		const points = edge?.points ?? [];
-		routed.set(index, points.length >= 2 ? bow(points, link.offset) : points);
-	}
-
-	return { nodes: placed, edges: routed };
+interface ElkGraph {
+	id: string;
+	layoutOptions?: Record<string, string>;
+	width?: number;
+	height?: number;
+	x?: number;
+	y?: number;
+	children?: ElkGraph[];
+	edges?: {
+		id: string;
+		sources: string[];
+		targets: string[];
+		layoutOptions?: Record<string, string>;
+		sections?: { startPoint: Point; endPoint: Point; bendPoints?: Point[] }[];
+	}[];
 }
 
 /**
- * Bends parallel links apart. dagre routes them along the same line, so the
- * middle of each is pushed sideways while the ends stay on the node borders.
+ * Lays the graph out with ELK's layered algorithm.
+ *
+ * It ranks the repositories so every dependency points the same way, orders
+ * each rank to cut down on crossings, and routes the edges orthogonally: an
+ * edge leaves its source sideways, travels in a channel between the ranks, and
+ * comes back in at its target. ELK also gives each edge its own place on a
+ * node's border, which is what unpicks the fan of a dozen arrows arriving at
+ * one hub — the thing dagre leaves stacked on a single corner.
+ *
+ * Cycles — versatiles-frontend triggers the Docker build, which downloads a
+ * frontend release — are broken by ELK itself.
  */
-function bow(points: Point[], offset: number): Point[] {
-	if (offset === 0) return points;
-	const first = points[0];
-	const last = points[points.length - 1];
-	const length = Math.hypot(last.x - first.x, last.y - first.y) || 1;
-	const nx = -(last.y - first.y) / length;
-	const ny = (last.x - first.x) / length;
-	const span = points.length - 1;
-	return points.map((point, index) => {
-		const push = Math.sin((Math.PI * index) / span) * offset;
-		return { x: point.x + nx * push, y: point.y + ny * push };
+async function computeLayout(): Promise<Layout> {
+	const shownNodes = visible.value.nodes;
+	const activeLinks = visible.value.links;
+	const indexed: { link: Link; index: number }[] = [];
+	links.forEach((link, index) => {
+		if (activeLinks.includes(link)) indexed.push({ link, index });
 	});
+
+	const graph: ElkGraph = {
+		id: 'root',
+		layoutOptions: {
+			'elk.algorithm': 'layered',
+			'elk.direction': 'RIGHT',
+			'elk.edgeRouting': 'ORTHOGONAL',
+			'elk.layered.spacing.nodeNodeBetweenLayers': String(RANK_GAP),
+			'elk.spacing.nodeNode': String(NODE_GAP),
+			'elk.spacing.edgeEdge': '10',
+			'elk.spacing.edgeNode': '18',
+			'elk.layered.spacing.edgeEdgeBetweenLayers': '10',
+			'elk.layered.spacing.edgeNodeBetweenLayers': '18',
+			'elk.layered.cycleBreaking.strategy': 'GREEDY',
+			'elk.layered.nodePlacement.strategy': 'BRANDES_KOEPF',
+			'elk.layered.crossingMinimization.strategy': 'LAYER_SWEEP',
+			// Repositories with nothing left to connect to are laid out beside the
+			// rest rather than padding out the first rank.
+			'elk.separateConnectedComponents': 'true',
+			'elk.spacing.componentComponent': '40',
+		},
+		children: shownNodes.map((node) => ({
+			id: node.name,
+			width: node.w,
+			height: node.h,
+		})),
+		edges: indexed.map(({ link, index }) => ({
+			id: String(index),
+			sources: [link.source.name],
+			targets: [link.target.name],
+			// A build-time dependency is worth keeping straight and pointing the
+			// right way more than a CI trigger is, so the kind weights carry over.
+			layoutOptions: {
+				'elk.layered.priority.direction': String(kindWeight.get(link.kind) ?? 1),
+			},
+		})),
+	};
+
+	const laid = await (await layoutEngine()).layout(graph);
+
+	const placed = new Map<string, Point>();
+	for (const child of laid.children ?? []) {
+		// ELK reports the top-left corner; everything here works from centres.
+		placed.set(child.id, {
+			x: (child.x ?? 0) + (child.width ?? 0) / 2,
+			y: (child.y ?? 0) + (child.height ?? 0) / 2,
+		});
+	}
+
+	const routed = new Map<number, Point[]>();
+	for (const edge of laid.edges ?? []) {
+		const section = edge.sections?.[0];
+		if (!section) continue;
+		routed.set(Number(edge.id), [
+			section.startPoint,
+			...(section.bendPoints ?? []),
+			section.endPoint,
+		]);
+	}
+
+	// Anything ELK could not place keeps whatever it had, rather than jumping to
+	// the origin and dragging the camera with it.
+	for (const node of shownNodes) {
+		if (!placed.has(node.name))
+			placed.set(node.name, shown.nodes.get(node.name) ?? { x: 0, y: 0 });
+	}
+	return { nodes: placed, edges: routed };
 }
 
 /** Resamples a polyline to a fixed number of evenly spaced points. */
@@ -356,11 +372,16 @@ function step(now: number): void {
 	else tween = undefined;
 }
 
-function relayout(): void {
+/** Guards against a slow layout landing after a newer one has been asked for. */
+let pending = 0;
+
+async function relayout(): Promise<void> {
 	// A filter change reframes the picture; whatever the reader was looking at
 	// may not even be on screen any more.
 	userMoved = false;
-	animateTo(computeLayout());
+	const token = ++pending;
+	const target = await computeLayout();
+	if (token === pending) animateTo(target);
 }
 
 /* --------------------------------------------------------------------------
@@ -505,13 +526,13 @@ const view = computed(() => {
 /**
  * The routed polyline, with its corners rounded off.
  *
- * The line stays on the waypoints dagre chose — they are where they are to keep
+ * The line stays on the waypoints the layout chose — they are where they are to keep
  * the edge clear of the label boxes — and only the corner itself is replaced by
  * an arc. A curve fitted through the waypoints instead would drift off the
  * route between them, which is the routing spent on nothing.
  *
  * The radius is clamped to half of each adjoining segment, so neighbouring
- * corners can never eat into one another however tightly dagre packs them.
+ * corners can never eat into one another however tightly they are packed.
  */
 function pathOf(points: Point[]): string {
 	if (points.length < 2) return '';
@@ -593,8 +614,10 @@ onMounted(() => {
 
 	measure();
 	if (svg.value) select(svg.value).call(zoomBehaviour);
-	settle(computeLayout());
-	ready.value = true;
+	void computeLayout().then((layout) => {
+		settle(layout);
+		ready.value = true;
+	});
 });
 
 onBeforeUnmount(() => {
