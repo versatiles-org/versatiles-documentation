@@ -106,6 +106,12 @@ const config = withMermaid(
 				return existsSync(resolve(link.replace(/^\.\//, ''), 'index.md'));
 			},
 		],
+		/*
+		 * The README is the home page's content, not a page of its own: index.md
+		 * includes it. Building it as well would put a duplicate in the search
+		 * index, and its badges belong on GitHub rather than on the site.
+		 */
+		srcExclude: ['README.md'],
 		lastUpdated: true,
 		themeConfig: {
 			search: {

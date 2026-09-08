@@ -1,6 +1,8 @@
 [![Code coverage](https://codecov.io/gh/versatiles-org/versatiles-documentation/branch/main/graph/badge.svg)](https://codecov.io/gh/versatiles-org/versatiles-documentation)
 [![CI status](https://img.shields.io/github/actions/workflow/status/versatiles-org/versatiles-documentation/ci.yml)](https://github.com/versatiles-org/versatiles-documentation/actions/workflows/ci.yml)
 
+<!-- #region docs -->
+
 **VersaTiles** is an open-source ecosystem for generating, processing, storing, serving and rendering [map tiles](basics/web_maps.md) — a self-hosted alternative to commercial providers, with full control over the pipeline.
 [Learn more](basics/versatiles.md)
 
@@ -86,3 +88,5 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 ## Contributing
 
 Contributions of data, code, artwork and documentation are warmly welcome. The most useful starting points — adding a showcase, fixing typos, reporting bugs — are described in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+<!-- #endregion docs -->
