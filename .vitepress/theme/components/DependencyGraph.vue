@@ -293,7 +293,15 @@ const frame = ref(0);
 
 /** Where everything is drawn right now, which is what the tween moves. */
 const shown: Layout = { nodes: new Map(), edges: new Map() };
-let tween: { from: Layout; to: Layout; start: number } | undefined;
+let tween:
+	| {
+			from: Layout;
+			to: Layout;
+			/** The layout as ELK gave it, kept to restore once the motion is over. */
+			exact: Layout;
+			start: number;
+	  }
+	| undefined;
 let raf = 0;
 
 function reducedMotion(): boolean {
@@ -337,7 +345,7 @@ function animateTo(target: Layout): void {
 	const to: Layout = { nodes: target.nodes, edges: new Map() };
 	for (const [index, points] of target.edges) to.edges.set(index, resample(points, SHAPE_POINTS));
 
-	tween = { from, to, start: performance.now() };
+	tween = { from, to, exact: target, start: performance.now() };
 	cancelAnimationFrame(raf);
 	raf = requestAnimationFrame(step);
 }
@@ -368,8 +376,18 @@ function step(now: number): void {
 	frame.value++;
 	if (!userMoved) fitView();
 
-	if (t < 1) raf = requestAnimationFrame(step);
-	else tween = undefined;
+	if (t < 1) {
+		raf = requestAnimationFrame(step);
+		return;
+	}
+
+	// Morphing one edge into another needs both to have the same number of
+	// points, so the shapes are resampled while they move. Keeping those evenly
+	// spaced points afterwards would leave every edge with twenty corners for
+	// pathOf to round off instead of the two the router gave it — orthogonal
+	// lines would come out of the first filter change visibly wobbly.
+	settle(tween.exact);
+	tween = undefined;
 }
 
 /** Guards against a slow layout landing after a newer one has been asked for. */
