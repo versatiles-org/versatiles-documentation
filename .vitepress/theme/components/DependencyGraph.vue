@@ -55,12 +55,18 @@ const links: Link[] = (() => {
 const kindWeight = new Map(data.kinds.map((kind) => [kind.id, kind.weight]));
 const kindLine = new Map(data.kinds.map((kind) => [kind.id, kind.line]));
 
-/** Width and dashes for a link, as inline attributes rather than a class per kind. */
+/**
+ * How a link is drawn, as inline values rather than a class per kind. Opacity
+ * goes in as a custom property instead of the property itself, so that dimming
+ * and hiding can multiply into it rather than being overridden by it — and so
+ * that it lands on the element as a whole, arrowhead included.
+ */
 function lineStyle(kind: EdgeKind): Record<string, string> {
 	const line = kindLine.get(kind);
 	return {
 		'stroke-width': String(line?.width ?? 1.5),
 		'stroke-dasharray': line?.dash ?? 'none',
+		'--dg-link-opacity': String(line?.opacity ?? 1),
 	};
 }
 const usedKinds = data.kinds.filter((kind) => links.some((link) => link.kind === kind.id));
@@ -814,6 +820,7 @@ onBeforeUnmount(() => {
 .chip path {
 	fill: none;
 	stroke: var(--dg-edge);
+	opacity: var(--dg-link-opacity, 1);
 }
 
 .chip.tag .box {
@@ -899,9 +906,12 @@ onBeforeUnmount(() => {
 	font-size: 12px;
 }
 
-.node.dimmed,
-.link.dimmed {
+.node.dimmed {
 	opacity: 0.12;
+}
+
+.link.dimmed {
+	opacity: calc(var(--dg-link-opacity, 1) * 0.12);
 }
 
 .node.hidden,
@@ -920,6 +930,7 @@ onBeforeUnmount(() => {
 	fill: none;
 	stroke: var(--dg-edge);
 	stroke-linecap: round;
+	opacity: var(--dg-link-opacity, 1);
 	transition: opacity 0.25s ease;
 }
 

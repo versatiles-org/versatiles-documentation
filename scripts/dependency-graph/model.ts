@@ -16,6 +16,12 @@ export interface EdgeLineStyle {
 	/** SVG stroke-dasharray, or "none" for a solid line. */
 	dash: string;
 	head: 'filled' | 'hollow';
+	/**
+	 * How strongly the arrow is drawn. What a build genuinely needs is at full
+	 * strength; relations that are real but incidental, such as one repository
+	 * triggering another's CI, sit further back so they do not compete with it.
+	 */
+	opacity: number;
 }
 
 export interface EdgeKindMeta {
@@ -36,21 +42,21 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 		summary: 'The repository lists a `@versatiles/…` package among its npm dependencies.',
 		arrow: '-->',
 		weight: 6,
-		line: { width: 1.5, dash: 'none', head: 'filled' },
+		line: { width: 1.5, dash: 'none', head: 'filled', opacity: 1 },
 	},
 	cargo: {
 		title: 'Rust crates',
 		summary: 'The repository depends on one of the project’s crates in `Cargo.toml`.',
 		arrow: '-->',
 		weight: 5,
-		line: { width: 1.5, dash: 'none', head: 'hollow' },
+		line: { width: 1.5, dash: '2 3', head: 'filled', opacity: 1 },
 	},
 	docker: {
 		title: 'Docker images',
 		summary: 'A `Dockerfile` builds on an image produced by another repository.',
 		arrow: '==>',
 		weight: 4,
-		line: { width: 3, dash: 'none', head: 'filled' },
+		line: { width: 1.5, dash: '8 4', head: 'filled', opacity: 1 },
 	},
 	download: {
 		title: 'Downloaded artifacts',
@@ -58,7 +64,7 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 			'Build scripts or runtime code fetch release assets or raw files from another repository.',
 		arrow: '-.->',
 		weight: 3,
-		line: { width: 1.5, dash: '8 4', head: 'filled' },
+		line: { width: 1, dash: 'none', head: 'filled', opacity: 0.5 },
 	},
 	workflow: {
 		title: 'CI and release automation',
@@ -66,7 +72,7 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 			'A GitHub Actions workflow uses an action, reusable workflow or dispatch of another repository.',
 		arrow: '--o',
 		weight: 2,
-		line: { width: 1.5, dash: '1.5 3', head: 'filled' },
+		line: { width: 1, dash: '8 4', head: 'filled', opacity: 0.5 },
 	},
 	manual: {
 		title: 'Declared by hand',
@@ -74,7 +80,7 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 			'A dependency no parser can see — recorded in `scripts/dependency-graph.yaml` with a note.',
 		arrow: '-.->',
 		weight: 1,
-		line: { width: 1.5, dash: '9 3 1.5 3', head: 'hollow' },
+		line: { width: 1, dash: '1.5 3', head: 'hollow', opacity: 0.5 },
 	},
 };
 
