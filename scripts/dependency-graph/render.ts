@@ -8,20 +8,8 @@
  * diagram of their own.
  */
 
-import {
-	EDGE_KIND_META,
-	EDGE_KINDS,
-	type Edge,
-	type EdgeKind,
-	type Graph,
-	type RepoNode,
-} from './model';
+import { EDGE_KIND_META, EDGE_KINDS, type Edge, type Graph, type RepoNode } from './model';
 import { CONFIG_PATH } from './config';
-
-/** Mermaid identifiers allow far less than repository names do. */
-function nodeId(repo: string): string {
-	return `r_${repo.replace(/[^A-Za-z0-9]/g, '_')}`;
-}
 
 function repoUrl(org: string, repo: string): string {
 	return `https://github.com/${org}/${repo}`;
@@ -45,72 +33,12 @@ function table(headers: string[], rows: string[][]): string[] {
 	];
 }
 
-/** The strongest kind linking a pair of repositories decides how it is drawn. */
-function strongestKind(edges: Edge[]): EdgeKind {
-	return edges.reduce((strongest, edge) =>
-		EDGE_KIND_META[edge.kind].weight > EDGE_KIND_META[strongest.kind].weight ? edge : strongest,
-	).kind;
-}
-
-function groupEdges(edges: Edge[]): Map<string, Edge[]> {
-	const pairs = new Map<string, Edge[]>();
-	for (const edge of edges) {
-		const key = `${edge.from} ${edge.to}`;
-		const bucket = pairs.get(key);
-		if (bucket) bucket.push(edge);
-		else pairs.set(key, [edge]);
-	}
-	return pairs;
-}
-
 /**
  * A repository can carry several tags, but a diagram box and a table section
  * can only hold it once, so the first tag wins wherever one has to be picked.
  */
 function primaryTag(repo: RepoNode): string {
 	return repo.tags[0] ?? '';
-}
-
-/** The overview: every repository, inside its primary tag, one arrow per pair. */
-function overviewDiagram(graph: Graph): string[] {
-	const lines = ['```mermaid', 'flowchart LR'];
-
-	for (const tag of graph.tags) {
-		const members = graph.repos.filter((repo) => primaryTag(repo) === tag.id);
-		if (members.length === 0) continue;
-		lines.push(`  subgraph ${nodeId(tag.id)}_g["${tag.title}"]`);
-		lines.push('    direction LR');
-		for (const repo of members) lines.push(`    ${nodeId(repo.name)}["${repo.name}"]`);
-		lines.push('  end');
-	}
-
-	for (const [key, edges] of groupEdges(graph.edges)) {
-		const [from, to] = key.split(' ');
-		lines.push(`  ${nodeId(from)} ${EDGE_KIND_META[strongestKind(edges)].arrow} ${nodeId(to)}`);
-	}
-
-	lines.push('```');
-	return lines;
-}
-
-/**
- * Explains the arrows of the static diagram. Kinds that share an arrow share a
- * row, so the table never claims a distinction the diagram cannot show.
- */
-function arrowLegend(): string[] {
-	const byArrow = new Map<string, EdgeKind[]>();
-	for (const kind of EDGE_KINDS) {
-		const arrow = EDGE_KIND_META[kind].arrow;
-		byArrow.set(arrow, [...(byArrow.get(arrow) ?? []), kind]);
-	}
-	return table(
-		['Arrow', 'Meaning'],
-		[...byArrow].map(([arrow, kinds]) => [
-			`\`${arrow}\``,
-			`${kinds.map((kind) => `**${EDGE_KIND_META[kind].title}**`).join(' / ')} — ` +
-				kinds.map((kind) => EDGE_KIND_META[kind].summary).join(' '),
-		]),
-	);
 }
 
 export interface RenderOptions {
@@ -161,15 +89,6 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		'tool that converts tilesets, and it shows up under either.',
 		'',
 		'<DependencyGraph />',
-		'',
-		'::: details The same graph as a static diagram',
-		'Generated as Mermaid, and readable without JavaScript. It draws one arrow per pair of',
-		'repositories, using the most substantial of their links:',
-		'',
-		...arrowLegend(),
-		'',
-		...overviewDiagram(graph),
-		':::',
 		'',
 		'## Repositories',
 		'',
