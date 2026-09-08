@@ -502,19 +502,45 @@ const view = computed(() => {
 	};
 });
 
-/** A polyline drawn as a smooth curve through its own corners. */
+/**
+ * The routed polyline, with its corners rounded off.
+ *
+ * The line stays on the waypoints dagre chose — they are where they are to keep
+ * the edge clear of the label boxes — and only the corner itself is replaced by
+ * an arc. A curve fitted through the waypoints instead would drift off the
+ * route between them, which is the routing spent on nothing.
+ *
+ * The radius is clamped to half of each adjoining segment, so neighbouring
+ * corners can never eat into one another however tightly dagre packs them.
+ */
 function pathOf(points: Point[]): string {
 	if (points.length < 2) return '';
 	const at = (point: Point): string => `${point.x.toFixed(1)},${point.y.toFixed(1)}`;
 	if (points.length === 2) return `M${at(points[0])} L${at(points[1])}`;
 
+	/** How far back from a corner the arc starts, in layout units. */
+	const radius = 16;
+	const towards = (from: Point, to: Point, distance: number): Point => {
+		const length = Math.hypot(to.x - from.x, to.y - from.y) || 1;
+		const step = distance / length;
+		return { x: from.x + (to.x - from.x) * step, y: from.y + (to.y - from.y) * step };
+	};
+
 	let path = `M${at(points[0])}`;
 	for (let i = 1; i < points.length - 1; i++) {
-		const middle = {
-			x: (points[i].x + points[i + 1].x) / 2,
-			y: (points[i].y + points[i + 1].y) / 2,
-		};
-		path += ` Q${at(points[i])} ${at(middle)}`;
+		const corner = points[i];
+		const before = points[i - 1];
+		const after = points[i + 1];
+		const reach = Math.min(
+			radius,
+			Math.hypot(corner.x - before.x, corner.y - before.y) / 2,
+			Math.hypot(after.x - corner.x, after.y - corner.y) / 2,
+		);
+		if (reach < 0.5) {
+			path += ` L${at(corner)}`;
+			continue;
+		}
+		path += ` L${at(towards(corner, before, reach))} Q${at(corner)} ${at(towards(corner, after, reach))}`;
 	}
 	return `${path} L${at(points[points.length - 1])}`;
 }
