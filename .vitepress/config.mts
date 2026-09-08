@@ -37,7 +37,7 @@ function pageUrl(relativePath: string): string {
 	return `${SITE_URL}/${path}`;
 }
 
-export default withMermaid(
+const config = withMermaid(
 	defineConfig({
 		title: SITE_TITLE,
 		description: SITE_DESCRIPTION,
@@ -285,3 +285,45 @@ export default withMermaid(
 		},
 	}),
 );
+
+/**
+ * vitepress-plugin-mermaid injects a static import of its component into
+ * VitePress's client entry, which means mermaid — and every one of its thirty
+ * diagram renderers, about 1.4 MB — is downloaded on every page of the site,
+ * whether or not that page contains a diagram. One page does.
+ *
+ * Rewriting the injection to an async component confines the cost to the page
+ * that needs it. Both edits are asserted: if a future version of the plugin
+ * changes what it injects, the build fails here rather than quietly going back
+ * to loading mermaid everywhere.
+ */
+const CLIENT_ENTRY = 'vitepress/dist/client/app/index.js';
+const INJECTED_IMPORT = "import Mermaid from 'vitepress-plugin-mermaid/Mermaid.vue';";
+const INJECTED_REGISTRATION = 'app.component("Mermaid", Mermaid);';
+
+const vite = (config.vite ??= {});
+(vite.plugins ??= []).push({
+	name: 'lazy-mermaid',
+	// Pushed after withMermaid added its own plugin, so this runs on the result.
+	enforce: 'post',
+	transform(code: string, id: string) {
+		if (!id.includes(CLIENT_ENTRY)) return null;
+		if (!code.includes(INJECTED_IMPORT) || !code.includes(INJECTED_REGISTRATION)) {
+			throw new Error(
+				'lazy-mermaid: vitepress-plugin-mermaid no longer injects what this rewrite expects. ' +
+					'Check its Mermaid component registration and update .vitepress/config.mts.',
+			);
+		}
+		return {
+			code: code
+				.replace(INJECTED_IMPORT, "import { defineAsyncComponent as lazy } from 'vue';")
+				.replace(
+					INJECTED_REGISTRATION,
+					'app.component("Mermaid", lazy(() => import("vitepress-plugin-mermaid/Mermaid.vue")));',
+				),
+			map: null,
+		};
+	},
+});
+
+export default config;
