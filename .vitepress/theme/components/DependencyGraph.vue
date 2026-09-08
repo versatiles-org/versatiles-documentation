@@ -27,8 +27,6 @@ interface Link {
 /** Gap between layers, and between neighbours inside one. */
 const RANK_GAP = 90;
 const NODE_GAP = 26;
-/** How many points a routed edge is resampled to before being animated. */
-const SHAPE_POINTS = 20;
 const TWEEN_MS = 450;
 
 const nodes: Box[] = data.nodes.map((node) => ({ ...node, w: 90, h: 22 }));
@@ -244,11 +242,8 @@ async function computeLayout(): Promise<Layout> {
 	return { nodes: placed, edges: routed };
 }
 
-/** Resamples a polyline to a fixed number of evenly spaced points. */
-function resample(points: Point[], count: number): Point[] {
-	if (points.length === 0) return [];
-	if (points.length === 1) return Array.from({ length: count }, () => points[0]);
-
+/** Normalised distance along a polyline at each of its own vertices. */
+function vertexParameters(points: Point[]): number[] {
 	const along = [0];
 	for (let i = 1; i < points.length; i++) {
 		along.push(
@@ -256,22 +251,44 @@ function resample(points: Point[], count: number): Point[] {
 		);
 	}
 	const total = along[along.length - 1] || 1;
+	return along.map((distance) => distance / total);
+}
 
-	const out: Point[] = [];
+/** The point a given fraction of the way along a polyline. */
+function pointAt(points: Point[], parameters: number[], fraction: number): Point {
 	let segment = 1;
-	for (let i = 0; i < count; i++) {
-		const target = (total * i) / (count - 1);
-		while (segment < points.length - 1 && along[segment] < target) segment++;
-		const from = points[segment - 1];
-		const to = points[segment];
-		const span = along[segment] - along[segment - 1] || 1;
-		const fraction = Math.min(1, Math.max(0, (target - along[segment - 1]) / span));
-		out.push({
-			x: from.x + (to.x - from.x) * fraction,
-			y: from.y + (to.y - from.y) * fraction,
-		});
+	while (segment < points.length - 1 && parameters[segment] < fraction) segment++;
+	const from = points[segment - 1];
+	const to = points[segment];
+	const span = parameters[segment] - parameters[segment - 1] || 1;
+	const share = Math.min(1, Math.max(0, (fraction - parameters[segment - 1]) / span));
+	return { x: from.x + (to.x - from.x) * share, y: from.y + (to.y - from.y) * share };
+}
+
+/**
+ * Puts two polylines on a common set of points, so that one can be moved into
+ * the other point by point.
+ *
+ * Sampling both at even intervals is the obvious way and the wrong one: the
+ * samples land in the middle of long straight runs and miss the corners, so an
+ * orthogonal route spends the whole animation as a wobbling curve and only
+ * snaps square at the end. Taking the union of the two shapes' own corner
+ * positions instead means every corner of either shape is a point in both, and
+ * a right angle stays a right angle all the way across.
+ */
+function align(from: Point[], to: Point[]): { from: Point[]; to: Point[] } {
+	const fromAt = vertexParameters(from);
+	const toAt = vertexParameters(to);
+
+	const shared: number[] = [];
+	for (const fraction of [...fromAt, ...toAt].sort((a, b) => a - b)) {
+		if (shared.length === 0 || fraction - shared[shared.length - 1] > 1e-6) shared.push(fraction);
 	}
-	return out;
+
+	return {
+		from: shared.map((fraction) => pointAt(from, fromAt, fraction)),
+		to: shared.map((fraction) => pointAt(to, toAt, fraction)),
+	};
 }
 
 /* --------------------------------------------------------------------------
@@ -334,16 +351,15 @@ function animateTo(target: Layout): void {
 	}
 
 	const from: Layout = { nodes: new Map(), edges: new Map() };
+	const to: Layout = { nodes: target.nodes, edges: new Map() };
 	for (const [name, point] of target.nodes) from.nodes.set(name, shown.nodes.get(name) ?? point);
 	for (const [index, points] of target.edges) {
 		const previous = shown.edges.get(index);
-		from.edges.set(
-			index,
-			resample(previous && previous.length >= 2 ? previous : points, SHAPE_POINTS),
-		);
+		// An edge that was not on screen starts at its destination and fades in.
+		const pair = align(previous && previous.length >= 2 ? previous : points, points);
+		from.edges.set(index, pair.from);
+		to.edges.set(index, pair.to);
 	}
-	const to: Layout = { nodes: target.nodes, edges: new Map() };
-	for (const [index, points] of target.edges) to.edges.set(index, resample(points, SHAPE_POINTS));
 
 	tween = { from, to, exact: target, start: performance.now() };
 	cancelAnimationFrame(raf);
