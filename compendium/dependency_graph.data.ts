@@ -17,13 +17,15 @@ import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { defineLoader } from 'vitepress';
 import { EDGE_KINDS, EDGE_KIND_META } from '../scripts/dependency-graph/model';
-import type { EdgeKind, Graph, TagInfo } from '../scripts/dependency-graph/model';
+import type { EdgeKind, EdgeLineStyle, Graph, TagInfo } from '../scripts/dependency-graph/model';
 
 export interface GraphKind {
 	id: EdgeKind;
 	title: string;
 	/** Ordering, so a pair drawn once is drawn as its most substantial link. */
 	weight: number;
+	/** How the arrow is drawn: width, dashes and arrowhead, but no colour. */
+	line: EdgeLineStyle;
 }
 
 export interface GraphNode {
@@ -73,6 +75,7 @@ export default defineLoader({
 				id: kind,
 				title: EDGE_KIND_META[kind].title,
 				weight: EDGE_KIND_META[kind].weight,
+				line: EDGE_KIND_META[kind].line,
 			})),
 			nodes: graph.repos.map((repo) => ({
 				name: repo.name,

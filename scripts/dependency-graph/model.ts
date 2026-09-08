@@ -4,15 +4,30 @@ export const EDGE_KINDS = ['npm', 'cargo', 'docker', 'download', 'workflow', 'ma
 
 export type EdgeKind = (typeof EDGE_KINDS)[number];
 
+/**
+ * How an arrow is drawn in the interactive graph. Colour is deliberately not
+ * part of it: the graph already spends colour on what a repository is, and a
+ * second colour scale meaning something else would only compete with the first.
+ * Width, dash pattern and the shape of the arrowhead carry the kind instead,
+ * which also survives being printed or read by someone colour-blind.
+ */
+export interface EdgeLineStyle {
+	width: number;
+	/** SVG stroke-dasharray, or "none" for a solid line. */
+	dash: string;
+	head: 'filled' | 'hollow';
+}
+
 export interface EdgeKindMeta {
 	/** Heading used for this kind's own section on the page. */
 	title: string;
 	/** One sentence explaining what such an arrow means. */
 	summary: string;
-	/** Mermaid arrow, so the overview stays readable without edge labels. */
+	/** Mermaid arrow, so the static overview stays readable without edge labels. */
 	arrow: string;
 	/** Ranking used when one pair of repositories is linked in several ways. */
 	weight: number;
+	line: EdgeLineStyle;
 }
 
 export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
@@ -21,18 +36,21 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 		summary: 'The repository lists a `@versatiles/…` package among its npm dependencies.',
 		arrow: '-->',
 		weight: 6,
+		line: { width: 1.5, dash: 'none', head: 'filled' },
 	},
 	cargo: {
 		title: 'Rust crates',
 		summary: 'The repository depends on one of the project’s crates in `Cargo.toml`.',
 		arrow: '-->',
 		weight: 5,
+		line: { width: 1.5, dash: 'none', head: 'hollow' },
 	},
 	docker: {
 		title: 'Docker images',
 		summary: 'A `Dockerfile` builds on an image produced by another repository.',
 		arrow: '==>',
 		weight: 4,
+		line: { width: 3, dash: 'none', head: 'filled' },
 	},
 	download: {
 		title: 'Downloaded artifacts',
@@ -40,6 +58,7 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 			'Build scripts or runtime code fetch release assets or raw files from another repository.',
 		arrow: '-.->',
 		weight: 3,
+		line: { width: 1.5, dash: '8 4', head: 'filled' },
 	},
 	workflow: {
 		title: 'CI and release automation',
@@ -47,6 +66,7 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 			'A GitHub Actions workflow uses an action, reusable workflow or dispatch of another repository.',
 		arrow: '--o',
 		weight: 2,
+		line: { width: 1.5, dash: '1.5 3', head: 'filled' },
 	},
 	manual: {
 		title: 'Declared by hand',
@@ -54,6 +74,7 @@ export const EDGE_KIND_META: Record<EdgeKind, EdgeKindMeta> = {
 			'A dependency no parser can see — recorded in `scripts/dependency-graph.yaml` with a note.',
 		arrow: '-.->',
 		weight: 1,
+		line: { width: 1.5, dash: '9 3 1.5 3', head: 'hollow' },
 	},
 };
 

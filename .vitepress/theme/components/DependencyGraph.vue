@@ -53,6 +53,16 @@ const links: Link[] = (() => {
 })();
 
 const kindWeight = new Map(data.kinds.map((kind) => [kind.id, kind.weight]));
+const kindLine = new Map(data.kinds.map((kind) => [kind.id, kind.line]));
+
+/** Width and dashes for a link, as inline attributes rather than a class per kind. */
+function lineStyle(kind: EdgeKind): Record<string, string> {
+	const line = kindLine.get(kind);
+	return {
+		'stroke-width': String(line?.width ?? 1.5),
+		'stroke-dasharray': line?.dash ?? 'none',
+	};
+}
 const usedKinds = data.kinds.filter((kind) => links.some((link) => link.kind === kind.id));
 const hues = new Map(
 	data.tags.map((tag, index) => [tag.id, Math.round((index * 360) / data.tags.length + 25)]),
@@ -573,11 +583,17 @@ onBeforeUnmount(() => {
 					:key="kind.id"
 					type="button"
 					class="chip"
-					:class="[`kind-${kind.id}`, { off: !kindOn[kind.id] }]"
+					:class="{ off: !kindOn[kind.id] }"
 					:aria-pressed="kindOn[kind.id]"
 					@click="kindOn[kind.id] = !kindOn[kind.id]"
 				>
-					<svg viewBox="0 0 26 8" aria-hidden="true"><path d="M1,4 L25,4" /></svg>
+					<svg viewBox="0 0 30 10" aria-hidden="true">
+						<path
+							d="M1,5 L21,5"
+							:style="lineStyle(kind.id)"
+							:marker-end="`url(#dg-arrow-${kind.id})`"
+						/>
+					</svg>
 					{{ kind.title }}
 				</button>
 			</div>
@@ -635,16 +651,16 @@ onBeforeUnmount(() => {
 						:id="`dg-arrow-${kind.id}`"
 						:key="kind.id"
 						class="arrow"
-						:class="`kind-${kind.id}`"
-						viewBox="0 0 10 10"
-						refX="9"
-						refY="5"
-						markerWidth="7"
-						markerHeight="7"
+						:class="`head-${kind.line.head}`"
+						viewBox="0 0 12 12"
+						:refX="kind.line.head === 'hollow' ? 10.5 : 10"
+						refY="6"
+						markerWidth="8"
+						markerHeight="8"
 						markerUnits="userSpaceOnUse"
 						orient="auto-start-reverse"
 					>
-						<path d="M0,0.5 L10,5 L0,9.5 z" />
+						<path d="M1,1.5 L11,6 L1,10.5 z" />
 					</marker>
 				</defs>
 
@@ -659,7 +675,8 @@ onBeforeUnmount(() => {
 						v-for="(edge, index) in view.links"
 						:key="index"
 						class="link"
-						:class="[`kind-${edge.link.kind}`, { dimmed: edge.dimmed, hidden: edge.hidden }]"
+						:class="{ dimmed: edge.dimmed, hidden: edge.hidden }"
+						:style="lineStyle(edge.link.kind)"
 						:d="edge.path"
 						:marker-end="`url(#dg-arrow-${edge.link.kind})`"
 					/>
@@ -710,8 +727,8 @@ onBeforeUnmount(() => {
 	--dg-fill-c: 0.045;
 	--dg-stroke-l: 0.62;
 	--dg-stroke-c: 0.11;
-	--dg-line-l: 0.58;
-	--dg-line-c: 0.13;
+	/* Edges are deliberately grey: colour belongs to the tags. */
+	--dg-edge: oklch(0.52 0 0);
 
 	margin: 24px 0;
 
@@ -734,8 +751,7 @@ onBeforeUnmount(() => {
 	--dg-fill-c: 0.04;
 	--dg-stroke-l: 0.68;
 	--dg-stroke-c: 0.1;
-	--dg-line-l: 0.7;
-	--dg-line-c: 0.12;
+	--dg-edge: oklch(0.72 0 0);
 }
 
 /* Controls --------------------------------------------------------------- */
@@ -790,28 +806,14 @@ onBeforeUnmount(() => {
 }
 
 .chip svg {
-	width: 26px;
-	height: 8px;
+	width: 30px;
+	height: 10px;
 	overflow: visible;
 }
 
 .chip path {
 	fill: none;
-	stroke: oklch(var(--dg-line-l) var(--dg-line-c) var(--dg-hue));
-	stroke-width: 1.6;
-}
-
-.chip.kind-docker path {
-	stroke-width: 2.6;
-}
-.chip.kind-download path {
-	stroke-dasharray: 7 4;
-}
-.chip.kind-workflow path {
-	stroke-dasharray: 2 3;
-}
-.chip.kind-manual path {
-	stroke-dasharray: 1 4;
+	stroke: var(--dg-edge);
 }
 
 .chip.tag .box {
@@ -910,53 +912,30 @@ onBeforeUnmount(() => {
 
 /* Links ------------------------------------------------------------------ */
 
+/*
+ * Width, dashes and arrowhead come from the kind vocabulary as inline
+ * attributes, so there is no rule per kind here — only the ink they share.
+ */
 .link {
 	fill: none;
-	stroke-width: 1.4;
+	stroke: var(--dg-edge);
+	stroke-linecap: round;
 	transition: opacity 0.25s ease;
 }
 
-.kind-npm {
-	--dg-hue: 265;
-}
-.kind-cargo {
-	--dg-hue: 45;
-}
-.kind-docker {
-	--dg-hue: 215;
-}
-.kind-download {
-	--dg-hue: 150;
-}
-.kind-workflow {
-	--dg-hue: 330;
-}
-.kind-manual {
-	--dg-hue: 285;
-}
-
-.link.kind-docker {
-	stroke-width: 2.4;
-}
-.link.kind-download {
-	stroke-dasharray: 7 4;
-}
-.link.kind-workflow {
-	stroke-dasharray: 2 3;
-}
-.link.kind-manual {
-	stroke-dasharray: 1 4;
-	stroke-linecap: round;
-}
-
-.link,
 .arrow path {
-	stroke: oklch(var(--dg-line-l) var(--dg-line-c) var(--dg-hue));
+	stroke: var(--dg-edge);
 }
 
-.arrow path {
-	fill: oklch(var(--dg-line-l) var(--dg-line-c) var(--dg-hue));
+.arrow.head-filled path {
+	fill: var(--dg-edge);
 	stroke: none;
+}
+
+/* Hollow heads are punched out of the canvas, so the line cannot show through. */
+.arrow.head-hollow path {
+	fill: var(--vp-c-bg-alt);
+	stroke-width: 1.6;
 }
 
 /* Caption ---------------------------------------------------------------- */
