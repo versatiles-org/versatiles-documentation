@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { resolve } from 'path';
-import yaml from 'js-yaml';
+import { load as loadYaml } from 'js-yaml';
 
 interface Showcase {
 	title: string;
@@ -16,7 +16,7 @@ const IMAGE_EXTS = /\.(png|jpe?g|webp)$/i;
 const README_COUNT = /\[(\d+) projects using VersaTiles\]\(showcases\)/;
 
 const raw = readFileSync(resolve(SHOWCASES_DIR, 'showcases.yaml'), 'utf-8');
-const showcases = yaml.load(raw) as Showcase[];
+const showcases = loadYaml(raw) as Showcase[];
 
 let hasError = false;
 

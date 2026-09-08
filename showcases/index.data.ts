@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import yaml from 'js-yaml';
+import { load as loadYaml } from 'js-yaml';
 import { defineLoader } from 'vitepress';
 
 export interface Showcase {
@@ -33,7 +33,7 @@ export default defineLoader({
 	load(): ShowcasesData {
 		const __dirname = dirname(fileURLToPath(import.meta.url));
 		const raw = readFileSync(resolve(__dirname, 'showcases.yaml'), 'utf-8');
-		const showcases = yaml.load(raw) as Showcase[];
+		const showcases = loadYaml(raw) as Showcase[];
 
 		showcases.forEach((s) => {
 			s.slug = s.image.replace(/\.(png|jpe?g|webp)$/i, '');

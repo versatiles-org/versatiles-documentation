@@ -2,7 +2,7 @@ import { readFileSync, readdirSync, mkdirSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
-import yaml from 'js-yaml';
+import { load as loadYaml } from 'js-yaml';
 
 interface Showcase {
 	title: string;
@@ -22,7 +22,7 @@ const IMAGE_EXTS = /\.(png|jpe?g|webp)$/i;
 
 async function main() {
 	// Parse YAML
-	const showcases = yaml.load(readFileSync(YAML_PATH, 'utf-8')) as Showcase[];
+	const showcases = loadYaml(readFileSync(YAML_PATH, 'utf-8')) as Showcase[];
 	const yamlSlugs = new Set(showcases.map((s) => s.image.replace(IMAGE_EXTS, '')));
 
 	// Collect image slugs from source directory

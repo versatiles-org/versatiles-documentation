@@ -8,7 +8,7 @@
 
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import yaml from 'js-yaml';
+import { load as loadYaml } from 'js-yaml';
 import { EDGE_KINDS, type EdgeKind, type TagInfo } from './model';
 
 export interface ManualEdgeConfig {
@@ -61,7 +61,7 @@ function asString(value: unknown, where: string): string {
 }
 
 export function loadConfig(root: string): GraphConfig {
-	const raw = yaml.load(readFileSync(resolve(root, CONFIG_PATH), 'utf8'));
+	const raw = loadYaml(readFileSync(resolve(root, CONFIG_PATH), 'utf8'));
 	if (typeof raw !== 'object' || raw === null) fail('expected a mapping at the top level');
 	const doc = raw as Record<string, unknown>;
 

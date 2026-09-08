@@ -14,6 +14,7 @@
 	},
 	"include": [
 		"scripts/**/*.ts",
+		"vitest.config.ts",
 		"showcases/**/*.ts",
 		"compendium/**/*.ts",
 		".vitepress/**/*.ts",

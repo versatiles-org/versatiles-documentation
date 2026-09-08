@@ -46,6 +46,33 @@ jobs:
         with:
           path: ./.vitepress/dist
 
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run coverage
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v7
+        with:
+          files: ./coverage/lcov.info
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
   markdown-link-check:
     runs-on: ubuntu-latest
     permissions:
@@ -63,7 +90,7 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: check
+    needs: [check, test]
     # workflow_dispatch is included so the dependency-graph job can publish the
     # page it just regenerated: a push made with GITHUB_TOKEN starts no workflow.
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')

@@ -1,3 +1,6 @@
+[![Code coverage](https://codecov.io/gh/versatiles-org/versatiles-documentation/branch/main/graph/badge.svg)](https://codecov.io/gh/versatiles-org/versatiles-documentation)
+[![CI status](https://img.shields.io/github/actions/workflow/status/versatiles-org/versatiles-documentation/ci.yml)](https://github.com/versatiles-org/versatiles-documentation/actions/workflows/ci.yml)
+
 **VersaTiles** is an open-source ecosystem for generating, processing, storing, serving and rendering [map tiles](basics/web_maps.md) — a self-hosted alternative to commercial providers, with full control over the pipeline.
 [Learn more](basics/versatiles.md)
 
