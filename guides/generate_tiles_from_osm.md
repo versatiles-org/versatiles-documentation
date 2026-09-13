@@ -94,7 +94,7 @@ services:
 
 ### Schema extensions and languages
 
-The image enables **all** [Shortbread schema extensions](../compendium/specification_shortbread_extensions.md) by default (`EXPERIMENTS=all`) — 3D building heights, building parts, localized names, island labels, address details and bridge names. Set `EXPERIMENTS=none` for strictly spec-conformant output, or a comma-separated list to pick individual ones.
+The image enables **all** [Shortbread schema extensions](../compendium/specification_shortbread_extensions.md) by default (`EXPERIMENTS=all`) — 3D buildings, localized names, island labels, address details, bridge names, early street attributes and mountain peaks. Set `EXPERIMENTS=none` to switch them all off, or a comma-separated list to pick individual ones.
 
 Localized names default to `LANGUAGES=en,fr,es,de,ar,el,it,nl,pl,pt,uk`.
 
