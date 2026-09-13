@@ -41,7 +41,7 @@ The bundle contains:
 - **[MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js)** — the map rendering library
 - **Map styles** — six ready-to-use themes: `colorful`, `graybeard`, `eclipse`, `neutrino`, `shadow`, `satellite`
 - **Fonts (glyphs)** — ten open-source typefaces prepared as SDF glyphs: Roboto, Open Sans, Noto Sans, Fira Sans, and others
-- **Sprites** — icon sets for use with the map styles
+- **Sprites** — icon sets for use with the map styles ([overview of all icons](https://versatiles.org/versatiles-style/sprites.html))
 
 ## How is it built?
 
