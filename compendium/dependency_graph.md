@@ -108,6 +108,14 @@ Documentation, release tooling and the rest of what keeps the project running.
 | [versatiles-org.github.io](https://github.com/versatiles-org/versatiles-org.github.io) | —    | Source code for the public website at versatiles.org.                                         | 0          | 0       |
 | [versatiles-spec](https://github.com/versatiles-org/versatiles-spec)                   | —    | Specification for VersaTiles containers.                                                      | 0          | 2       |
 
+### Not yet categorised
+
+Added to the organisation since this page was last curated.
+
+| Repository                                                           | Also | Description                                        | Depends on | Used by |
+| -------------------------------------------------------------------- | ---- | -------------------------------------------------- | ---------- | ------- |
+| [shortbread-docs](https://github.com/versatiles-org/shortbread-docs) | —    | Documentation of the Shortbread vector tile schema | 0          | 0       |
+
 ## How each link is declared
 
 A dependency can be written down in half a dozen different ways, each one found in a
@@ -149,7 +157,7 @@ The repository lists a `@versatiles/…` package among its npm dependencies.
 | versatiles-map-animation     | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-map-animation/blob/main/package.json#L35)     |
 | versatiles-map-editor        | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-map-editor/blob/main/package.json#L25)        |
 | versatiles-studio            | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-studio/blob/main/package.json#L82)            |
-| versatiles-style             | node-release-tool          | `@versatiles/release-tool@^2.9.0`   | [package.json](https://github.com/versatiles-org/versatiles-style/blob/main/package.json#L65)             |
+| versatiles-style             | node-release-tool          | `@versatiles/release-tool@^2.10.0`  | [package.json](https://github.com/versatiles-org/versatiles-style/blob/main/package.json#L85)             |
 | versatiles-svg-renderer      | node-release-tool          | `@versatiles/release-tool@^2.9.0`   | [package.json](https://github.com/versatiles-org/versatiles-svg-renderer/blob/main/package.json#L92)      |
 | versatiles-svg-renderer      | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-svg-renderer/blob/main/package.json#L93)      |
 
@@ -231,7 +239,7 @@ A GitHub Actions workflow uses an action, reusable workflow or dispatch of anoth
 
 | From                  | To                | Found                                                                                            | Source                                                                                                                             |
 | --------------------- | ----------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| planetiler-shortbread | planetiler        | `versatiles-org/planetiler`                                                                      | [.github/workflows/ci.yml](https://github.com/versatiles-org/planetiler-shortbread/blob/main/.github/workflows/ci.yml#L76)         |
+| planetiler-shortbread | planetiler        | `versatiles-org/planetiler`                                                                      | [.github/workflows/ci.yml](https://github.com/versatiles-org/planetiler-shortbread/blob/main/.github/workflows/ci.yml#L81)         |
 | versatiles-frontend   | versatiles-docker | `api.github.com/repos/versatiles-org/versatiles-docker/actions/workflows/release.yml/dispatches` | [.github/workflows/release.yml](https://github.com/versatiles-org/versatiles-frontend/blob/main/.github/workflows/release.yml#L68) |
 
 :::

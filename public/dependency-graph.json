@@ -25,6 +25,11 @@
 			"id": "project",
 			"title": "Project",
 			"summary": "Documentation, release tooling and the rest of what keeps the project running."
+		},
+		{
+			"id": "uncategorised",
+			"title": "Not yet categorised",
+			"summary": "Added to the organisation since this page was last curated."
 		}
 	],
 	"repos": [
@@ -186,6 +191,14 @@
 			"description": "Interactive playground demonstrating how to use VersaTiles in web applications.",
 			"language": "TypeScript",
 			"fork": false,
+			"archived": false
+		},
+		{
+			"name": "shortbread-docs",
+			"tags": ["uncategorised"],
+			"description": "Documentation of the Shortbread vector tile schema",
+			"language": "CSS",
+			"fork": true,
 			"archived": false
 		},
 		{
@@ -508,7 +521,7 @@
 			"kind": "workflow",
 			"detail": "versatiles-org/planetiler",
 			"path": ".github/workflows/ci.yml",
-			"line": 76
+			"line": 81
 		},
 		{
 			"from": "tiles.versatiles.org",
@@ -842,9 +855,9 @@
 			"from": "versatiles-style",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.9.0",
+			"detail": "@versatiles/release-tool@^2.10.0",
 			"path": "package.json",
-			"line": 65
+			"line": 85
 		},
 		{
 			"from": "versatiles-svg-renderer",
