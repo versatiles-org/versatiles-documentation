@@ -86,15 +86,15 @@ versatiles convert '[,vpl](from_merged_vector [ from_container filename="https:/
 
 ### 2. Render at low zoom
 
-Most Shortbread styles fade these kinds in at the zoom level where the OSM data starts, so the low-zoom cover stays invisible until the style is told to draw it. [@versatiles/style](https://github.com/versatiles-org/versatiles-style) has done this since v5.13.0 via an opt-in flag:
+Most Shortbread styles fade these kinds in at the zoom level where the OSM data starts, so the low-zoom cover stays invisible until the style is told to draw it. [@versatiles/style](https://github.com/versatiles-org/versatiles-style) does this via an opt-in flag (v6; in v5.13 it was `colorful({ experimental: { landcover: true } })`):
 
 ```js
-import { colorful } from '@versatiles/style';
+import { osm } from '@versatiles/style';
 
-const style = colorful({ experimental: { landcover: true } });
+const style = osm({ theme: 'colorful', features: { landcover: true } });
 ```
 
-It removes the zoom-based `fill-opacity` fade-in from every layer rendering one of the kinds above, so they are drawn from z0. Supported by `colorful` (and its `graybeard` / `eclipse` / `shadow` variants) and `neutrino`. Enable it only against a merged tileset — on plain OSM tiles those layers would appear abruptly rather than fading in.
+It removes the zoom-based fade-in from every layer rendering one of the kinds above, so they are drawn from z0. Supported by every theme; `osm.supportsLandcover(tileJSON)` reports whether a tileset carries the extension. Enable it only against a merged tileset — on plain OSM tiles those layers would appear abruptly rather than fading in.
 
 Because it is purely additive, omitting the merge (or the style rules) changes nothing.
 

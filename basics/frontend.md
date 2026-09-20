@@ -39,7 +39,7 @@ wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/down
 The bundle contains:
 
 - **[MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js)** — the map rendering library
-- **Map styles** — six ready-to-use themes: `colorful`, `graybeard`, `eclipse`, `neutrino`, `shadow`, `satellite`
+- **Map styles** — five ready-to-use themes, each with a dark variant: `colorful`, `natural`, `muted`, `gray`, `toner` (and `colorful-dark`, …), plus `satellite`. The v5 names `graybeard`, `eclipse`, `neutrino` and `shadow` still work as deprecated aliases.
 - **Fonts (glyphs)** — ten open-source typefaces prepared as SDF glyphs: Roboto, Open Sans, Noto Sans, Fira Sans, and others
 - **Sprites** — icon sets for use with the map styles ([overview of all icons](https://versatiles.org/versatiles-style/sprites.html))
 

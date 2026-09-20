@@ -133,7 +133,7 @@ The [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend)
 
 ### Map Styles
 
-The [versatiles-style](https://github.com/versatiles-org/versatiles-style) library provides six pre-built map themes (colorful, graybeard, eclipse, neutrino, shadow, satellite) and a style templating engine for dynamic generation of MapLibre-compatible styles with configurable colour, language, and visual effects. It works in both browser and Node.js environments.
+The [versatiles-style](https://github.com/versatiles-org/versatiles-style) library provides five pre-built map themes (colorful, natural, muted, gray, toner), each with a dark variant, a satellite style, and a style templating engine for dynamic generation of MapLibre-compatible styles with configurable colour, language, and visual effects. It works in both browser and Node.js environments.
 
 ### Fonts and Glyphs
 

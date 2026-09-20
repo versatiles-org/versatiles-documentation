@@ -198,7 +198,7 @@ This file should contain a JSON array listing all available `{sprite_id}`s. Thes
 **Example:**
 
 ```json
-["basics", "markers"]
+["base", "extras", "icons"]
 ```
 
 ## Folder: `/tiles/`
