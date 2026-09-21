@@ -46,7 +46,7 @@ Code to build on — crates, npm packages and the container specification.
 | [node-versatiles-svelte](https://github.com/versatiles-org/node-versatiles-svelte)       | —            | Svelte components and bindings for displaying VersaTiles data in MapLibre GL JS.                                          | 2          | 2       |
 | [versatiles-fonts](https://github.com/versatiles-org/versatiles-fonts)                   | —            | Repository of open-source SDF fonts optimized for MapLibre GL JS rendering.                                               | 1          | 2       |
 | [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend)             | —            | Frontend web applications for exploring VersaTiles maps and datasets.                                                     | 6          | 6       |
-| [versatiles-glyphs-rs](https://github.com/versatiles-org/versatiles-glyphs-rs)           | —            | Rust implementation of a signed-distance-field (SDF) glyph renderer used in map rendering.                                | 0          | 1       |
+| [versatiles-glyphs-rs](https://github.com/versatiles-org/versatiles-glyphs-rs)           | —            | Rust implementation of a signed-distance-field (SDF) glyph renderer used in map rendering.                                | 0          | 2       |
 | [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)                         | Applications | Core Rust implementation of the VersaTiles toolkit for converting, validating, and serving map tiles in multiple formats. | 0          | 5       |
 | [versatiles-style](https://github.com/versatiles-org/versatiles-style)                   | —            | Toolkit for generating MapLibre styles.                                                                                   | 1          | 11      |
 
@@ -88,7 +88,7 @@ How the software is packaged, deployed and hosted.
 | Repository                                                                           | Also | Description                                                   | Depends on | Used by |
 | ------------------------------------------------------------------------------------ | ---- | ------------------------------------------------------------- | ---------- | ------- |
 | [download.versatiles.org](https://github.com/versatiles-org/download.versatiles.org) | —    | Data download hub for VersaTiles datasets.                    | 3          | 0       |
-| [homebrew-versatiles](https://github.com/versatiles-org/homebrew-versatiles)         | —    | Homebrew tap for installing VersaTiles CLI tools on macOS.    | 2          | 0       |
+| [homebrew-versatiles](https://github.com/versatiles-org/homebrew-versatiles)         | —    | Homebrew tap for installing VersaTiles CLI tools on macOS.    | 3          | 0       |
 | [photon-stack](https://github.com/versatiles-org/photon-stack)                       | —    | —                                                             | 0          | 0       |
 | [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)             | —    | Docker images and build scripts for the VersaTiles ecosystem. | 3          | 4       |
 
@@ -133,8 +133,8 @@ The repository lists a `@versatiles/…` package among its npm dependencies.
 | download.versatiles.org      | node-release-tool          | `@versatiles/release-tool@^2.9.1`   | [package.json](https://github.com/versatiles-org/download.versatiles.org/blob/main/package.json#L59)      |
 | download.versatiles.org      | node-versatiles-container  | `@versatiles/container@^2.0.0`      | [package.json](https://github.com/versatiles-org/download.versatiles.org/blob/main/package.json#L45)      |
 | download.versatiles.org      | node-versatiles-svelte     | `@versatiles/svelte@^2.3.1`         | [package.json](https://github.com/versatiles-org/download.versatiles.org/blob/main/package.json#L46)      |
-| maplibre-versatiles-styler   | node-release-tool          | `@versatiles/release-tool@^2.9.1`   | [package.json](https://github.com/versatiles-org/maplibre-versatiles-styler/blob/main/package.json#L44)   |
-| maplibre-versatiles-styler   | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/maplibre-versatiles-styler/blob/main/package.json#L45)   |
+| maplibre-versatiles-styler   | node-release-tool          | `@versatiles/release-tool@^2.16.0`  | [package.json](https://github.com/versatiles-org/maplibre-versatiles-styler/blob/main/package.json#L46)   |
+| maplibre-versatiles-styler   | versatiles-style           | `@versatiles/style@^6.0.1`          | [package.json](https://github.com/versatiles-org/maplibre-versatiles-styler/blob/main/package.json#L47)   |
 | node-versatiles-container    | node-release-tool          | `@versatiles/release-tool@^2.9.1`   | [package.json](https://github.com/versatiles-org/node-versatiles-container/blob/main/package.json#L68)    |
 | node-versatiles-google-cloud | node-release-tool          | `@versatiles/release-tool@^2.9.1`   | [package.json](https://github.com/versatiles-org/node-versatiles-google-cloud/blob/main/package.json#L77) |
 | node-versatiles-google-cloud | node-versatiles-container  | `@versatiles/container@^1.5.1`      | [package.json](https://github.com/versatiles-org/node-versatiles-google-cloud/blob/main/package.json#L63) |
@@ -150,16 +150,16 @@ The repository lists a `@versatiles/…` package among its npm dependencies.
 | tools                        | node-versatiles-svelte     | `@versatiles/svelte@^2.3.1`         | [package.json](https://github.com/versatiles-org/tools/blob/main/package.json#L43)                        |
 | versatiles-choro             | versatiles-rs              | `@versatiles/versatiles-rs@^4.10.0` | [package.json](https://github.com/versatiles-org/versatiles-choro/blob/main/package.json#L47)             |
 | versatiles-choro             | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-choro/blob/main/package.json#L68)             |
-| versatiles-frontend          | maplibre-versatiles-styler | `maplibre-versatiles-styler@^1.3.2` | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L59)          |
-| versatiles-frontend          | node-release-tool          | `@versatiles/release-tool@^2.9.0`   | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L46)          |
-| versatiles-frontend          | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L47)          |
-| versatiles-frontend          | versatiles-svg-renderer    | `@versatiles/svg-renderer@^1.1.0`   | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L48)          |
+| versatiles-frontend          | maplibre-versatiles-styler | `maplibre-versatiles-styler@^2.0.1` | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L63)          |
+| versatiles-frontend          | node-release-tool          | `@versatiles/release-tool@^2.16.0`  | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L50)          |
+| versatiles-frontend          | versatiles-style           | `@versatiles/style@^6.0.1`          | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L51)          |
+| versatiles-frontend          | versatiles-svg-renderer    | `@versatiles/svg-renderer@^1.2.0`   | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L52)          |
 | versatiles-map-animation     | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-map-animation/blob/main/package.json#L35)     |
 | versatiles-map-editor        | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-map-editor/blob/main/package.json#L25)        |
 | versatiles-studio            | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-studio/blob/main/package.json#L82)            |
-| versatiles-style             | node-release-tool          | `@versatiles/release-tool@^2.10.0`  | [package.json](https://github.com/versatiles-org/versatiles-style/blob/main/package.json#L85)             |
-| versatiles-svg-renderer      | node-release-tool          | `@versatiles/release-tool@^2.9.0`   | [package.json](https://github.com/versatiles-org/versatiles-svg-renderer/blob/main/package.json#L92)      |
-| versatiles-svg-renderer      | versatiles-style           | `@versatiles/style@^5.13.1`         | [package.json](https://github.com/versatiles-org/versatiles-svg-renderer/blob/main/package.json#L93)      |
+| versatiles-style             | node-release-tool          | `@versatiles/release-tool@^2.16.0`  | [package.json](https://github.com/versatiles-org/versatiles-style/blob/main/package.json#L112)            |
+| versatiles-svg-renderer      | node-release-tool          | `@versatiles/release-tool@^2.16.0`  | [package.json](https://github.com/versatiles-org/versatiles-svg-renderer/blob/main/package.json#L112)     |
+| versatiles-svg-renderer      | versatiles-style           | `@versatiles/style@^6.0.1`          | [package.json](https://github.com/versatiles-org/versatiles-svg-renderer/blob/main/package.json#L113)     |
 
 :::
 
@@ -198,10 +198,11 @@ A `Dockerfile` builds on an image produced by another repository.
 
 Build scripts or runtime code fetch release assets or raw files from another repository.
 
-::: details Where these 26 links come from
+::: details Where these 29 links come from
 
 | From                      | To                   | Found                                                    | Source                                                                                                                                                     |
 | ------------------------- | -------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| homebrew-versatiles       | versatiles-glyphs-rs | `"versatiles-org/versatiles-glyphs-rs"`                  | [bin/make_formula_glyphs.sh](https://github.com/versatiles-org/homebrew-versatiles/blob/main/bin/make_formula_glyphs.sh#L14)                               |
 | homebrew-versatiles       | versatiles-rs        | `github.com/versatiles-org/versatiles-rs/releases`       | [bin/make_formula.sh](https://github.com/versatiles-org/homebrew-versatiles/blob/main/bin/make_formula.sh#L6)                                              |
 | homebrew-versatiles       | versatiles-studio    | `"versatiles-org/versatiles-studio"`                     | [bin/make_cask.sh](https://github.com/versatiles-org/homebrew-versatiles/blob/main/bin/make_cask.sh#L21)                                                   |
 | node-versatiles-container | versatiles-spec      | `github.com/versatiles-org/versatiles-spec/blob`         | [src/index.ts](https://github.com/versatiles-org/node-versatiles-container/blob/main/src/index.ts#L162)                                                    |
@@ -221,10 +222,12 @@ Build scripts or runtime code fetch release assets or raw files from another rep
 | versatiles-docker         | versatiles-rs        | `github.com/versatiles-org/versatiles-rs.git`            | [versatiles-gdal/Dockerfile](https://github.com/versatiles-org/versatiles-docker/blob/main/versatiles-gdal/Dockerfile#L13)                                 |
 | versatiles-docker         | versatiles-rs        | `github.com/versatiles-org/versatiles-rs/releases`       | [scripts/download_versatiles_binary.sh](https://github.com/versatiles-org/versatiles-docker/blob/main/scripts/download_versatiles_binary.sh#L41)           |
 | versatiles-documentation  | versatiles-spec      | `'versatiles-org/versatiles-spec'`                       | [scripts/sync-spec.ts](https://github.com/versatiles-org/versatiles-documentation/blob/main/scripts/sync-spec.ts#L25)                                      |
+| versatiles-fonts          | versatiles-glyphs-rs | `github.com/versatiles-org/versatiles-glyphs-rs/raw`     | [.github/workflows/ci.yml](https://github.com/versatiles-org/versatiles-fonts/blob/main/.github/workflows/ci.yml#L42)                                      |
 | versatiles-fonts          | versatiles-glyphs-rs | `github.com/versatiles-org/versatiles-glyphs-rs/raw`     | [.github/workflows/release.yml](https://github.com/versatiles-org/versatiles-fonts/blob/main/.github/workflows/release.yml#L31)                            |
-| versatiles-fonts          | versatiles-glyphs-rs | `github.com/versatiles-org/versatiles-glyphs-rs/raw`     | [scripts/build.ts](https://github.com/versatiles-org/versatiles-fonts/blob/main/scripts/build.ts#L12)                                                      |
-| versatiles-frontend       | versatiles-fonts     | `github.com/versatiles-org/versatiles-fonts/releases`    | [frontends/config.ts](https://github.com/versatiles-org/versatiles-frontend/blob/main/frontends/config.ts#L10)                                             |
-| versatiles-frontend       | versatiles-style     | `github.com/versatiles-org/versatiles-style/releases`    | [frontends/config.ts](https://github.com/versatiles-org/versatiles-frontend/blob/main/frontends/config.ts#L33)                                             |
+| versatiles-fonts          | versatiles-glyphs-rs | `github.com/versatiles-org/versatiles-glyphs-rs/raw`     | [scripts/build.ts](https://github.com/versatiles-org/versatiles-fonts/blob/main/scripts/build.ts#L23)                                                      |
+| versatiles-fonts          | versatiles-glyphs-rs | `github.com/versatiles-org/versatiles-glyphs-rs/raw`     | [scripts/glyphs.ts](https://github.com/versatiles-org/versatiles-fonts/blob/main/scripts/glyphs.ts#L40)                                                    |
+| versatiles-frontend       | versatiles-fonts     | `github.com/versatiles-org/versatiles-fonts/releases`    | [frontends/config.ts](https://github.com/versatiles-org/versatiles-frontend/blob/main/frontends/config.ts#L15)                                             |
+| versatiles-frontend       | versatiles-style     | `github.com/versatiles-org/versatiles-style/releases`    | [frontends/config.ts](https://github.com/versatiles-org/versatiles-frontend/blob/main/frontends/config.ts#L38)                                             |
 | versatiles-studio         | versatiles-fonts     | `'versatiles-org/versatiles-fonts'`                      | [scripts/update-assets.ts](https://github.com/versatiles-org/versatiles-studio/blob/main/scripts/update-assets.ts#L33)                                     |
 | versatiles-studio         | versatiles-frontend  | `'versatiles-org/versatiles-frontend'`                   | [scripts/update-assets.ts](https://github.com/versatiles-org/versatiles-studio/blob/main/scripts/update-assets.ts#L34)                                     |
 | versatiles-studio         | versatiles-style     | `'versatiles-org/versatiles-style'`                      | [scripts/update-assets.ts](https://github.com/versatiles-org/versatiles-studio/blob/main/scripts/update-assets.ts#L32)                                     |
@@ -240,7 +243,7 @@ A GitHub Actions workflow uses an action, reusable workflow or dispatch of anoth
 | From                  | To                | Found                                                                                            | Source                                                                                                                             |
 | --------------------- | ----------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
 | planetiler-shortbread | planetiler        | `versatiles-org/planetiler`                                                                      | [.github/workflows/ci.yml](https://github.com/versatiles-org/planetiler-shortbread/blob/main/.github/workflows/ci.yml#L81)         |
-| versatiles-frontend   | versatiles-docker | `api.github.com/repos/versatiles-org/versatiles-docker/actions/workflows/release.yml/dispatches` | [.github/workflows/release.yml](https://github.com/versatiles-org/versatiles-frontend/blob/main/.github/workflows/release.yml#L68) |
+| versatiles-frontend   | versatiles-docker | `api.github.com/repos/versatiles-org/versatiles-docker/actions/workflows/release.yml/dispatches` | [.github/workflows/release.yml](https://github.com/versatiles-org/versatiles-frontend/blob/main/.github/workflows/release.yml#L74) |
 
 :::
 

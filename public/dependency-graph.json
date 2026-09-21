@@ -253,7 +253,7 @@
 			"name": "versatiles-fonts",
 			"tags": ["library"],
 			"description": "Repository of open-source SDF fonts optimized for MapLibre GL JS rendering.",
-			"language": "JavaScript",
+			"language": "TypeScript",
 			"fork": false,
 			"archived": false
 		},
@@ -365,6 +365,14 @@
 		},
 		{
 			"from": "homebrew-versatiles",
+			"to": "versatiles-glyphs-rs",
+			"kind": "download",
+			"detail": "\"versatiles-org/versatiles-glyphs-rs\"",
+			"path": "bin/make_formula_glyphs.sh",
+			"line": 14
+		},
+		{
+			"from": "homebrew-versatiles",
 			"to": "versatiles-rs",
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-rs/releases",
@@ -383,17 +391,17 @@
 			"from": "maplibre-versatiles-styler",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.9.1",
+			"detail": "@versatiles/release-tool@^2.16.0",
 			"path": "package.json",
-			"line": 44
+			"line": 46
 		},
 		{
 			"from": "maplibre-versatiles-styler",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^5.13.1",
+			"detail": "@versatiles/style@^6.0.1",
 			"path": "package.json",
-			"line": 45
+			"line": 47
 		},
 		{
 			"from": "node-versatiles-container",
@@ -696,6 +704,14 @@
 			"to": "versatiles-glyphs-rs",
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-glyphs-rs/raw",
+			"path": ".github/workflows/ci.yml",
+			"line": 42
+		},
+		{
+			"from": "versatiles-fonts",
+			"to": "versatiles-glyphs-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-glyphs-rs/raw",
 			"path": ".github/workflows/release.yml",
 			"line": 31
 		},
@@ -705,23 +721,31 @@
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-glyphs-rs/raw",
 			"path": "scripts/build.ts",
-			"line": 12
+			"line": 23
+		},
+		{
+			"from": "versatiles-fonts",
+			"to": "versatiles-glyphs-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-glyphs-rs/raw",
+			"path": "scripts/glyphs.ts",
+			"line": 40
 		},
 		{
 			"from": "versatiles-frontend",
 			"to": "maplibre-versatiles-styler",
 			"kind": "npm",
-			"detail": "maplibre-versatiles-styler@^1.3.2",
+			"detail": "maplibre-versatiles-styler@^2.0.1",
 			"path": "package.json",
-			"line": 59
+			"line": 63
 		},
 		{
 			"from": "versatiles-frontend",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.9.0",
+			"detail": "@versatiles/release-tool@^2.16.0",
 			"path": "package.json",
-			"line": 46
+			"line": 50
 		},
 		{
 			"from": "versatiles-frontend",
@@ -729,7 +753,7 @@
 			"kind": "workflow",
 			"detail": "api.github.com/repos/versatiles-org/versatiles-docker/actions/workflows/release.yml/dispatches",
 			"path": ".github/workflows/release.yml",
-			"line": 68
+			"line": 74
 		},
 		{
 			"from": "versatiles-frontend",
@@ -737,7 +761,7 @@
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-fonts/releases",
 			"path": "frontends/config.ts",
-			"line": 10
+			"line": 15
 		},
 		{
 			"from": "versatiles-frontend",
@@ -745,23 +769,23 @@
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-style/releases",
 			"path": "frontends/config.ts",
-			"line": 33
+			"line": 38
 		},
 		{
 			"from": "versatiles-frontend",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^5.13.1",
+			"detail": "@versatiles/style@^6.0.1",
 			"path": "package.json",
-			"line": 47
+			"line": 51
 		},
 		{
 			"from": "versatiles-frontend",
 			"to": "versatiles-svg-renderer",
 			"kind": "npm",
-			"detail": "@versatiles/svg-renderer@^1.1.0",
+			"detail": "@versatiles/svg-renderer@^1.2.0",
 			"path": "package.json",
-			"line": 48
+			"line": 52
 		},
 		{
 			"from": "versatiles-map-animation",
@@ -855,25 +879,25 @@
 			"from": "versatiles-style",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.10.0",
+			"detail": "@versatiles/release-tool@^2.16.0",
 			"path": "package.json",
-			"line": 85
+			"line": 112
 		},
 		{
 			"from": "versatiles-svg-renderer",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.9.0",
+			"detail": "@versatiles/release-tool@^2.16.0",
 			"path": "package.json",
-			"line": 92
+			"line": 112
 		},
 		{
 			"from": "versatiles-svg-renderer",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^5.13.1",
+			"detail": "@versatiles/style@^6.0.1",
 			"path": "package.json",
-			"line": 93
+			"line": 113
 		}
 	]
 }
