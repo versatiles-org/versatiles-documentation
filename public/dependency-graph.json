@@ -391,7 +391,7 @@
 			"from": "maplibre-versatiles-styler",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.16.0",
+			"detail": "@versatiles/release-tool@^2.18.0",
 			"path": "package.json",
 			"line": 46
 		},
@@ -399,7 +399,7 @@
 			"from": "maplibre-versatiles-styler",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.0.1",
+			"detail": "@versatiles/style@^6.0.2",
 			"path": "package.json",
 			"line": 47
 		},
@@ -743,9 +743,9 @@
 			"from": "versatiles-frontend",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.16.0",
+			"detail": "@versatiles/release-tool@^2.17.0",
 			"path": "package.json",
-			"line": 50
+			"line": 51
 		},
 		{
 			"from": "versatiles-frontend",
@@ -777,15 +777,15 @@
 			"kind": "npm",
 			"detail": "@versatiles/style@^6.0.1",
 			"path": "package.json",
-			"line": 51
+			"line": 52
 		},
 		{
 			"from": "versatiles-frontend",
 			"to": "versatiles-svg-renderer",
 			"kind": "npm",
-			"detail": "@versatiles/svg-renderer@^1.2.0",
+			"detail": "@versatiles/maplibre-svg-export@^2.1.0",
 			"path": "package.json",
-			"line": 52
+			"line": 50
 		},
 		{
 			"from": "versatiles-map-animation",
@@ -797,11 +797,19 @@
 		},
 		{
 			"from": "versatiles-map-editor",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.17.0",
+			"path": "package.json",
+			"line": 44
+		},
+		{
+			"from": "versatiles-map-editor",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^5.13.1",
+			"detail": "@versatiles/style@^6.0.1",
 			"path": "package.json",
-			"line": 25
+			"line": 33
 		},
 		{
 			"from": "versatiles-studio",
@@ -879,17 +887,17 @@
 			"from": "versatiles-style",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.16.0",
+			"detail": "@versatiles/release-tool@^2.18.0",
 			"path": "package.json",
-			"line": 112
+			"line": 110
 		},
 		{
 			"from": "versatiles-svg-renderer",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.16.0",
+			"detail": "@versatiles/release-tool@^2.17.0",
 			"path": "package.json",
-			"line": 112
+			"line": 58
 		},
 		{
 			"from": "versatiles-svg-renderer",
@@ -897,7 +905,7 @@
 			"kind": "npm",
 			"detail": "@versatiles/style@^6.0.1",
 			"path": "package.json",
-			"line": 113
+			"line": 59
 		}
 	]
 }
