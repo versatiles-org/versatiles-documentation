@@ -15,6 +15,8 @@
  *   npm run sync:deps              # regenerate the page
  *   npm run sync:deps -- --check   # fail if it is out of date
  *   npm run sync:deps -- --cache   # reuse responses from the last run
+ *   npm run sync:deps -- --drift   # report outdated versions instead (not committed)
+ *   npm run sync:deps -- --drift --outdated   # … leaving out packages that are current
  *
  * A GitHub token is read from GITHUB_TOKEN, GH_TOKEN or `gh auth token`.
  */
@@ -25,6 +27,7 @@ import * as prettier from 'prettier';
 import { loadConfig, validateConfig, CONFIG_PATH } from './dependency-graph/config';
 import { GitHub, mapLimit, type RepoInfo } from './dependency-graph/github';
 import { buildNameMaps, classify, collectEdges, type RepoFile } from './dependency-graph/collect';
+import { collectDrift, renderDrift } from './dependency-graph/drift';
 import { renderJson, renderPage } from './dependency-graph/render';
 import { sortEdges, type Graph, type RepoNode } from './dependency-graph/model';
 
@@ -42,12 +45,24 @@ const FALLBACK_TAG = {
 interface Options {
 	check: boolean;
 	cache: boolean;
+	drift: boolean;
+	outdated: boolean;
 }
 
+const FLAGS = ['--check', '--cache', '--drift', '--outdated'];
+
 function parseArgs(argv: string[]): Options {
-	const unknown = argv.filter((arg) => !['--check', '--cache'].includes(arg));
+	const unknown = argv.filter((arg) => !FLAGS.includes(arg));
 	if (unknown.length > 0) throw new Error(`unknown option(s): ${unknown.join(', ')}`);
-	return { check: argv.includes('--check'), cache: argv.includes('--cache') };
+	const options = {
+		check: argv.includes('--check'),
+		cache: argv.includes('--cache'),
+		drift: argv.includes('--drift'),
+		outdated: argv.includes('--outdated'),
+	};
+	if (options.drift && options.check) throw new Error('--drift and --check cannot be combined');
+	if (options.outdated && !options.drift) throw new Error('--outdated only applies to --drift');
+	return options;
 }
 
 /** Reads every file of a repository that could declare a dependency. */
@@ -67,7 +82,7 @@ async function readRepo(github: GitHub, org: string, repo: RepoInfo): Promise<Re
 }
 
 async function main(): Promise<void> {
-	const { check, cache } = parseArgs(process.argv.slice(2));
+	const { check, cache, drift, outdated } = parseArgs(process.argv.slice(2));
 	const config = loadConfig(ROOT);
 	const github = new GitHub({ cache });
 
@@ -102,6 +117,36 @@ async function main(): Promise<void> {
 	);
 
 	const { maps, warnings: mapWarnings } = buildNameMaps(files);
+
+	// Versions change with every release anywhere in the organisation, so the
+	// drift report is printed for whoever asked and never written to the page.
+	if (drift) {
+		if (cache) {
+			console.warn(
+				'[dependency-graph] --cache: manifests, lockfiles and registry answers may come from\n' +
+					'                  different runs, so versions can disagree with each other.',
+			);
+		}
+		const byName = new Map(repos.map((repo) => [repo.name, repo]));
+		const result = await collectDrift(
+			files,
+			maps,
+			{
+				readFile: (repo, path) => github.readFile(config.org, byName.get(repo)!, path),
+				getRegistryJson: (url) => github.getRegistryJson(url),
+			},
+			mapLimit,
+		);
+		console.log(
+			'\n' +
+				renderDrift(result, {
+					color: Boolean(process.stdout.isTTY) && !process.env.NO_COLOR,
+					now: new Date(),
+					onlyOutdated: outdated,
+				}),
+		);
+		return;
+	}
 	const names = new Set(repos.map((repo) => repo.name));
 	const { edges, warnings, ignoreHits } = collectEdges(files, config, maps, names, mapWarnings);
 

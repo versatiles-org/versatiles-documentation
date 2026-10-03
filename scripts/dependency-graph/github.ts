@@ -136,7 +136,7 @@ export class GitHub {
 	}
 
 	/** Returns the response body, or null for 404. Retries transient failures. */
-	private async get(url: string): Promise<string | null> {
+	private async get(url: string, headers = this.headers): Promise<string | null> {
 		const cached = this.cachePath(url);
 		if (cached && existsSync(cached)) {
 			const body = readFileSync(cached, 'utf8');
@@ -150,7 +150,7 @@ export class GitHub {
 
 			let response: Response;
 			try {
-				response = await this.gate.run(() => fetch(url, { headers: this.headers }));
+				response = await this.gate.run(() => fetch(url, { headers }));
 			} catch (error) {
 				lastError = error instanceof Error ? error.message : String(error);
 				continue;
@@ -230,5 +230,17 @@ export class GitHub {
 
 	async readFile(org: string, repo: RepoInfo, path: string): Promise<string | null> {
 		return this.get(`${RAW}/${org}/${repo.name}/${repo.defaultBranch}/${path}`);
+	}
+
+	/**
+	 * A JSON document from a package registry, or null for 404. Goes through the
+	 * same cache and retries, but never carries the GitHub token to a third party.
+	 */
+	async getRegistryJson<T>(url: string): Promise<T | null> {
+		const body = await this.get(url, {
+			accept: 'application/json',
+			'user-agent': this.headers['user-agent'],
+		});
+		return body === null ? null : (JSON.parse(body) as T);
 	}
 }

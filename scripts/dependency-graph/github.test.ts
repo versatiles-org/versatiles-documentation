@@ -181,3 +181,21 @@ describe('when GitHub misbehaves', () => {
 		);
 	});
 });
+
+describe('getRegistryJson', () => {
+	it('parses the document and never sends the GitHub token to a registry', async () => {
+		const fetchMock = vi.fn().mockResolvedValue(reply({ 'dist-tags': { latest: '1.0.0' } }));
+		vi.stubGlobal('fetch', fetchMock);
+		const body = await client().getRegistryJson('https://registry.npmjs.org/x');
+		expect(body).toEqual({ 'dist-tags': { latest: '1.0.0' } });
+		const headers = (fetchMock.mock.calls[0] as [string, { headers: Record<string, string> }])[1]
+			.headers;
+		expect(headers.authorization).toBeUndefined();
+		expect(headers['user-agent']).toBeTruthy();
+	});
+
+	it('returns null for a package the registry does not know', async () => {
+		vi.stubGlobal('fetch', vi.fn().mockResolvedValue(reply('', 404)));
+		expect(await client().getRegistryJson('https://crates.io/api/v1/crates/x')).toBeNull();
+	});
+});
