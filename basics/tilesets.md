@@ -3,7 +3,7 @@
 We prepare and publish a number of ready-to-use tilesets. There are two ways to use them:
 
 - **Download** the [`.versatiles` container](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md) from [download.versatiles.org](https://download.versatiles.org/) and [serve it yourself](versatiles_server.md).
-- **Use our hosted tiles** at `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` for prototyping and small projects. See [Use tiles.versatiles.org](../guides/use_tiles_versatiles_org.md).
+- **Use our hosted tiles** at `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — our demo server, open to everyone but without uptime guarantees. See [Use tiles.versatiles.org](../guides/use_tiles_versatiles_org.md).
 
 | Tileset                                         | Type   | Zoom                           | Download | Maturity | Hosted as            |
 | ----------------------------------------------- | ------ | ------------------------------ | -------- | -------- | -------------------- |
