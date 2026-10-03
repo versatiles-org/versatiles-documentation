@@ -65,6 +65,15 @@ describe('loadConfig', () => {
 		expect(load(MINIMAL).tags[0]).not.toHaveProperty('hue');
 	});
 
+	it('orders updates as told, and appends the tags the list leaves out', () => {
+		const two = `${MINIMAL.replace('repositories:', '  - id: helper\n    title: Helpers\n    summary: Internal.\nrepositories:')}`;
+		expect(load(two).updateOrder).toEqual(['library', 'helper']);
+		expect(load(`${two}\nupdate_order: [helper]\n`).updateOrder).toEqual(['helper', 'library']);
+		expect(() => load(`${two}\nupdate_order: [nope]\n`)).toThrow(
+			/update_order uses undefined tag/,
+		);
+	});
+
 	it('refuses a hue that is not an angle', () => {
 		const withHue = (hue: string) =>
 			MINIMAL.replace('title: Libraries', `title: Libraries\n    hue: ${hue}`);

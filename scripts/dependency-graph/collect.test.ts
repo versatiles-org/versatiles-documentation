@@ -16,6 +16,7 @@ function configure(overrides: Partial<GraphConfig> = {}): GraphConfig {
 		includeForks: true,
 		tags: [{ id: 'library', title: 'Libraries', summary: 'Code to build on.' }],
 		repositories: {},
+		updateOrder: ['library'],
 		images: {},
 		exclude: [],
 		manual: [],

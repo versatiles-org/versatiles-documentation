@@ -34,6 +34,8 @@ export interface GraphConfig {
 	tags: TagInfo[];
 	/** Repository name to its tags, most characteristic first. */
 	repositories: Record<string, string[]>;
+	/** Tag ids in the order their repositories should be updated; see the drift report. */
+	updateOrder: string[];
 	/** Docker image name (without tag) to the repository that builds it. */
 	images: Record<string, string>;
 	/** Repositories left out of the graph entirely. */
@@ -95,6 +97,14 @@ export function loadConfig(root: string): GraphConfig {
 		});
 	}
 
+	// Tags the list leaves out follow in the order the vocabulary has them.
+	const updateOrder = ((doc.update_order as unknown[] | undefined) ?? []).map((tag, index) => {
+		const id = asString(tag, `update_order[${index}]`);
+		if (!known.has(id)) fail(`update_order uses undefined tag "${id}"`);
+		return id;
+	});
+	for (const tag of tags) if (!updateOrder.includes(tag.id)) updateOrder.push(tag.id);
+
 	const manual = (doc.manual as unknown[] | undefined) ?? [];
 	const ignore = (doc.ignore as unknown[] | undefined) ?? [];
 
@@ -104,6 +114,7 @@ export function loadConfig(root: string): GraphConfig {
 		includeForks: doc.include_forks !== false,
 		tags,
 		repositories,
+		updateOrder,
 		images: (doc.images as Record<string, string> | undefined) ?? {},
 		exclude: (doc.exclude as string[] | undefined) ?? [],
 		manual: manual.map((entry, index) => {

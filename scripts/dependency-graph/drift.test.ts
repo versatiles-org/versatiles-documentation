@@ -11,6 +11,7 @@ import {
 	parseRegistry,
 	registryUrl,
 	renderDrift,
+	updateOrder,
 	toRange,
 	type DriftSource,
 	type Release,
@@ -398,7 +399,7 @@ describe('renderDrift', () => {
 			{ findings, releases },
 			{ color: false, now, onlyOutdated: false },
 		);
-		const section = report.split('Dependents and their outdated packages\n\n')[1].split('\n');
+		const section = report.split('after the repositories it builds on\n\n')[1].split('\n');
 		expect(section.slice(0, 5)).toEqual([
 			'b  3 outdated',
 			'  ✗  @versatiles/style         5.0.0 → 6.0.3  ^5.0.0       major behind, range excludes latest',
@@ -429,5 +430,43 @@ describe('renderDrift', () => {
 			);
 		expect(render('2026-09-28T00:00:00Z')).toContain('(today)');
 		expect(render('2026-09-27T00:00:00Z')).toContain('(1 day ago)');
+	});
+});
+
+describe('updateOrder', () => {
+	const uses = (consumer: string, provider: string) => ({ consumer, provider });
+
+	it('lists a repository after everything it builds on', () => {
+		const usages = [
+			uses('app', 'style'),
+			uses('style', 'release-tool'),
+			uses('app', 'container'),
+		];
+		expect(updateOrder(['app', 'container', 'release-tool', 'style'], usages)).toEqual([
+			'container',
+			'release-tool',
+			'style',
+			'app',
+		]);
+	});
+
+	it('sees a dependency through a repository that is not in the list', () => {
+		const usages = [uses('app', 'middle'), uses('middle', 'base')];
+		expect(updateOrder(['app', 'base'], usages)).toEqual(['base', 'app']);
+	});
+
+	it('lets the rank decide between repositories that are independent', () => {
+		const rank = (repo: string): number => ['helper', 'core', 'site'].indexOf(repo);
+		expect(updateOrder(['core', 'site', 'helper'], [], rank)).toEqual(['helper', 'core', 'site']);
+	});
+
+	it('puts a dependency first even against the rank', () => {
+		const rank = (repo: string): number => (repo === 'site' ? 0 : 1);
+		expect(updateOrder(['site', 'core'], [uses('site', 'core')], rank)).toEqual(['core', 'site']);
+	});
+
+	it('still orders the rest when two repositories depend on each other', () => {
+		const usages = [uses('a', 'b'), uses('b', 'a'), uses('c', 'a'), uses('a', 'base')];
+		expect(updateOrder(['c', 'b', 'a', 'base'], usages)).toEqual(['base', 'a', 'b', 'c']);
 	});
 });

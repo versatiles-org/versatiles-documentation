@@ -527,6 +527,68 @@ export interface ReportOptions {
 	now: Date;
 	/** Leave out packages whose every usage is current. */
 	onlyOutdated: boolean;
+	/**
+	 * Breaks ties in the update order: of two repositories that do not depend
+	 * on each other, the one with the lower rank is listed first.
+	 */
+	rank?: (repo: string) => number;
+}
+
+/**
+ * The order in which to work through `repos` so that nothing has to be done
+ * twice: a repository comes after every other one in the list whose packages
+ * it uses, directly or through repositories that are not in the list. Updating
+ * one of those means a new release of it, and whatever builds on that release
+ * would be outdated again the moment it is published.
+ *
+ * Every usage counts, not only the outdated ones — a dependency that is current
+ * today stops being so once its provider has been updated and released.
+ *
+ * Where the dependencies leave a choice, `rank` decides and the name settles
+ * what is left. A cycle cannot be ordered; it is broken at the repository that
+ * waits for the fewest others, so the rest of the list still comes out right.
+ */
+export function updateOrder(
+	repos: string[],
+	usages: Pick<Usage, 'consumer' | 'provider'>[],
+	rank: (repo: string) => number = () => 0,
+): string[] {
+	const providers = new Map<string, Set<string>>();
+	for (const { consumer, provider } of usages) {
+		if (!providers.has(consumer)) providers.set(consumer, new Set());
+		providers.get(consumer)!.add(provider);
+	}
+
+	// What each repository waits for, among the ones to be ordered.
+	const listed = new Set(repos);
+	const waitsFor = new Map<string, Set<string>>();
+	for (const repo of listed) {
+		const found = new Set<string>();
+		const seen = new Set([repo]);
+		const queue = [repo];
+		while (queue.length > 0) {
+			for (const provider of providers.get(queue.pop()!) ?? []) {
+				if (seen.has(provider)) continue;
+				seen.add(provider);
+				if (listed.has(provider)) found.add(provider);
+				queue.push(provider);
+			}
+		}
+		waitsFor.set(repo, found);
+	}
+
+	const order: string[] = [];
+	const remaining = new Set(listed);
+	const open = (repo: string): number =>
+		[...waitsFor.get(repo)!].filter((provider) => remaining.has(provider)).length;
+	while (remaining.size > 0) {
+		const next = [...remaining].sort(
+			(a, b) => open(a) - open(b) || rank(a) - rank(b) || a.localeCompare(b),
+		)[0];
+		order.push(next);
+		remaining.delete(next);
+	}
+	return order;
 }
 
 export function renderDrift(result: DriftResult, options: ReportOptions): string {
@@ -609,9 +671,13 @@ export function renderDrift(result: DriftResult, options: ReportOptions): string
 		dependents.set(finding.consumer, [...(dependents.get(finding.consumer) ?? []), finding]);
 	}
 	if (dependents.size > 0)
-		lines.push(paint('underline', 'Dependents and their outdated packages'), '');
+		lines.push(
+			paint('underline', 'Dependents and their outdated packages'),
+			paint('dim', 'in the order to update them: each one after the repositories it builds on'),
+			'',
+		);
 
-	for (const consumer of [...dependents.keys()].sort()) {
+	for (const consumer of updateOrder([...dependents.keys()], result.findings, options.rank)) {
 		const rows = dependents
 			.get(consumer)!
 			.sort(

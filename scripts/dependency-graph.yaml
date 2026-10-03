@@ -50,6 +50,12 @@ tags:
     title: Internal helpers
     summary: Housekeeping for the maintainers. Nothing here is needed to use VersaTiles.
 
+# The order to work through the repositories when updating dependencies, as
+# `npm run deps:drift` lists them. What a repository depends on always comes
+# before it; this only decides between repositories that are independent of
+# each other, and puts first what the most other things are built with.
+update_order: [internal, core, tools, tile-production, ecosystem]
+
 # Every public repository, and where it belongs. Anything not named here still
 # appears, but uncategorised — which is the reminder to come back and place it.
 repositories:

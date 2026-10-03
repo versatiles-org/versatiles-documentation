@@ -143,6 +143,11 @@ async function main(): Promise<void> {
 					color: Boolean(process.stdout.isTTY) && !process.env.NO_COLOR,
 					now: new Date(),
 					onlyOutdated: outdated,
+					// A repository nobody has placed yet goes last.
+					rank: (repo) => {
+						const index = config.updateOrder.indexOf(config.repositories[repo]?.[0] ?? '');
+						return index === -1 ? config.updateOrder.length : index;
+					},
 				}),
 		);
 		return;
