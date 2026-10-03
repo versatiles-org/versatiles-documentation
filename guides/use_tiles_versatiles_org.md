@@ -61,6 +61,8 @@ All responses carry a `Cache-Control` header of six hours, which a CDN should re
 
 Requests are rate-limited per IP address. The limit is far above what normal map use needs; requests beyond it are answered with `429 Too Many Requests`. The current values are in the server's [nginx configuration](https://github.com/versatiles-org/tiles.versatiles.org/blob/main/nginx/nginx.conf).
 
+If you build your own client or cache, for example in a mobile app: responses carry no `ETag` or `Last-Modified` header, so conditional requests are never answered with `304 Not Modified` — every revalidation is a full download. Keep tiles for as long as your cache allows and then refetch them. A `429` response comes without a `Retry-After` header, so back off on your own schedule.
+
 ### Logging
 
 Requests are logged in anonymized form. We use these logs only to track down issues and to detect obvious misuse.
