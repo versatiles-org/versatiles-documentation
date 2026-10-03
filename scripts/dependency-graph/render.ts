@@ -85,13 +85,12 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		'',
 		'An arrow points **from a repository to what it depends on**, and the layout runs left to',
 		'right: whatever is built on most ends up on the right, with everything that builds on it',
-		'to the left. Line style says how the dependency is expressed; colour says what the',
-		'repository is.',
+		'to the left. Line style says how the dependency is expressed; colour says how much the',
+		'repository matters to someone using VersaTiles, from the core it cannot do without to',
+		'the helpers only its maintainers touch.',
 		'',
 		'A graph of the whole organisation is a lot at once, so it can be narrowed down — by one',
-		'kind of dependency at a time, or to the repositories that carry a given tag. Several',
-		'repositories carry more than one: versatiles-rs is both a library to build on and the',
-		'tool that converts tilesets, and it shows up under either.',
+		'kind of dependency at a time, or to the repositories of a given category.',
 		'',
 		'<DependencyGraph />',
 		'',
@@ -109,20 +108,27 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 	}
 
 	const tagTitles = new Map(graph.tags.map((tag) => [tag.id, tag.title]));
+	// A column of dashes says nothing, so it only appears once a repository
+	// actually belongs to more than one category.
+	const showAlso = graph.repos.some((repo) => repo.tags.length > 1);
 	for (const tag of graph.tags) {
 		const members = graph.repos.filter((repo) => primaryTag(repo) === tag.id);
 		if (members.length === 0) continue;
 		lines.push(`### ${tag.title}`, '', tag.summary, '');
 		lines.push(
 			...table(
-				['Repository', 'Also', 'Description', 'Depends on', 'Used by'],
+				['Repository', ...(showAlso ? ['Also'] : []), 'Description', 'Depends on', 'Used by'],
 				members.map((repo) => [
 					`[${repo.name}](${repoUrl(org, repo.name)})`,
 					// Everything beyond the primary tag, which the heading already says.
-					repo.tags
-						.slice(1)
-						.map((id) => tagTitles.get(id) ?? id)
-						.join(', ') || '—',
+					...(showAlso
+						? [
+								repo.tags
+									.slice(1)
+									.map((id) => tagTitles.get(id) ?? id)
+									.join(', ') || '—',
+							]
+						: []),
 					cell(repo.description ?? '—'),
 					String(dependsOn.get(repo.name)?.size ?? 0),
 					String(usedBy.get(repo.name)?.size ?? 0),
@@ -183,7 +189,7 @@ export function renderPage({ graph, branches, skipped }: RenderOptions): string 
 		'operational dependencies, for instance — is declared by hand in',
 		`[\`${CONFIG_PATH}\`](https://github.com/${org}/versatiles-documentation/blob/main/${CONFIG_PATH}),`,
 		'which is also where false positives are filtered out and repositories are assigned to',
-		'the tags above.',
+		'the categories above.',
 		'',
 	);
 

@@ -67,10 +67,15 @@ export function loadConfig(root: string): GraphConfig {
 
 	const tags = ((doc.tags as unknown[] | undefined) ?? []).map((entry, index) => {
 		const tag = entry as Record<string, unknown>;
+		if (tag.hue !== undefined && (typeof tag.hue !== 'number' || tag.hue < 0 || tag.hue >= 360)) {
+			fail(`tags[${index}].hue must be a number from 0 up to 360`);
+		}
 		return {
 			id: asString(tag.id, `tags[${index}].id`),
 			title: asString(tag.title, `tags[${index}].title`),
 			summary: asString(tag.summary, `tags[${index}].summary`),
+			// Left out entirely when unset, so the generated JSON carries no nulls.
+			...(tag.hue === undefined ? {} : { hue: tag.hue }),
 		};
 	});
 	if (tags.length === 0) fail('at least one tag has to be defined');

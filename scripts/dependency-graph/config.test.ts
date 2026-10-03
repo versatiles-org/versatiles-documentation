@@ -58,6 +58,19 @@ describe('loadConfig', () => {
 			/tags\[0\].title/,
 		);
 	});
+
+	it('takes the hue a tag is drawn in, and leaves it out when there is none', () => {
+		const withHue = MINIMAL.replace('title: Libraries', 'title: Libraries\n    hue: 25');
+		expect(load(withHue).tags[0]).toMatchObject({ hue: 25 });
+		expect(load(MINIMAL).tags[0]).not.toHaveProperty('hue');
+	});
+
+	it('refuses a hue that is not an angle', () => {
+		const withHue = (hue: string) =>
+			MINIMAL.replace('title: Libraries', `title: Libraries\n    hue: ${hue}`);
+		expect(() => load(withHue('red'))).toThrow(/tags\[0\].hue/);
+		expect(() => load(withHue('360'))).toThrow(/tags\[0\].hue/);
+	});
 });
 
 describe('validateConfig', () => {

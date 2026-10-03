@@ -14,54 +14,63 @@ include_archived: false
 # Forks are kept: the tile pipelines genuinely build on them.
 include_forks: true
 
-# What a repository can be. Several of them are more than one thing —
-# versatiles-rs is a library to build on and the tool that converts tilesets —
-# so these are tags rather than folders, and a repository carries as many as
-# genuinely apply.
+# How much a repository matters to someone arriving from outside. The question
+# these answer is "do I need to care about this?", not "what kind of code is
+# it?" — so the order runs from what VersaTiles cannot do without to what only
+# its maintainers ever touch, and that is the order they are presented in.
+#
+# `hue` is the oklch hue angle the tag is drawn in (25 is red, 145 green); a tag
+# without one is drawn grey, which is what recedes.
+#
+# A repository may carry more than one tag where that is genuinely true; the
+# first one is the primary one and decides the colour in the graph and the
+# section of the table it is listed under.
 tags:
-  - id: library
-    title: Libraries
-    summary: Code to build on — crates, npm packages and the container specification.
+  - id: core
+    title: Core
+    hue: 25
+    summary: What VersaTiles cannot do without — the container format, the software that reads and serves it, and the styles, fonts and frontend that turn tiles into a map.
 
-  - id: application
-    title: Applications
-    summary: Programs and sites people open and use directly.
+  - id: tools
+    title: Tools
+    hue: 85
+    summary: Optional extras built on top of the core — libraries, editors, renderers and alternative servers for developers who want more than a basemap.
 
   - id: tile-production
     title: Tile production
-    summary: Pipelines and images that turn open data into tilesets, fonts and sprites.
+    hue: 145
+    summary: Pipelines that turn open data into the tilesets VersaTiles publishes. Needed only to build tiles rather than download them.
 
-  - id: infrastructure
-    title: Infrastructure
-    summary: How the software is packaged, deployed and hosted.
+  - id: ecosystem
+    title: Ecosystem
+    hue: 250
+    summary: What surrounds the software — documentation, the websites, the public tile and download servers, and the packages it is installed from.
 
-  - id: project
-    title: Project
-    summary: Documentation, release tooling and the rest of what keeps the project running.
+  - id: internal
+    title: Internal helpers
+    summary: Housekeeping for the maintainers. Nothing here is needed to use VersaTiles.
 
-# Every public repository, and what it is. The first tag is the primary one: it
-# decides the colour in the graph and the section of the table a repository is
-# listed under. Anything not named here still appears, but uncategorised —
-# which is the reminder to come back and place it.
+# Every public repository, and where it belongs. Anything not named here still
+# appears, but uncategorised — which is the reminder to come back and place it.
 repositories:
-  'node-versatiles-container': [library]
-  'node-versatiles-svelte': [library]
-  'versatiles-fonts': [library]
-  'versatiles-frontend': [library]
-  'versatiles-glyphs-rs': [library]
-  'versatiles-rs': [library, application]
-  'versatiles-style': [library]
+  'node-versatiles-container': [core]
+  'versatiles-fonts': [core]
+  'versatiles-frontend': [core]
+  'versatiles-glyphs-rs': [core]
+  'versatiles-rs': [core]
+  'versatiles-spec': [core]
+  'versatiles-style': [core]
 
-  'editor': [application]
-  'maplibre-versatiles-styler': [application]
-  'maputnik': [application]
-  'node-versatiles-google-cloud': [application]
-  'node-versatiles-server': [application]
-  'versatiles-choro': [application]
-  'versatiles-map-animation': [application]
-  'versatiles-map-editor': [application]
-  'versatiles-studio': [application]
-  'versatiles-svg-renderer': [application, library]
+  'maplibre-versatiles-styler': [tools]
+  'node-versatiles-google-cloud': [tools]
+  'node-versatiles-server': [tools]
+  'node-versatiles-svelte': [tools]
+  'photon-stack': [tools]
+  'versatiles-choro': [tools]
+  'versatiles-map-animation': [tools]
+  'versatiles-map-editor': [tools]
+  'versatiles-studio': [tools]
+  'versatiles-svg-renderer': [tools]
 
   'elevation': [tile-production]
   'landcover-vectors': [tile-production]
@@ -71,20 +80,21 @@ repositories:
   'planetiler': [tile-production]
   'shortbread-tilemaker': [tile-production]
 
-  'download.versatiles.org': [infrastructure]
-  'homebrew-versatiles': [infrastructure]
-  'photon-stack': [infrastructure]
-  'versatiles-docker': [infrastructure]
+  '.github': [ecosystem]
+  'consortium': [ecosystem]
+  'download.versatiles.org': [ecosystem]
+  'editor': [ecosystem]
+  'homebrew-versatiles': [ecosystem]
+  'maputnik': [ecosystem]
+  'playground': [ecosystem]
+  'shortbread-docs': [ecosystem]
+  'tiles.versatiles.org': [ecosystem]
+  'tools': [ecosystem]
+  'versatiles-docker': [ecosystem]
+  'versatiles-documentation': [ecosystem]
+  'versatiles-org.github.io': [ecosystem]
 
-  '.github': [project]
-  'consortium': [project]
-  'node-release-tool': [project]
-  'playground': [project]
-  'tiles.versatiles.org': [project]
-  'tools': [project]
-  'versatiles-documentation': [project]
-  'versatiles-org.github.io': [project]
-  'versatiles-spec': [project]
+  'node-release-tool': [internal]
 
 # Container images published by the project, and the repository that builds
 # them. Image names carry no hint of their origin, so this mapping is the only

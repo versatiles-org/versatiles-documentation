@@ -96,6 +96,8 @@ export interface TagInfo {
 	title: string;
 	/** Short line printed above the repositories carrying this tag. */
 	summary: string;
+	/** oklch hue angle the tag is drawn in; without one it is drawn grey. */
+	hue?: number;
 }
 
 export interface RepoNode {

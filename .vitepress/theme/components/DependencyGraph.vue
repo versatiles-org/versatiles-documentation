@@ -59,9 +59,16 @@ function lineStyle(kind: EdgeKind): Record<string, string> {
 	};
 }
 const usedKinds = data.kinds.filter((kind) => links.some((link) => link.kind === kind.id));
-const hues = new Map(
-	data.tags.map((tag, index) => [tag.id, Math.round((index * 360) / data.tags.length + 25)]),
-);
+/**
+ * The hue comes with the tag, so that what a colour means is decided where the
+ * tags are. A tag without one is drawn grey: chroma is switched off rather than
+ * a hue invented for it.
+ */
+function tagStyle(hue: number | undefined): Record<string, string> {
+	if (hue === undefined) return { '--dg-fill-c': '0', '--dg-stroke-c': '0', '--dg-hue': '0' };
+	return { '--dg-hue': String(hue) };
+}
+const tagStyles = new Map(data.tags.map((tag) => [tag.id, tagStyle(tag.hue)]));
 const tagTitles = new Map(data.tags.map((tag) => [tag.id, tag.title]));
 
 /** A repository can carry several tags; the first one decides its colour. */
@@ -695,7 +702,7 @@ onBeforeUnmount(() => {
 					type="button"
 					class="chip tag"
 					:class="{ off: !tagOn[tag.id] }"
-					:style="{ '--dg-hue': hues.get(tag.id) ?? 0 }"
+					:style="tagStyles.get(tag.id)"
 					:aria-pressed="tagOn[tag.id]"
 					:title="tag.summary"
 					@click="tagOn[tag.id] = !tagOn[tag.id]"
@@ -775,7 +782,7 @@ onBeforeUnmount(() => {
 						:key="entry.node.name"
 						class="node"
 						:class="{ dimmed: entry.dimmed, hidden: entry.hidden }"
-						:style="{ '--dg-hue': hues.get(primaryTag(entry.node)) ?? 0 }"
+						:style="tagStyles.get(primaryTag(entry.node))"
 						:transform="`translate(${entry.at.x},${entry.at.y})`"
 						@pointerenter="hovered = entry.node.name"
 						@pointerleave="hovered = null"
@@ -807,9 +814,8 @@ onBeforeUnmount(() => {
 
 <style scoped>
 /*
- * Every colour is oklch with a per-group hue passed in as --dg-hue, so the six
- * groups stay distinguishable and the whole palette moves in one step between
- * light and dark mode.
+ * Every colour is oklch with a per-tag hue passed in as --dg-hue, so the whole
+ * palette moves in one step between light and dark mode.
  */
 .dependency-graph {
 	--dg-fill-l: 0.95;

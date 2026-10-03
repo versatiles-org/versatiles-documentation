@@ -24,97 +24,89 @@ This page collects all of them in one place.
 
 An arrow points **from a repository to what it depends on**, and the layout runs left to
 right: whatever is built on most ends up on the right, with everything that builds on it
-to the left. Line style says how the dependency is expressed; colour says what the
-repository is.
+to the left. Line style says how the dependency is expressed; colour says how much the
+repository matters to someone using VersaTiles, from the core it cannot do without to
+the helpers only its maintainers touch.
 
 A graph of the whole organisation is a lot at once, so it can be narrowed down — by one
-kind of dependency at a time, or to the repositories that carry a given tag. Several
-repositories carry more than one: versatiles-rs is both a library to build on and the
-tool that converts tilesets, and it shows up under either.
+kind of dependency at a time, or to the repositories of a given category.
 
 <DependencyGraph />
 
 ## Repositories
 
-### Libraries
+### Core
 
-Code to build on — crates, npm packages and the container specification.
+What VersaTiles cannot do without — the container format, the software that reads and serves it, and the styles, fonts and frontend that turn tiles into a map.
 
-| Repository                                                                               | Also         | Description                                                                                                               | Depends on | Used by |
-| ---------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
-| [node-versatiles-container](https://github.com/versatiles-org/node-versatiles-container) | —            | Node.js library for reading VersaTiles container files.                                                                   | 2          | 4       |
-| [node-versatiles-svelte](https://github.com/versatiles-org/node-versatiles-svelte)       | —            | Svelte components and bindings for displaying VersaTiles data in MapLibre GL JS.                                          | 2          | 2       |
-| [versatiles-fonts](https://github.com/versatiles-org/versatiles-fonts)                   | —            | Repository of open-source SDF fonts optimized for MapLibre GL JS rendering.                                               | 1          | 2       |
-| [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend)             | —            | Frontend web applications for exploring VersaTiles maps and datasets.                                                     | 6          | 6       |
-| [versatiles-glyphs-rs](https://github.com/versatiles-org/versatiles-glyphs-rs)           | —            | Rust implementation of a signed-distance-field (SDF) glyph renderer used in map rendering.                                | 0          | 2       |
-| [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)                         | Applications | Core Rust implementation of the VersaTiles toolkit for converting, validating, and serving map tiles in multiple formats. | 0          | 5       |
-| [versatiles-style](https://github.com/versatiles-org/versatiles-style)                   | —            | Toolkit for generating MapLibre styles.                                                                                   | 1          | 11      |
+| Repository                                                                               | Description                                                                                                               | Depends on | Used by |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
+| [node-versatiles-container](https://github.com/versatiles-org/node-versatiles-container) | Node.js library for reading VersaTiles container files.                                                                   | 2          | 4       |
+| [versatiles-fonts](https://github.com/versatiles-org/versatiles-fonts)                   | Repository of open-source SDF fonts optimized for MapLibre GL JS rendering.                                               | 1          | 2       |
+| [versatiles-frontend](https://github.com/versatiles-org/versatiles-frontend)             | Frontend web applications for exploring VersaTiles maps and datasets.                                                     | 6          | 6       |
+| [versatiles-glyphs-rs](https://github.com/versatiles-org/versatiles-glyphs-rs)           | Rust implementation of a signed-distance-field (SDF) glyph renderer used in map rendering.                                | 0          | 2       |
+| [versatiles-rs](https://github.com/versatiles-org/versatiles-rs)                         | Core Rust implementation of the VersaTiles toolkit for converting, validating, and serving map tiles in multiple formats. | 0          | 5       |
+| [versatiles-spec](https://github.com/versatiles-org/versatiles-spec)                     | Specification for VersaTiles containers.                                                                                  | 0          | 2       |
+| [versatiles-style](https://github.com/versatiles-org/versatiles-style)                   | Toolkit for generating MapLibre styles.                                                                                   | 1          | 11      |
 
-### Applications
+### Tools
 
-Programs and sites people open and use directly.
+Optional extras built on top of the core — libraries, editors, renderers and alternative servers for developers who want more than a basemap.
 
-| Repository                                                                                     | Also      | Description                                                                                   | Depends on | Used by |
-| ---------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------- | ---------- | ------- |
-| [editor](https://github.com/versatiles-org/editor)                                             | —         | Modified Maputnik for Versatiles Styles                                                       | 0          | 0       |
-| [maplibre-versatiles-styler](https://github.com/versatiles-org/maplibre-versatiles-styler)     | —         | MapLibre GL JS plugin for editing and managing VersaTiles map styles directly in the browser. | 2          | 1       |
-| [maputnik](https://github.com/versatiles-org/maputnik)                                         | —         | An open source visual editor for the 'MapLibre Style Specification'                           | 0          | 0       |
-| [node-versatiles-google-cloud](https://github.com/versatiles-org/node-versatiles-google-cloud) | —         | Google Cloud integration tools for hosting and serving VersaTiles data.                       | 3          | 0       |
-| [node-versatiles-server](https://github.com/versatiles-org/node-versatiles-server)             | —         | Node.js implementation of a VersaTiles tile server.                                           | 4          | 0       |
-| [versatiles-choro](https://github.com/versatiles-org/versatiles-choro)                         | —         | Modular Docker-based pipeline for creating interactive choropleth maps                        | 3          | 0       |
-| [versatiles-map-animation](https://github.com/versatiles-org/versatiles-map-animation)         | —         | Browser-based editor for composing keyframe camera animations on a VersaTiles map.            | 1          | 0       |
-| [versatiles-map-editor](https://github.com/versatiles-org/versatiles-map-editor)               | —         | —                                                                                             | 2          | 0       |
-| [versatiles-studio](https://github.com/versatiles-org/versatiles-studio)                       | —         | Cross-platform desktop application for opening, inspecting, styling and converting map tiles. | 4          | 1       |
-| [versatiles-svg-renderer](https://github.com/versatiles-org/versatiles-svg-renderer)           | Libraries | renders maps as SVG                                                                           | 2          | 1       |
+| Repository                                                                                     | Description                                                                                   | Depends on | Used by |
+| ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ---------- | ------- |
+| [maplibre-versatiles-styler](https://github.com/versatiles-org/maplibre-versatiles-styler)     | MapLibre GL JS plugin for editing and managing VersaTiles map styles directly in the browser. | 2          | 1       |
+| [node-versatiles-google-cloud](https://github.com/versatiles-org/node-versatiles-google-cloud) | Google Cloud integration tools for hosting and serving VersaTiles data.                       | 3          | 0       |
+| [node-versatiles-server](https://github.com/versatiles-org/node-versatiles-server)             | Node.js implementation of a VersaTiles tile server.                                           | 4          | 0       |
+| [node-versatiles-svelte](https://github.com/versatiles-org/node-versatiles-svelte)             | Svelte components and bindings for displaying VersaTiles data in MapLibre GL JS.              | 2          | 2       |
+| [photon-stack](https://github.com/versatiles-org/photon-stack)                                 | —                                                                                             | 0          | 0       |
+| [versatiles-choro](https://github.com/versatiles-org/versatiles-choro)                         | Modular Docker-based pipeline for creating interactive choropleth maps                        | 3          | 0       |
+| [versatiles-map-animation](https://github.com/versatiles-org/versatiles-map-animation)         | Browser-based editor for composing keyframe camera animations on a VersaTiles map.            | 1          | 0       |
+| [versatiles-map-editor](https://github.com/versatiles-org/versatiles-map-editor)               | —                                                                                             | 2          | 0       |
+| [versatiles-studio](https://github.com/versatiles-org/versatiles-studio)                       | Cross-platform desktop application for opening, inspecting, styling and converting map tiles. | 4          | 1       |
+| [versatiles-svg-renderer](https://github.com/versatiles-org/versatiles-svg-renderer)           | renders maps as SVG                                                                           | 2          | 1       |
 
 ### Tile production
 
-Pipelines and images that turn open data into tilesets, fonts and sprites.
+Pipelines that turn open data into the tilesets VersaTiles publishes. Needed only to build tiles rather than download them.
 
-| Repository                                                                             | Also | Description                                                                      | Depends on | Used by |
-| -------------------------------------------------------------------------------------- | ---- | -------------------------------------------------------------------------------- | ---------- | ------- |
-| [elevation](https://github.com/versatiles-org/elevation)                               | —    | —                                                                                | 0          | 0       |
-| [landcover-vectors](https://github.com/versatiles-org/landcover-vectors)               | —    | Generate landcover vector tiles from ESA Worldcover                              | 0          | 0       |
-| [opendem-gebco-bathymetry](https://github.com/versatiles-org/opendem-gebco-bathymetry) | —    | Versatiles Container from GEBCO Bathymetry Data provided by OpenDEM              | 0          | 0       |
-| [orthophotos](https://github.com/versatiles-org/orthophotos)                           | —    | Processing pipeline and hosting setup for global and regional orthophoto layers. | 3          | 0       |
-| [planetiler](https://github.com/versatiles-org/planetiler)                             | —    | Flexible tool to build planet-scale vector tilesets from OpenStreetMap data fast | 0          | 2       |
-| [planetiler-shortbread](https://github.com/versatiles-org/planetiler-shortbread)       | —    | Native Java Planetiler profile generating vector tiles in the Shortbread schema  | 1          | 0       |
-| [shortbread-tilemaker](https://github.com/versatiles-org/shortbread-tilemaker)         | —    | Tilemaker configuration for generating Shortbread vector tiles.                  | 0          | 0       |
+| Repository                                                                             | Description                                                                      | Depends on | Used by |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------- | ------- |
+| [elevation](https://github.com/versatiles-org/elevation)                               | —                                                                                | 0          | 0       |
+| [landcover-vectors](https://github.com/versatiles-org/landcover-vectors)               | Generate landcover vector tiles from ESA Worldcover                              | 0          | 0       |
+| [opendem-gebco-bathymetry](https://github.com/versatiles-org/opendem-gebco-bathymetry) | Versatiles Container from GEBCO Bathymetry Data provided by OpenDEM              | 0          | 0       |
+| [orthophotos](https://github.com/versatiles-org/orthophotos)                           | Processing pipeline and hosting setup for global and regional orthophoto layers. | 3          | 0       |
+| [planetiler](https://github.com/versatiles-org/planetiler)                             | Flexible tool to build planet-scale vector tilesets from OpenStreetMap data fast | 0          | 2       |
+| [planetiler-shortbread](https://github.com/versatiles-org/planetiler-shortbread)       | Native Java Planetiler profile generating vector tiles in the Shortbread schema  | 1          | 0       |
+| [shortbread-tilemaker](https://github.com/versatiles-org/shortbread-tilemaker)         | Tilemaker configuration for generating Shortbread vector tiles.                  | 0          | 0       |
 
-### Infrastructure
+### Ecosystem
 
-How the software is packaged, deployed and hosted.
+What surrounds the software — documentation, the websites, the public tile and download servers, and the packages it is installed from.
 
-| Repository                                                                           | Also | Description                                                   | Depends on | Used by |
-| ------------------------------------------------------------------------------------ | ---- | ------------------------------------------------------------- | ---------- | ------- |
-| [download.versatiles.org](https://github.com/versatiles-org/download.versatiles.org) | —    | Data download hub for VersaTiles datasets.                    | 3          | 0       |
-| [homebrew-versatiles](https://github.com/versatiles-org/homebrew-versatiles)         | —    | Homebrew tap for installing VersaTiles CLI tools on macOS.    | 3          | 0       |
-| [photon-stack](https://github.com/versatiles-org/photon-stack)                       | —    | —                                                             | 0          | 0       |
-| [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)             | —    | Docker images and build scripts for the VersaTiles ecosystem. | 3          | 4       |
+| Repository                                                                             | Description                                                                                   | Depends on | Used by |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ---------- | ------- |
+| [.github](https://github.com/versatiles-org/.github)                                   | Shared GitHub workflows, templates, and issue configurations for all VersaTiles repositories. | 0          | 0       |
+| [consortium](https://github.com/versatiles-org/consortium)                             | —                                                                                             | 0          | 0       |
+| [download.versatiles.org](https://github.com/versatiles-org/download.versatiles.org)   | Data download hub for VersaTiles datasets.                                                    | 3          | 0       |
+| [editor](https://github.com/versatiles-org/editor)                                     | Modified Maputnik for Versatiles Styles                                                       | 0          | 0       |
+| [homebrew-versatiles](https://github.com/versatiles-org/homebrew-versatiles)           | Homebrew tap for installing VersaTiles CLI tools on macOS.                                    | 3          | 0       |
+| [maputnik](https://github.com/versatiles-org/maputnik)                                 | An open source visual editor for the 'MapLibre Style Specification'                           | 0          | 0       |
+| [playground](https://github.com/versatiles-org/playground)                             | Interactive playground demonstrating how to use VersaTiles in web applications.               | 0          | 0       |
+| [shortbread-docs](https://github.com/versatiles-org/shortbread-docs)                   | Documentation of the Shortbread vector tile schema                                            | 0          | 0       |
+| [tiles.versatiles.org](https://github.com/versatiles-org/tiles.versatiles.org)         | Tile hosting service for public VersaTiles datasets.                                          | 3          | 0       |
+| [tools](https://github.com/versatiles-org/tools)                                       | Utility scripts and helper tools built around the VersaTiles ecosystem.                       | 5          | 0       |
+| [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)               | Docker images and build scripts for the VersaTiles ecosystem.                                 | 3          | 4       |
+| [versatiles-documentation](https://github.com/versatiles-org/versatiles-documentation) | Documentation for the VersaTiles ecosystem.                                                   | 1          | 0       |
+| [versatiles-org.github.io](https://github.com/versatiles-org/versatiles-org.github.io) | Source code for the public website at versatiles.org.                                         | 0          | 0       |
 
-### Project
+### Internal helpers
 
-Documentation, release tooling and the rest of what keeps the project running.
+Housekeeping for the maintainers. Nothing here is needed to use VersaTiles.
 
-| Repository                                                                             | Also | Description                                                                                   | Depends on | Used by |
-| -------------------------------------------------------------------------------------- | ---- | --------------------------------------------------------------------------------------------- | ---------- | ------- |
-| [.github](https://github.com/versatiles-org/.github)                                   | —    | Shared GitHub workflows, templates, and issue configurations for all VersaTiles repositories. | 0          | 0       |
-| [consortium](https://github.com/versatiles-org/consortium)                             | —    | —                                                                                             | 0          | 0       |
-| [node-release-tool](https://github.com/versatiles-org/node-release-tool)               | —    | Helper tool for automating Node.js package releases across VersaTiles repositories.           | 0          | 12      |
-| [playground](https://github.com/versatiles-org/playground)                             | —    | Interactive playground demonstrating how to use VersaTiles in web applications.               | 0          | 0       |
-| [tiles.versatiles.org](https://github.com/versatiles-org/tiles.versatiles.org)         | —    | Tile hosting service for public VersaTiles datasets.                                          | 3          | 0       |
-| [tools](https://github.com/versatiles-org/tools)                                       | —    | Utility scripts and helper tools built around the VersaTiles ecosystem.                       | 5          | 0       |
-| [versatiles-documentation](https://github.com/versatiles-org/versatiles-documentation) | —    | Documentation for the VersaTiles ecosystem.                                                   | 1          | 0       |
-| [versatiles-org.github.io](https://github.com/versatiles-org/versatiles-org.github.io) | —    | Source code for the public website at versatiles.org.                                         | 0          | 0       |
-| [versatiles-spec](https://github.com/versatiles-org/versatiles-spec)                   | —    | Specification for VersaTiles containers.                                                      | 0          | 2       |
-
-### Not yet categorised
-
-Added to the organisation since this page was last curated.
-
-| Repository                                                           | Also | Description                                        | Depends on | Used by |
-| -------------------------------------------------------------------- | ---- | -------------------------------------------------- | ---------- | ------- |
-| [shortbread-docs](https://github.com/versatiles-org/shortbread-docs) | —    | Documentation of the Shortbread vector tile schema | 0          | 0       |
+| Repository                                                               | Description                                                                         | Depends on | Used by |
+| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------- | ------- |
+| [node-release-tool](https://github.com/versatiles-org/node-release-tool) | Helper tool for automating Node.js package releases across VersaTiles repositories. | 0          | 12      |
 
 ## How each link is declared
 
@@ -155,8 +147,8 @@ The repository lists a `@versatiles/…` package among its npm dependencies.
 | versatiles-frontend          | versatiles-style           | `@versatiles/style@^6.0.1`               | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L52)          |
 | versatiles-frontend          | versatiles-svg-renderer    | `@versatiles/maplibre-svg-export@^2.1.0` | [package.json](https://github.com/versatiles-org/versatiles-frontend/blob/main/package.json#L50)          |
 | versatiles-map-animation     | versatiles-style           | `@versatiles/style@^5.13.1`              | [package.json](https://github.com/versatiles-org/versatiles-map-animation/blob/main/package.json#L35)     |
-| versatiles-map-editor        | node-release-tool          | `@versatiles/release-tool@^2.17.0`       | [package.json](https://github.com/versatiles-org/versatiles-map-editor/blob/main/package.json#L44)        |
-| versatiles-map-editor        | versatiles-style           | `@versatiles/style@^6.0.1`               | [package.json](https://github.com/versatiles-org/versatiles-map-editor/blob/main/package.json#L33)        |
+| versatiles-map-editor        | node-release-tool          | `@versatiles/release-tool@^2.19.0`       | [package.json](https://github.com/versatiles-org/versatiles-map-editor/blob/main/package.json#L49)        |
+| versatiles-map-editor        | versatiles-style           | `@versatiles/style@^6.0.3`               | [package.json](https://github.com/versatiles-org/versatiles-map-editor/blob/main/package.json#L38)        |
 | versatiles-studio            | versatiles-style           | `@versatiles/style@^5.13.1`              | [package.json](https://github.com/versatiles-org/versatiles-studio/blob/main/package.json#L82)            |
 | versatiles-style             | node-release-tool          | `@versatiles/release-tool@^2.18.0`       | [package.json](https://github.com/versatiles-org/versatiles-style/blob/main/package.json#L110)            |
 | versatiles-svg-renderer      | node-release-tool          | `@versatiles/release-tool@^2.17.0`       | [package.json](https://github.com/versatiles-org/versatiles-svg-renderer/blob/main/package.json#L58)      |
@@ -263,7 +255,7 @@ published alongside this page as `/dependency-graph.json`. What no parser can se
 operational dependencies, for instance — is declared by hand in
 [`scripts/dependency-graph.yaml`](https://github.com/versatiles-org/versatiles-documentation/blob/main/scripts/dependency-graph.yaml),
 which is also where false positives are filtered out and repositories are assigned to
-the tags above.
+the categories above.
 
 The following repositories are left out:
 

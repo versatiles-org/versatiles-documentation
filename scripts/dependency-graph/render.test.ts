@@ -82,6 +82,19 @@ describe('renderPage', () => {
 		expect(row).toContain('Project');
 	});
 
+	it('drops that column when no repository carries a second tag', () => {
+		const single = renderPage({
+			graph: {
+				...graph,
+				repos: graph.repos.map((entry) => ({ ...entry, tags: [entry.tags[0]] })),
+			},
+			branches: new Map(),
+			skipped: [],
+		});
+		expect(page).toContain('| Also |');
+		expect(single).not.toContain('| Also |');
+	});
+
 	it('counts what each repository depends on and what depends on it', () => {
 		const style = page.split('\n').find((line) => line.includes('[versatiles-style]')) ?? '';
 		const cells = style.split('|').map((cell) => cell.trim());
