@@ -363,6 +363,14 @@
 			"line": 46
 		},
 		{
+			"from": "elevation",
+			"to": "versatiles-rs",
+			"kind": "manual",
+			"detail": "runs the versatiles CLI to convert and merge the elevation tiles",
+			"path": "",
+			"line": 0
+		},
+		{
 			"from": "homebrew-versatiles",
 			"to": "versatiles-glyphs-rs",
 			"kind": "download",
@@ -387,10 +395,18 @@
 			"line": 21
 		},
 		{
+			"from": "landcover-vectors",
+			"to": "versatiles-rs",
+			"kind": "manual",
+			"detail": "runs the versatiles CLI to assemble and merge the landcover tiles",
+			"path": "",
+			"line": 0
+		},
+		{
 			"from": "maplibre-versatiles-styler",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.18.0",
+			"detail": "@versatiles/release-tool@^2.19.0",
 			"path": "package.json",
 			"line": 46
 		},
@@ -398,7 +414,7 @@
 			"from": "maplibre-versatiles-styler",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.0.2",
+			"detail": "@versatiles/style@^6.1.0",
 			"path": "package.json",
 			"line": 47
 		},
@@ -499,6 +515,14 @@
 			"line": 85
 		},
 		{
+			"from": "opendem-gebco-bathymetry",
+			"to": "versatiles-rs",
+			"kind": "manual",
+			"detail": "runs the versatiles CLI to pack the bathymetry tiles into a container",
+			"path": "",
+			"line": 0
+		},
+		{
 			"from": "orthophotos",
 			"to": "node-release-tool",
 			"kind": "npm",
@@ -529,6 +553,22 @@
 			"detail": "versatiles-org/planetiler",
 			"path": ".github/workflows/ci.yml",
 			"line": 81
+		},
+		{
+			"from": "playground",
+			"to": "photon-stack",
+			"kind": "manual",
+			"detail": "the geocoder example queries geocode.versatiles.org, which this stack serves",
+			"path": "",
+			"line": 0
+		},
+		{
+			"from": "playground",
+			"to": "versatiles-org.github.io",
+			"kind": "manual",
+			"detail": "builds every example page from the template at versatiles.org/playground.html",
+			"path": "",
+			"line": 0
 		},
 		{
 			"from": "tiles.versatiles.org",
@@ -644,6 +684,14 @@
 		},
 		{
 			"from": "versatiles-docker",
+			"to": "shortbread-tilemaker",
+			"kind": "download",
+			"detail": "git clone --depth 1 -q --branch versatiles https://github.com/versatiles-org/shortbread-tilemaker",
+			"path": "versatiles-tilemaker/Dockerfile",
+			"line": 54
+		},
+		{
+			"from": "versatiles-docker",
 			"to": "versatiles-frontend",
 			"kind": "download",
 			"detail": "\"versatiles-org/versatiles-frontend\"",
@@ -700,6 +748,14 @@
 		},
 		{
 			"from": "versatiles-fonts",
+			"to": "versatiles-frontend",
+			"kind": "workflow",
+			"detail": "gh workflow run --repo versatiles-org/versatiles-frontend",
+			"path": ".github/workflows/release.yml",
+			"line": 61
+		},
+		{
+			"from": "versatiles-fonts",
 			"to": "versatiles-glyphs-rs",
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-glyphs-rs/raw",
@@ -748,6 +804,14 @@
 		},
 		{
 			"from": "versatiles-frontend",
+			"to": "photon-stack",
+			"kind": "manual",
+			"detail": "the search box queries geocode.versatiles.org, which this stack serves",
+			"path": "",
+			"line": 0
+		},
+		{
+			"from": "versatiles-frontend",
 			"to": "versatiles-docker",
 			"kind": "workflow",
 			"detail": "api.github.com/repos/versatiles-org/versatiles-docker/actions/workflows/release.yml/dispatches",
@@ -787,6 +851,14 @@
 			"line": 50
 		},
 		{
+			"from": "versatiles-glyphs-rs",
+			"to": "homebrew-versatiles",
+			"kind": "workflow",
+			"detail": "gh workflow run --repo versatiles-org/homebrew-versatiles",
+			"path": ".github/workflows/release.yml",
+			"line": 114
+		},
+		{
 			"from": "versatiles-map-animation",
 			"to": "versatiles-style",
 			"kind": "npm",
@@ -804,11 +876,59 @@
 		},
 		{
 			"from": "versatiles-map-editor",
+			"to": "photon-stack",
+			"kind": "manual",
+			"detail": "the place search queries geocode.versatiles.org, which this stack serves",
+			"path": "",
+			"line": 0
+		},
+		{
+			"from": "versatiles-map-editor",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.0.3",
+			"detail": "@versatiles/style@^6.1.0",
 			"path": "package.json",
 			"line": 38
+		},
+		{
+			"from": "versatiles-org.github.io",
+			"to": "playground",
+			"kind": "workflow",
+			"detail": "gh workflow run --repo versatiles-org/playground",
+			"path": ".github/workflows/gh-release.yml",
+			"line": 119
+		},
+		{
+			"from": "versatiles-org.github.io",
+			"to": "tools",
+			"kind": "workflow",
+			"detail": "gh workflow run --repo versatiles-org/tools",
+			"path": ".github/workflows/gh-release.yml",
+			"line": 108
+		},
+		{
+			"from": "versatiles-rs",
+			"to": "homebrew-versatiles",
+			"kind": "workflow",
+			"detail": "gh workflow run --repo versatiles-org/homebrew-versatiles",
+			"path": ".github/workflows/release.yml",
+			"line": 1069
+		},
+		{
+			"from": "versatiles-rs",
+			"to": "versatiles-docker",
+			"kind": "workflow",
+			"detail": "gh workflow run --repo versatiles-org/versatiles-docker",
+			"path": ".github/workflows/release.yml",
+			"line": 1061
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "homebrew-versatiles",
+			"kind": "workflow",
+			"detail": "gh workflow run --repo versatiles-org/homebrew-versatiles",
+			"path": ".github/workflows/release.yml",
+			"line": 453
 		},
 		{
 			"from": "versatiles-studio",
@@ -886,9 +1006,9 @@
 			"from": "versatiles-style",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.18.0",
+			"detail": "@versatiles/release-tool@^2.19.1",
 			"path": "package.json",
-			"line": 110
+			"line": 111
 		},
 		{
 			"from": "versatiles-svg-renderer",

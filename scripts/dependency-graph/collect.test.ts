@@ -284,6 +284,28 @@ describe('downloaded artifacts', () => {
 		]);
 	});
 
+	it('follows a clone whether or not the URL ends in .git, and reports it once', () => {
+		const { edges } = collect(
+			[
+				file(
+					'versatiles-docker',
+					'Dockerfile',
+					[
+						'FROM debian',
+						'RUN git clone --depth 1 -q --branch versatiles https://github.com/versatiles-org/shortbread-tilemaker /opt/shortbread && \\',
+						'    git clone https://github.com/versatiles-org/planetiler.git',
+					].join('\n'),
+				),
+			],
+			['versatiles-docker', 'shortbread-tilemaker', 'planetiler'],
+		);
+		expect(asPairs(edges)).toEqual([
+			'versatiles-docker download planetiler',
+			'versatiles-docker download shortbread-tilemaker',
+		]);
+		expect(edges.find((edge) => edge.to === 'shortbread-tilemaker')?.line).toBe(2);
+	});
+
 	it('follows a repository named as a bare slug in source', () => {
 		const source = file(
 			'versatiles-frontend',
@@ -337,6 +359,34 @@ describe('CI and release automation', () => {
 			'planetiler-shortbread workflow node-release-tool',
 			'planetiler-shortbread workflow planetiler',
 		]);
+	});
+
+	it('follows a workflow started through the CLI, with the organisation in a variable', () => {
+		const { edges } = collect(
+			[
+				file(
+					'versatiles-org.github.io',
+					'.github/workflows/release.yml',
+					[
+						'env:',
+						'  GITHUB_ORG: versatiles-org',
+						'  OTHER_ORG: someone-else',
+						'jobs:',
+						'  a:',
+						'    steps:',
+						'      - run: gh workflow run ci.yml --repo ${{ env.GITHUB_ORG }}/playground --ref main',
+						'      - run: gh workflow run ci.yml --repo versatiles-org/tools --ref main',
+						'      - run: gh workflow run ci.yml --repo ${{ env.OTHER_ORG }}/playground',
+					].join('\n'),
+				),
+			],
+			['versatiles-org.github.io', 'playground', 'tools'],
+		);
+		expect(asPairs(edges)).toEqual([
+			'versatiles-org.github.io workflow playground',
+			'versatiles-org.github.io workflow tools',
+		]);
+		expect(edges.find((edge) => edge.to === 'playground')?.line).toBe(7);
 	});
 
 	it('leaves other organisations alone', () => {

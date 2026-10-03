@@ -314,9 +314,45 @@ function extractWorkflow(file: RepoFile, context: Context): Edge[] {
 	return edges;
 }
 
+/** The same thing through the CLI: `gh workflow run ci.yml --repo ORG/NAME`. */
+const WORKFLOW_RUN =
+	/gh workflow run\b[^\n]*?(?:--repo|-R)[= ]\s*["']?ORG\/([A-Za-z0-9_.-]+)(?<![.])/g;
+
+/**
+ * Workflows like to keep the organisation in a variable — `GITHUB_ORG:
+ * versatiles-org` once, `${{ env.GITHUB_ORG }}/playground` wherever it is
+ * needed — which hides the repository from every pattern that looks for the
+ * name. Only variables the file itself sets to the organisation are filled in,
+ * and never across a line break, so offsets still land on the right line.
+ */
+function resolveOrgVariables(text: string, org: string): string {
+	let resolved = text;
+	for (const match of text.matchAll(
+		/^\s*([A-Za-z_][A-Za-z0-9_]*):\s*["']?([^\s"'#]+)["']?\s*$/gm,
+	)) {
+		if (match[2] !== org) continue;
+		resolved = resolved
+			.replaceAll(new RegExp(`\\$\\{\\{\\s*env\\.${match[1]}\\s*\\}\\}`, 'g'), org)
+			.replaceAll(new RegExp(`\\$\\{${match[1]}\\}|\\$${match[1]}\\b`, 'g'), org);
+	}
+	return resolved;
+}
+
 /** A release in one repository that kicks off a build in another. */
 function extractDispatches(file: RepoFile, context: Context): Edge[] {
 	const edges: Edge[] = [];
+	const { org } = context.config;
+	const text = resolveOrgVariables(file.text, org);
+	for (const match of text.matchAll(withOrg(WORKFLOW_RUN, org))) {
+		edges.push({
+			from: file.repo,
+			to: match[1],
+			kind: 'workflow',
+			detail: `gh workflow run --repo ${org}/${match[1]}`,
+			path: file.path,
+			line: lineAt(text, match.index),
+		});
+	}
 	for (const match of file.text.matchAll(withOrg(WORKFLOW_DISPATCH, context.config.org))) {
 		edges.push({
 			from: file.repo,
@@ -337,6 +373,9 @@ function extractDispatches(file: RepoFile, context: Context): Edge[] {
 const DOWNLOAD_PATTERNS: RegExp[] = [
 	/github\.com\/ORG\/([A-Za-z0-9_.-]+?)(?:\.git)?\/(?:releases|archive|raw|blob|tarball|zipball)\b/g,
 	/github\.com\/ORG\/([A-Za-z0-9_.-]+)\.git\b/g,
+	// A clone works just as well without the suffix. The lookbehind leaves the
+	// suffixed form to the pattern above, so one clone is not reported twice.
+	/git clone\b[^\n]*?github\.com\/ORG\/([A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*)(?<!\.git)(?![A-Za-z0-9_./-])/g,
 	/raw\.githubusercontent\.com\/ORG\/([A-Za-z0-9_.-]+)\//g,
 	// The first lookahead forbids a partial repository name, so that the second
 	// one really does exclude workflow dispatches rather than truncating them.

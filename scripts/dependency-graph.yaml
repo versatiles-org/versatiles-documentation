@@ -130,7 +130,43 @@ exclude: []
 #     to: planetiler-shortbread
 #     kind: manual
 #     note: serves the OSM tilesets produced by this pipeline
-manual: []
+manual:
+  # The tile pipelines call an installed `versatiles` binary. Nothing declares
+  # that: there is no manifest entry for a program expected on the PATH.
+  - from: elevation
+    to: versatiles-rs
+    kind: manual
+    note: runs the versatiles CLI to convert and merge the elevation tiles
+  - from: landcover-vectors
+    to: versatiles-rs
+    kind: manual
+    note: runs the versatiles CLI to assemble and merge the landcover tiles
+  - from: opendem-gebco-bathymetry
+    to: versatiles-rs
+    kind: manual
+    note: runs the versatiles CLI to pack the bathymetry tiles into a container
+
+  # Fetched from the published site, so no repository name appears in the code.
+  - from: playground
+    to: versatiles-org.github.io
+    kind: manual
+    note: builds every example page from the template at versatiles.org/playground.html
+
+  # photon-stack is the geocoder behind geocode.versatiles.org. Other hosted
+  # services are deliberately not listed — nearly everything loads tiles from
+  # tiles.versatiles.org — but without these the geocoder would look unused.
+  - from: versatiles-frontend
+    to: photon-stack
+    kind: manual
+    note: the search box queries geocode.versatiles.org, which this stack serves
+  - from: versatiles-map-editor
+    to: photon-stack
+    kind: manual
+    note: the place search queries geocode.versatiles.org, which this stack serves
+  - from: playground
+    to: photon-stack
+    kind: manual
+    note: the geocoder example queries geocode.versatiles.org, which this stack serves
 
 # False positives. A rule that stops matching is reported, so this list cannot
 # quietly outlive the problem it was written for.
