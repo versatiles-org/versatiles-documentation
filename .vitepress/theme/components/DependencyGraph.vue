@@ -86,7 +86,7 @@ const kindOn = reactive<Record<string, boolean>>(
 const tagOn = reactive<Record<string, boolean>>(
 	Object.fromEntries(data.tags.map((tag) => [tag.id, true])),
 );
-const hideUnconnected = ref(true);
+const showUnconnected = ref(true);
 
 /**
  * What the filters leave standing. Hidden nodes stay in the DOM and keep their
@@ -108,7 +108,7 @@ const visible = computed(() => {
 		(link) => kindOn[link.kind] && shown.get(link.source.name) && shown.get(link.target.name),
 	);
 
-	if (hideUnconnected.value) {
+	if (!showUnconnected.value) {
 		const touched = new Set(activeLinks.flatMap((link) => [link.source.name, link.target.name]));
 		for (const node of nodes) if (!touched.has(node.name)) shown.set(node.name, false);
 	}
@@ -713,11 +713,11 @@ onBeforeUnmount(() => {
 				<button
 					type="button"
 					class="chip plain"
-					:class="{ off: !hideUnconnected }"
-					:aria-pressed="hideUnconnected"
-					@click="hideUnconnected = !hideUnconnected"
+					:class="{ off: !showUnconnected }"
+					:aria-pressed="showUnconnected"
+					@click="showUnconnected = !showUnconnected"
 				>
-					hide unconnected
+					show unconnected
 				</button>
 			</div>
 
