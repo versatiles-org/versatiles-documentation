@@ -2,7 +2,9 @@
 
 We run [tiles.versatiles.org](https://tiles.versatiles.org) as a demo server for VersaTiles. It is free and open to everyone, but it comes without any guarantees — see [What to expect](#what-to-expect) below before you build on it.
 
-You can access tiles directly via the following URL pattern: `https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}`.
+You can access tiles directly via the URL pattern `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — for example `https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}` for the OpenStreetMap vector tiles.
+
+The [tilesets overview](../basics/tilesets.md) describes every hosted tileset. The server itself lists them at [`tiles/index.json`](https://tiles.versatiles.org/tiles/index.json), and each tileset publishes its metadata as TileJSON at `tiles/<tileset>/tiles.json`.
 
 You can also use one of our pre-built styles, which include all necessary URLs for tiles, fonts, and icons: [github.com/versatiles-org/versatiles-style/releases/latest](https://github.com/versatiles-org/versatiles-style/releases/latest/)
 
@@ -33,6 +35,12 @@ Below is a minimal HTML example showing how to implement a map using MapLibre GL
 </html>
 ```
 
+## Attribution
+
+Our pre-built styles already contain the required attribution, and MapLibre GL JS displays it automatically.
+
+If you use the tile URLs directly — for example [in QGIS](use_versatiles_in_qgis.md) or in a style of your own — you have to add the attribution yourself. Note that the hosted `osm` tileset includes landcover data, so it needs both the OpenStreetMap and the ESA WorldCover attribution. The [tilesets overview](../basics/tilesets.md) has a "Licence & Attribution" section for each tileset.
+
 ## What to expect
 
 ### Breaking changes
@@ -41,11 +49,17 @@ Below is a minimal HTML example showing how to implement a map using MapLibre GL
 > We regularly update all frontend libraries, including MapLibre GL JS, plugins and styles, to the latest versions to ensure optimal performance and incorporate bug fixes. This includes major version updates with breaking changes — for example renamed styles or different sprite names.
 > If your project depends on the assets hosted at tiles.versatiles.org, please be aware that these assets may change. To maintain full control, we recommend bundling the necessary libraries and styles directly into your project.
 
+The tiles can change too: some hosted tilesets are still alpha or beta, see the maturity column in the [tilesets overview](../basics/tilesets.md).
+
 To pin a specific version, download the frontend release of your choice from the [versatiles-frontend releases page](https://github.com/versatiles-org/versatiles-frontend/releases) and serve it from your own infrastructure. See the [frontend documentation](../basics/frontend.md) and the [server guides](local_server_debian.md) for how to do this.
 
 ### High traffic
 
 The server is open to everyone. If you expect high traffic, please put a CDN in front of it, so that most requests are answered from the CDN's cache instead of our server.
+
+All responses carry a `Cache-Control` header of six hours, which a CDN should respect. This also means that updates to tiles, styles or libraries can take up to six hours to reach your users.
+
+Requests are rate-limited per IP address. The limit is far above what normal map use needs; requests beyond it are answered with `429 Too Many Requests`. The current values are in the server's [nginx configuration](https://github.com/versatiles-org/tiles.versatiles.org/blob/main/nginx/nginx.conf).
 
 ### Logging
 

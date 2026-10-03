@@ -248,7 +248,7 @@ A browser-based interactive tool for configuring your VersaTiles server is avail
 
 ### Reference Server
 
-Our public tile server at [tiles.versatiles.org](https://tiles.versatiles.org) serves as the reference deployment, currently under active testing and improvement. It uses Docker Compose to orchestrate the VersaTiles tile server behind nginx with automatic TLS via Let's Encrypt, two-tier caching (RAM + disk), and zero-downtime dataset updates ([repository](https://github.com/versatiles-org/tiles.versatiles.org)).
+Our public tile server at [tiles.versatiles.org](https://tiles.versatiles.org) serves as the reference deployment. It uses Docker Compose to orchestrate the VersaTiles tile server behind nginx with automatic TLS via Let's Encrypt, an nginx cache on a RAM disk in front of tile files on local disk, and zero-downtime dataset updates ([repository](https://github.com/versatiles-org/tiles.versatiles.org)). What to expect when using it is described in [How to use tiles.versatiles.org](../guides/use_tiles_versatiles_org.md).
 
 ### Status
 
