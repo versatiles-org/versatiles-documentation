@@ -351,8 +351,6 @@ Satellite and orthophoto imagery from open data sources, available as 512 × 512
 }
 ```
 
-To make MapLibre zoom past the source's `maxzoom` by upscaling the last available tile, raise the layer's `maxzoom` above the source's — useful for the regions with deeper orthophoto coverage.
-
 ### Licence & Attribution
 
 See the [repository](https://github.com/versatiles-org/orthophotos) for the full list of data sources and their attribution requirements.
