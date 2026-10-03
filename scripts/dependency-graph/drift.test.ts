@@ -350,7 +350,8 @@ describe('collectDrift', () => {
 		expect(report).toContain('@versatiles/style 6.0.3  npm · from versatiles-style');
 		expect(report).toContain('released 2026-09-20 (8 days ago)');
 		expect(report).toContain('not published, version on main');
-		expect(report).toContain('→ npm update @versatiles/style');
+		expect(report).not.toContain('npm update');
+		expect(report).toContain('frontend  2 outdated');
 		expect(report).toMatch(/2 packages, 2 usages: 1 range excludes latest, 1 stale-lock$/);
 	});
 });
@@ -372,10 +373,41 @@ describe('renderDrift', () => {
 			{ color: false, now, onlyOutdated: false },
 		);
 		const lines = report.split('\n');
-		expect(lines[1]).toBe('  6.0.3 ×1 · 6.0.1 ×1 · 5.0.0 ×1');
-		expect(lines[2]).toMatch(/^ {2}✗ {2}b /);
-		expect(lines[4]).toMatch(/^ {2}↑ {2}c\/web /);
+		expect(lines[0]).toBe('Packages and their dependents');
+		expect(lines[3]).toBe('  6.0.3 ×1 · 6.0.1 ×1 · 5.0.0 ×1');
+		expect(lines[4]).toMatch(/^ {2}✗ {2}b /);
+		expect(lines[5]).toMatch(/^ {2}↑ {2}c\/web /);
 		expect(lines[6]).toMatch(/^ {2}✓ {2}a /);
+	});
+
+	it('lists, per dependent, the packages it is behind on', () => {
+		const style = release('6.0.3');
+		const core = usage({ name: '@versatiles/core', provider: 'versatiles-core' });
+		const findings = [
+			assess(usage({ consumer: 'a', installed: '6.0.3' }), style),
+			assess(usage({ consumer: 'b', path: 'web/package.json' }), style),
+			assess(usage({ consumer: 'b', requested: '^5.0.0', installed: '5.0.0' }), style),
+			assess({ ...core, consumer: 'b', section: 'devDependencies' }, release('6.1.0')),
+			assess({ ...core, consumer: 'c', installed: '7.0.0' }, release('6.1.0')),
+		];
+		const releases = new Map([
+			['npm:@versatiles/style', style],
+			['npm:@versatiles/core', release('6.1.0')],
+		]);
+		const report = renderDrift(
+			{ findings, releases },
+			{ color: false, now, onlyOutdated: false },
+		);
+		const section = report.split('Dependents and their outdated packages\n\n')[1].split('\n');
+		expect(section.slice(0, 5)).toEqual([
+			'b  3 outdated',
+			'  ✗  @versatiles/style         5.0.0 → 6.0.3  ^5.0.0       major behind, range excludes latest',
+			'  ↑  @versatiles/core          6.0.1 → 6.1.0  ^6.0.1  dev  minor behind, range admits latest, lockfile is behind',
+			'  ↑  @versatiles/style in web  6.0.1 → 6.0.3  ^6.0.1       patch behind, range admits latest, lockfile is behind',
+			'',
+		]);
+		// a is current and c is ahead: neither has anything to update.
+		expect(section[5]).toMatch(/^2 packages, 5 usages/);
 	});
 
 	it('can leave out packages that are fully current, and colours on request', () => {

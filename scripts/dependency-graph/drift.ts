@@ -501,6 +501,9 @@ export async function collectDrift(
 
 const STATUS_ORDER: Status[] = ['range', 'stale-lock', 'unknown', 'ahead', 'current'];
 
+/** The statuses that mean a newer release exists and is not in use. */
+const OUTDATED: Status[] = ['range', 'stale-lock'];
+
 const STATUS_STYLE: Record<Status, { mark: string; color: Parameters<typeof styleText>[0] }> = {
 	range: { mark: '✗', color: 'red' },
 	'stale-lock': { mark: '↑', color: 'yellow' },
@@ -535,6 +538,11 @@ export function renderDrift(result: DriftResult, options: ReportOptions): string
 		const key = releaseKey(finding);
 		groups.set(key, [...(groups.get(key) ?? []), finding]);
 	}
+
+	const note = (finding: Finding): string =>
+		[finding.behind ? `${finding.behind} behind` : '', finding.note].filter(Boolean).join(', ');
+	const isRoot = (finding: Finding): boolean =>
+		finding.path === 'package.json' || finding.path === 'Cargo.toml';
 
 	const lines: string[] = [];
 	const totals = new Map<Status, number>();
@@ -573,28 +581,66 @@ export function renderDrift(result: DriftResult, options: ReportOptions): string
 				a.path.localeCompare(b.path),
 		);
 		const where = (finding: Finding): string =>
-			finding.path === 'package.json' || finding.path === 'Cargo.toml'
-				? finding.consumer
-				: `${finding.consumer}/${dirname(finding.path)}`;
+			isRoot(finding) ? finding.consumer : `${finding.consumer}/${dirname(finding.path)}`;
 		const whereWidth = Math.max(...rows.map((row) => [...where(row)].length));
 		const installedWidth = Math.max(...rows.map((row) => (row.installed ?? '—').length));
 		const requestedWidth = Math.max(...rows.map((row) => row.requested.length));
 
 		for (const row of rows) {
 			const style = STATUS_STYLE[row.status];
-			const note = [row.behind ? `${row.behind} behind` : '', row.note]
-				.filter(Boolean)
-				.join(', ');
 			const cells = [
 				paint(style.color, style.mark),
 				pad(where(row), whereWidth),
 				pad(row.installed ?? '—', installedWidth),
 				paint('dim', pad(row.requested, requestedWidth)),
 				row.section.startsWith('dev') ? paint('dim', 'dev') : '   ',
-				note ? paint(style.color, note) : '',
+				note(row) ? paint(style.color, note(row)) : '',
 			];
 			lines.push(`  ${cells.join('  ')}`.trimEnd());
-			if (row.fix) lines.push(`  ${' '.repeat(whereWidth + 3)}${paint('dim', `→ ${row.fix}`)}`);
+		}
+		lines.push('');
+	}
+	if (lines.length > 0) lines.unshift(paint('underline', 'Packages and their dependents'), '');
+
+	// The same findings the other way around: what each repository has to update.
+	const dependents = new Map<string, Finding[]>();
+	for (const finding of result.findings) {
+		if (!OUTDATED.includes(finding.status)) continue;
+		dependents.set(finding.consumer, [...(dependents.get(finding.consumer) ?? []), finding]);
+	}
+	if (dependents.size > 0)
+		lines.push(paint('underline', 'Dependents and their outdated packages'), '');
+
+	for (const consumer of [...dependents.keys()].sort()) {
+		const rows = dependents
+			.get(consumer)!
+			.sort(
+				(a, b) =>
+					STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status) ||
+					a.name.localeCompare(b.name) ||
+					a.path.localeCompare(b.path),
+			);
+		lines.push(`${paint('bold', consumer)}  ${paint('dim', `${rows.length} outdated`)}`);
+
+		const what = (finding: Finding): string =>
+			isRoot(finding) ? finding.name : `${finding.name} in ${dirname(finding.path)}`;
+		const versions = (finding: Finding): string =>
+			`${finding.installed ?? '—'} → ${result.releases.get(releaseKey(finding))?.version ?? '?'}`;
+		const whatWidth = Math.max(...rows.map((row) => [...what(row)].length));
+		const versionsWidth = Math.max(...rows.map((row) => [...versions(row)].length));
+		const requestedWidth = Math.max(...rows.map((row) => row.requested.length));
+
+		for (const row of rows) {
+			const style = STATUS_STYLE[row.status];
+			const cells = [
+				paint(style.color, style.mark),
+				pad(what(row), whatWidth),
+				pad(versions(row), versionsWidth),
+				paint('dim', pad(row.requested, requestedWidth)),
+				row.section.startsWith('dev') ? paint('dim', 'dev') : '   ',
+				paint(style.color, note(row)),
+			];
+			lines.push(`  ${cells.join('  ')}`.trimEnd());
 		}
 		lines.push('');
 	}
