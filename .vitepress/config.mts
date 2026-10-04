@@ -99,7 +99,7 @@ export default defineConfig({
 	 * includes it. Building it as well would put a duplicate in the search
 	 * index, and its badges belong on GitHub rather than on the site.
 	 */
-	srcExclude: ['README.md'],
+	srcExclude: ['README.md', '**/*_PLAN.md'],
 	lastUpdated: true,
 	themeConfig: {
 		search: {
