@@ -2,29 +2,11 @@
 
 Our reference architecture consists of four components:
 
-```mermaid
-flowchart LR
-u[User]
-p[optional Proxy]
-s[Server]
-d[Map Data]
-f[Frontend]
-d e1@---> s
-f e2@---> s
-s e3@---> p
-p e4@---> u
-classDef node fill:none, stroke:#ddd, color:#ddd
-classDef optional opacity:0.5
-classDef empty stroke:none
-classDef edge stroke-dasharray:9,5, stroke-dashoffset:900,stroke:#ddd,animation:dash 25s linear infinite;
-  class e1 animate
-class d,f,s,p node
-class p optional
-class e1,e2,e3,e4 edge
-class u empty
-e1@{ curve: linear }
-e2@{ curve: linear }
-```
+<script setup>
+import referenceModel from '../assets/reference_model.svg?raw';
+</script>
+
+<div v-html="referenceModel"></div>
 
 1. **Map Data:** Contains all the geographic data, prepared as map tiles, such as vector tiles from OpenStreetMap data or image tiles from satellite or aerial imagery.
 2. **Frontend:** Provides the map style information, icons, libraries, and anything else you need for the user interface.

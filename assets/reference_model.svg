@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="reference-model" viewBox="0 0 560 130" role="img" aria-label="Map Data and Frontend feed into the Server, which delivers to the User, optionally through a Proxy.">
+	<style>
+		.reference-model {
+			display: block;
+			width: 100%;
+			max-width: 560px;
+			margin: 24px auto;
+			color: var(--vp-c-text-2, #666);
+			font-family: var(--vp-font-family-base, sans-serif);
+
+			rect,
+			.edges path {
+				fill: none;
+				stroke: currentColor;
+				stroke-width: 1.25;
+			}
+
+			text {
+				fill: currentColor;
+				font-size: 14px;
+				text-anchor: middle;
+				dominant-baseline: central;
+			}
+
+			marker path {
+				fill: currentColor;
+			}
+
+			.optional {
+				opacity: 0.5;
+			}
+
+			.edges path {
+				marker-end: url(#reference-model-arrow);
+				stroke-dasharray: 9 5;
+				animation: reference-model-flow 1s linear infinite;
+
+				@media (prefers-reduced-motion: reduce) {
+					animation: none;
+				}
+			}
+		}
+
+		@keyframes reference-model-flow {
+			to {
+				stroke-dashoffset: -14;
+			}
+		}
+	</style>
+	<defs>
+		<marker id="reference-model-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+			<path d="M0,0 L8,4 L0,8 z" />
+		</marker>
+	</defs>
+	<g class="edges">
+		<path d="M111,25 L171,57" />
+		<path d="M111,105 L171,73" />
+		<path d="M281,65 L331,65" />
+		<path d="M451,65 L501,65" />
+	</g>
+	<g class="node"><rect x="1" y="5" width="110" height="40" rx="5" /><text x="56" y="25">Map Data</text></g>
+	<g class="node"><rect x="1" y="85" width="110" height="40" rx="5" /><text x="56" y="105">Frontend</text></g>
+	<g class="node"><rect x="171" y="45" width="110" height="40" rx="5" /><text x="226" y="65">Server</text></g>
+	<g class="node optional"><rect x="331" y="45" width="120" height="40" rx="5" /><text x="391" y="65">optional Proxy</text></g>
+	<g class="node"><text x="530" y="65">User</text></g>
+</svg>
