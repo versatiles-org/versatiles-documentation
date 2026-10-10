@@ -111,6 +111,8 @@ extra_response_headers:
 
 Every section and field is optional; omitted fields fall back to their defaults. A tile source can also point to a `.vpl` pipeline file — see `versatiles help pipeline`.
 
+When a directory is served as static content, symlinks that lead out of that directory are not followed. Set `server.follow_symlinks: true` if the files they point to should be served as well.
+
 Command line arguments override values from the configuration file. For the full annotated schema, run `versatiles help config` or read [`CONFIG.md`](https://github.com/versatiles-org/versatiles-rs/blob/main/versatiles/CONFIG.md) in the versatiles-rs repository.
 
 ## What's not included?
