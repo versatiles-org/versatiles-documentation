@@ -57,11 +57,11 @@ To pin a specific version, download the frontend release of your choice from the
 
 The server is open to everyone. If you expect high traffic, please put a CDN in front of it, so that most requests are answered from the CDN's cache instead of our server.
 
-All responses carry a `Cache-Control` header of six hours, which a CDN should respect. This also means that updates to tiles, styles or libraries can take up to six hours to reach your users.
+Successful responses carry a `Cache-Control` header of six hours, which a CDN should respect. This also means that updates to tiles, styles or libraries can take up to six hours to reach your users. A tile that does not exist is answered with `404` and may be cached for five minutes; all other errors are marked `no-store`.
 
-Requests are rate-limited per IP address. The limit is far above what normal map use needs; requests beyond it are answered with `429 Too Many Requests`. The current values are in the server's [nginx configuration](https://github.com/versatiles-org/tiles.versatiles.org/blob/main/nginx/nginx.conf).
+Requests are rate-limited per IP address. The limit is far above what normal map use needs; requests beyond it are answered with `429 Too Many Requests` and a `Retry-After` header. The current values are in the server's [nginx configuration](https://github.com/versatiles-org/tiles.versatiles.org/blob/main/nginx/nginx.conf).
 
-If you build your own client or cache, for example in a mobile app: responses carry no `ETag` or `Last-Modified` header, so conditional requests are never answered with `304 Not Modified` — every revalidation is a full download. Keep tiles for as long as your cache allows and then refetch them. A `429` response comes without a `Retry-After` header, so back off on your own schedule.
+If you build your own client or cache, for example in a mobile app: tiles and all other files carry an `ETag`. When your copy has expired, send that value back in an `If-None-Match` header; if nothing has changed, the server answers `304 Not Modified` with an empty body, so revalidating costs almost nothing. The `ETag` is a weak validator and is the same for the compressed and uncompressed form of a file. After a `429`, wait at least the number of seconds given in `Retry-After` before trying again.
 
 ### Logging
 
