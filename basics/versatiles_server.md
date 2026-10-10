@@ -103,7 +103,7 @@ static:
     prefix: / # default: /
 
 cors:
-  allowed_origins: ['*.example.org'] # default: ["*"]
+  allowed_origins: ['https://*.example.org'] # default: ["*"]
 
 extra_response_headers:
   Cache-Control: public, max-age=86400, immutable
