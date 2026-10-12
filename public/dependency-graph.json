@@ -342,25 +342,25 @@
 			"from": "download.versatiles.org",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.9.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
-			"line": 59
+			"line": 60
 		},
 		{
 			"from": "download.versatiles.org",
 			"to": "node-versatiles-container",
 			"kind": "npm",
-			"detail": "@versatiles/container@^2.0.0",
+			"detail": "@versatiles/container@^2.0.2",
 			"path": "package.json",
-			"line": 45
+			"line": 46
 		},
 		{
 			"from": "download.versatiles.org",
 			"to": "node-versatiles-svelte",
 			"kind": "npm",
-			"detail": "@versatiles/svelte@^2.3.1",
+			"detail": "@versatiles/svelte@^3.0.0",
 			"path": "package.json",
-			"line": 46
+			"line": 47
 		},
 		{
 			"from": "elevation",
@@ -406,23 +406,23 @@
 			"from": "maplibre-versatiles-styler",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
-			"line": 46
+			"line": 54
 		},
 		{
 			"from": "maplibre-versatiles-styler",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.1.1",
+			"detail": "@versatiles/style@^6.4.0",
 			"path": "package.json",
-			"line": 47
+			"line": 55
 		},
 		{
 			"from": "node-versatiles-container",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
 			"line": 68
 		},
@@ -446,7 +446,7 @@
 			"from": "node-versatiles-google-cloud",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
 			"line": 77
 		},
@@ -454,7 +454,7 @@
 			"from": "node-versatiles-google-cloud",
 			"to": "node-versatiles-container",
 			"kind": "npm",
-			"detail": "@versatiles/container@^2.0.1",
+			"detail": "@versatiles/container@^2.0.2",
 			"path": "package.json",
 			"line": 63
 		},
@@ -462,7 +462,7 @@
 			"from": "node-versatiles-google-cloud",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.1.1",
+			"detail": "@versatiles/style@^6.4.0",
 			"path": "package.json",
 			"line": 64
 		},
@@ -470,7 +470,7 @@
 			"from": "node-versatiles-server",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
 			"line": 71
 		},
@@ -478,7 +478,7 @@
 			"from": "node-versatiles-server",
 			"to": "node-versatiles-container",
 			"kind": "npm",
-			"detail": "@versatiles/container@^2.0.1",
+			"detail": "@versatiles/container@^2.0.2",
 			"path": "package.json",
 			"line": 63
 		},
@@ -494,7 +494,7 @@
 			"from": "node-versatiles-server",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.1.1",
+			"detail": "@versatiles/style@^6.4.0",
 			"path": "package.json",
 			"line": 64
 		},
@@ -502,7 +502,7 @@
 			"from": "node-versatiles-svelte",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
 			"line": 58
 		},
@@ -510,9 +510,9 @@
 			"from": "node-versatiles-svelte",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.1.1",
+			"detail": "@versatiles/style@^6.4.0",
 			"path": "package.json",
-			"line": 85
+			"line": 84
 		},
 		{
 			"from": "opendem-gebco-bathymetry",
@@ -572,27 +572,11 @@
 		},
 		{
 			"from": "tiles.versatiles.org",
-			"to": "versatiles-docker",
-			"kind": "docker",
-			"detail": "versatiles/versatiles",
-			"path": "compose.yaml",
-			"line": 4
-		},
-		{
-			"from": "tiles.versatiles.org",
-			"to": "versatiles-docker",
-			"kind": "docker",
-			"detail": "versatiles/versatiles",
-			"path": "download/Dockerfile",
-			"line": 5
-		},
-		{
-			"from": "tiles.versatiles.org",
 			"to": "versatiles-frontend",
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
 			"path": "bin/frontend/update.sh",
-			"line": 21
+			"line": 22
 		},
 		{
 			"from": "tiles.versatiles.org",
@@ -600,31 +584,31 @@
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-style/releases",
 			"path": "bin/styles/update.sh",
-			"line": 21
+			"line": 22
 		},
 		{
 			"from": "tools",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.10.0",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
-			"line": 42
+			"line": 44
 		},
 		{
 			"from": "tools",
 			"to": "node-versatiles-container",
 			"kind": "npm",
-			"detail": "@versatiles/container@^2.0.0",
+			"detail": "@versatiles/container@^2.0.1",
 			"path": "package.json",
-			"line": 41
+			"line": 43
 		},
 		{
 			"from": "tools",
 			"to": "node-versatiles-svelte",
 			"kind": "npm",
-			"detail": "@versatiles/svelte@^2.3.1",
+			"detail": "@versatiles/svelte@^2.3.2",
 			"path": "package.json",
-			"line": 43
+			"line": 45
 		},
 		{
 			"from": "tools",
@@ -632,7 +616,7 @@
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-frontend/releases",
 			"path": "src/routes/setup_server/generate_code.ts",
-			"line": 168
+			"line": 260
 		},
 		{
 			"from": "tools",
@@ -640,7 +624,7 @@
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-rs/releases",
 			"path": "src/routes/setup_server/generate_code.ts",
-			"line": 102
+			"line": 171
 		},
 		{
 			"from": "versatiles-choro",
@@ -790,7 +774,7 @@
 			"from": "versatiles-frontend",
 			"to": "maplibre-versatiles-styler",
 			"kind": "npm",
-			"detail": "maplibre-versatiles-styler@^2.0.1",
+			"detail": "maplibre-versatiles-styler@^2.4.0",
 			"path": "package.json",
 			"line": 63
 		},
@@ -798,7 +782,7 @@
 			"from": "versatiles-frontend",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.17.0",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
 			"line": 51
 		},
@@ -823,22 +807,22 @@
 			"to": "versatiles-fonts",
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-fonts/releases",
-			"path": "frontends/config.ts",
-			"line": 15
+			"path": "src/config/index.ts",
+			"line": 10
 		},
 		{
 			"from": "versatiles-frontend",
 			"to": "versatiles-style",
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-style/releases",
-			"path": "frontends/config.ts",
-			"line": 38
+			"path": "src/config/index.ts",
+			"line": 33
 		},
 		{
 			"from": "versatiles-frontend",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.0.1",
+			"detail": "@versatiles/style@^6.4.0",
 			"path": "package.json",
 			"line": 52
 		},
@@ -846,7 +830,7 @@
 			"from": "versatiles-frontend",
 			"to": "versatiles-svg-renderer",
 			"kind": "npm",
-			"detail": "@versatiles/maplibre-svg-export@^2.1.0",
+			"detail": "@versatiles/maplibre-svg-export@^2.3.0",
 			"path": "package.json",
 			"line": 50
 		},
@@ -870,9 +854,9 @@
 			"from": "versatiles-map-editor",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.0",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
-			"line": 49
+			"line": 61
 		},
 		{
 			"from": "versatiles-map-editor",
@@ -886,9 +870,17 @@
 			"from": "versatiles-map-editor",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.1.0",
+			"detail": "@versatiles/style@^6.4.0",
 			"path": "package.json",
-			"line": 38
+			"line": 50
+		},
+		{
+			"from": "versatiles-org.github.io",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.20.0",
+			"path": "package.json",
+			"line": 25
 		},
 		{
 			"from": "versatiles-org.github.io",
@@ -1006,25 +998,25 @@
 			"from": "versatiles-style",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
-			"line": 111
+			"line": 112
 		},
 		{
 			"from": "versatiles-svg-renderer",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.19.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
-			"line": 58
+			"line": 59
 		},
 		{
 			"from": "versatiles-svg-renderer",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.1.1",
+			"detail": "@versatiles/style@^6.4.0",
 			"path": "package.json",
-			"line": 59
+			"line": 60
 		}
 	]
 }
