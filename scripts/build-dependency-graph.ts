@@ -28,6 +28,7 @@ import { loadConfig, validateConfig, CONFIG_PATH } from './dependency-graph/conf
 import { GitHub, mapLimit, type RepoInfo } from './dependency-graph/github';
 import { buildNameMaps, classify, collectEdges, type RepoFile } from './dependency-graph/collect';
 import { collectDrift, renderDrift } from './dependency-graph/drift';
+import { Progress } from './dependency-graph/progress';
 import { renderJson, renderPage } from './dependency-graph/render';
 import { sortEdges, type Graph, type RepoNode } from './dependency-graph/model';
 
@@ -66,7 +67,12 @@ function parseArgs(argv: string[]): Options {
 }
 
 /** Reads every file of a repository that could declare a dependency. */
-async function readRepo(github: GitHub, org: string, repo: RepoInfo): Promise<RepoFile[]> {
+async function readRepo(
+	github: GitHub,
+	org: string,
+	repo: RepoInfo,
+	progress: Progress,
+): Promise<RepoFile[]> {
 	const entries = await github.listEntries(org, repo);
 	const wanted = entries
 		.map((entry) => ({ path: entry.path, role: classify(entry.path) }))
@@ -74,10 +80,13 @@ async function readRepo(github: GitHub, org: string, repo: RepoInfo): Promise<Re
 			Boolean(entry.role),
 		);
 
-	const files = await mapLimit(wanted, async ({ path, role }) => {
-		const text = await github.readFile(org, repo, path);
-		return text === null ? null : { repo: repo.name, path, role, text };
-	});
+	progress.add('files', wanted.length);
+	const files = await mapLimit(wanted, ({ path, role }) =>
+		progress.track('files', async () => {
+			const text = await github.readFile(org, repo, path);
+			return text === null ? null : { repo: repo.name, path, role, text };
+		}),
+	);
 	return files.filter((file): file is RepoFile => file !== null);
 }
 
@@ -111,7 +120,14 @@ async function main(): Promise<void> {
 	});
 
 	console.log(`[dependency-graph] reading ${repos.length} repositories of ${config.org} …`);
-	const files = (await mapLimit(repos, (repo) => readRepo(github, config.org, repo))).flat();
+	const scan = new Progress('scanning');
+	scan.add('repositories', repos.length);
+	const files = (
+		await mapLimit(repos, (repo) =>
+			scan.track('repositories', () => readRepo(github, config.org, repo, scan)),
+		)
+	).flat();
+	scan.finish();
 	console.log(
 		`[dependency-graph] scanned ${files.length} files in ${github.requestCount} requests`,
 	);
@@ -128,6 +144,7 @@ async function main(): Promise<void> {
 			);
 		}
 		const byName = new Map(repos.map((repo) => [repo.name, repo]));
+		const lookup = new Progress('checking versions');
 		const result = await collectDrift(
 			files,
 			maps,
@@ -135,8 +152,12 @@ async function main(): Promise<void> {
 				readFile: (repo, path) => github.readFile(config.org, byName.get(repo)!, path),
 				getRegistryJson: (url) => github.getRegistryJson(url),
 			},
-			mapLimit,
+			(items, worker) => {
+				lookup.add('lookups', items.length);
+				return mapLimit(items, (item) => lookup.track('lookups', () => worker(item)));
+			},
 		);
+		lookup.finish();
 		console.log(
 			'\n' +
 				renderDrift(result, {
