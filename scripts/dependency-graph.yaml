@@ -73,7 +73,7 @@ repositories:
   'node-versatiles-svelte': [tools]
   'photon-stack': [tools]
   'versatiles-choro': [tools]
-  'versatiles-map-animation': [tools]
+  'versatiles-map-animator': [tools]
   'versatiles-map-editor': [tools]
   'versatiles-studio': [tools]
   'versatiles-svg-renderer': [tools]
@@ -122,7 +122,7 @@ images:
   ghcr.io/versatiles-org/versatiles-tilemaker: versatiles-docker
   ghcr.io/versatiles-org/versatiles-tippecanoe: versatiles-docker
   ghcr.io/versatiles-org/versatiles-choro: versatiles-choro
-  ghcr.io/versatiles-org/versatiles-map-animation: versatiles-map-animation
+  ghcr.io/versatiles-org/versatiles-map-animator: versatiles-map-animator
   ghcr.io/versatiles-org/planetiler-shortbread: planetiler-shortbread
 
 # Repositories left out of the graph entirely.
