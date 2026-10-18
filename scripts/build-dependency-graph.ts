@@ -27,7 +27,7 @@ import * as prettier from 'prettier';
 import { loadConfig, validateConfig, CONFIG_PATH } from './dependency-graph/config';
 import { GitHub, mapLimit, type RepoInfo } from './dependency-graph/github';
 import { buildNameMaps, classify, collectEdges, type RepoFile } from './dependency-graph/collect';
-import { collectDrift, renderDrift } from './dependency-graph/drift';
+import { collectDeployments, collectDrift, renderDrift } from './dependency-graph/drift';
 import { Progress } from './dependency-graph/progress';
 import { renderJson, renderPage } from './dependency-graph/render';
 import { sortEdges, type Graph, type RepoNode } from './dependency-graph/model';
@@ -145,18 +145,23 @@ async function main(): Promise<void> {
 		}
 		const byName = new Map(repos.map((repo) => [repo.name, repo]));
 		const lookup = new Progress('checking versions');
-		const result = await collectDrift(
-			files,
-			maps,
-			{
-				readFile: (repo, path) => github.readFile(config.org, byName.get(repo)!, path),
-				getRegistryJson: (url) => github.getRegistryJson(url),
+		const source = {
+			readFile: (repo: string, path: string) =>
+				github.readFile(config.org, byName.get(repo)!, path),
+			getRegistryJson: (url: string) => github.getRegistryJson(url),
+			latestRelease: async (repo: string) => {
+				const release = await github.latestRelease(config.org, repo);
+				return release
+					? { version: release.tag, date: release.date || null, source: 'release' as const }
+					: null;
 			},
-			(items, worker) => {
-				lookup.add('lookups', items.length);
-				return mapLimit(items, (item) => lookup.track('lookups', () => worker(item)));
-			},
-		);
+		};
+		const tracked = <T, R>(items: readonly T[], worker: (item: T) => Promise<R>) => {
+			lookup.add('lookups', items.length);
+			return mapLimit(items, (item) => lookup.track('lookups', () => worker(item)));
+		};
+		const result = await collectDrift(files, maps, source, tracked);
+		result.deployments = await collectDeployments(config.deployments, source, tracked);
 		lookup.finish();
 		console.log(
 			'\n' +

@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { buildNameMaps, classify, type RepoFile } from './collect';
 import {
 	assess,
+	assessDeployment,
 	cargoRequirements,
+	collectDeployments,
 	collectDrift,
 	findUsages,
 	lockCandidates,
@@ -323,6 +325,7 @@ describe('collectDrift', () => {
 					}),
 				);
 			},
+			latestRelease: () => Promise.resolve(null),
 			getRegistryJson: (url) =>
 				Promise.resolve(
 					url.includes('style')
@@ -468,5 +471,132 @@ describe('updateOrder', () => {
 	it('still orders the rest when two repositories depend on each other', () => {
 		const usages = [uses('a', 'b'), uses('b', 'a'), uses('c', 'a'), uses('a', 'base')];
 		expect(updateOrder(['c', 'b', 'a', 'base'], usages)).toEqual(['base', 'a', 'b', 'c']);
+	});
+});
+
+describe('deployments', () => {
+	const deployment = {
+		repo: 'tiles.versatiles.org',
+		url: 'https://tiles.versatiles.org/version.json',
+		components: {
+			versatiles: 'versatiles-rs',
+			frontend: 'versatiles-frontend',
+			styles: 'versatiles-style',
+		},
+	};
+	const release = (version: string, date: string | null = null): Release => ({
+		version,
+		date,
+		source: 'release',
+	});
+	const latest = new Map([
+		['versatiles-rs', release('v5.4.0')],
+		['versatiles-frontend', release('v3.16.1', '2026-10-16T13:31:25Z')],
+		['versatiles-style', release('v7.0.1')],
+	]);
+	const status = (body: unknown) =>
+		Object.fromEntries(
+			assessDeployment(deployment, body, latest).findings.map((finding) => [
+				finding.component,
+				`${finding.status} ${finding.behind ?? ''}`.trim(),
+			]),
+		);
+
+	it('compares what runs with the latest release, with or without a v', () => {
+		expect(
+			status({
+				versatiles: '5.4.0',
+				frontend: 'v3.15.2',
+				styles: 'v7.0.1',
+				updated: '2026-10-18T22:18:58Z',
+			}),
+		).toEqual({ versatiles: 'current', frontend: 'behind minor', styles: 'current' });
+	});
+
+	it('reports what it cannot compare instead of leaving it out', () => {
+		expect(status({ versatiles: '5.4.0', frontend: 'main', glyphs: '1.0.0' })).toEqual({
+			versatiles: 'current',
+			frontend: 'unknown',
+			styles: 'unknown',
+			glyphs: 'unknown',
+		});
+	});
+
+	it('notes a deployment that is newer than any release', () => {
+		expect(status({ versatiles: '5.5.0', frontend: '3.16.1', styles: '7.0.1' }).versatiles).toBe(
+			'ahead',
+		);
+	});
+
+	it('survives a deployment that cannot be reached', async () => {
+		const reports = await collectDeployments(
+			[deployment],
+			{
+				getRegistryJson: () => Promise.reject(new Error('down')),
+				latestRelease: () => Promise.resolve(release('v1.0.0')),
+			},
+			mapLimit,
+		);
+		expect(reports[0]).toMatchObject({ reachable: false, findings: [] });
+	});
+
+	it('asks each repository for its latest release once', async () => {
+		const asked: string[] = [];
+		await collectDeployments(
+			[deployment, { ...deployment, repo: 'mirror' }],
+			{
+				getRegistryJson: () => Promise.resolve({}),
+				latestRelease: (repo) => {
+					asked.push(repo);
+					return Promise.resolve(null);
+				},
+			},
+			mapLimit,
+		);
+		expect(asked.sort()).toEqual(['versatiles-frontend', 'versatiles-rs', 'versatiles-style']);
+	});
+
+	it('lists the deployments after the packages, and counts what needs a redeploy', () => {
+		const report = renderDrift(
+			{
+				findings: [],
+				releases: new Map(),
+				deployments: [
+					assessDeployment(
+						deployment,
+						{
+							versatiles: '5.4.0',
+							frontend: 'v3.15.2',
+							styles: 'v7.0.1',
+							updated: '2026-10-18T22:18:58Z',
+						},
+						latest,
+					),
+				],
+			},
+			{ color: false, now: new Date('2026-10-19T12:00:00Z'), onlyOutdated: false },
+		);
+		expect(report).toContain('Deployments');
+		expect(report).toContain(
+			'tiles.versatiles.org  https://tiles.versatiles.org/version.json · updated 2026-10-18 (today)',
+		);
+		expect(report).toMatch(
+			/↑ {2}frontend {4}3\.15\.2 → 3\.16\.1 {2}versatiles-frontend {2}minor behind, redeploy, released 2026-10-16/,
+		);
+		expect(report).toMatch(/✓ {2}versatiles {2}5\.4\.0/);
+		expect(report).toMatch(/1 deployed behind$/);
+	});
+
+	it('leaves out a deployment that is current when asked for what is outdated', () => {
+		const current = assessDeployment(
+			deployment,
+			{ versatiles: '5.4.0', frontend: '3.16.1', styles: '7.0.1' },
+			latest,
+		);
+		const report = renderDrift(
+			{ findings: [], releases: new Map(), deployments: [current] },
+			{ color: false, now: new Date(), onlyOutdated: true },
+		);
+		expect(report).not.toContain('Deployments');
 	});
 });

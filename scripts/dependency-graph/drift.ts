@@ -16,6 +16,10 @@
  * Their relation decides the fix: a lockfile behind a range that already
  * admits the latest release only needs `npm update`; a range that excludes it
  * needs the manifest changed.
+ *
+ * Releases only help once they are running somewhere. A deployment that says
+ * which releases it runs — tiles.versatiles.org publishes a `version.json` —
+ * is compared with the latest GitHub release of each repository it runs.
  */
 
 import { dirname, posix } from 'path';
@@ -50,8 +54,11 @@ export interface Release {
 	version: string;
 	/** ISO date of the release, when the registry says. */
 	date: string | null;
-	/** `manifest` means the package is not published and main's version is used instead. */
-	source: 'registry' | 'manifest';
+	/**
+	 * `registry` is npm or crates.io, `release` a GitHub release; `manifest`
+	 * means the package is not published and main's version is used instead.
+	 */
+	source: 'registry' | 'release' | 'manifest';
 }
 
 export type Status = 'range' | 'stale-lock' | 'unknown' | 'ahead' | 'current';
@@ -441,12 +448,134 @@ export function assess(usage: Usage, latest: Release | null): Finding {
 export interface DriftSource {
 	readFile(repo: string, path: string): Promise<string | null>;
 	getRegistryJson(url: string): Promise<unknown>;
+	/** The latest GitHub release of a repository of the organisation. */
+	latestRelease(repo: string): Promise<Release | null>;
 }
 
 export interface DriftResult {
 	findings: Finding[];
 	/** Latest release per `ecosystem:name`. */
 	releases: Map<string, Release | null>;
+	deployments?: DeploymentReport[];
+}
+
+/* ------------------------------------------------------------------------ */
+/* Deployments                                                              */
+/* ------------------------------------------------------------------------ */
+
+/** A running service that publishes which releases it runs. */
+export interface Deployment {
+	/** Repository the deployment is made from. */
+	repo: string;
+	/** A JSON object of component names and the versions running. */
+	url: string;
+	/** Component name in that object → repository whose releases it runs. */
+	components: Record<string, string>;
+}
+
+/** The key in a version file that says when it was written, not what runs. */
+const UPDATED_KEY = 'updated';
+
+export type DeploymentStatus = 'behind' | 'unknown' | 'ahead' | 'current';
+
+export interface DeploymentFinding {
+	component: string;
+	/** Repository whose releases the component is, or null when the configuration does not say. */
+	provider: string | null;
+	deployed: string | null;
+	latest: Release | null;
+	status: DeploymentStatus;
+	behind: Finding['behind'];
+	note: string;
+}
+
+export interface DeploymentReport extends Deployment {
+	/** When the deployment last changed, as it reports it. */
+	updated: string | null;
+	/** False when the version file could not be read at all. */
+	reachable: boolean;
+	findings: DeploymentFinding[];
+}
+
+/** Tags are written `v5.4.0`; versions without the `v`. */
+function plain(version: string): string {
+	return semver.clean(version) ?? version;
+}
+
+export function assessDeployment(
+	deployment: Deployment,
+	body: unknown,
+	latest: Map<string, Release | null>,
+): DeploymentReport {
+	if (typeof body !== 'object' || body === null || Array.isArray(body)) {
+		return { ...deployment, updated: null, reachable: false, findings: [] };
+	}
+	const reported = body as Record<string, unknown>;
+	const findings: DeploymentFinding[] = [];
+
+	for (const [component, provider] of Object.entries(deployment.components)) {
+		const value = reported[component];
+		const tagged = latest.get(provider) ?? null;
+		const release = tagged && { ...tagged, version: plain(tagged.version) };
+		const deployed = typeof value === 'string' ? plain(value) : null;
+		const base = { component, provider, deployed, latest: release, behind: null };
+		if (deployed === null) {
+			findings.push({ ...base, status: 'unknown', note: 'not reported by the deployment' });
+		} else if (!release || !semver.valid(deployed) || !semver.valid(release.version)) {
+			findings.push({ ...base, status: 'unknown', note: 'versions cannot be compared' });
+		} else if (semver.lt(deployed, release.version)) {
+			findings.push({
+				...base,
+				status: 'behind',
+				behind: distance(deployed, release.version),
+				note: 'redeploy',
+			});
+		} else if (semver.gt(deployed, release.version)) {
+			findings.push({ ...base, status: 'ahead', note: 'newer than the latest release' });
+		} else {
+			findings.push({ ...base, status: 'current', note: '' });
+		}
+	}
+
+	// A component the deployment reports but the configuration does not know
+	// would otherwise go unwatched without anyone noticing.
+	for (const [component, value] of Object.entries(reported)) {
+		if (component === UPDATED_KEY || component in deployment.components) continue;
+		findings.push({
+			component,
+			provider: null,
+			deployed: typeof value === 'string' ? plain(value) : null,
+			latest: null,
+			status: 'unknown',
+			behind: null,
+			note: 'not in the configuration, so not compared',
+		});
+	}
+
+	const updated = reported[UPDATED_KEY];
+	return {
+		...deployment,
+		updated: typeof updated === 'string' ? updated : null,
+		reachable: true,
+		findings,
+	};
+}
+
+export async function collectDeployments(
+	deployments: Deployment[],
+	source: Pick<DriftSource, 'getRegistryJson' | 'latestRelease'>,
+	mapLimit: <T, R>(items: readonly T[], worker: (item: T) => Promise<R>) => Promise<R[]>,
+): Promise<DeploymentReport[]> {
+	const providers = [...new Set(deployments.flatMap((entry) => Object.values(entry.components)))];
+	const latest = new Map<string, Release | null>();
+	await mapLimit(providers, async (repo) => {
+		latest.set(repo, await source.latestRelease(repo));
+	});
+	return mapLimit(deployments, async (deployment) => {
+		// A deployment that is down should not cost the rest of the report.
+		const body = await source.getRegistryJson(deployment.url).catch(() => null);
+		return assessDeployment(deployment, body, latest);
+	});
 }
 
 export const releaseKey = (usage: Pick<Usage, 'ecosystem' | 'name'>): string =>
@@ -507,6 +636,17 @@ const OUTDATED: Status[] = ['range', 'stale-lock'];
 const STATUS_STYLE: Record<Status, { mark: string; color: Parameters<typeof styleText>[0] }> = {
 	range: { mark: '✗', color: 'red' },
 	'stale-lock': { mark: '↑', color: 'yellow' },
+	unknown: { mark: '?', color: 'magenta' },
+	ahead: { mark: '»', color: 'cyan' },
+	current: { mark: '✓', color: 'green' },
+};
+
+/** A deployment behind is fixed like a stale lockfile: no edit, just a redeploy. */
+const DEPLOYMENT_STYLE: Record<
+	DeploymentStatus,
+	{ mark: string; color: Parameters<typeof styleText>[0] }
+> = {
+	behind: { mark: '↑', color: 'yellow' },
 	unknown: { mark: '?', color: 'magenta' },
 	ahead: { mark: '»', color: 'cyan' },
 	current: { mark: '✓', color: 'green' },
@@ -711,9 +851,69 @@ export function renderDrift(result: DriftResult, options: ReportOptions): string
 		lines.push('');
 	}
 
+	// Deployments last: they can only catch up once everything above is released.
+	const deployments = result.deployments ?? [];
+	const shownDeployments = deployments.filter(
+		(deployment) =>
+			!options.onlyOutdated ||
+			!deployment.reachable ||
+			deployment.findings.some((finding) => finding.status !== 'current'),
+	);
+	if (shownDeployments.length > 0) lines.push(paint('underline', 'Deployments'), '');
+	for (const deployment of shownDeployments) {
+		const facts = [deployment.url];
+		if (deployment.updated) {
+			facts.push(
+				`updated ${deployment.updated.slice(0, 10)} (${age(deployment.updated, options.now)})`,
+			);
+		}
+		lines.push(`${paint('bold', deployment.repo)}  ${paint('dim', facts.join(' · '))}`);
+		if (!deployment.reachable) {
+			lines.push(
+				`  ${paint('magenta', '?')}  ${paint('magenta', 'could not read the versions')}`,
+				'',
+			);
+			continue;
+		}
+		const versions = (finding: DeploymentFinding): string =>
+			finding.status === 'behind'
+				? `${finding.deployed} → ${finding.latest?.version}`
+				: (finding.deployed ?? '—');
+		const componentWidth = Math.max(
+			...deployment.findings.map((row) => [...row.component].length),
+		);
+		const versionsWidth = Math.max(...deployment.findings.map((row) => versions(row).length));
+		const providerWidth = Math.max(
+			...deployment.findings.map((row) => (row.provider ?? '—').length),
+		);
+		for (const row of deployment.findings) {
+			const style = DEPLOYMENT_STYLE[row.status];
+			const released =
+				row.status === 'behind' && row.latest?.date
+					? `released ${row.latest.date.slice(0, 10)} (${age(row.latest.date, options.now)})`
+					: '';
+			const note = [row.behind ? `${row.behind} behind` : '', row.note, released]
+				.filter(Boolean)
+				.join(', ');
+			const cells = [
+				paint(style.color, style.mark),
+				pad(row.component, componentWidth),
+				pad(versions(row), versionsWidth),
+				paint('dim', pad(row.provider ?? '—', providerWidth)),
+				note ? paint(style.color, note) : '',
+			];
+			lines.push(`  ${cells.join('  ')}`.trimEnd());
+		}
+		lines.push('');
+	}
+
 	const summary = STATUS_ORDER.filter((status) => totals.get(status)).map(
 		(status) => `${totals.get(status)} ${status === 'range' ? 'range excludes latest' : status}`,
 	);
+	const redeploy = deployments.flatMap((deployment) =>
+		deployment.findings.filter((finding) => finding.status === 'behind'),
+	).length;
+	if (redeploy > 0) summary.push(`${redeploy} deployed behind`);
 	lines.push(
 		`${groups.size} packages, ${result.findings.length} usages` +
 			(summary.length ? `: ${summary.join(', ')}` : ''),

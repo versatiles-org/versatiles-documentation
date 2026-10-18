@@ -128,6 +128,19 @@ images:
 # Repositories left out of the graph entirely.
 exclude: []
 
+# Services that publish which releases they run. `npm run deps:drift` compares
+# each component with the latest GitHub release of the repository named here,
+# so a release that has not reached the server yet shows up next to the
+# packages that are behind. Every other key in the version file is reported as
+# unknown, which is the reminder to add it here.
+deployments:
+  - repo: tiles.versatiles.org
+    url: https://tiles.versatiles.org/version.json
+    components:
+      versatiles: versatiles-rs
+      frontend: versatiles-frontend
+      styles: versatiles-style
+
 # Dependencies no parser can see: data handed over between pipelines, services
 # that expect a particular tileset, agreements that only exist in a runbook.
 # Each needs a note, which is shown instead of a source link.

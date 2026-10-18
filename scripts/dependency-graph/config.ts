@@ -7,6 +7,7 @@
  */
 
 import { readFileSync } from 'fs';
+import type { Deployment } from './drift';
 import { resolve } from 'path';
 import { load as loadYaml } from 'js-yaml';
 import { EDGE_KINDS, type EdgeKind, type TagInfo } from './model';
@@ -34,6 +35,8 @@ export interface GraphConfig {
 	tags: TagInfo[];
 	/** Repository name to its tags, most characteristic first. */
 	repositories: Record<string, string[]>;
+	/** Services that publish which releases they run, for the drift report. */
+	deployments: Deployment[];
 	/** Tag ids in the order their repositories should be updated; see the drift report. */
 	updateOrder: string[];
 	/** Docker image name (without tag) to the repository that builds it. */
@@ -105,6 +108,25 @@ export function loadConfig(root: string): GraphConfig {
 	});
 	for (const tag of tags) if (!updateOrder.includes(tag.id)) updateOrder.push(tag.id);
 
+	const deployments = ((doc.deployments as unknown[] | undefined) ?? []).map((entry, index) => {
+		const where = `deployments[${index}]`;
+		const deployment = entry as Record<string, unknown>;
+		const components = deployment.components;
+		if (typeof components !== 'object' || components === null || Array.isArray(components)) {
+			fail(`${where}.components must map component names to repositories`);
+		}
+		return {
+			repo: asString(deployment.repo, `${where}.repo`),
+			url: asString(deployment.url, `${where}.url`),
+			components: Object.fromEntries(
+				Object.entries(components).map(([name, repo]) => [
+					name,
+					asString(repo, `${where}.components.${name}`),
+				]),
+			),
+		};
+	});
+
 	const manual = (doc.manual as unknown[] | undefined) ?? [];
 	const ignore = (doc.ignore as unknown[] | undefined) ?? [];
 
@@ -114,6 +136,7 @@ export function loadConfig(root: string): GraphConfig {
 		includeForks: doc.include_forks !== false,
 		tags,
 		repositories,
+		deployments,
 		updateOrder,
 		images: (doc.images as Record<string, string> | undefined) ?? {},
 		exclude: (doc.exclude as string[] | undefined) ?? [],
@@ -161,6 +184,11 @@ export function validateConfig(config: GraphConfig, knownRepos: Set<string>): st
 			problems.push(`repositories.${name} repeats a tag`);
 		}
 	}
+	for (const deployment of config.deployments) {
+		checkRepo(deployment.repo, 'deployments');
+		for (const repo of Object.values(deployment.components)) checkRepo(repo, 'deployments');
+	}
+
 	for (const repo of config.exclude) checkRepo(repo, 'exclude');
 	for (const image of Object.values(config.images)) checkRepo(image, 'images');
 	for (const edge of config.manual) {
