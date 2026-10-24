@@ -273,7 +273,7 @@
 			"archived": false
 		},
 		{
-			"name": "versatiles-map-animation",
+			"name": "versatiles-map-animator",
 			"tags": ["tools"],
 			"description": "Browser-based editor for composing keyframe camera animations on a VersaTiles map.",
 			"language": "TypeScript",
@@ -358,7 +358,7 @@
 			"from": "download.versatiles.org",
 			"to": "node-versatiles-svelte",
 			"kind": "npm",
-			"detail": "@versatiles/svelte@^3.0.0",
+			"detail": "@versatiles/svelte@^3.0.1",
 			"path": "package.json",
 			"line": 47
 		},
@@ -403,6 +403,14 @@
 			"line": 0
 		},
 		{
+			"from": "landcover-vectors",
+			"to": "versatiles-style",
+			"kind": "npm",
+			"detail": "@versatiles/style@^7.0.1",
+			"path": "package.json",
+			"line": 32
+		},
+		{
 			"from": "maplibre-versatiles-styler",
 			"to": "node-release-tool",
 			"kind": "npm",
@@ -414,7 +422,7 @@
 			"from": "maplibre-versatiles-styler",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.4.0",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
 			"line": 55
 		},
@@ -462,7 +470,7 @@
 			"from": "node-versatiles-google-cloud",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.4.0",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
 			"line": 64
 		},
@@ -494,7 +502,7 @@
 			"from": "node-versatiles-server",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.4.0",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
 			"line": 64
 		},
@@ -510,7 +518,7 @@
 			"from": "node-versatiles-svelte",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.4.0",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
 			"line": 84
 		},
@@ -598,7 +606,7 @@
 			"from": "tools",
 			"to": "node-versatiles-container",
 			"kind": "npm",
-			"detail": "@versatiles/container@^2.0.1",
+			"detail": "@versatiles/container@^2.0.2",
 			"path": "package.json",
 			"line": 43
 		},
@@ -606,7 +614,7 @@
 			"from": "tools",
 			"to": "node-versatiles-svelte",
 			"kind": "npm",
-			"detail": "@versatiles/svelte@^2.3.2",
+			"detail": "@versatiles/svelte@^3.0.1",
 			"path": "package.json",
 			"line": 45
 		},
@@ -665,14 +673,6 @@
 			"detail": "github.com/versatiles-org/planetiler.git",
 			"path": "versatiles-planetiler/Dockerfile",
 			"line": 24
-		},
-		{
-			"from": "versatiles-docker",
-			"to": "shortbread-tilemaker",
-			"kind": "download",
-			"detail": "git clone --depth 1 -q --branch versatiles https://github.com/versatiles-org/shortbread-tilemaker",
-			"path": "versatiles-tilemaker/Dockerfile",
-			"line": 54
 		},
 		{
 			"from": "versatiles-docker",
@@ -774,7 +774,7 @@
 			"from": "versatiles-frontend",
 			"to": "maplibre-versatiles-styler",
 			"kind": "npm",
-			"detail": "maplibre-versatiles-styler@^2.4.0",
+			"detail": "maplibre-versatiles-styler@^2.5.0",
 			"path": "package.json",
 			"line": 63
 		},
@@ -822,7 +822,7 @@
 			"from": "versatiles-frontend",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.4.0",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
 			"line": 52
 		},
@@ -830,7 +830,7 @@
 			"from": "versatiles-frontend",
 			"to": "versatiles-svg-renderer",
 			"kind": "npm",
-			"detail": "@versatiles/maplibre-svg-export@^2.3.0",
+			"detail": "@versatiles/maplibre-svg-export@^2.4.2",
 			"path": "package.json",
 			"line": 50
 		},
@@ -843,12 +843,12 @@
 			"line": 114
 		},
 		{
-			"from": "versatiles-map-animation",
+			"from": "versatiles-map-animator",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.1.1",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
-			"line": 39
+			"line": 42
 		},
 		{
 			"from": "versatiles-map-editor",
@@ -870,7 +870,7 @@
 			"from": "versatiles-map-editor",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.4.0",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
 			"line": 50
 		},
@@ -924,6 +924,14 @@
 		},
 		{
 			"from": "versatiles-studio",
+			"to": "node-release-tool",
+			"kind": "npm",
+			"detail": "@versatiles/release-tool@^2.20.0",
+			"path": "package.json",
+			"line": 56
+		},
+		{
+			"from": "versatiles-studio",
 			"to": "versatiles-fonts",
 			"kind": "download",
 			"detail": "'versatiles-org/versatiles-fonts'",
@@ -944,7 +952,7 @@
 			"kind": "cargo",
 			"detail": "versatiles",
 			"path": "Cargo.toml",
-			"line": 23
+			"line": 24
 		},
 		{
 			"from": "versatiles-studio",
@@ -974,6 +982,14 @@
 			"from": "versatiles-studio",
 			"to": "versatiles-rs",
 			"kind": "cargo",
+			"detail": "versatiles_image",
+			"path": "Cargo.toml",
+			"line": 21
+		},
+		{
+			"from": "versatiles-studio",
+			"to": "versatiles-rs",
+			"kind": "cargo",
 			"detail": "versatiles_pipeline",
 			"path": "Cargo.toml",
 			"line": 19
@@ -990,9 +1006,9 @@
 			"from": "versatiles-studio",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^5.13.1",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
-			"line": 82
+			"line": 87
 		},
 		{
 			"from": "versatiles-style",
@@ -1008,15 +1024,15 @@
 			"kind": "npm",
 			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
-			"line": 59
+			"line": 60
 		},
 		{
 			"from": "versatiles-svg-renderer",
 			"to": "versatiles-style",
 			"kind": "npm",
-			"detail": "@versatiles/style@^6.4.0",
+			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
-			"line": 60
+			"line": 61
 		}
 	]
 }
