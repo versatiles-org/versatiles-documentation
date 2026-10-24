@@ -94,9 +94,9 @@ What surrounds the software — documentation, the websites, the public tile and
 | [maputnik](https://github.com/versatiles-org/maputnik)                                 | An open source visual editor for the 'MapLibre Style Specification'                           | 0          | 0       |
 | [playground](https://github.com/versatiles-org/playground)                             | Interactive playground demonstrating how to use VersaTiles in web applications.               | 2          | 1       |
 | [shortbread-docs](https://github.com/versatiles-org/shortbread-docs)                   | Documentation of the Shortbread vector tile schema                                            | 0          | 0       |
-| [tiles.versatiles.org](https://github.com/versatiles-org/tiles.versatiles.org)         | Tile hosting service for public VersaTiles datasets.                                          | 2          | 0       |
+| [tiles.versatiles.org](https://github.com/versatiles-org/tiles.versatiles.org)         | Tile hosting service for public VersaTiles datasets.                                          | 3          | 0       |
 | [tools](https://github.com/versatiles-org/tools)                                       | Utility scripts and helper tools built around the VersaTiles ecosystem.                       | 5          | 1       |
-| [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)               | Docker images and build scripts for the VersaTiles ecosystem.                                 | 3          | 4       |
+| [versatiles-docker](https://github.com/versatiles-org/versatiles-docker)               | Docker images and build scripts for the VersaTiles ecosystem.                                 | 3          | 5       |
 | [versatiles-documentation](https://github.com/versatiles-org/versatiles-documentation) | Documentation for the VersaTiles ecosystem.                                                   | 1          | 0       |
 | [versatiles-org.github.io](https://github.com/versatiles-org/versatiles-org.github.io) | Source code for the public website at versatiles.org.                                         | 3          | 1       |
 
@@ -180,12 +180,13 @@ The repository depends on one of the project’s crates in `Cargo.toml`.
 
 A `Dockerfile` builds on an image produced by another repository.
 
-::: details Where these 2 links come from
+::: details Where these 3 links come from
 
-| From             | To                | Found                                    | Source                                                                                                 |
-| ---------------- | ----------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| orthophotos      | versatiles-docker | `ghcr.io/versatiles-org/versatiles-gdal` | [Dockerfile](https://github.com/versatiles-org/orthophotos/blob/main/Dockerfile#L2)                    |
-| versatiles-choro | versatiles-docker | `versatiles/versatiles-tippecanoe`       | [docker/Dockerfile](https://github.com/versatiles-org/versatiles-choro/blob/main/docker/Dockerfile#L1) |
+| From                 | To                | Found                                    | Source                                                                                                 |
+| -------------------- | ----------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| orthophotos          | versatiles-docker | `ghcr.io/versatiles-org/versatiles-gdal` | [Dockerfile](https://github.com/versatiles-org/orthophotos/blob/main/Dockerfile#L2)                    |
+| tiles.versatiles.org | versatiles-docker | `versatiles/versatiles`                  | [compose.yaml](https://github.com/versatiles-org/tiles.versatiles.org/blob/main/compose.yaml#L24)      |
+| versatiles-choro     | versatiles-docker | `versatiles/versatiles-tippecanoe`       | [docker/Dockerfile](https://github.com/versatiles-org/versatiles-choro/blob/main/docker/Dockerfile#L1) |
 
 :::
 

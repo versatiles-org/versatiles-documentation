@@ -580,6 +580,14 @@
 		},
 		{
 			"from": "tiles.versatiles.org",
+			"to": "versatiles-docker",
+			"kind": "docker",
+			"detail": "versatiles/versatiles",
+			"path": "compose.yaml",
+			"line": 24
+		},
+		{
+			"from": "tiles.versatiles.org",
 			"to": "versatiles-frontend",
 			"kind": "download",
 			"detail": "github.com/versatiles-org/versatiles-frontend/releases",

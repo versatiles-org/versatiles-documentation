@@ -255,6 +255,25 @@ describe('Docker images', () => {
 		expect(warnings).toHaveLength(0);
 	});
 
+	it('reads a compose image behind a YAML anchor and ignores its alias', () => {
+		const compose = file(
+			'tiles.versatiles.org',
+			'compose.yaml',
+			[
+				'services:',
+				'  server:',
+				'    image: &versatiles_image versatiles/versatiles:latest',
+				'  updater:',
+				'    image: *versatiles_image',
+			].join('\n'),
+		);
+		const { edges, warnings } = collect([compose], ['tiles.versatiles.org', 'versatiles-docker'], {
+			images,
+		});
+		expect(asPairs(edges)).toEqual(['tiles.versatiles.org docker versatiles-docker']);
+		expect(warnings).toHaveLength(0);
+	});
+
 	it('reports an image that looks like ours but is not in the mapping', () => {
 		const dockerfile = file('orthophotos', 'Dockerfile', 'FROM versatiles/versatiles-gdal:1\n');
 		const { warnings } = collect([dockerfile], ['orthophotos']);

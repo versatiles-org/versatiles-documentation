@@ -210,7 +210,8 @@ function extractCargo(file: RepoFile, context: Context): Edge[] {
 
 const DOCKER_FROM = /^\s*FROM\s+(?:--\S+\s+)*(\S+)(?:\s+AS\s+(\S+))?/gim;
 const DOCKER_COPY_FROM = /^\s*COPY\s+(?:[^\n]*?)--from=(\S+)/gim;
-const COMPOSE_IMAGE = /^\s*image:\s*["']?([^\s"']+)/gim;
+/** Skips a YAML anchor (`&name`) before the value; an alias (`*name`) carries no image of its own. */
+const COMPOSE_IMAGE = /^\s*image:\s*(?:&\S+\s+)?["']?([^\s"'*&][^\s"']*)/gim;
 /** Images published under the organisation are recognised without configuration. */
 const GHCR_IMAGE = /ghcr\.io\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+/g;
 
