@@ -10,7 +10,7 @@ We prepare and publish a number of ready-to-use tilesets. There are two ways to 
 | [OSM Shortbread](#osm-shortbread-vector-tiles)  | vector | 0–14                           | 62 GB    | stable   | –                    |
 | [OSM + Landcover](#osm-shortbread-vector-tiles) | vector | 0–14                           | 64 GB    | beta     | `osm`                |
 | [Hillshade](#hillshade)                         | vector | 0–12                           | 105 GB   | alpha    | `hillshade-vectors`  |
-| [Landcover](#landcover)                         | vector | 0–10                           | 1.9 GB   | beta     | –                    |
+| [Landcover](#landcover)                         | vector | 0–10                           | 4.4 GB   | beta     | –                    |
 | [Bathymetry](#bathymetry)                       | vector | 0–10                           | 0.7 GB   | alpha    | `bathymetry-vectors` |
 | [Elevation](#elevation)                         | raster | 0–12                           | 407 GB   | beta     | `elevation`          |
 | [Satellite](#satellite)                         | raster | 0–12 globally, more regionally | 1.6 TB   | alpha    | `satellite`          |
@@ -129,7 +129,7 @@ There is one layer called `hillshade-vectors` with a property `shade`:
 
 A set of vector tiles based on [ESA WorldCover](https://esa-worldcover.org/en/data-access) satellite data. Shortbread's `land` and `water_polygons` layers are derived purely from OpenStreetMap, so they are sparse and only start at higher zoom levels — a world map at zoom 0–6 shows almost no land cover. This tileset fills exactly that gap with a complete, generalized classification from global satellite imagery.
 
-- [Download `landcover-vectors.versatiles`](https://download.versatiles.org/landcover-vectors.versatiles) (1.9 GB, beta) — land cover only, to merge yourself
+- [Download `landcover-vectors.versatiles`](https://download.versatiles.org/landcover-vectors.versatiles) (4.4 GB, beta) — land cover only, to merge yourself
 - [Download `osm-landcover.versatiles`](https://download.versatiles.org/osm-landcover.versatiles) (64 GB, beta) — pre-merged with OSM Shortbread, ready to use
 - [Repository](https://github.com/versatiles-org/landcover-vectors)
 
@@ -138,7 +138,7 @@ It is not served standalone on `tiles.versatiles.org`; the hosted [`osm`](#osm-s
 ### Style
 
 > [!IMPORTANT]
-> This tileset does **not** define a layer of its own. It writes into Shortbread's **existing** `land` and `water_polygons` layers, using Shortbread's **existing** `kind` values (`forest`, `farmland`, `residential`, `bare_rock`, `heath`, `scrub`, `grassland`, `marsh`, `swamp`, `glacier`, `water`) — only _below_ the zoom level where OSM introduces each kind, so the two never overlap.
+> This tileset does **not** define a layer of its own. It writes into Shortbread's **existing** `land` and `water_polygons` layers, using Shortbread's **existing** `kind` values (`forest`, `farmland`, `residential`, `bare_rock`, `heath`, `scrub`, `grassland`, `marsh`, `swamp`, `glacier`, `water`) up to zoom 10. When merged, these kinds come from the land cover up to z10 and from OSM from z11; only `water` (from z4) and `residential` (from z10) switch to OSM earlier. The merge drops the other source's copy of each kind, so the two never overlap.
 
 Because it adds no new layers or attributes, no new style rules are needed for the data to validate and render as ordinary Shortbread. But the stock styles fade these kinds in at the zoom level where OSM introduces them, so the low-zoom cover stays invisible until you ask for it. In [@versatiles/style](https://github.com/versatiles-org/versatiles-style) v6, one option does that:
 
@@ -150,15 +150,28 @@ const style = osm({ theme: 'colorful', features: { landcover: true } });
 
 This drops the zoom-based fade-in from every layer that renders a land cover kind, so `land` and `water_polygons` are drawn from zoom level 0. It works with every theme. `osm.supportsLandcover(tileJSON)` tells you whether a tileset carries the land cover. Only enable it on a tileset that actually has the land cover merged in — on plain OSM tiles the affected layers would pop in abruptly instead of fading.
 
-The full ESA WorldCover → Shortbread mapping, the per-kind zoom cutoffs and the reasoning behind the lossy generalizations are documented in [Shortbread Low-Zoom Land Cover](../compendium/specification_shortbread_landcover.md).
+The full ESA WorldCover → Shortbread mapping, the handover to OSM and the reasoning behind the lossy generalizations are documented in [Shortbread Low-Zoom Land Cover](../compendium/specification_shortbread_landcover.md).
 
 ### Merging it yourself
 
-If you don't want the pre-merged `osm-landcover.versatiles`, feature-merge the two containers with the [VersaTiles CLI](../guides/install_versatiles.md):
+If you don't want the pre-merged `osm-landcover.versatiles`, feature-merge the two containers with the [VersaTiles CLI](../guides/install_versatiles.md) (version 4.15.0 or later). Both carry many of the same kinds up to z10, so filter each source on the way in. Without the filters, OSM's sparse copies end up on top of the land cover. The filter expressions contain single quotes, so write the pipeline to a file:
 
 ```bash
-versatiles convert '[,vpl](from_merged_vector [ from_container filename="https://download.versatiles.org/osm.versatiles", from_container filename="https://download.versatiles.org/landcover-vectors.versatiles" ])' combined.versatiles
+cat > merge.vpl <<'EOF'
+from_merged_vector [
+  from_container filename="osm.versatiles"
+    | vector_filter_features layer=["land"] expr="!(zoom <= 10 && kind in ['forest', 'farmland', 'bare_rock', 'heath', 'scrub', 'grassland', 'marsh', 'swamp'])"
+    | vector_filter_features layer=["water_polygons"] expr="!(zoom <= 10 && kind in ['glacier'])",
+  from_container filename="landcover-vectors.versatiles"
+    | vector_filter_features layer=["land"] expr="!(zoom >= 10 && kind in ['residential'])"
+    | vector_filter_features layer=["water_polygons"] expr="!(zoom >= 4 && kind in ['water'])"
+]
+EOF
+versatiles convert -c brotli merge.vpl combined.versatiles
 ```
+
+> [!WARNING]
+> Older versions of versatiles don't fail on these filters. 4.14.0 silently drops all `land` and `water_polygons` features. See [Merge it yourself](../compendium/specification_shortbread_landcover.md#merge-it-yourself) for details.
 
 > [!NOTE]
 > The merge is processing-heavy and can take hours. That is exactly the work the pre-merged download saves you.
