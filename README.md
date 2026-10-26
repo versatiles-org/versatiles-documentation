@@ -77,6 +77,7 @@ The VersaTiles ecosystem consists of several components, each playing a role in 
 
 - [Use VersaTiles in **Android and iOS** apps](guides/what_about_mobile.md)
 - [Use VersaTiles in **QGIS**](guides/use_versatiles_in_qgis.md)
+- Add [**hillshading and 3D terrain**](guides/hillshade_and_terrain.md) to your map
 
 <!-- - *How to add maps into your mobile app with maximum privacy, e.g. by including a server into your app?* -->
 

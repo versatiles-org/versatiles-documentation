@@ -157,6 +157,12 @@ export default defineConfig({
 						],
 					},
 					{
+						text: 'Map Styles',
+						items: [
+							{ text: 'Hillshading and 3D Terrain', link: '/guides/hillshade_and_terrain' },
+						],
+					},
+					{
 						text: 'Tile Generation',
 						items: [
 							{
