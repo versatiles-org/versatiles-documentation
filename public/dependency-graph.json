@@ -397,6 +397,14 @@
 		{
 			"from": "landcover-vectors",
 			"to": "versatiles-rs",
+			"kind": "download",
+			"detail": "github.com/versatiles-org/versatiles-rs/blob",
+			"path": "lib/tools.ts",
+			"line": 25
+		},
+		{
+			"from": "landcover-vectors",
+			"to": "versatiles-rs",
 			"kind": "manual",
 			"detail": "runs the versatiles CLI to assemble and merge the landcover tiles",
 			"path": "",
@@ -408,7 +416,7 @@
 			"kind": "npm",
 			"detail": "@versatiles/style@^7.0.1",
 			"path": "package.json",
-			"line": 32
+			"line": 33
 		},
 		{
 			"from": "maplibre-versatiles-styler",
@@ -534,7 +542,7 @@
 			"from": "orthophotos",
 			"to": "node-release-tool",
 			"kind": "npm",
-			"detail": "@versatiles/release-tool@^2.9.1",
+			"detail": "@versatiles/release-tool@^2.20.0",
 			"path": "package.json",
 			"line": 36
 		},

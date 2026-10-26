@@ -125,7 +125,7 @@ The repository lists a `@versatiles/…` package among its npm dependencies.
 | download.versatiles.org      | node-release-tool          | `@versatiles/release-tool@^2.20.0`       | [package.json](https://github.com/versatiles-org/download.versatiles.org/blob/main/package.json#L60)      |
 | download.versatiles.org      | node-versatiles-container  | `@versatiles/container@^2.0.2`           | [package.json](https://github.com/versatiles-org/download.versatiles.org/blob/main/package.json#L46)      |
 | download.versatiles.org      | node-versatiles-svelte     | `@versatiles/svelte@^3.0.1`              | [package.json](https://github.com/versatiles-org/download.versatiles.org/blob/main/package.json#L47)      |
-| landcover-vectors            | versatiles-style           | `@versatiles/style@^7.0.1`               | [package.json](https://github.com/versatiles-org/landcover-vectors/blob/main/package.json#L32)            |
+| landcover-vectors            | versatiles-style           | `@versatiles/style@^7.0.1`               | [package.json](https://github.com/versatiles-org/landcover-vectors/blob/main/package.json#L33)            |
 | maplibre-versatiles-styler   | node-release-tool          | `@versatiles/release-tool@^2.20.0`       | [package.json](https://github.com/versatiles-org/maplibre-versatiles-styler/blob/main/package.json#L54)   |
 | maplibre-versatiles-styler   | versatiles-style           | `@versatiles/style@^7.0.1`               | [package.json](https://github.com/versatiles-org/maplibre-versatiles-styler/blob/main/package.json#L55)   |
 | node-versatiles-container    | node-release-tool          | `@versatiles/release-tool@^2.20.0`       | [package.json](https://github.com/versatiles-org/node-versatiles-container/blob/main/package.json#L68)    |
@@ -137,7 +137,7 @@ The repository lists a `@versatiles/…` package among its npm dependencies.
 | node-versatiles-server       | versatiles-style           | `@versatiles/style@^7.0.1`               | [package.json](https://github.com/versatiles-org/node-versatiles-server/blob/main/package.json#L64)       |
 | node-versatiles-svelte       | node-release-tool          | `@versatiles/release-tool@^2.20.0`       | [package.json](https://github.com/versatiles-org/node-versatiles-svelte/blob/main/package.json#L58)       |
 | node-versatiles-svelte       | versatiles-style           | `@versatiles/style@^7.0.1`               | [package.json](https://github.com/versatiles-org/node-versatiles-svelte/blob/main/package.json#L84)       |
-| orthophotos                  | node-release-tool          | `@versatiles/release-tool@^2.9.1`        | [package.json](https://github.com/versatiles-org/orthophotos/blob/main/package.json#L36)                  |
+| orthophotos                  | node-release-tool          | `@versatiles/release-tool@^2.20.0`       | [package.json](https://github.com/versatiles-org/orthophotos/blob/main/package.json#L36)                  |
 | tools                        | node-release-tool          | `@versatiles/release-tool@^2.20.0`       | [package.json](https://github.com/versatiles-org/tools/blob/main/package.json#L44)                        |
 | tools                        | node-versatiles-container  | `@versatiles/container@^2.0.2`           | [package.json](https://github.com/versatiles-org/tools/blob/main/package.json#L43)                        |
 | tools                        | node-versatiles-svelte     | `@versatiles/svelte@^3.0.1`              | [package.json](https://github.com/versatiles-org/tools/blob/main/package.json#L45)                        |
@@ -194,13 +194,14 @@ A `Dockerfile` builds on an image produced by another repository.
 
 Build scripts or runtime code fetch release assets or raw files from another repository.
 
-::: details Where these 29 links come from
+::: details Where these 30 links come from
 
 | From                      | To                   | Found                                                    | Source                                                                                                                                                     |
 | ------------------------- | -------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | homebrew-versatiles       | versatiles-glyphs-rs | `"versatiles-org/versatiles-glyphs-rs"`                  | [bin/make_formula_glyphs.sh](https://github.com/versatiles-org/homebrew-versatiles/blob/main/bin/make_formula_glyphs.sh#L14)                               |
 | homebrew-versatiles       | versatiles-rs        | `github.com/versatiles-org/versatiles-rs/releases`       | [bin/make_formula.sh](https://github.com/versatiles-org/homebrew-versatiles/blob/main/bin/make_formula.sh#L6)                                              |
 | homebrew-versatiles       | versatiles-studio    | `"versatiles-org/versatiles-studio"`                     | [bin/make_cask.sh](https://github.com/versatiles-org/homebrew-versatiles/blob/main/bin/make_cask.sh#L21)                                                   |
+| landcover-vectors         | versatiles-rs        | `github.com/versatiles-org/versatiles-rs/blob`           | [lib/tools.ts](https://github.com/versatiles-org/landcover-vectors/blob/main/lib/tools.ts#L25)                                                             |
 | node-versatiles-container | versatiles-spec      | `github.com/versatiles-org/versatiles-spec/blob`         | [src/index.ts](https://github.com/versatiles-org/node-versatiles-container/blob/main/src/index.ts#L162)                                                    |
 | node-versatiles-container | versatiles-spec      | `github.com/versatiles-org/versatiles-spec/blob`         | [src/lib/interfaces.ts](https://github.com/versatiles-org/node-versatiles-container/blob/main/src/lib/interfaces.ts#L72)                                   |
 | node-versatiles-server    | versatiles-frontend  | `github.com/versatiles-org/versatiles-frontend/releases` | [scripts/update-frontend.sh](https://github.com/versatiles-org/node-versatiles-server/blob/main/scripts/update-frontend.sh#L16)                            |
