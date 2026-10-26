@@ -267,9 +267,13 @@ describe('Docker images', () => {
 				'    image: *versatiles_image',
 			].join('\n'),
 		);
-		const { edges, warnings } = collect([compose], ['tiles.versatiles.org', 'versatiles-docker'], {
-			images,
-		});
+		const { edges, warnings } = collect(
+			[compose],
+			['tiles.versatiles.org', 'versatiles-docker'],
+			{
+				images,
+			},
+		);
 		expect(asPairs(edges)).toEqual(['tiles.versatiles.org docker versatiles-docker']);
 		expect(warnings).toHaveLength(0);
 	});
