@@ -62,7 +62,7 @@ server {
     server_name _;
 
     location / {
-        proxy_pass http://localhost:8080/;
+        proxy_pass http://127.0.0.1:8080/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -88,7 +88,7 @@ Type=simple
 User=versatiles
 Group=versatiles
 WorkingDirectory=/home/versatiles/versatiles
-ExecStart=/usr/local/bin/versatiles serve -p 8080 -s frontend.br.tar.gz "[osm]osm.versatiles"
+ExecStart=/usr/local/bin/versatiles serve -i 127.0.0.1 -p 8080 -s frontend.br.tar.gz "[osm]osm.versatiles"
 Restart=always
 RestartSec=5
 SyslogIdentifier=versatiles
@@ -97,6 +97,8 @@ SyslogIdentifier=versatiles
 WantedBy=multi-user.target
 EOF
 ```
+
+`-i 127.0.0.1` makes VersaTiles accept connections from the server itself only, so it is reachable only through nginx. Without it, VersaTiles listens on all interfaces, and port 8080 would be open to the internet, bypassing nginx.
 
 `ExecStart` must be an absolute path: systemd only searches `/usr/local/bin`, `/usr/local/sbin`, `/usr/bin` and `/usr/sbin`, and it does not use your shell's `PATH`.
 
@@ -114,4 +116,8 @@ sudo systemctl status versatiles
 sudo journalctl -u versatiles -f
 ```
 
-Your map is now available on port 80 of the server.
+Your map is now available on port 80 of the server. To check that nginx and VersaTiles work together, run this on the server; it lists the served tilesets:
+
+```bash
+curl http://localhost/tiles/index.json
+```
