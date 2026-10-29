@@ -102,10 +102,14 @@ async function main(): Promise<void> {
 
 	const imageDir = SPEC.doc.replace(/[^/]+$/, '');
 	const images = await Promise.all(
-		SPEC.images.map(async (image) => ({
-			path: `${TARGET_IMAGE_DIR}/${IMAGE_PREFIX}${image}`,
-			content: await fetchText(rawUrl(branch, `${imageDir}${image}`)),
-		})),
+		SPEC.images.map(async (image) => {
+			const path = `${TARGET_IMAGE_DIR}/${IMAGE_PREFIX}${image}`;
+			// Format like every other SVG in the repository, so `npm run format`
+			// and `--check` agree on the content.
+			const imageConfig = await prettier.resolveConfig(resolve(ROOT, path));
+			const svg = await fetchText(rawUrl(branch, `${imageDir}${image}`));
+			return { path, content: await prettier.format(svg, { ...imageConfig, filepath: path }) };
+		}),
 	);
 
 	const targets = [{ path: TARGET_DOC, content: formatted }, ...images];
