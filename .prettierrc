@@ -5,12 +5,20 @@
 	"semi": true,
 	"printWidth": 100,
 	"tabWidth": 3,
+	"plugins": ["@prettier/plugin-xml"],
 	"overrides": [
 		{
 			"files": ["*.md", "*.yml", "*.yaml"],
 			"options": {
 				"useTabs": false,
 				"tabWidth": 2
+			}
+		},
+		{
+			"files": ["*.svg"],
+			"options": {
+				"parser": "xml",
+				"xmlWhitespaceSensitivity": "ignore"
 			}
 		}
 	]
