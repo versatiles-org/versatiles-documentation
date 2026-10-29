@@ -17,6 +17,8 @@ We prepare and publish a number of ready-to-use tilesets. There are two ways to 
 
 The hosted `osm` tileset is the merged OSM + Landcover variant. File sizes are approximate and grow over time — [download.versatiles.org](https://download.versatiles.org/) is the authoritative source.
 
+All vector tilesets are published as Mapbox Vector Tiles (MVT, called `pbf` in older tools and in TileJSON's `format` field). To get [MapLibre Tiles (MLT)](https://maplibre.org/maplibre-tile-spec/) instead, re-encode a downloaded container with [`versatiles convert --tile-format mlt`](../guides/converter.md#key-options) and set `"encoding": "mlt"` on the vector source in your MapLibre style.
+
 ## Getting the containers
 
 Beyond the plain download links below, the download server also offers:

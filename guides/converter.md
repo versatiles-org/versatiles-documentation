@@ -27,16 +27,20 @@ versatiles convert dir dest.pmtiles
 
 ## Key Options
 
-| Option                  | Description                                                   |
-| ----------------------- | ------------------------------------------------------------- |
-| `--bbox <W,S,E,N>`      | Crop tiles to this geographic bounding box (decimal degrees)  |
-| `--bbox-border <tiles>` | Expand the bounding box by this many extra tiles on each side |
-| `--min-zoom <z>`        | Discard tiles below this zoom level                           |
-| `--max-zoom <z>`        | Discard tiles above this zoom level                           |
-| `--tile-format <fmt>`   | Re-encode raster tiles — `avif`, `jpg`, `png` or `webp`       |
-| `-c, --compress <alg>`  | Re-compress tiles — `uncompressed`, `gzip`, `brotli`, `zstd`  |
+| Option                  | Description                                                                          |
+| ----------------------- | ------------------------------------------------------------------------------------ |
+| `--bbox <W,S,E,N>`      | Crop tiles to this geographic bounding box (decimal degrees)                         |
+| `--bbox-border <tiles>` | Expand the bounding box by this many extra tiles on each side                        |
+| `--min-zoom <z>`        | Discard tiles below this zoom level                                                  |
+| `--max-zoom <z>`        | Discard tiles above this zoom level                                                  |
+| `--tile-format <fmt>`   | Re-encode tiles — raster to `avif`, `jpg`, `png` or `webp`; vector to `mvt` or `mlt` |
+| `-c, --compress <alg>`  | Re-compress tiles — `uncompressed`, `gzip`, `brotli`, `zstd`                         |
 
-`--tile-format` optionally takes a quality and an effort value, e.g. `webp,80` or `avif,90,50`. It only converts **between raster formats** — vector tiles cannot be re-encoded, so there is no `pbf` target.
+`--tile-format` converts raster tiles into another raster format and vector tiles into another vector format, never between the two. For raster formats it optionally takes a quality and an effort value, e.g. `webp,80` or `avif,90,50`. Vector tiles can be re-encoded between [Mapbox Vector Tiles](https://github.com/mapbox/vector-tile-spec) (`mvt`, formerly called `pbf`, which is still accepted as an alias) and [MapLibre Tiles](https://maplibre.org/maplibre-tile-spec/) (`mlt`); these take no quality or effort value:
+
+```sh
+versatiles convert --tile-format mlt osm.versatiles osm-mlt.versatiles
+```
 
 Run `versatiles convert --help` for the full option listing, including `--flip-y` and `--swap-xy`.
 

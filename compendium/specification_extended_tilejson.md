@@ -73,9 +73,10 @@ Any valid media type is allowed. All values must be lowercase. Non-standard type
 | Value                                | Notes                                                                                                           |
 | ------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
 | `application/vnd.mapbox-vector-tile` | Tiles follow the [Mapbox Vector Tile Specification](https://github.com/mapbox/vector-tile-spec/tree/master/2.1) |
+| `application/vnd.maplibre-tile`      | Tiles follow the [MapLibre Tile Specification](https://maplibre.org/maplibre-tile-spec/)                        |
 
 > [!NOTE]  
-> MapLibre is developing the [MapLibre Tile specification](https://github.com/maplibre/maplibre-tile-spec) and may register its own MIME type in the future.
+> MapLibre has not registered a media type for MLT yet. `application/vnd.maplibre-tile` is the type used by MapLibre tools and may change if an official type is registered. Some tools use the older `application/vnd.maplibre-vector-tile`.
 
 ---
 

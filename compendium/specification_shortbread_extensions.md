@@ -1,6 +1,6 @@
 # Shortbread Schema Extensions
 
-> **Status** Experimental | Last updated 2026-09-11
+> **Status** Experimental | Last updated 2026-10-26
 
 VersaTiles generates its OpenStreetMap vector tiles with [Planetiler](https://github.com/onthegomap/planetiler) and the [planetiler-shortbread](https://github.com/versatiles-org/planetiler-shortbread) profile, in the [Shortbread](https://shortbread-tiles.org/) schema 1.1.
 
@@ -20,14 +20,14 @@ Experiments are chosen when the tiles are generated, with `--shortbread_experime
 | [`address_details`](https://github.com/versatiles-org/planetiler-shortbread/blob/main/docs/extensions.md#address_details)   | `addresses`       | `unit`, `block`                                                                |
 | [`bridge_names`](https://github.com/versatiles-org/planetiler-shortbread/blob/main/docs/extensions.md#bridge_names)         | `bridges`         | `name`, `name_<code>`                                                          |
 | [`early_attributes`](https://github.com/versatiles-org/planetiler-shortbread/blob/main/docs/extensions.md#early_attributes) | `streets`         | `link` from z5 and `service` from z10, instead of z11                          |
-| [`mountain_peaks`](https://github.com/versatiles-org/planetiler-shortbread/blob/main/docs/extensions.md#mountain_peaks)     | `mountain_peaks`  | a new point layer: peaks and volcanoes from z10, saddles at z14, with `ele`    |
+| [`mountain_peaks`](https://github.com/versatiles-org/planetiler-shortbread/blob/main/docs/extensions.md#mountain_peaks)     | `mountain_peaks`  | a new point layer: peaks and volcanoes from z10, saddles and passes at z14     |
 
 The former tokens `building_heights` and `building_parts` are deprecated and enable `3d_buildings`.
 
 ## What map authors should know
 
-- **Not all experiments are additive.** `3d_buildings` adds part polygons to `buildings` (a 2D style filters them with `["!", ["has", "part"]]`), `island_labels` adds `place_labels` points, `locale_names` fills `name_<lang>` from `name`, and `mountain_peaks` adds a layer the schema does not define. The others only add attributes or make them available at lower zooms.
-- **Detecting them:** the `vector_layers` in `tiles.json` can show `3d_buildings` (`height`, `hide_3d`, `part` on `buildings`), `address_details` (`unit`, `block` on `addresses`), `bridge_names` (`name` on `bridges`) and `mountain_peaks` (a layer of that name). `locale_names`, `island_labels` and `early_attributes` add no fields and cannot be detected at all. Note that `vector_layers` lists the layers and fields that actually occur in the tiles, not the ones the profile was told to emit: a region without a single `natural=peak` has no `mountain_peaks` layer even with the experiment enabled, so a missing entry means "not present in this data", not "not enabled".
+- **Not all experiments are additive.** `3d_buildings` adds part polygons to `buildings` (a 2D style filters them with `["!", ["has", "part"]]`), `island_labels` adds `place_labels` points, and `locale_names` fills `name_<lang>` from `name`. The others only add attributes or a layer, or make attributes available at lower zooms.
+- **Detecting them:** the `vector_layers` in `tiles.json` can show `3d_buildings` (`height`, `hide_3d`, `part` on `buildings`), `address_details` (`unit`, `block` on `addresses`), `bridge_names` (`name` on `bridges`) and `mountain_peaks` (a layer of that name). `locale_names`, `island_labels` and `early_attributes` add no fields and cannot be detected at all. Note that `vector_layers` lists the layers and fields that actually occur in the tiles, not the ones the profile was told to emit: a region without a single peak, volcano, saddle or pass has no `mountain_peaks` layer even with the experiment enabled, so a missing entry means "not present in this data", not "not enabled".
 - **Always-on behavior** that is not an experiment — density limits on `addresses`, `place_labels` and `water_polygons_labels`, boundary lines from relations only, multi-value names kept whole — is listed in the profile README under [Notable output details](https://github.com/versatiles-org/planetiler-shortbread/blob/main/README.md#notable-output-details).
 
 ## References
