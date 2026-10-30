@@ -305,6 +305,9 @@
     - housing
     - interactive-map
 
+# Custom instances:
+#   https://ocfirerescue.backofyourhand.com (173 MB)
+#   https://lockportfire.backofyourhand.com (109 MB)
 - title: 'Back Of Your Hand'
   url: 'https://backofyourhand.com/'
   source: 'Back Of Your Hand'
@@ -341,6 +344,8 @@
     - climate
     - data-visualisation
 
+# Belgian domain:
+#   https://www.luchtballonradar.be (5883 MB)
 - title: 'Luchtballonradar'
   url: 'https://www.luchtballonradar.nl/'
   source: 'Luchtballonradar'
@@ -441,6 +446,8 @@
     - interactive-map
     - events
 
+# Same site on another domain:
+#   https://zijnwealsoeverein.nl (1376 MB)
 - title: 'Zijn we al autonoom?'
   url: 'https://zijnwealautonoom.nl/map/email-as/'
   source: 'Studio Falkland'
@@ -605,8 +612,15 @@
     - culture
     - interactive-map
 
+# MapBiomas country platforms. Other instances:
+#   https://plataforma.brasil.mapbiomas.org (redirects here, 3765 MB)
+#   https://prd.plataforma.mapbiomas.org (250 MB)
+#   https://platform.indonesia.mapbiomas.org (196 MB)
+#   https://plataforma.peru.mapbiomas.org (160 MB)
+#   https://plataforma.amazonia.mapbiomas.org (94 MB)
+#   https://plataforma.paraguay.mapbiomas.org (73 MB)
 - title: 'MapBiomas Brasil'
-  url: 'https://plataforma.brasil.mapbiomas.org'
+  url: 'https://plataforma.mapbiomas.org'
   source: 'MapBiomas'
   country: 'Brazil'
   description: 'Satellite-based land-use and land-cover monitoring platform tracking deforestation, vegetation change, fire scars, mining and more across all Brazilian biomes from 1985 to present'
@@ -672,14 +686,30 @@
     - transport
     - interactive-map
 
-- title: 'Burgas Public Transport Planner'
-  url: 'https://transport.burgasbus.info/app/planner'
-  source: 'JSP Burgas'
+# Modeshift transit portals (same WordPress theme, code references Modeshift and Telelink). Other instances:
+#   https://tix.marinairporter.com (United States, 1732 MB)
+#   https://transport.burgasbus.info (Bulgaria, 1657 MB)
+#   https://braila-transport.com (Romania, 373 MB)
+#   https://bistrita-transport.com (Romania, 277 MB)
+#   https://craiova-transport.com (Romania, 193 MB)
+#   https://pay.rabbittransit.org (United States, 167 MB)
+#   https://transport.starazagora.bg (Bulgaria, 95 MB)
+#   https://buzau-transport.com (Romania, 84 MB)
+#   https://chisinau-ebilet.md (Moldova, 77 MB)
+#   https://tulcea-transport.com (Romania, 76 MB)
+#   https://drobeta-transport.telelink.city (Romania, 69 MB)
+#   https://eungheni-transport.md (Moldova, 57 MB)
+#   https://freedom-transit.modeshift.com (United States, 57 MB)
+#   https://focsani-transport.telelink.city (Romania, 52 MB)
+#   https://sinaia-transport.com (Romania, 45 MB)
+- title: 'Blagoevgrad Public Transport Planner'
+  url: 'https://blgtraffic.bg/bg/app/planner'
+  source: 'Modeshift'
   country: 'Bulgaria'
-  description: 'Live route planner for the Burgas public transport network with an interactive map'
-  image: burgasbus.png
+  description: 'Route planner and live map for public transport in Blagoevgrad. The same platform runs 15 other transit portals in Europe and the United States.'
+  image: blgtraffic.png
   tags:
-    - independent
+    - commercial
     - transport
     - interactive-map
     - live-data
@@ -810,18 +840,6 @@
     - leisure
     - interactive-map
 
-- title: 'Marin Airporter Bus Finder'
-  url: 'https://tix.marinairporter.com/en/app/lines/route/1'
-  source: 'Marin Airporter'
-  country: 'United States'
-  description: 'Ticketing portal and live bus finder for the airport shuttle between Marin County and San Francisco International Airport'
-  image: marin-airporter.png
-  tags:
-    - commercial
-    - transport
-    - interactive-map
-    - live-data
-
 - title: 'Dog Day Afternoon'
   url: 'https://www.dogdayafternoon.co.uk/'
   source: 'Dog Day Afternoon'
@@ -853,4 +871,15 @@
   tags:
     - independent
     - research
+    - interactive-map
+
+- title: 'Checkin'
+  url: 'https://checkin.mrtoto.net/'
+  source: 'Checkin'
+  country: 'Germany'
+  description: 'Social app for recording places and following check-ins across the fediverse'
+  image: checkin.png
+  tags:
+    - independent
+    - leisure
     - interactive-map
