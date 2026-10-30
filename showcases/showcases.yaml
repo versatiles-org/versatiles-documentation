@@ -1355,3 +1355,25 @@
     - commercial
     - housing
     - interactive-map
+
+- title: 'Disaster Risk Composer'
+  url: 'https://disaster-risk-composer.heigit.org/'
+  source: 'HeiGIT'
+  country: 'Germany'
+  description: 'Maps the risk potential of natural hazards by country and region, using open humanitarian data'
+  image: disaster-risk-composer.png
+  tags:
+    - research
+    - climate
+    - data-visualisation
+    - interactive-map
+
+- title: 'Humanitarian Panoramax'
+  url: 'https://panoramax.heigit.org/'
+  source: 'HeiGIT'
+  country: 'Germany'
+  description: 'Open platform for sharing and exploring street-level field photos for humanitarian work'
+  image: humanitarian-panoramax.png
+  tags:
+    - research
+    - interactive-map
