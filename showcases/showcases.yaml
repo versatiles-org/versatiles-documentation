@@ -1070,3 +1070,288 @@
     - storytelling
     - interactive-map
     - data-visualisation
+
+- title: 'Rapid3D'
+  url: 'https://transit.negisoft.com'
+  source: 'Negisoft'
+  country: 'Malaysia'
+  description: 'Live 3D map of public transport in Malaysia, with rail, buses and ferries'
+  image: rapid3d.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'ROHSAFAR'
+  url: 'https://tezbus.qobus.tj'
+  source: 'Qobus'
+  country: 'Tajikistan'
+  description: 'Live map of buses and minibuses in Dushanbe, with routes, stops and journey planning'
+  image: rohsafar.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'SEPTA Radar'
+  url: 'https://septaradar.com'
+  source: 'SEPTA Radar'
+  country: 'United States'
+  description: 'Live map of public transport vehicles in Philadelphia'
+  image: septa-radar.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'T-Tracker'
+  url: 'https://supertra.in'
+  source: 'T-Tracker'
+  country: 'United States'
+  description: 'Live map of MBTA public transport in Boston'
+  image: t-tracker.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'Spritpreis-Finder'
+  url: 'https://tanken.clouz.de'
+  source: 'clouz.de'
+  country: 'Germany'
+  description: 'Finds the cheapest fuel prices nearby and along a route in Germany'
+  image: spritpreis-finder.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'StradeChiuse'
+  url: 'https://stradechiuse.it'
+  source: 'StradeChiuse'
+  country: 'Italy'
+  description: 'Road closures, roadworks and public transport diversions published by Italian municipalities, day by day'
+  image: stradechiuse.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+
+- title: 'ztl.wtf'
+  url: 'https://ztl.wtf/firenze'
+  source: 'ztl.wtf'
+  country: 'Italy'
+  description: 'Live maps of restricted traffic zones and camera gates in Florence, Rome, Milan and Turin'
+  image: ztl-wtf.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'MastrMap'
+  url: 'https://mastrmap.de'
+  source: 'MastrMap'
+  country: 'Germany'
+  description: 'Interactive map of all energy installations in the German market master data register'
+  image: mastrmap.png
+  tags:
+    - independent
+    - energy
+    - data-visualisation
+    - interactive-map
+
+- title: 'ReparaBarris'
+  url: 'https://www.reparabarris.cat/mapa'
+  source: 'ReparaBarris'
+  country: 'Spain'
+  description: 'Citizen platform for reporting urban issues to municipalities in Catalonia'
+  image: reparabarris.png
+  tags:
+    - independent
+    - interactive-map
+
+- title: 'einsatz.live'
+  url: 'https://einsatz.live/de/map'
+  source: 'Downtech'
+  country: 'Germany'
+  description: 'Community platform with a map of incident reports in Germany, Austria and Switzerland'
+  image: einsatz-live.png
+  tags:
+    - commercial
+    - interactive-map
+    - live-data
+
+- title: 'Crime Stats: South Africa'
+  url: 'https://crimestats.frith.dev'
+  source: 'Adrian Frith'
+  country: 'South Africa'
+  description: 'Crime statistics by police station, with interactive maps'
+  image: crime-stats-south-africa.png
+  tags:
+    - independent
+    - data-visualisation
+    - interactive-map
+
+- title: 'Klimakarten Deutschland'
+  url: 'https://karten.klimawerke.org'
+  source: 'Klimawerke'
+  country: 'Germany'
+  description: 'Collection of maps of Germany on heavy rain, urban heat, climate projections and hydrology'
+  image: klimawerke.png
+  tags:
+    - independent
+    - climate
+    - data-visualisation
+    - interactive-map
+
+- title: 'Orbital Emissions'
+  url: 'https://orbitalemissions.org/launches.html'
+  source: 'Orbital Emissions'
+  country: 'International'
+  description: 'Emissions of rocket launches and re-entries since 1957, with launch sites on a globe'
+  image: orbital-emissions.png
+  tags:
+    - research
+    - climate
+    - data-visualisation
+    - interactive-map
+
+- title: 'Stadtplaner Flensburg'
+  url: 'https://stadtplaner.oklabflensburg.de/karte'
+  source: 'OK Lab Flensburg'
+  country: 'Germany'
+  description: 'Interactive map of retail space and open data for urban analysis in Flensburg'
+  image: stadtplaner-flensburg.png
+  tags:
+    - independent
+    - data-visualisation
+    - interactive-map
+
+- title: 'ScrapMap'
+  url: 'https://scrapmap.kjartanthors.is'
+  source: 'ScrapMap'
+  country: 'Iceland'
+  description: 'Finds buildings around Reykjavík due for demolition from building permits, and what materials could be salvaged'
+  image: scrapmap.png
+  tags:
+    - independent
+    - housing
+    - data-visualisation
+    - interactive-map
+
+- title: 'Wheel Life'
+  url: 'https://wheellifeapp.com'
+  source: 'Wheel Life'
+  country: 'International'
+  description: 'Ride recording, leaderboards and group rides for electric unicycles'
+  image: wheel-life.png
+  tags:
+    - independent
+    - leisure
+    - interactive-map
+
+- title: 'Omni Regatta'
+  url: 'https://regatta.osgps.pl'
+  source: 'OSGPS'
+  country: 'Poland'
+  description: 'Live tracking and replays of sailing regattas in Poland'
+  image: omni-regatta.png
+  tags:
+    - commercial
+    - leisure
+    - interactive-map
+    - live-data
+
+- title: 'Pédalons !'
+  url: 'https://www.pedalons.fr/parcours/carte'
+  source: 'Pédalons'
+  country: 'France'
+  description: 'Platform for organising cycling rides, with a map of routes'
+  image: pedalons.png
+  tags:
+    - independent
+    - leisure
+    - interactive-map
+
+- title: 'Skippr'
+  url: 'https://skippr.cc/map'
+  source: 'Skippr'
+  country: 'Germany'
+  description: 'Sailing trip planner for routes, crews, shared costs and provisioning'
+  image: skippr.png
+  tags:
+    - independent
+    - leisure
+    - interactive-map
+
+- title: 'BathMap'
+  url: 'https://bathmap.online'
+  source: 'BathMap'
+  country: 'Mexico'
+  description: 'Map of public toilets in Mexico, with prices and cleanliness ratings'
+  image: bathmap.png
+  tags:
+    - independent
+    - interactive-map
+
+# Also loads tiles from api.protomaps.com, next to tiles.versatiles.org.
+- title: 'PlacingArt'
+  url: 'https://placingart.com/explore'
+  source: 'PlacingArt'
+  country: 'International'
+  description: 'Historic artworks on a map at the place they show'
+  image: placingart.png
+  tags:
+    - independent
+    - culture
+    - interactive-map
+
+- title: 'LudoZena'
+  url: 'https://ludozena.it'
+  source: 'NexLudica APS'
+  country: 'Italy'
+  description: 'Calendar and map of board game, role-playing and other game events in Genoa'
+  image: ludozena.png
+  tags:
+    - independent
+    - events
+    - leisure
+    - interactive-map
+
+- title: 'Masjid.Spot'
+  url: 'https://masjid-spot.vercel.app/en'
+  source: 'Masjid.Spot'
+  country: 'International'
+  description: 'Finder for prayer facilities near you'
+  image: masjid-spot.png
+  tags:
+    - independent
+    - interactive-map
+
+- title: 'Ceramily'
+  url: 'https://ceramily.com/studios'
+  source: 'Ceramily'
+  country: 'United States'
+  description: 'Directory of ceramics studios, workshops and teachers in New York City'
+  image: ceramily.png
+  tags:
+    - independent
+    - culture
+    - interactive-map
+
+- title: 'Jolom'
+  url: 'https://jolom.ir/en/map'
+  source: 'Jolom'
+  country: 'International'
+  description: 'Map of off-plan property projects in the Emirates and Oman'
+  image: jolom.png
+  tags:
+    - commercial
+    - housing
+    - interactive-map
