@@ -686,7 +686,8 @@
     - transport
     - interactive-map
 
-# Modeshift transit portals (same WordPress theme, code references Modeshift and Telelink). Other instances:
+# Modeshift transit portals (code references Modeshift and Telelink). Other instances:
+#   https://blgtraffic.bg (Bulgaria, 1971 MB)
 #   https://tix.marinairporter.com (United States, 1732 MB)
 #   https://transport.burgasbus.info (Bulgaria, 1657 MB)
 #   https://braila-transport.com (Romania, 373 MB)
@@ -702,12 +703,12 @@
 #   https://freedom-transit.modeshift.com (United States, 57 MB)
 #   https://focsani-transport.telelink.city (Romania, 52 MB)
 #   https://sinaia-transport.com (Romania, 45 MB)
-- title: 'Blagoevgrad Public Transport Planner'
-  url: 'https://blgtraffic.bg/bg/app/planner'
+- title: 'Skopje Public Transport Planner'
+  url: 'https://skopjebus.mk/en/app/planner/'
   source: 'Modeshift'
-  country: 'Bulgaria'
-  description: 'Route planner and live map for public transport in Blagoevgrad. The same platform runs 15 other transit portals in Europe and the United States.'
-  image: blgtraffic.png
+  country: 'North Macedonia'
+  description: 'Route planner and live map for public transport in Skopje. The same platform runs 16 other transit portals in Europe and the United States.'
+  image: skopjebus.png
   tags:
     - commercial
     - transport
@@ -883,3 +884,189 @@
     - independent
     - leisure
     - interactive-map
+
+- title: 'bahn.jetzt'
+  url: 'https://bahn.jetzt'
+  source: 'bahn.jetzt'
+  country: 'Germany'
+  description: 'Live tracking of Deutsche Bahn long-distance and regional trains, with speeds and a searchable train list'
+  image: bahn-jetzt.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'HEY Directory'
+  url: 'https://www.hey.directory/de/deutschland/bayern/landkreis-ostallgaeu/schwangau/schloss-neuschwanstein/'
+  source: 'hey.directory'
+  country: 'Germany'
+  description: 'Worldwide directory of regions, places and events, with a location map on each place page'
+  image: hey-directory.png
+  tags:
+    - commercial
+    - leisure
+    - interactive-map
+
+- title: 'Atlas'
+  url: 'https://atlas.co/'
+  source: 'Atlas'
+  country: 'Norway'
+  description: 'AI-native GIS for building maps, dashboards and spatial workflows'
+  image: atlas.png
+  tags:
+    - commercial
+    - interactive-map
+
+- title: 'Seamap'
+  url: 'https://openwaters.io/charts/seamap/'
+  source: 'Open Waters'
+  country: 'United States'
+  description: 'Nautical-style map with depths, seamarks and hazards, part of an open-source platform for tides, charts and bathymetry'
+  image: open-waters.png
+  tags:
+    - independent
+    - leisure
+    - interactive-map
+
+- title: 'Orbit'
+  url: 'https://orbit-map.com'
+  source: 'Johnny Labs'
+  country: 'Israel'
+  description: '3D data globe for exploring and comparing 250 datasets on income, health, schooling, energy and climate across countries and years'
+  image: orbit.png
+  tags:
+    - independent
+    - data-visualisation
+    - interactive-map
+
+- title: 'Karte'
+  url: 'https://www.kartenmesse.de/map'
+  source: 'Kartenmesse.de'
+  country: 'Germany'
+  description: 'Map of trading card game events and shops across Germany, Austria and Switzerland'
+  image: kartenmesse.png
+  tags:
+    - independent
+    - events
+    - leisure
+    - interactive-map
+
+- title: 'Picarta'
+  url: 'https://picarta.ai'
+  source: 'Picarta'
+  country: 'Italy'
+  description: 'AI service that estimates where a photo was taken, used by OSINT investigators, journalists and photographers'
+  image: picarta.png
+  tags:
+    - commercial
+    - research
+    - interactive-map
+
+- title: 'Ortsnetz-Auslastung'
+  url: 'https://www.ortsnetz-auslastung.de'
+  source: 'Ortsnetz-Auslastung'
+  country: 'Germany'
+  description: 'Map of low-voltage grid load based on voltage measurements volunteered by PV system owners in Germany, Austria and Switzerland'
+  image: ortsnetz-auslastung.png
+  tags:
+    - independent
+    - energy
+    - data-visualisation
+    - interactive-map
+    - live-data
+
+- title: 'Gabals.lv'
+  url: 'https://gabals.lv'
+  source: 'SunGIS'
+  country: 'Latvia'
+  description: 'Property reports and map layers showing encumbrances, zoning and land-use restrictions in Latvia, drawn from public data'
+  image: gabals.png
+  tags:
+    - commercial
+    - housing
+    - interactive-map
+
+- title: 'Schneekarte Alpen'
+  url: 'https://slopevision.com/de/schneekarte'
+  source: 'SlopeVision'
+  country: 'Germany'
+  description: 'Live snow map of the Alps comparing snow depths and mountain weather across ski resorts'
+  image: slopevision.png
+  tags:
+    - commercial
+    - leisure
+    - weather
+    - interactive-map
+    - live-data
+
+- title: 'Finde eine Solawi in Deiner Nähe'
+  url: 'https://ernte-teilen.org/karte/'
+  source: 'Netzwerk Solidarische Landwirtschaft'
+  country: 'Germany'
+  description: 'Map for finding community-supported agriculture farms and initiatives'
+  image: ernte-teilen.png
+  tags:
+    - independent
+    - interactive-map
+
+# English version:
+#   https://mobilehistory.app (107 MB)
+- title: 'Mobile Geschichte'
+  url: 'https://mobilegeschichte.de/karte'
+  source: 'e-Networkers'
+  country: 'Germany'
+  description: 'Map of more than 18,000 castles, palaces, fortresses and ruins across Europe'
+  image: mobile-geschichte.png
+  tags:
+    - commercial
+    - culture
+    - leisure
+    - interactive-map
+
+- title: 'Kde je bus?'
+  url: 'https://kdejebus.cz'
+  source: 'KdeJeBus.cz'
+  country: 'Czechia'
+  description: 'Live map of buses and trolleybuses in the Vysočina region and trains across Czechia, with delays and departures'
+  image: kde-je-bus.png
+  tags:
+    - independent
+    - transport
+    - interactive-map
+    - live-data
+
+- title: 'Spotly'
+  url: 'https://thespotly.com'
+  source: 'Spotly'
+  country: 'Greece'
+  description: 'Map of concerts, theatre, exhibitions and other events near you in cities across Europe'
+  image: spotly.png
+  tags:
+    - independent
+    - events
+    - leisure
+    - interactive-map
+
+- title: 'BMC Election Results 2026'
+  url: 'https://data.indianexpress.com/projects/2026/bmc-results-2026'
+  source: 'The Indian Express'
+  country: 'India'
+  description: 'Interactive map of which party won each ward in the 2026 Mumbai municipal elections'
+  image: indian-express-bmc-results.png
+  tags:
+    - journalism
+    - interactive-map
+    - data-visualisation
+
+- title: 'A Visual Guide To Mumbai’s BMC Elections'
+  url: 'https://data.indianexpress.com/projects/2025/local-body-polls'
+  source: 'The Indian Express'
+  country: 'India'
+  description: 'Scrolling map story explaining how Mumbai’s municipal corporation and its wards work ahead of the 2026 polls'
+  image: indian-express-bmc-guide.png
+  tags:
+    - journalism
+    - storytelling
+    - interactive-map
+    - data-visualisation
