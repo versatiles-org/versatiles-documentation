@@ -10,7 +10,7 @@ Try the live demo at **[tiles.versatiles.org](https://tiles.versatiles.org)**.
 
 ## Showcases
 
-Our gallery showcases [119 projects using VersaTiles](showcases) that we are aware of, ranging from journalism and transit trackers to commercial platforms and research tools.
+Our gallery showcases [100+ projects using VersaTiles](https://versatiles.org/showcases/) that we are aware of, ranging from journalism and transit trackers to commercial platforms and research tools.
 
 ## VersaTiles components
 

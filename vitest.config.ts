@@ -19,10 +19,7 @@ export default defineConfig({
 				 * modules underneath them.
 				 */
 				'scripts/build-dependency-graph.ts',
-				'scripts/build-showcase-images.ts',
-				'scripts/build-social-image.ts',
 				'scripts/sync-spec.ts',
-				'scripts/validate-showcases.ts',
 			],
 		},
 	},

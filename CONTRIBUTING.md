@@ -1,36 +1,12 @@
 # Contributing
 
-Thanks for your interest in VersaTiles! This repository hosts the documentation and the [Showcases](showcases) gallery. Code for the various components lives in [other repositories under versatiles-org](https://github.com/versatiles-org).
+Thanks for your interest in VersaTiles! This repository hosts the documentation. Code for the various components lives in [other repositories under versatiles-org](https://github.com/versatiles-org).
 
 The contributions most useful to us, in order:
 
 ## Add your project to Showcases
 
-If you use VersaTiles in a public project, we'd love to feature it.
-
-1. Open [`showcases/showcases.yaml`](showcases/showcases.yaml) and append a new entry:
-
-   ```yaml
-   - title: 'Your Project'
-     url: 'https://example.org'
-     source: 'Your Org'
-     country: 'Germany'
-     description: 'One sentence about what the project shows'
-     image: your-project-slug.png # also accepts .jpg, .jpeg, .webp
-     tags:
-       - commercial # who made it: journalism, independent, commercial, research, events
-       - interactive-map
-       # - any other tags already used by other entries
-   ```
-
-   Every tag has to be used by at least one other entry — the build rejects one-offs, which
-   are almost always typos. Pick from the tag list on the [Showcases](showcases) page.
-
-2. Drop a screenshot at `showcases/your-project-slug.png` (PNG, 16:9, < 1 MB, it's auto-resized to 800×450 during build).
-
-3. Open a pull request.
-
-That's it — no code changes needed.
+If you use VersaTiles in a public project, we'd love to feature it in the [Showcases](https://versatiles.org/showcases/) gallery. It has its own repository, [`versatiles-org/showcases`](https://github.com/versatiles-org/showcases), and its [contributing guide](https://github.com/versatiles-org/showcases/blob/main/CONTRIBUTING.md) explains how to add an entry.
 
 ## Fix or improve the docs
 

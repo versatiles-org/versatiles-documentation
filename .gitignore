@@ -3,7 +3,5 @@
 .vitepress/cache
 .vitepress/dist
 node_modules
-/public/showcases/
-/public/showcases-social.jpg
 coverage
 *_PLAN.md

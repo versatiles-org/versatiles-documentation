@@ -11,10 +11,7 @@
     "url": "git+https://github.com/versatiles-org/versatiles-documentation.git"
   },
   "scripts": {
-    "build": "npm run validate:showcases && npm run build:showcase-images && npm run build:social-image && npm run build:vitepress",
-    "build:vitepress": "vitepress build .",
-    "build:showcase-images": "tsx scripts/build-showcase-images.ts",
-    "build:social-image": "tsx scripts/build-social-image.ts",
+    "build": "vitepress build .",
     "sync:deps": "tsx scripts/build-dependency-graph.ts",
     "deps:drift": "tsx scripts/build-dependency-graph.ts --drift",
     "test": "vitest run",
@@ -27,8 +24,7 @@
     "lint": "eslint .",
     "lint:types": "vue-tsc --noEmit",
     "preview": "vitepress preview .",
-    "upgrade": "npm-check-updates -u --peer && npm i",
-    "validate:showcases": "tsx scripts/validate-showcases.ts"
+    "upgrade": "npm-check-updates -u --peer && npm i"
   },
   "license": "Unlicense",
   "type": "commonjs",
@@ -59,7 +55,6 @@
     "npm-check-updates": "^23.1.1",
     "prettier": "^3.9.10",
     "semver": "^7.8.5",
-    "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0",
