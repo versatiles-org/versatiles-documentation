@@ -1,4 +1,3 @@
-[![Code coverage](https://codecov.io/gh/versatiles-org/versatiles-documentation/branch/main/graph/badge.svg)](https://codecov.io/gh/versatiles-org/versatiles-documentation)
 [![CI status](https://img.shields.io/github/actions/workflow/status/versatiles-org/versatiles-documentation/ci.yml)](https://github.com/versatiles-org/versatiles-documentation/actions/workflows/ci.yml)
 
 <!-- #region docs -->

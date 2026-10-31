@@ -1,6 +1,0 @@
-comment: false
-github_checks: false
-coverage:
-  status:
-    project: off
-    patch: off
