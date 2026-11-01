@@ -1,6 +1,6 @@
 # Extended TileJSON 3.0
 
-> **Status** Implemented | Last updated 2025-11-04
+> **Status** Implemented | Last updated 2026-11-01
 
 ## Introduction
 
@@ -30,7 +30,7 @@ This extension defines **four optional metadata fields** for the [TileJSON 3.0 s
 
 ## Property `tile_schema`
 
-`tile_schema` describes how to interpret the data. All values must be lowercase and follow the pattern **`<family>[/<subtype>][@<version>]`**
+`tile_schema` describes how to interpret the data. All values must be lowercase and follow the pattern **`<family>[/<subtype>][@<version>]`**. Each part is made of one or more lowercase letters, digits, `.`, `_` or `-` (`[a-z0-9._-]+`). A value with a second `/` or `@`, an empty part or an uppercase letter is malformed.
 
 ### Raster values
 
@@ -44,14 +44,33 @@ This extension defines **four optional metadata fields** for the [TileJSON 3.0 s
 
 ### Vector values
 
-| Value            | Vector tiles follow…                                                  |
-| ---------------- | --------------------------------------------------------------------- |
-| `openmaptiles`   | The [OpenMapTiles schema](https://openmaptiles.org/schema/)           |
-| `shortbread@1.0` | The [Shortbread 1.0 schema](https://shortbread-tiles.org/schema/1.0/) |
-| `other`          | An unspecified, unknown, or custom schema                             |
+| Value                      | Vector tiles follow…                                                                                                                                              |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `openmaptiles`             | The [OpenMapTiles schema](https://openmaptiles.org/schema/)                                                                                                       |
+| `shortbread@1.0`           | The [Shortbread 1.0 schema](https://shortbread-tiles.org/schema/1.0/)                                                                                             |
+| `shortbread@1.1`           | The [Shortbread 1.1 schema](https://shortbread-tiles.org/schema/1.1/)                                                                                             |
+| `versatiles/landcover@1.0` | One layer, `landcover`, with one attribute, `kind`, as described in [What's in the tiles](https://github.com/versatiles-org/landcover-vectors#whats-in-the-tiles) |
+| `other`                    | An unspecified or unrecognised schema                                                                                                                             |
 
 > [!NOTE]  
 > **Versioning recommendation:** If a schema has formal versions, append them after `@`, e.g., `shortbread@1.0`.
+
+### Other defined values
+
+| Value     | Meaning                                                                        |
+| --------- | ------------------------------------------------------------------------------ |
+| `unknown` | Nothing can be said about the tiles, for example because their type is unknown |
+
+### Values a client doesn't know
+
+A dataset may declare any well-formed value, also one that isn't listed here, so it can name its schema before every tool has heard of it. TileJSON's own rule covers unknown keys, not unknown values, so this applies:
+
+- A client keeps a well-formed `tile_schema` value it doesn't know, passes it on unchanged, and ignores its meaning.
+- A value starting with `dem/` is elevation data even if the client doesn't know the subtype. A client that can't decode it must not treat the tiles as imagery, for example by interpolating or lossily encoding them. A client that doesn't handle elevation at all needn't do anything. On vector tiles, such a value can't be right, and a client may replace it.
+- The tile type comes from `tile_type` and `tile_format`, not from an unknown schema.
+- A malformed value may be ignored.
+
+versatiles behaves this way from version 5.6.0 on. Older versions drop such a value or replace it with a guess.
 
 ---
 
