@@ -35,7 +35,7 @@ docker run -it --rm \
 The `--checksum` flag writes `.md5` and `.sha256` sidecar files next to the output.
 
 > [!TIP]
-> Run the image with `-it` and **no arguments** to get an interactive wizard instead. It asks for the area, land cover, container format and output name, then runs the same pipeline.
+> Run the image with `-it` and **no arguments** to get an interactive wizard instead. It asks for the area, container format, output name, checksums and processing mode, then runs the same pipeline.
 
 **Common `--area` values:**
 
@@ -60,7 +60,7 @@ result/
     └── osm.2026-06-22.versatiles.sha256
 ```
 
-The filename is auto-generated as `osm[-landcover].<date>` for the planet, and `osm[-landcover].<region>.<date>` for a sub-region — so a Berlin build with land cover becomes `osm-landcover.berlin.2026-06-22.versatiles`.
+The filename is auto-generated as `osm.<date>` for the planet, and `osm.<region>.<date>` for a sub-region — so a Berlin build becomes `osm.berlin.2026-06-22.versatiles`.
 
 ## Optional flags
 
@@ -68,7 +68,6 @@ Every option has an environment-variable equivalent, so the image can also be dr
 
 | Flag                  | Environment     | Default               | Description                                                                     |
 | --------------------- | --------------- | --------------------- | ------------------------------------------------------------------------------- |
-| `--landcover`         | `LANDCOVER=1`   | off                   | Merge low-zoom land cover into the Shortbread layers                            |
 | `--format <fmt>`      | `FORMAT`        | `versatiles`          | `versatiles` (brotli), `pmtiles` or `mbtiles`                                   |
 | `--name <basename>`   | `OUTPUT_NAME`   | see above             | Output filename, without the extension                                          |
 | `--xmx <size>`        | `XMX`           | from container memory | JVM heap for Planetiler, e.g. `20g`                                             |
@@ -76,6 +75,9 @@ Every option has an environment-variable equivalent, so the image can also be dr
 | `--no-renumber`       | `RENUMBER=0`    | renumber is on        | Skip `osmium renumber` (dense IDs build faster and give slightly smaller tiles) |
 | `--checksum`          | `CHECKSUM=1`    | off                   | Write `<output>.md5` and `<output>.sha256`                                      |
 | `-i`, `--interactive` | `INTERACTIVE=1` | –                     | Force the interactive wizard                                                    |
+
+> [!NOTE]
+> This image only writes OSM tiles. Land cover is a separate tileset that a style draws under OSM: see [Using it with OSM](https://github.com/versatiles-org/landcover-vectors#using-it-with-osm). The `--landcover` option and `LANDCOVER=1` have been removed and now stop with an error.
 
 The same build as a Compose service:
 
@@ -85,7 +87,6 @@ services:
     image: versatiles/versatiles-planetiler:latest
     environment:
       AREA: planet
-      LANDCOVER: '1'
       FORMAT: versatiles
       XMX: 20g
     volumes:
