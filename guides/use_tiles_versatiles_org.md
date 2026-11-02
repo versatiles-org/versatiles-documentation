@@ -39,7 +39,7 @@ Below is a minimal HTML example showing how to implement a map using MapLibre GL
 
 Our pre-built styles already contain the required attribution, and MapLibre GL JS displays it automatically.
 
-If you use the tile URLs directly — for example [in QGIS](use_versatiles_in_qgis.md) or in a style of your own — you have to add the attribution yourself. Note that the hosted `osm` tileset includes landcover data, so it needs both the OpenStreetMap and the ESA WorldCover attribution. The [tilesets overview](../basics/tilesets.md) has a "Licence & Attribution" section for each tileset.
+If you use the tile URLs directly — for example [in QGIS](use_versatiles_in_qgis.md) or in a style of your own — you have to add the attribution yourself. The [tilesets overview](../basics/tilesets.md) has a "Licence & Attribution" section for each tileset.
 
 ## What to expect
 

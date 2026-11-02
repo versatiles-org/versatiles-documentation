@@ -193,7 +193,7 @@ export default defineConfig({
 								link: '/compendium/specification_shortbread_extensions',
 							},
 							{
-								text: 'Shortbread Low-Zoom Landcover',
+								text: 'Land Cover Tileset',
 								link: '/compendium/specification_shortbread_landcover',
 							},
 						],

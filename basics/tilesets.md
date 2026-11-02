@@ -5,17 +5,16 @@ We prepare and publish a number of ready-to-use tilesets. There are two ways to 
 - **Download** the [`.versatiles` container](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md) from [download.versatiles.org](https://download.versatiles.org/) and [serve it yourself](versatiles_server.md).
 - **Use our hosted tiles** at `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — our demo server, open to everyone but without uptime guarantees. See [Use tiles.versatiles.org](../guides/use_tiles_versatiles_org.md).
 
-| Tileset                                         | Type   | Zoom                           | Download | Maturity | Hosted as            |
-| ----------------------------------------------- | ------ | ------------------------------ | -------- | -------- | -------------------- |
-| [OSM Shortbread](#osm-shortbread-vector-tiles)  | vector | 0–14                           | 62 GB    | stable   | –                    |
-| [OSM + Landcover](#osm-shortbread-vector-tiles) | vector | 0–14                           | 64 GB    | beta     | `osm`                |
-| [Hillshade](#hillshade)                         | vector | 0–12                           | 105 GB   | alpha    | `hillshade-vectors`  |
-| [Landcover](#landcover)                         | vector | 0–10                           | 4.4 GB   | beta     | –                    |
-| [Bathymetry](#bathymetry)                       | vector | 0–10                           | 0.7 GB   | alpha    | `bathymetry-vectors` |
-| [Elevation](#elevation)                         | raster | 0–12                           | 407 GB   | beta     | `elevation`          |
-| [Satellite](#satellite)                         | raster | 0–12 globally, more regionally | 1.6 TB   | alpha    | `satellite`          |
+| Tileset                                        | Type   | Zoom                           | Download | Maturity | Hosted as            |
+| ---------------------------------------------- | ------ | ------------------------------ | -------- | -------- | -------------------- |
+| [OSM Shortbread](#osm-shortbread-vector-tiles) | vector | 0–14                           | 62 GB    | stable   | `osm`                |
+| [Hillshade](#hillshade)                        | vector | 0–12                           | 105 GB   | alpha    | `hillshade-vectors`  |
+| [Landcover](#landcover)                        | vector | 0–10                           | 4.1 GB   | beta     | `landcover-vectors`  |
+| [Bathymetry](#bathymetry)                      | vector | 0–10                           | 0.7 GB   | alpha    | `bathymetry-vectors` |
+| [Elevation](#elevation)                        | raster | 0–12                           | 407 GB   | beta     | `elevation`          |
+| [Satellite](#satellite)                        | raster | 0–12 globally, more regionally | 1.6 TB   | alpha    | `satellite`          |
 
-The hosted `osm` tileset is the merged OSM + Landcover variant. File sizes are approximate and grow over time — [download.versatiles.org](https://download.versatiles.org/) is the authoritative source.
+File sizes are approximate and grow over time — [download.versatiles.org](https://download.versatiles.org/) is the authoritative source.
 
 All vector tilesets are published as Mapbox Vector Tiles (MVT, called `pbf` in older tools and in TileJSON's `format` field). To get [MapLibre Tiles (MLT)](https://maplibre.org/maplibre-tile-spec/) instead, re-encode a downloaded container with [`versatiles convert --tile-format mlt`](../guides/converter.md#key-options) and set `"encoding": "mlt"` on the vector source in your MapLibre style.
 
@@ -33,12 +32,8 @@ Beyond the plain download links below, the download server also offers:
 
 A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread schema](https://shortbread-tiles.org/schema/1.1/), covering the whole planet from zoom level 0 to 14.
 
-- [Download `osm.versatiles`](https://download.versatiles.org/osm.versatiles) (62 GB) — plain OSM Shortbread
-- [Download `osm-landcover.versatiles`](https://download.versatiles.org/osm-landcover.versatiles) (64 GB, beta) — the same tiles pre-merged with [Landcover](#landcover), ready to use without further processing
+- [Download `osm.versatiles`](https://download.versatiles.org/osm.versatiles) (62 GB)
 - [How to generate tiles](../guides/generate_tiles_from_osm.md)
-
-> [!IMPORTANT]
-> The hosted tileset at `https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}` is the **merged** variant: it contains OpenStreetMap **and** landcover data. If you use it, you must also attribute ESA WorldCover — see [Landcover](#landcover) below.
 
 ### Style
 
@@ -48,7 +43,6 @@ There are [several ready-made Public Domain styles](https://github.com/versatile
 
 - OpenStreetMap data is licensed under [Open Database License 1.0](https://opendatacommons.org/licenses/odbl/) and requires attribution to [OpenStreetMap contributors](https://www.openstreetmap.org/copyright)
 - The Shortbread schema [is licensed](https://shortbread-tiles.org/copyright/) under [CC-0](https://shortbread-tiles.org/copyright/CC0-1.0-LICENSE.txt) and does not require additional attribution.
-- If you use the merged variant (including the hosted `osm` tileset), add the [Landcover attribution](#landcover) as well.
 
 ## Hillshade
 
@@ -129,20 +123,17 @@ There is one layer called `hillshade-vectors` with a property `shade`:
 
 ![Example of Landcover](../assets/example-landcover.png)
 
-A set of vector tiles based on [ESA WorldCover](https://esa-worldcover.org/en/data-access) satellite data. Shortbread's `land` and `water_polygons` layers are derived purely from OpenStreetMap, so they are sparse and only start at higher zoom levels — a world map at zoom 0–6 shows almost no land cover. This tileset fills exactly that gap with a complete, generalized classification from global satellite imagery.
+A set of vector tiles that combines [ESA WorldCover](https://esa-worldcover.org/en/data-access) satellite data with OpenStreetMap's land use. Shortbread's `land` and `water_polygons` layers are derived purely from OpenStreetMap, so they are sparse and only start at higher zoom levels — a world map at zoom 0–6 shows almost no land cover, and land that OSM doesn't map stays empty at every zoom. This tileset fills those gaps with a complete, generalized classification, drawn under OSM.
 
-- [Download `landcover-vectors.versatiles`](https://download.versatiles.org/landcover-vectors.versatiles) (4.4 GB, beta) — land cover only, to merge yourself
-- [Download `osm-landcover.versatiles`](https://download.versatiles.org/osm-landcover.versatiles) (64 GB, beta) — pre-merged with OSM Shortbread, ready to use
+- [Download `landcover-vectors.versatiles`](https://download.versatiles.org/landcover-vectors.versatiles) (4.1 GB, beta)
 - [Repository](https://github.com/versatiles-org/landcover-vectors)
-
-It is not served standalone on `tiles.versatiles.org`; the hosted [`osm`](#osm-shortbread-vector-tiles) tileset already includes it.
 
 ### Style
 
 > [!IMPORTANT]
-> This tileset does **not** define a layer of its own. It writes into Shortbread's **existing** `land` and `water_polygons` layers, using Shortbread's **existing** `kind` values (`forest`, `farmland`, `residential`, `bare_rock`, `heath`, `scrub`, `grassland`, `marsh`, `swamp`, `glacier`, `water`) up to zoom 10. When merged, these kinds come from the land cover up to z10 and from OSM from z11; only `water` (from z4) and `residential` (from z10) switch to OSM earlier. The merge drops the other source's copy of each kind, so the two never overlap.
+> This tileset has one layer of its own, `landcover`, with one attribute, `kind`, up to zoom 10. The kinds are Shortbread's: `forest`, `farmland`, `residential`, `bare_rock`, `heath`, `scrub`, `grassland`, `marsh`, `swamp`, `glacier` and `water`. It isn't merged into the OSM tiles: a style draws it as a second source, right above the background and under everything from OSM. OSM paints over it wherever it has data.
 
-Because it adds no new layers or attributes, no new style rules are needed for the data to validate and render as ordinary Shortbread. But the stock styles fade these kinds in at the zoom level where OSM introduces them, so the low-zoom cover stays invisible until you ask for it. In [@versatiles/style](https://github.com/versatiles-org/versatiles-style) v6, one option does that:
+In [@versatiles/style](https://github.com/versatiles-org/versatiles-style) v8, one option does that:
 
 ```js
 import { osm } from '@versatiles/style';
@@ -150,39 +141,15 @@ import { osm } from '@versatiles/style';
 const style = osm({ theme: 'colorful', features: { landcover: true } });
 ```
 
-This drops the zoom-based fade-in from every layer that renders a land cover kind, so `land` and `water_polygons` are drawn from zoom level 0. It works with every theme. `osm.supportsLandcover(tileJSON)` tells you whether a tileset carries the land cover. Only enable it on a tileset that actually has the land cover merged in — on plain OSM tiles the affected layers would pop in abruptly instead of fading.
+This adds the source and its fills, in every theme. The stock OSM layers don't change. The source defaults to the hosted `landcover-vectors` tileset; if you serve it yourself, set `urls.landcover`. The prebuilt styles on `tiles.versatiles.org` don't use this option. Before v8, the option expected a merged tileset and added no source.
 
-The full ESA WorldCover → Shortbread mapping, the handover to OSM and the reasoning behind the lossy generalizations are documented in [Shortbread Low-Zoom Land Cover](../compendium/specification_shortbread_landcover.md).
-
-### Merging it yourself
-
-If you don't want the pre-merged `osm-landcover.versatiles`, feature-merge the two containers with the [VersaTiles CLI](../guides/install_versatiles.md) (version 4.15.0 or later). Both carry many of the same kinds up to z10, so filter each source on the way in. Without the filters, OSM's sparse copies end up on top of the land cover. The filter expressions contain single quotes, so write the pipeline to a file:
-
-```bash
-cat > merge.vpl <<'EOF'
-from_merged_vector [
-  from_container filename="osm.versatiles"
-    | vector_filter_features layer=["land"] expr="!(zoom <= 10 && kind in ['forest', 'farmland', 'bare_rock', 'heath', 'scrub', 'grassland', 'marsh', 'swamp'])"
-    | vector_filter_features layer=["water_polygons"] expr="!(zoom <= 10 && kind in ['glacier'])",
-  from_container filename="landcover-vectors.versatiles"
-    | vector_filter_features layer=["land"] expr="!(zoom >= 10 && kind in ['residential'])"
-    | vector_filter_features layer=["water_polygons"] expr="!(zoom >= 4 && kind in ['water'])"
-]
-EOF
-versatiles convert -c brotli merge.vpl combined.versatiles
-```
-
-> [!WARNING]
-> Older versions of versatiles don't fail on these filters. 4.14.0 silently drops all `land` and `water_polygons` features. See [Merge it yourself](../compendium/specification_shortbread_landcover.md#merge-it-yourself) for details.
-
-> [!NOTE]
-> The merge is processing-heavy and can take hours. That is exactly the work the pre-merged download saves you.
+The full ESA WorldCover → `kind` mapping, how to draw it in a style of your own and the reasoning behind the lossy generalizations are documented in [Land Cover Tileset](../compendium/specification_shortbread_landcover.md).
 
 ### Licence & Attribution
 
-- [ESA WorldCover](https://esa-worldcover.org/en/data-access) is licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
-- The VersaTiles Landcover Vectors tileset is derived from ESA WorldCover and therefore also licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
-- Attribution: `© ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed by ESA WorldCover consortium`
+- OpenStreetMap's land use is burned into the land cover, so the VersaTiles Landcover Vectors tileset is licensed under the [Open Database License 1.0](https://opendatacommons.org/licenses/odbl/) and requires attribution to [OpenStreetMap contributors](https://www.openstreetmap.org/copyright)
+- It contains [ESA WorldCover](https://esa-worldcover.org/en/data-access) data, licensed [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
+- Attribution: `© OpenStreetMap contributors`, `© ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed by ESA WorldCover consortium`
 
 ## Bathymetry
 

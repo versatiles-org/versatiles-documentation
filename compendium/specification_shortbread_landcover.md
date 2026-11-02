@@ -1,21 +1,21 @@
-# Shortbread Low-Zoom Land Cover
+# Land Cover Tileset
 
-> **Status** Experimental | Last updated 2026-10-26
+> **Status** Experimental | Last updated 2026-11-02
 
 ## Introduction
 
-[Shortbread](https://shortbread-tiles.org/)'s `land` layer is derived purely from OpenStreetMap, and most of its kinds only appear at higher zoom levels (`forest` from z7, the other land kinds later still); the separate `water_polygons` layer starts at z4. A worldwide map at zoom 0–6 therefore shows almost no land cover — only ocean, large water bodies, boundaries and labels.
+[Shortbread](https://shortbread-tiles.org/)'s `land` layer is derived purely from OpenStreetMap, and most of its kinds only appear at higher zoom levels (`forest` from z7, the other land kinds later still); the separate `water_polygons` layer starts at z4. A worldwide map at zoom 0–6 therefore shows almost no land cover — only ocean, large water bodies, boundaries and labels. Even at higher zoom levels, land that OSM doesn't map stays empty.
 
-This page describes an **optional, complementary tileset** that fills that gap. It is derived from [ESA WorldCover](https://esa-worldcover.org/) — a global 10 m satellite land-cover classification — and populates Shortbread's **existing** `land` and `water_polygons` layers, using their **existing** `kind` values, at zoom 0–10. From z11 on, OSM takes over; up to z10, a merge uses the satellite data in place of OSM's own, sparser copies of most of these kinds.
+This page describes an **optional, complementary tileset** that fills those gaps. It combines [ESA WorldCover](https://esa-worldcover.org/) — a global 10 m satellite land-cover classification — with OpenStreetMap's land use, in one layer, `landcover`, with one attribute, `kind`, at zoom 0–10. A style draws it as a **separate source under OSM**: OSM paints over it wherever it has data, and it shows wherever OSM has none.
 
-Unlike the [Shortbread schema extensions](specification_shortbread_extensions.md) — which add _attributes_ to the OSM/Planetiler tileset — this is a **separate tileset from a different source**, produced by [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors) and can be optionally merged with the OSM tileset. It adds no new layers or attributes.
+Unlike the [Shortbread schema extensions](specification_shortbread_extensions.md) — which add _attributes_ to the OSM/Planetiler tileset — this is a **separate tileset**, produced by [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors). It isn't part of the Shortbread schema, although its `kind` values are Shortbread's, so that a style can reuse its colours. The container declares [`tile_schema`](specification_extended_tilejson.md#property-tile-schema) `versatiles/landcover@1.0`.
 
 > This page documents the **contract** — what the tileset contains and how to consume it. The build pipeline is documented in the [landcover-vectors README](https://github.com/versatiles-org/landcover-vectors#how-it-works).
 
-Two principles, mirroring the schema extensions:
+Two principles:
 
-1. **Opt-in.** It is a standalone tileset. Merge it to get low-zoom land cover; do nothing and the map is unchanged.
-2. **Spec-conformant.** It writes only into existing Shortbread layers, with existing `kind` values, up to z10. A base-Shortbread consumer sees ordinary `land` / `water_polygons` features. A merge filters both sources so that each kind comes from exactly one of them per zoom (see [the handover](#the-handover)).
+1. **Opt-in.** It is a standalone tileset. Add it to a style to get land cover; do nothing and the map is unchanged.
+2. **Nothing is merged.** It has its own layer and is drawn from its own source. OSM's tiles stay as they are, and neither source needs filtering.
 
 ---
 
@@ -23,28 +23,32 @@ Two principles, mirroring the schema extensions:
 
 OpenStreetMap is precise but incomplete and uneven at the global scale. A rough comparison for forest illustrates the point: rasterising OSM forest (`natural=wood` + `landuse=forest`) onto an equal-area grid gives roughly **18.5 million km²**, against the FAO Forest Resources Assessment 2020 figure of **~40.6 million km²** — so OSM represents about **46%** of the world's forest area, with the gaps concentrated in the tropics, Central Africa and Siberia while Europe and North America are near-complete.
 
-This unevenness is part of why Shortbread introduces land cover only at higher zoom levels: rendering sparse, regionally inconsistent cover at z0–6 can look worse than rendering none. Crowd-sourced global land cover is genuinely hard — this tileset does not try to fix OSM; it provides a complete-but-coarse base for the zoom levels where OSM's detail is not needed yet.
+This unevenness is part of why Shortbread introduces land cover only at higher zoom levels: rendering sparse, regionally inconsistent cover at z0–6 can look worse than rendering none. Crowd-sourced global land cover is genuinely hard — this tileset does not try to fix OSM; it provides a complete-but-coarse base underneath it.
+
+### Why a separate source
+
+Up to version 3, the land cover was merged into OSM's `land` and `water_polygons` layers, and OSM took over at z11. But OSM maps only part of the land at z11, so outside Central Europe and the large rainforests, most of the coloured land turned into the style's background there. As a separate source under OSM, it stays. The [landcover-vectors README](https://github.com/versatiles-org/landcover-vectors#using-it-with-osm) has per-region figures.
 
 ---
 
-## ESA WorldCover → Shortbread mapping
+## ESA WorldCover → `kind` mapping
 
-Each [ESA WorldCover](https://esa-worldcover.org/en/data-access) class maps to one Shortbread layer and `kind`. The container carries every kind up to z10. The last column is the part a merge with OSM uses; above it, the kind comes from OSM (see [the handover](#the-handover)):
+Each [ESA WorldCover](https://esa-worldcover.org/en/data-access) class maps to one `kind` in the `landcover` layer, at z0–10. The last column is the Shortbread layer in which OSM has that kind, and whose fill a style copies for it:
 
-| ESA WorldCover class     | → layer          | `kind`        | container fills | used in a merge |
-| ------------------------ | ---------------- | ------------- | --------------- | --------------- |
-| Tree cover               | `land`           | `forest`      | z0–10           | z0–10           |
-| Cropland                 | `land`           | `farmland`    | z0–10           | z0–10           |
-| Built-up                 | `land`           | `residential` | z0–10           | z0–9            |
-| Bare / sparse vegetation | `land`           | `bare_rock`   | z0–10           | z0–10           |
-| Moss & lichen            | `land`           | `heath`       | z0–10           | z0–10           |
-| Shrubland                | `land`           | `scrub`       | z0–10           | z0–10           |
-| Grassland                | `land`           | `grassland`   | z0–10           | z0–10           |
-| Herbaceous wetland       | `land`           | `marsh`       | z0–10           | z0–10           |
-| Mangroves                | `land`           | `swamp`       | z0–10           | z0–10           |
-| Snow and ice             | `water_polygons` | `glacier`     | z0–10           | z0–10           |
-| Permanent water bodies   | `water_polygons` | `water`       | z0–10           | z0–3            |
-| No data / open ocean     | —                | _(dropped)_   | —               | —               |
+| ESA WorldCover class     | `kind`        | OSM's layer      |
+| ------------------------ | ------------- | ---------------- |
+| Tree cover               | `forest`      | `land`           |
+| Cropland                 | `farmland`    | `land`           |
+| Built-up                 | `residential` | `land`           |
+| Bare / sparse vegetation | `bare_rock`   | `land`           |
+| Moss & lichen            | `heath`       | `land`           |
+| Shrubland                | `scrub`       | `land`           |
+| Grassland                | `grassland`   | `land`           |
+| Herbaceous wetland       | `marsh`       | `land`           |
+| Mangroves                | `swamp`       | `land`           |
+| Snow and ice             | `glacier`     | `water_polygons` |
+| Permanent water bodies   | `water`       | `water_polygons` |
+| No data                  | _(dropped)_   | —                |
 
 Several mappings are deliberate, lossy generalisations — acceptable at these zooms, where the detail is not visible:
 
@@ -53,73 +57,44 @@ Several mappings are deliberate, lossy generalisations — acceptable at these z
 - **Moss & lichen → `heath`** — Shortbread has no moss/lichen value; `heath` is the closest low tundra vegetation fill.
 - **Wetland split** — herbaceous wetland → `marsh`, mangroves → `swamp`.
 
-Open ocean (ESA no-data) is dropped, leaving those areas to Shortbread's `ocean` layer. The canonical, versioned mapping lives in the repository: [What's in the tiles](https://github.com/versatiles-org/landcover-vectors#whats-in-the-tiles).
+The canonical, versioned mapping lives in the repository: [What's in the tiles](https://github.com/versatiles-org/landcover-vectors#whats-in-the-tiles).
 
-### The handover
+### OSM's land use
 
-For most kinds there is **one handover, at z10 → z11**: up to z10 the land cover supplies them, from z11 OSM does.
+The tileset is not pure ESA data. OSM's land use is burned into ESA's classes before the tiles are generalised: urban land as built-up, fields as cropland, parks and allotments as grassland, woods as tree cover. So where the two disagree, OSM wins: ESA sees trees in a leafy suburb, but OSM maps it as residential.
 
-OSM has its own copies of some kinds earlier (`forest` from z7, `farmland` from z10, `glacier` from z4), but they are sparse where the satellite data is complete: in central Spitsbergen, OSM maps 9% of a tile as glacier where ESA sees 96% ice ([landcover-vectors#8](https://github.com/versatiles-org/landcover-vectors/issues/8)). A merge therefore **drops OSM's features of these kinds up to z10**, so each zoom has exactly one source per kind. OSM's other kinds (`river`, `reservoir`, `park`, …) are kept at every zoom.
+As a result, at z10 the towns are OSM's. All of OSM's urban kinds (`industrial`, `commercial`, `retail`, `railway`, …) end up as `residential`. Where OSM maps nothing, ESA's classification shows.
 
-**`water` and `residential` are the exceptions.** Where OSM has them, they are more precise than ESA's, so a merge keeps OSM's copy and drops the land cover's:
+### The sea
 
-- **`water` from z4**, where Shortbread starts it. OSM's lakes are precise; ESA's are a classified raster. The land cover's `water` is used only at z0–3, where Shortbread has no lakes at all.
-- **`residential` from z10**, where Shortbread starts every urban kind. OSM separates residential, industrial, commercial, retail and railway land; ESA's single built-up class would cover all of them. The land cover's `residential` is used up to z9.
-
-**Expect the land cover to thin out at z11.** At z10, every land pixel ESA classifies is filled; from z11, only what OSM maps is. Where OSM's land use is mapped wall to wall (Central Europe, the large rainforests), the handover is barely visible. Elsewhere, much of the coloured land turns into the style's background. The [landcover-vectors README](https://github.com/versatiles-org/landcover-vectors#the-handover) has per-region figures.
+The sea is a hole for Shortbread's `ocean` layer to fill. It is masked with OSM's sea polygons, the ones `ocean` is built from, so the land cover ends at OSM's coastline. ESA's own sea, which it classifies as permanent water along the coasts, never becomes `water`. Lakes are not part of OSM's sea and stay.
 
 ---
 
 ## Using it
 
-### 1. Get a merged OSM + land-cover tileset
+### 1. Get the tiles
 
-You need one tileset in which the land cover and the OSM data populate the same `land` / `water_polygons` layers. There are two ways to get there.
+- **Hosted:** `https://tiles.versatiles.org/tiles/landcover-vectors/tiles.json`, on our [demo server](../guides/use_tiles_versatiles_org.md).
+- **Download:** [`landcover-vectors.versatiles`](https://download.versatiles.org/#landcover-vectors), to [serve it yourself](../basics/versatiles_server.md).
+- **Build:** see [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors#building).
 
-#### Shortcut: download the pre-merged tileset (recommended)
+Use it together with plain OSM Shortbread tiles, such as the hosted `osm` tileset or `osm.versatiles`.
 
-We publish the OSM and land-cover tilesets already merged, so you can skip the merge entirely:
+### 2. Draw it under OSM
 
-- **[Download `osm-landcover.versatiles`](https://download.versatiles.org/#osm-landcover)** — the OSM Shortbread tileset with low-zoom land cover already blended in, ready to use with no further processing.
+The style has two vector sources, and draws, bottom to top:
 
-This is the fastest option and avoids the lengthy merge step.
+1. the background
+2. the land cover's fills
+3. OSM's `ocean`
+4. OSM's other layers, unchanged
 
-#### Merge it yourself
+OSM's own forests, lakes and towns draw on top wherever OSM has them, so nothing needs filtering.
 
-If you need a custom combination — for example a different OSM build, or land cover only over a region — merge the two source tilesets at the feature level so both populate the same `land` / `water_polygons` layers. The result is one tileset with continuous land cover from z0.
+#### With @versatiles/style
 
-Obtain the [prepared `landcover-vectors.versatiles`](https://download.versatiles.org/#landcover-vectors) (or build it yourself from [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors)), then merge it with an OSM-based Shortbread tileset using the [VersaTiles CLI](https://github.com/versatiles-org/versatiles-rs).
-
-> [!WARNING]
-> **Don't merge without the filters.** Both sources carry many of the same kinds up to z10. A plain `from_merged_vector [ osm, landcover ]` keeps both copies, so OSM's sparse forest and glaciers are drawn on top of ESA's, ESA's classified lakes on top of OSM's precise ones, and ESA's built-up area over OSM's urban detail.
-
-Filter both sources on the way into `from_merged_vector`, as described in [the handover](#the-handover). The filter expressions contain single quotes, which a single-quoted shell argument cannot hold, so write the pipeline to a file:
-
-```bash
-cat > merge.vpl <<'EOF'
-from_merged_vector [
-  from_container filename="osm.versatiles"
-    | vector_filter_features layer=["land"] expr="!(zoom <= 10 && kind in ['forest', 'farmland', 'bare_rock', 'heath', 'scrub', 'grassland', 'marsh', 'swamp'])"
-    | vector_filter_features layer=["water_polygons"] expr="!(zoom <= 10 && kind in ['glacier'])",
-  from_container filename="landcover-vectors.versatiles"
-    | vector_filter_features layer=["land"] expr="!(zoom >= 10 && kind in ['residential'])"
-    | vector_filter_features layer=["water_polygons"] expr="!(zoom >= 4 && kind in ['water'])"
-]
-EOF
-versatiles convert -c brotli merge.vpl combined.versatiles
-```
-
-> [!WARNING]
-> **Requires versatiles ≥ 4.15.0.** `vector_filter_features` only knows the tile's `zoom` since 4.15.0. Older versions report no error: 4.14.0 silently drops every feature of the filtered layers at every zoom, so the merged tileset ends up without `land` and `water_polygons`.
-
-The canonical filters are maintained in the [landcover-vectors README](https://github.com/versatiles-org/landcover-vectors#merge-with-the-versatiles-cli); they change whenever a cutoff does.
-
-> [!NOTE]
-> The merge is processing-heavy: it is slow at first for the lower zoom levels, then speeds up, but can still take hours overall. This is exactly the work the pre-merged `osm-landcover.versatiles` saves you.
-
-### 2. Render at low zoom
-
-Most Shortbread styles fade these kinds in at the zoom level where the OSM data starts, so the low-zoom cover stays invisible until the style is told to draw it. [@versatiles/style](https://github.com/versatiles-org/versatiles-style) does this via an opt-in flag (v6; in v5.13 it was `colorful({ experimental: { landcover: true } })`):
+[@versatiles/style](https://github.com/versatiles-org/versatiles-style) does this from v8 on:
 
 ```js
 import { osm } from '@versatiles/style';
@@ -127,28 +102,77 @@ import { osm } from '@versatiles/style';
 const style = osm({ theme: 'colorful', features: { landcover: true } });
 ```
 
-It removes the zoom-based fade-in from every layer rendering one of the kinds above, so they are drawn from z0. Supported by every theme; `osm.supportsLandcover(tileJSON)` reports whether a tileset carries the extension. Enable it only against a merged tileset — on plain OSM tiles those layers would appear abruptly rather than fading in.
+This adds the source and 9 fills, in every theme. The source defaults to the hosted tileset. If you serve it yourself, set `urls.landcover`:
 
-Without the merge, plain OSM tiles stay exactly as they are; the land cover adds nothing to them. A merge does change OSM's data, though: it replaces OSM's own features of these kinds up to z10 (see [the handover](#the-handover)).
+```js
+const style = osm({
+  theme: 'colorful',
+  features: { landcover: true },
+  urls: { landcover: '/tiles/landcover-vectors/tiles.json' },
+});
+```
+
+`osm.supportsLandcover(tileJSON)` tells whether a tileset can be used for this.
+
+> [!NOTE]
+> The option is off by default, and the prebuilt styles at `https://tiles.versatiles.org/assets/styles/` don't use it. To get the land cover, generate the style with the option.
+
+> [!WARNING]
+> Before v8, `features.landcover` did something else: it expected the land cover to be merged into OSM's tiles, and added no source. On plain OSM tiles, it only makes the fills appear abruptly.
+
+#### With a style of your own
+
+Add the land cover as a second source:
+
+```json
+{
+  "sources": {
+    "landcover": {
+      "type": "vector",
+      "url": "https://tiles.versatiles.org/tiles/landcover-vectors/tiles.json"
+    }
+  }
+}
+```
+
+Then add a copy of your fill for each group of kinds, right above the background. In the copy, set `source` and `source-layer`, filter by `kind`, remove `minzoom`, and replace `fill-opacity`. For the forest of the colorful style:
+
+```json
+{
+  "id": "landcover-land-forest",
+  "type": "fill",
+  "source": "landcover",
+  "source-layer": "landcover",
+  "filter": ["in", ["get", "kind"], ["literal", ["forest"]]],
+  "paint": {
+    "fill-color": "rgb(203,229,184)",
+    "fill-opacity": ["interpolate", ["linear"], ["zoom"], 12, 1, 14, 0.25]
+  }
+}
+```
+
+The tiles end at z10, and MapLibre overzooms them above that. So the land cover is opaque up to z12, where its outlines grow coarse, fades to 25 % by z14, and stays at 25 % above that, so land that OSM doesn't map keeps a hint of colour.
+
+If you build on a style from @versatiles/style, `osm.slots.belowFills` is the place for these fills. It has been available since v6, so this also works with older versions.
 
 ---
 
 ## Attribution & licensing
 
-ESA WorldCover is licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and requires the attribution:
+Because of the burned-in land use, the tileset is licensed under the [ODbL](https://opendatacommons.org/licenses/odbl/), and contains ESA WorldCover data under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Both attributions must be shown:
+
+> © OpenStreetMap contributors
 
 > © ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed by ESA WorldCover consortium
-
-When merged with OpenStreetMap data (ODbL), **both** attributions must be shown. The generated tileset is derived from ESA WorldCover and is therefore also CC BY 4.0.
 
 ---
 
 ## References
 
-- VersaTiles generator: [landcover-vectors](https://github.com/versatiles-org/landcover-vectors) ([what's in the tiles](https://github.com/versatiles-org/landcover-vectors#whats-in-the-tiles) · [merging with OSM](https://github.com/versatiles-org/landcover-vectors#merging-with-osm) · [how it works](https://github.com/versatiles-org/landcover-vectors#how-it-works))
+- VersaTiles generator: [landcover-vectors](https://github.com/versatiles-org/landcover-vectors) ([what's in the tiles](https://github.com/versatiles-org/landcover-vectors#whats-in-the-tiles) · [using it with OSM](https://github.com/versatiles-org/landcover-vectors#using-it-with-osm) · [how it works](https://github.com/versatiles-org/landcover-vectors#how-it-works))
 - Related: [Shortbread schema extensions](specification_shortbread_extensions.md) (attribute extensions in the OSM tileset)
 - Source data: [ESA WorldCover](https://esa-worldcover.org/) · [data access & legend](https://esa-worldcover.org/en/data-access)
 - Shortbread schema: [shortbread-tiles.org](https://shortbread-tiles.org/) · scope decision [shortbread-docs #144](https://github.com/shortbread-tiles/shortbread-docs/issues/144)
-- Rendering: [versatiles-style #114](https://github.com/versatiles-org/versatiles-style/issues/114) · [#115](https://github.com/versatiles-org/versatiles-style/issues/115) (both implemented in [v5.13.0](https://github.com/versatiles-org/versatiles-style/releases/tag/v5.13.0))
+- Rendering: [versatiles-style #145](https://github.com/versatiles-org/versatiles-style/issues/145) (released in [v8.0.0](https://github.com/versatiles-org/versatiles-style/releases/tag/v8.0.0))
 - Data-source listing: [versatiles.org/sources](https://versatiles.org/sources/)
 - Coverage figure: [FAO Forest Resources Assessment 2020](https://www.fao.org/interactive/forest-resources-assessment/2020/en/)

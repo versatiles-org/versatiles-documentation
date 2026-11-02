@@ -14,7 +14,7 @@ Reference material and specifications for the VersaTiles ecosystem. Where **Basi
 - [**Frontend bundle**](specification_frontend.md) — Contents and conventions of the prebuilt frontend package.
 - [**Extended TileJSON**](specification_extended_tilejson.md) — Optional metadata fields that extend the TileJSON 3.0 spec.
 - [**Shortbread schema extensions**](specification_shortbread_extensions.md) — Opt-in, beyond-spec features VersaTiles adds to the Shortbread vector-tile schema (3D buildings, localized names, …).
-- [**Shortbread low-zoom land cover**](specification_shortbread_landcover.md) — An optional ESA-WorldCover-derived tileset that fills Shortbread's `land` / `water_polygons` layers at zoom 0–10, where OSM's land cover is sparse or missing.
+- [**Land cover tileset**](specification_shortbread_landcover.md) — An optional tileset from ESA WorldCover and OSM's land use, with one layer, `landcover`, at zoom 0–10. A style draws it as a separate source under OSM, to fill the land where OSM's land cover is sparse or missing.
 
 ## Ecosystem
 
