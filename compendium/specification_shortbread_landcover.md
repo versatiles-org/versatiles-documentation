@@ -115,7 +115,7 @@ const style = osm({
 `osm.supportsLandcover(tileJSON)` tells whether a tileset can be used for this.
 
 > [!NOTE]
-> The option is off by default, and the prebuilt styles at `https://tiles.versatiles.org/assets/styles/` don't use it. To get the land cover, generate the style with the option.
+> The option is off by default in `osm()`. The prebuilt OSM styles at `https://tiles.versatiles.org/assets/styles/` turn it on from v8.1 on, so they draw the land cover from the hosted tileset.
 
 > [!WARNING]
 > Before v8, `features.landcover` did something else: it expected the land cover to be merged into OSM's tiles, and added no source. On plain OSM tiles, it only makes the fills appear abruptly.

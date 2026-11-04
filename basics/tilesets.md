@@ -141,7 +141,7 @@ import { osm } from '@versatiles/style';
 const style = osm({ theme: 'colorful', features: { landcover: true } });
 ```
 
-This adds the source and its fills, in every theme. The stock OSM layers don't change. The source defaults to the hosted `landcover-vectors` tileset; if you serve it yourself, set `urls.landcover`. The prebuilt styles on `tiles.versatiles.org` don't use this option. Before v8, the option expected a merged tileset and added no source.
+This adds the source and its fills, in every theme. The stock OSM layers don't change. The source defaults to the hosted `landcover-vectors` tileset; if you serve it yourself, set `urls.landcover`. The option is off by default, but the prebuilt OSM styles on `tiles.versatiles.org` turn it on from v8.1 on. Before v8, the option expected a merged tileset and added no source.
 
 The full ESA WorldCover → `kind` mapping, how to draw it in a style of your own and the reasoning behind the lossy generalizations are documented in [Land Cover Tileset](../compendium/specification_shortbread_landcover.md).
 
