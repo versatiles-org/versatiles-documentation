@@ -8,7 +8,7 @@
 
 This page describes an **optional, complementary tileset** that fills those gaps. It combines [ESA WorldCover](https://esa-worldcover.org/) — a global 10 m satellite land-cover classification — with OpenStreetMap's land use, in one layer, `landcover`, with one attribute, `kind`, at zoom 0–10. A style draws it as a **separate source under OSM**: OSM paints over it wherever it has data, and it shows wherever OSM has none.
 
-Unlike the [Shortbread schema extensions](specification_shortbread_extensions.md) — which add _attributes_ to the OSM/Planetiler tileset — this is a **separate tileset**, produced by [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors). It isn't part of the Shortbread schema, although its `kind` values are Shortbread's, so that a style can reuse its colours. The container declares [`tile_schema`](specification_extended_tilejson.md#property-tile-schema) `versatiles/landcover@1.0`.
+Unlike the [Shortbread schema extensions](specification_shortbread_extensions.md) — which add _attributes_ to the OSM/Planetiler tileset — this is a **separate tileset**, produced by [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors). It isn't part of the Shortbread schema, although its `kind` values are Shortbread's, so that a style can reuse its colours. The container declares [`tile_schema`](specification_extended_tilejson.md#property-tile_schema) `versatiles/landcover@1.0`.
 
 > This page documents the **contract** — what the tileset contains and how to consume it. The build pipeline is documented in the [landcover-vectors README](https://github.com/versatiles-org/landcover-vectors#how-it-works).
 
