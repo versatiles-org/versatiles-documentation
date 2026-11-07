@@ -147,7 +147,7 @@ Progress in the development and implementation of the frontend includes:
 - [x] **Fonts**: Prepared default fonts. ([Repository](https://github.com/versatiles-org/versatiles-fonts))
 - [x] **Sprites using signed distance fields**: ... to ensure that icons and symbols are scalable, colourable and clear at any zoom level. ([Repository](https://github.com/versatiles-org/versatiles-style))
 - [x] **Multiple frontends** are available: a minimal version and a large developer version ([Repository](https://github.com/versatiles-org/versatiles-frontend))
-- [ ] **Right-to-left (RTL) label support**: Efforts are underway to add support for RTL languages, such as Arabic, to ensure that maps are accessible to a global audience. ([Issue](https://github.com/versatiles-org/versatiles-frontend/issues/15))
+- [x] **Right-to-left (RTL) label support**: Resolved in [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js/issues/220)
 
 ## Server
 
