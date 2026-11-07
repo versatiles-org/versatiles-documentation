@@ -8,7 +8,11 @@ Rather than trying to improve this setup, VersaTiles specifies a much simpler ar
 
 VersaTiles is a stack that defines how geo data like OpenStreetMap can be processed and served to create interactive web maps. It specifies some basic architectural choices and provides a standard implementation, while leaving the option of deviating from it open. The architecture is as simple as this:
 
-<p align="center"><img src="../assets/architecture.svg"></p>
+<script setup>
+import referenceModel from '../assets/reference_model.svg?raw';
+</script>
+
+<div v-html="referenceModel"></div>
 
 - **MAP TILES** are pre-rendered and stored in a [VersaTiles container](../compendium/specification_container.md). We currently use [planetiler](https://github.com/onthegomap/planetiler) to generate OpenStreetMap (OSM) vector tiles in the [Shortbread schema](https://shortbread-tiles.org/schema/1.1/). All map tiles are available to download for free from [download.versatiles.org](https://download.versatiles.org/)
 - The web **FRONTEND** contains everything needed to render maps. We use [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/), prepared [glyphs](https://github.com/versatiles-org/versatiles-fonts), [sprites and styles](https://github.com/versatiles-org/versatiles-style), and have [bundled everything together in a TAR file](https://github.com/versatiles-org/versatiles-frontend), ready to use.
