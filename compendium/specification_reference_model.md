@@ -32,6 +32,9 @@ Users can skip the tile generation process altogether and download our pre-built
 
 We provide a range of pre-built tilesets ready for use:
 
+> [!NOTE] The tilesets are being renamed.
+> The hosted files are being renamed to follow the [filename rule](#requirementsrecommendations), so that each name ends with its format: `osm` becomes `osm-vector`, `elevation` becomes `elevation-raster`, and so on. The old names keep working. Progress is tracked in [#98](https://github.com/versatiles-org/versatiles-documentation/issues/98).
+
 - **OSM vector tiles** (`osm.versatiles`): OpenStreetMap data in the [Shortbread schema](https://shortbread-tiles.org/), generated with [Planetiler](https://github.com/onthegomap/planetiler). Optional schema extensions for features such as 3D buildings and localised labels are documented in [Shortbread Schema Extensions](specification_shortbread_extensions.md).
 - **Land cover** (`landcover-vectors.versatiles`): Global land classification vector tiles at zoom levels 0–10, from ESA WorldCover satellite data and OSM's land use, drawn as a separate source under OSM — see [Land Cover Tileset](specification_shortbread_landcover.md) ([repository](https://github.com/versatiles-org/landcover-vectors)).
 - **Elevation** (`elevation.versatiles`): Terrarium-encoded raster elevation tiles (WebP, zoom levels 0–12) built from [Mapterhorn](https://mapterhorn.com) DEM data ([repository](https://github.com/versatiles-org/elevation)). The same tooling can also build a container from Copernicus DEM GLO-30 / GLO-90.
@@ -77,11 +80,13 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - You SHOULD use optimal compression techniques to efficiently reduce tile size without compromising data integrity. Recommended methods include:
   - Use Brotli compression for vector tiles.
   - Use WebP format for raster tiles.
-- The filename of the container SHOULD follow the format `<content>[.<schema>][.<coverage>][.<date>].versatiles`, where:
-  - `<content>` describes the content, e.g: `osm`, `hillshade` or `satellite`.
-  - `<schema>` (optional) e.g.: `shortbread` or `openmaptiles`.
-  - `<coverage>` (optional) specifies the geographical coverage, if not planet wide, e.g: `europe` or `kyiv`.
-  - `<date>` (optional) is a [basic ISO date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (YYYYMMDD), e.g: `20151021`.
+- The filename of the container SHOULD follow the format `<content>-<format>[.<schema>][.<coverage>][.<date>].versatiles`, e.g. `osm-vector.versatiles` or `osm-vector.shortbread.europe.20251021.versatiles`, where:
+  - `<content>` describes the content, e.g. `osm`, `hillshade` or `satellite`.
+  - `<format>` is `vector` or `raster`, the same values as `tile_type` in [Extended TileJSON](specification_extended_tilejson.md). It is not optional. Elevation is `raster`: that the tiles hold elevation data, and in which encoding, is stated by `tile_schema` (e.g. `dem/terrarium`), not by the name.
+  - `<schema>` (optional) is a short schema name, e.g. `shortbread`, `openmaptiles` or `terrarium`.
+  - `<coverage>` (optional) specifies the geographical coverage, if not planet wide, e.g. `europe` or `kyiv`.
+  - `<date>` (optional) is a [basic ISO date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (YYYYMMDD), e.g. `20151021`.
+- `<content>-<format>` is the name of the tileset, and the dot fields mark variants of it. A server that serves a file with dot fields SHOULD be given that name explicitly, because by default it names the tileset after the whole basename.
 
 ### Status
 
