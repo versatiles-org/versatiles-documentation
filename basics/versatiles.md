@@ -14,10 +14,10 @@ import referenceModel from '../assets/reference_model.svg?raw';
 
 <div v-html="referenceModel"></div>
 
-- **MAP TILES** are pre-rendered and stored in a [VersaTiles container](../compendium/specification_container.md). We currently use [planetiler](https://github.com/onthegomap/planetiler) to generate OpenStreetMap (OSM) vector tiles in the [Shortbread schema](https://shortbread-tiles.org/schema/1.1/). All map tiles are available to download for free from [download.versatiles.org](https://download.versatiles.org/)
-- The web **FRONTEND** contains everything needed to render maps. We use [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/), prepared [glyphs](https://github.com/versatiles-org/versatiles-fonts), [sprites and styles](https://github.com/versatiles-org/versatiles-style), and have [bundled everything together in a TAR file](https://github.com/versatiles-org/versatiles-frontend), ready to use.
-- The **MAP SERVER** serves the frontend and map tiles via HTTP. We have a [powerful Rust implementation](https://github.com/versatiles-org/versatiles-rs) and a [flexible Node.js implementation](https://github.com/versatiles-org/node-versatiles-server), as well as special packages (e.g. for [Google Cloud Run](https://github.com/versatiles-org/node-versatiles-google-cloud)).
-- The **OPTIONAL PROXY** covers additional network-related topics such as TLS certificates, caching, load balancing and CORS.
+- **Map Data** consists of pre-rendered tiles stored in a tile container, such as the [VersaTiles container format](../compendium/specification_container.md). We currently use [Planetiler](https://github.com/onthegomap/planetiler) to generate OpenStreetMap (OSM) vector tiles in the [Shortbread schema](https://shortbread-tiles.org/schema/1.1/). All map tiles are available to download for free from [download.versatiles.org](https://download.versatiles.org/).
+- The web **Frontend** contains everything needed to render maps. We use [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/), prepared [glyphs](https://github.com/versatiles-org/versatiles-fonts), [sprites and styles](https://github.com/versatiles-org/versatiles-style), and have [bundled everything together in a TAR file](https://github.com/versatiles-org/versatiles-frontend), ready to use.
+- The **Server** serves the frontend and map tiles via HTTP. We have a [powerful Rust implementation](https://github.com/versatiles-org/versatiles-rs) and a [flexible Node.js implementation](https://github.com/versatiles-org/node-versatiles-server), as well as special packages (e.g. for [Google Cloud Run](https://github.com/versatiles-org/node-versatiles-google-cloud)).
+- The optional **Proxy** covers additional network-related topics such as TLS certificates, caching, load balancing and CORS.
 
 ## VersaTiles is open and free
 
@@ -28,7 +28,7 @@ To ensure the [four essential freedoms of Free Software](https://en.wikipedia.or
 - **Everything should be open**  
   _Every piece of code, script and data should be documented, understandable and reproducible._
 - **Minimal licences**  
-  _Use MIT and CC0, remove proprietary parts. The only attribution should be to the data source if needed, e.g. "© OpenStreetMap contributors"._
+  _Use MIT and CC0, remove proprietary parts. The only required attribution should be to the data source, e.g. "© OpenStreetMap contributors"._
 - **Keep it simple**  
   _We focus on core functionality that everyone needs. Less features for special cases. We prefer simple solutions that allow more flexibility. Minimal dependencies._
 - **Include everyone**  
