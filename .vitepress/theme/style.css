@@ -77,3 +77,48 @@
 	border-width: 0 0 1px;
 	border-image: linear-gradient(60deg, #6b0075, #9d35ff 40%, #93a813 65%, var(--vt-green)) 0.5;
 }
+
+/**
+ * Component: Task lists
+ * `- [x]` items in Markdown, rendered by markdown-it-task-lists as disabled
+ * checkboxes. The browser draws those small and greyed out, next to a list
+ * bullet, so the box replaces the bullet and is drawn by hand.
+ * -------------------------------------------------------------------------- */
+
+:root {
+	--vt-task-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* The light purple of dark mode needs a dark check mark. */
+.dark {
+	--vt-task-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%231b1b1f' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.vp-doc ul.contains-task-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+/* The hanging indent keeps wrapped lines aligned with the text. */
+.vp-doc .task-list-item {
+	position: relative;
+	padding-left: 1.75em;
+}
+
+.vp-doc .task-list-item-checkbox {
+	appearance: none;
+	position: absolute;
+	left: 0;
+	top: calc((1lh - 1.1em) / 2);
+	width: 1.1em;
+	height: 1.1em;
+	margin: 0;
+	border: 1.5px solid var(--vp-c-text-3);
+	border-radius: 4px;
+	cursor: default;
+}
+
+.vp-doc .task-list-item-checkbox:checked {
+	border-color: var(--vp-c-brand-1);
+	background: var(--vt-task-check) center / 100% no-repeat var(--vp-c-brand-1);
+}
