@@ -94,7 +94,7 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - [x] Migrate to a cheaper cloud provider (like Hetzner)
 - [x] Reduce the size of vector tiles ([issue](https://github.com/versatiles-org/versatiles-generator/issues/7))
 - [x] Improve lower zoom levels ([issue](https://github.com/versatiles-org/versatiles-generator/issues/2)), especially merge and simplify polygons where possible
-- [ ] Migrate from Tilemaker to Planetiler for OSM vector tile generation ([guide](../guides/generate_tiles_from_osm.md)) — Planetiler generates the published tiles already, but the Shortbread profile is still in beta
+- [x] Migrate from Tilemaker to Planetiler for OSM vector tile generation ([guide](../guides/generate_tiles_from_osm.md)) — Planetiler generates the published tiles already, but the Shortbread profile is still in beta
 - [x] Generate elevation tiles ([repository](https://github.com/versatiles-org/elevation)) — the published tileset is derived from Mapterhorn; Copernicus DEM GLO-30 / GLO-90 is also supported
 - [x] Generate land cover tiles from ESA WorldCover ([repository](https://github.com/versatiles-org/landcover-vectors))
 - [x] Generate bathymetry depth-contour tiles from GEBCO data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry))
