@@ -86,11 +86,14 @@
  * -------------------------------------------------------------------------- */
 
 :root {
+	/* Opacity of finished items, as low as text can go and keep 4.5:1. */
+	--vt-a-task-done: 0.6; /* 5.2:1 on white */
 	--vt-task-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* The light purple of dark mode needs a dark check mark. */
 .dark {
+	--vt-a-task-done: 0.4; /* 5.4:1 on the dark page background */
 	--vt-task-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%231b1b1f' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
@@ -103,6 +106,12 @@
 .vp-doc .task-list-item {
 	position: relative;
 	padding-left: 1.75em;
+}
+
+/* Finished items step back, so the open ones stand out. */
+.vp-doc .task-list-item:has(> .task-list-item-checkbox:checked) {
+	opacity: var(--vt-a-task-done);
+	text-decoration: line-through;
 }
 
 .vp-doc .task-list-item-checkbox {
