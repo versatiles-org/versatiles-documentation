@@ -205,8 +205,7 @@ Future improvements will focus on:
 - [x] Proper CORS handling
 - [x] Full `config.yaml` support
 - [x] Generation of tile size statistics
-- [ ] Vector tile content debugging
-- [ ] Implementing "diff" and "patch" commands for tile updates
+- [x] Vector tile content debugging
 - [x] Implement a tile processing pipeline (alpha version already released. Run `versatiles help pipeline`)
 - [x] Develop an "overlay" command to overlay image tiles
 - [ ] Improve the "overlay" command by implementing a [multi-scale approach](https://en.wikipedia.org/wiki/Multi-scale_approaches) to seamlessly overlay image tiles (see also [gradient-domain image processing](https://en.wikipedia.org/wiki/Gradient-domain_image_processing))
@@ -217,7 +216,7 @@ Our NodeJS implementation includes:
 
 - [x] An [NPM library](https://github.com/versatiles-org/node-versatiles-container)
 - [x] A [Node.js server](https://github.com/versatiles-org/node-versatiles-server) (NPM package `@versatiles/server`) with configurable hostname/port, static file serving, CORS management, and data compression.
-- [ ] Full `config.yaml` support
+- [x] Full `config.yaml` support
 - [x] Comprehensive CORS management
 
 A specific solution for newsrooms using Google Cloud includes a NodeJS Cloud Run service that serves static files from a bucket via the CDN, managing all HTTP headers, MIME types, caching and optimal compression. An outstanding feature is the ability to serve tiles directly from a `*.versatiles` file, including a preview mode:
