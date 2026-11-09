@@ -83,6 +83,10 @@ export default defineConfig({
 	 * index, and its badges belong on GitHub rather than on the site.
 	 */
 	srcExclude: ['README.md', 'DOCS-AUDIT.md', '**/*_PLAN.md'],
+	// Without a sitemap, Google only finds pages by following links.
+	sitemap: {
+		hostname: SITE_URL,
+	},
 	lastUpdated: true,
 	themeConfig: {
 		search: {
