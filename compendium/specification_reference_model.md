@@ -32,14 +32,14 @@ Users can skip the tile generation process altogether and download our pre-built
 
 We provide a range of pre-built tilesets ready for use:
 
-> [!NOTE] The tilesets are being renamed.
-> The hosted files are being renamed to follow the [filename rule](#requirementsrecommendations), so that each name ends with its format: `osm` becomes `osm-vector`, `elevation` becomes `elevation-raster`, and so on. The old names keep working. Progress is tracked in [#98](https://github.com/versatiles-org/versatiles-documentation/issues/98).
+> [!NOTE] The tilesets were renamed in November 2026.
+> The hosted files follow the [filename rule](#requirementsrecommendations), so that each name ends with its format: `osm` became `osm-vector`, `elevation` became `elevation-raster`, and so on ([#98](https://github.com/versatiles-org/versatiles-documentation/issues/98)). The old names keep working as aliases and redirects.
 
-- **OSM vector tiles** (`osm.versatiles`): OpenStreetMap data in the [Shortbread schema](https://shortbread-tiles.org/), generated with [Planetiler](https://github.com/onthegomap/planetiler). Optional schema extensions for features such as 3D buildings and localised labels are documented in [Shortbread Schema Extensions](specification_shortbread_extensions.md).
-- **Land cover** (`landcover-vectors.versatiles`): Global land classification vector tiles at zoom levels 0–10, from ESA WorldCover satellite data and OSM's land use, drawn as a separate source under OSM — see [Land Cover Tileset](specification_shortbread_landcover.md) ([repository](https://github.com/versatiles-org/landcover-vectors)).
-- **Elevation** (`elevation.versatiles`): Terrarium-encoded raster elevation tiles (WebP, zoom levels 0–12) built from [Mapterhorn](https://mapterhorn.com) DEM data ([repository](https://github.com/versatiles-org/elevation)). The same tooling can also build a container from Copernicus DEM GLO-30 / GLO-90.
-- **Bathymetry** (`bathymetry-vectors.versatiles`): Vector depth-contour tiles derived from GEBCO bathymetry data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)).
-- **Aerial imagery / Orthophotos**: Raster tiles from European national mapping agencies ([repository](https://github.com/versatiles-org/orthophotos)).
+- **OSM vector tiles** (`osm-vector.versatiles`): OpenStreetMap data in the [Shortbread schema](https://shortbread-tiles.org/), generated with [Planetiler](https://github.com/onthegomap/planetiler). Optional schema extensions for features such as 3D buildings and localised labels are documented in [Shortbread Schema Extensions](specification_shortbread_extensions.md).
+- **Land cover** (`landcover-vector.versatiles`): Global land classification vector tiles at zoom levels 0–10, from ESA WorldCover satellite data and OSM's land use, drawn as a separate source under OSM — see [Land Cover Tileset](specification_shortbread_landcover.md) ([repository](https://github.com/versatiles-org/landcover-vectors)).
+- **Elevation** (`elevation-raster.versatiles`): Terrarium-encoded raster elevation tiles (WebP, zoom levels 0–12) built from [Mapterhorn](https://mapterhorn.com) DEM data ([repository](https://github.com/versatiles-org/elevation)). The same tooling can also build a container from Copernicus DEM GLO-30 / GLO-90.
+- **Bathymetry** (`bathymetry-vector.versatiles`): Vector depth-contour tiles derived from GEBCO bathymetry data ([repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)).
+- **Aerial imagery / Orthophotos** (`satellite-raster.versatiles`): Raster tiles from European national mapping agencies ([repository](https://github.com/versatiles-org/orthophotos)).
 
 ### Generating Tiles
 
@@ -64,7 +64,7 @@ Accordingly, we have taken the lessons learned from COMTiles and PMTiles to crea
 A unique feature of our format is the ability to perform fast spatial queries remotely. Users who only need a specific region, such as a continent, country or city, do not need to download the entire planet. Instead, they can use our [VersaTiles CLI](https://github.com/versatiles-org/versatiles-rs) to filter and convert the remote container at [download.versatiles.org](https://download.versatiles.org) and download only an extract, for example:
 
 ```bash
-versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm.versatiles switzerland.versatiles
+versatiles convert --bbox "5,45,10,48" https://download.versatiles.org/osm-vector/osm-vector.versatiles switzerland.versatiles
 ```
 
 HTTP requests for successive tiles are combined to download thousands of tiles at once, resulting in very high performance. This allows parts of the planet to be extracted with no overhead. See the documentation on [partial download](../guides/download_tiles.md#partial-download) for more information.

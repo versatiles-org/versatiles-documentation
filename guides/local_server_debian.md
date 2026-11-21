@@ -14,7 +14,7 @@ See ["Installing VersaTiles"](install_versatiles.md).
 The VersaTiles data file is a compact file containing all map tiles for the entire planet. You can download it with `wget`:
 
 ```bash
-wget -c https://download.versatiles.org/osm.versatiles
+wget -c https://download.versatiles.org/osm-vector/osm-vector.versatiles
 ```
 
 If you need only a part of the planet, e.g. only a continent/country/city, you can download this part using the `versatiles` tool. See: [download tiles](download_tiles.md#partial-download)
@@ -36,7 +36,7 @@ Save the `frontend.br.tar.gz` file in the same directory as the `.versatiles` fi
 To start the VersaTiles server, open a shell, navigate to the directory where you saved the `.versatiles` file and the frontend file, and run:
 
 ```bash
-versatiles serve -s frontend.br.tar.gz "[osm]osm.versatiles"
+versatiles serve -s frontend.br.tar.gz "[osm-vector]osm-vector.versatiles"
 ```
 
 The VersaTiles server will now be running locally on your machine. To test it open `http://localhost:8080` in your browser.

@@ -19,7 +19,7 @@ From the dropdown, select `New Generic Connection...`.
 In the `Vector Tiles Connection` dialog, fill in the following details:
 
 - **Name**: Enter `VersaTiles`.
-- **URL**: Enter `https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}`.
+- **URL**: Enter `https://tiles.versatiles.org/tiles/osm-vector/{z}/{x}/{y}`.
 - **Min/Max Zoom Level**: Set `Min. Zoom Level` to `0` and `Max. Zoom Level` to `14`.
 
 ## Save the Connection

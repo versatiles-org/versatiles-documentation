@@ -7,7 +7,7 @@ Your server requires as an absolute minimum:
 
 - 2 CPU cores
 - 4 GB RAM
-- 80 GB free disk space — `osm.versatiles` alone is ~62 GB and keeps growing. A [regional extract](download_tiles.md#partial-download) needs far less.
+- 80 GB free disk space — `osm-vector.versatiles` alone is ~67 GB and keeps growing. A [regional extract](download_tiles.md#partial-download) needs far less.
 
 ## 0. Create a user "versatiles"
 
@@ -43,7 +43,7 @@ sudo -u versatiles bash << 'EOF'
 mkdir -p ~/versatiles
 cd ~/versatiles
 curl -Lo frontend.br.tar.gz "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend.br.tar.gz"
-curl -Lo osm.versatiles "https://download.versatiles.org/osm.versatiles"
+curl -Lo osm-vector.versatiles "https://download.versatiles.org/osm-vector/osm-vector.versatiles"
 EOF
 ```
 
@@ -88,7 +88,7 @@ Type=simple
 User=versatiles
 Group=versatiles
 WorkingDirectory=/home/versatiles/versatiles
-ExecStart=/usr/local/bin/versatiles serve -i 127.0.0.1 -p 8080 -s frontend.br.tar.gz "[osm]osm.versatiles"
+ExecStart=/usr/local/bin/versatiles serve -i 127.0.0.1 -p 8080 -s frontend.br.tar.gz "[osm-vector]osm-vector.versatiles"
 Restart=always
 RestartSec=5
 SyslogIdentifier=versatiles

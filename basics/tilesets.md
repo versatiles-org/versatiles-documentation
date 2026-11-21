@@ -5,16 +5,21 @@ We prepare and publish a number of ready-to-use tilesets. There are two ways to 
 - **Download** the [`.versatiles` container](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md) from [download.versatiles.org](https://download.versatiles.org/) and [serve it yourself](versatiles_server.md).
 - **Use our hosted tiles** at `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — our demo server, open to everyone but without uptime guarantees. See [Use tiles.versatiles.org](../guides/use_tiles_versatiles_org.md).
 
-| Tileset                                        | Type   | Zoom                           | Download | Maturity | Hosted as            |
-| ---------------------------------------------- | ------ | ------------------------------ | -------- | -------- | -------------------- |
-| [OSM Shortbread](#osm-shortbread-vector-tiles) | vector | 0–14                           | 62 GB    | stable   | `osm`                |
-| [Hillshade](#hillshade)                        | vector | 0–12                           | 105 GB   | alpha    | `hillshade-vectors`  |
-| [Landcover](#landcover)                        | vector | 0–10                           | 4.1 GB   | beta     | `landcover-vectors`  |
-| [Bathymetry](#bathymetry)                      | vector | 0–10                           | 0.7 GB   | alpha    | `bathymetry-vectors` |
-| [Elevation](#elevation)                        | raster | 0–12                           | 407 GB   | beta     | `elevation`          |
-| [Satellite](#satellite)                        | raster | 0–12 globally, more regionally | 1.6 TB   | alpha    | `satellite`          |
+| Tileset                                        | Type   | Zoom                           | Download | Maturity | Hosted as           |
+| ---------------------------------------------- | ------ | ------------------------------ | -------- | -------- | ------------------- |
+| [OSM Shortbread](#osm-shortbread-vector-tiles) | vector | 0–14                           | 67 GB    | stable   | `osm-vector`        |
+| [Hillshade](#hillshade)                        | vector | 0–12                           | 113 GB   | alpha    | `hillshade-vector`  |
+| [Landcover](#landcover)                        | vector | 0–10                           | 4.4 GB   | beta     | `landcover-vector`  |
+| [Bathymetry](#bathymetry)                      | vector | 0–10                           | 0.7 GB   | alpha    | `bathymetry-vector` |
+| [Elevation](#elevation)                        | raster | 0–12                           | 356 GB   | beta     | `elevation-raster`  |
+| [Satellite](#satellite)                        | raster | 0–12 globally, more regionally | 1.7 TB   | alpha    | `satellite-raster`  |
 
 File sizes are approximate and grow over time — [download.versatiles.org](https://download.versatiles.org/) is the authoritative source.
+
+The download file of each tileset has the same name as the hosted tileset: `https://download.versatiles.org/<tileset>/<tileset>.versatiles`.
+
+> [!NOTE]
+> The tilesets were renamed in November 2026, so that each name says what it contains and in which format. Before, they were `osm`, `hillshade-vectors`, `landcover-vectors`, `bathymetry-vectors`, `elevation` and `satellite`. The old names still work as aliases on tiles.versatiles.org and as redirects on download.versatiles.org, but new code should use the new ones. [@versatiles/style](https://github.com/versatiles-org/versatiles-style) v9 and newer use the new names.
 
 All vector tilesets are published as Mapbox Vector Tiles (MVT, called `pbf` in older tools and in TileJSON's `format` field). To get [MapLibre Tiles (MLT)](https://maplibre.org/maplibre-tile-spec/) instead, re-encode a downloaded container with [`versatiles convert --tile-format mlt`](../guides/converter.md#key-options) and set `"encoding": "mlt"` on the vector source in your MapLibre style.
 
@@ -22,9 +27,9 @@ All vector tilesets are published as Mapbox Vector Tiles (MVT, called `pbf` in o
 
 Beyond the plain download links below, the download server also offers:
 
-- **Dated snapshots** of the OSM tilesets (e.g. `osm.20260608.versatiles`) next to the always-current `osm.versatiles`, plus an RSS feed per tileset so you can watch for new builds.
+- **Dated snapshots** of the OSM tilesets (e.g. `osm-vector.20260608.versatiles`) next to the always-current `osm-vector.versatiles`, plus an RSS feed per tileset (`<tileset>/feed.xml`) so you can watch for new builds.
 - **Format conversion and bounding-box extracts** on the fly: pick `.versatiles`, `.pmtiles`, `.mbtiles` or `.tar` and an area, and the site generates the matching `versatiles convert` or `curl` command for you. A regional extract is usually a few hundred megabytes instead of tens of gigabytes.
-- A **URL list** (`urllist_<tileset>.tsv`) per tileset for scripted downloads.
+- A **URL list** (`<tileset>/urllist.tsv`) per tileset for scripted downloads.
 
 ## OSM Shortbread Vector Tiles
 
@@ -32,7 +37,7 @@ Beyond the plain download links below, the download server also offers:
 
 A set of general purpose vector tiles based on [OpenStreetMap](https://www.openstreetmap.org/) data using the [Shortbread schema](https://shortbread-tiles.org/schema/1.1/), covering the whole planet from zoom level 0 to 14.
 
-- [Download `osm.versatiles`](https://download.versatiles.org/osm.versatiles) (62 GB)
+- [Download `osm-vector.versatiles`](https://download.versatiles.org/osm-vector/osm-vector.versatiles) (67 GB)
 - [How to generate tiles](../guides/generate_tiles_from_osm.md)
 
 ### Style
@@ -50,14 +55,14 @@ There are [several ready-made Public Domain styles](https://github.com/versatile
 
 A set of general purpose vector tiles for simulating a shaded relief. Based on [Mapzen Jörð Terrain Tiles](https://github.com/tilezen/joerd), inspired by [Datawrapper](https://www.datawrapper.de/blog/shaded-relief-with-gdal-python).
 
-- [Download](https://download.versatiles.org/hillshade-vectors.versatiles) (105 GB, alpha)
+- [Download `hillshade-vector.versatiles`](https://download.versatiles.org/hillshade-vector/hillshade-vector.versatiles) (113 GB, alpha)
 
 > [!TIP]
 > Hillshading as vector polygons is cheap to render and works in any MapLibre style, but the container is large and the result is coarse above zoom level 12. If you can afford a `raster-dem` source and the larger download, [Elevation](#elevation) gives you MapLibre's own hillshading _and_ 3D terrain from a single tileset, at any zoom level up to 12.
 
 ### Style
 
-There is one layer called `hillshade-vectors` with a property `shade`:
+There is one layer called `hillshade-vectors` (still with the plural `s`: only the tileset was renamed) with a property `shade`:
 
 - `light` Light Shades
 - `dark` Dark Shades
@@ -73,7 +78,7 @@ There is one layer called `hillshade-vectors` with a property `shade`:
       "name": "VersaTiles Hillshade Vectors",
       "description": "VersaTiles Hillshade Vectors based on Mapzen Jörð Terrain Tiles",
       "attribution": "<a href=\"https://github.com/tilezen/joerd/blob/master/docs/attribution.md\">Mapzen Terrain Tiles, DEM Sources</a>",
-      "tiles": ["https://tiles.versatiles.org/tiles/hillshade-vectors/{z}/{x}/{y}"],
+      "tiles": ["https://tiles.versatiles.org/tiles/hillshade-vector/{z}/{x}/{y}"],
       "type": "vector",
       "scheme": "xyz",
       "format": "pbf",
@@ -125,7 +130,7 @@ There is one layer called `hillshade-vectors` with a property `shade`:
 
 A set of vector tiles that combines [ESA WorldCover](https://esa-worldcover.org/en/data-access) satellite data with OpenStreetMap's land use. Shortbread's `land` and `water_polygons` layers are derived purely from OpenStreetMap, so they are sparse and only start at higher zoom levels — a world map at zoom 0–6 shows almost no land cover, and land that OSM doesn't map stays empty at every zoom. This tileset fills those gaps with a complete, generalized classification, drawn under OSM.
 
-- [Download `landcover-vectors.versatiles`](https://download.versatiles.org/landcover-vectors.versatiles) (4.1 GB, beta)
+- [Download `landcover-vector.versatiles`](https://download.versatiles.org/landcover-vector/landcover-vector.versatiles) (4.4 GB, beta)
 - [Repository](https://github.com/versatiles-org/landcover-vectors)
 
 ### Style
@@ -141,7 +146,7 @@ import { osm } from '@versatiles/style';
 const style = osm({ theme: 'colorful', features: { landcover: true } });
 ```
 
-This adds the source and its fills, in every theme. The stock OSM layers don't change. The source defaults to the hosted `landcover-vectors` tileset; if you serve it yourself, set `urls.landcover`. The option is off by default, but the prebuilt OSM styles on `tiles.versatiles.org` turn it on from v8.1 on. Before v8, the option expected a merged tileset and added no source.
+This adds the source and its fills, in every theme. The stock OSM layers don't change. The source defaults to the hosted `landcover-vector` tileset; if you serve it yourself, set `urls.landcover`. The option is off by default, but the prebuilt OSM styles on `tiles.versatiles.org` turn it on from v8.1 on. Before v8, the option expected a merged tileset and added no source.
 
 The full ESA WorldCover → `kind` mapping, how to draw it in a style of your own and the reasoning behind the lossy generalizations are documented in [Land Cover Tileset](../compendium/specification_shortbread_landcover.md).
 
@@ -157,7 +162,7 @@ The full ESA WorldCover → `kind` mapping, how to draw it in a style of your ow
 
 A set of vector tiles based on [Bathymetry Shapefiles from OpenDEM](https://www.opendem.info/download_bathymetry.html).
 
-- [Download](https://download.versatiles.org/bathymetry-vectors.versatiles) (0.7 GB, alpha)
+- [Download `bathymetry-vector.versatiles`](https://download.versatiles.org/bathymetry-vector/bathymetry-vector.versatiles) (0.7 GB, alpha)
 - [Repository](https://github.com/versatiles-org/opendem-gebco-bathymetry)
 
 ### Style
@@ -183,7 +188,7 @@ The deepest steps only occur where such depths actually exist, so most tiles car
       "name": "OpenDEM GEBCO Bathymetry",
       "description": "Bathymetry Vectors based on GEBCO 2021 derived contour polys provided by OpenDEM",
       "attribution": "Derived product from the <a href=\"https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2021\">GEBCO 2021 Grid</a>, made with <a href=\"https://www.naturalearthdata.com/\">NaturalEarth</a> by <a href=\"https://opendem.info\">OpenDEM</a>",
-      "tiles": ["https://tiles.versatiles.org/tiles/bathymetry-vectors/{z}/{x}/{y}"],
+      "tiles": ["https://tiles.versatiles.org/tiles/bathymetry-vector/{z}/{x}/{y}"],
       "type": "vector",
       "scheme": "xyz",
       "format": "pbf",
@@ -252,7 +257,7 @@ The deepest steps only occur where such depths actually exist, so most tiles car
 
 Global elevation data encoded as raster tiles in [Terrarium format](https://github.com/tilezen/joerd/blob/master/docs/formats.md#terrarium). The underlying DEM data is sourced from [mapterhorn.com](https://mapterhorn.com). To reduce file size by roughly 40 %, the elevation values are quantised before encoding — the resulting precision loss is visually unnoticeable for hillshading and 3D terrain.
 
-- [Download](https://download.versatiles.org/elevation.versatiles) (407 GB, beta)
+- [Download `elevation-raster.versatiles`](https://download.versatiles.org/elevation-raster/elevation-raster.versatiles) (356 GB, beta)
 - [Repository](https://github.com/versatiles-org/elevation)
 
 ### Format
@@ -273,7 +278,7 @@ Use it as a `raster-dem` source in MapLibre for hillshading or 3D terrain:
   "sources": {
     "versatiles-elevation": {
       "type": "raster-dem",
-      "tiles": ["https://tiles.versatiles.org/tiles/elevation/{z}/{x}/{y}"],
+      "tiles": ["https://tiles.versatiles.org/tiles/elevation-raster/{z}/{x}/{y}"],
       "tileSize": 512,
       "minzoom": 0,
       "maxzoom": 12,
@@ -302,7 +307,7 @@ Use it as a `raster-dem` source in MapLibre for hillshading or 3D terrain:
 
 Satellite and orthophoto imagery from open data sources, available as 512 × 512 pixel WebP raster tiles.
 
-- [Download](https://download.versatiles.org/satellite.versatiles) (1.6 TB, alpha)
+- [Download `satellite-raster.versatiles`](https://download.versatiles.org/satellite-raster/satellite-raster.versatiles) (1.7 TB, alpha)
 - [Repository](https://github.com/versatiles-org/orthophotos)
 
 > [!NOTE]
@@ -316,7 +321,7 @@ Satellite and orthophoto imagery from open data sources, available as 512 × 512
   "sources": {
     "versatiles-satellite": {
       "type": "raster",
-      "tiles": ["https://tiles.versatiles.org/tiles/satellite/{z}/{x}/{y}"],
+      "tiles": ["https://tiles.versatiles.org/tiles/satellite-raster/{z}/{x}/{y}"],
       "tileSize": 512,
       "minzoom": 0,
       "maxzoom": 12,

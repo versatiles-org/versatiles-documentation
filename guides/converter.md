@@ -39,7 +39,7 @@ versatiles convert dir dest.pmtiles
 `--tile-format` converts raster tiles into another raster format and vector tiles into another vector format, never between the two. For raster formats it optionally takes a quality and an effort value, e.g. `webp,80` or `avif,90,50`. Vector tiles can be re-encoded between [Mapbox Vector Tiles](https://github.com/mapbox/vector-tile-spec) (`mvt`, formerly called `pbf`, which is still accepted as an alias) and [MapLibre Tiles](https://maplibre.org/maplibre-tile-spec/) (`mlt`); these take no quality or effort value:
 
 ```sh
-versatiles convert --tile-format mlt osm.versatiles osm-mlt.versatiles
+versatiles convert --tile-format mlt osm-vector.versatiles osm-vector-mlt.versatiles
 ```
 
 Run `versatiles convert --help` for the full option listing, including `--flip-y` and `--swap-xy`.
@@ -50,10 +50,10 @@ MBTiles cannot store arbitrary combinations of format and compression: vector ti
 
 ```sh
 # vector tiles
-versatiles convert -c gzip osm.versatiles osm.mbtiles
+versatiles convert -c gzip osm-vector.versatiles osm-vector.mbtiles
 
 # raster tiles
-versatiles convert -c uncompressed satellite.versatiles satellite.mbtiles
+versatiles convert -c uncompressed satellite-raster.versatiles satellite-raster.mbtiles
 ```
 
 Without `-c`, the output keeps the compression of the source, which MBTiles usually rejects.

@@ -20,7 +20,7 @@ cargo install versatiles
 > Uberspace has a [↗ user quota of 10GB by default](https://manual.uberspace.de/basics-resources/#storage). You have to [↗ upgrade your storage](https://manual.uberspace.de/billing-general/#storage) if you want to serve the full planet.
 
 ```sh
-wget -c https://download.versatiles.org/osm.versatiles
+wget -c https://download.versatiles.org/osm-vector/osm-vector.versatiles
 ```
 
 ### Alternative: Download a regional subset
@@ -31,7 +31,7 @@ You can use this [↗ BoundingBox tool](https://boundingbox.klokantech.com/) wit
 For example:
 
 ```sh
-versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm.versatiles osm.versatiles
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm-vector/osm-vector.versatiles osm-vector.versatiles
 ```
 
 [Learn more about downloading tiles](./download_tiles.md#partial-download)
@@ -57,7 +57,7 @@ Use any port between `1024` and `65535` you like. This example uses `41241`.
 
 ```ini
 [program:versatiles]
-command=/home/<username>/.cargo/bin/versatiles serve -i 0.0.0.0 -p 41241 -s /home/<username>/frontend.br.tar.gz "[osm]/home/<username>/osm.versatiles"
+command=/home/<username>/.cargo/bin/versatiles serve -i 0.0.0.0 -p 41241 -s /home/<username>/frontend.br.tar.gz "[osm-vector]/home/<username>/osm-vector.versatiles"
 startsecs=60
 ```
 

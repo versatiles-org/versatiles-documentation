@@ -2,16 +2,16 @@
 
 Relief makes a map much easier to read: hillshading shades the slopes, so mountains and valleys stand out, and 3D terrain lifts the map surface so it can be viewed at an angle. VersaTiles offers two tilesets for this:
 
-| Tileset                                      | Type                             | Hillshading                                                   | 3D terrain | Hosted as           |
-| -------------------------------------------- | -------------------------------- | ------------------------------------------------------------- | ---------- | ------------------- |
-| [Elevation](../basics/tilesets.md#elevation) | raster (`raster-dem`, Terrarium) | computed by MapLibre in the browser, light and colours freely | yes        | `elevation`         |
-| [Hillshade](../basics/tilesets.md#hillshade) | vector polygons                  | computed in advance, drawn as ordinary fill layers            | no         | `hillshade-vectors` |
+| Tileset                                      | Type                             | Hillshading                                                   | 3D terrain | Hosted as          |
+| -------------------------------------------- | -------------------------------- | ------------------------------------------------------------- | ---------- | ------------------ |
+| [Elevation](../basics/tilesets.md#elevation) | raster (`raster-dem`, Terrarium) | computed by MapLibre in the browser, light and colours freely | yes        | `elevation-raster` |
+| [Hillshade](../basics/tilesets.md#hillshade) | vector polygons                  | computed in advance, drawn as ordinary fill layers            | no         | `hillshade-vector` |
 
 For most maps, use **Elevation**: one source gives you both hillshading and 3D terrain. The vector [Hillshade](#vector-hillshading) tileset is the alternative for renderers that cannot handle `raster-dem` sources.
 
 ## With @versatiles/style
 
-[@versatiles/style](https://github.com/versatiles-org/versatiles-style) adds hillshading and terrain to a generated style with two options: `features.hillshade` and `features.terrain`. Both use the hosted `elevation` tileset by default.
+[@versatiles/style](https://github.com/versatiles-org/versatiles-style) adds hillshading and terrain to a generated style with two options: `features.hillshade` and `features.terrain`. Both use the hosted `elevation-raster` tileset by default.
 
 ```html
 <!DOCTYPE html>
@@ -58,7 +58,7 @@ A few things to note:
 - **`urls.base` is needed** when your page is not served by tiles.versatiles.org. By default, `osm()` resolves every tile, font and sprite URL against the origin of the current page, which is what you want when the page and the tiles come from [your own server](#self-hosting).
 - **`inlineSources` is required.** The hosted TileJSON lists relative tile URLs, which MapLibre cannot resolve. `inlineSources` fetches the TileJSON and writes absolute tile URLs and the attribution into the style.
 - **MapLibre GL JS 5.5 or newer** is required for the hillshade that @versatiles/style generates. The copy hosted on tiles.versatiles.org is recent enough.
-- **Terrain is only visible when the map is pitched.** Hold the right mouse button (or `Ctrl` and the left one) and drag to tilt the map. The `TerrainControl` button switches terrain off and on; `elevation` is the name of the source that @versatiles/style creates.
+- **Terrain is only visible when the map is pitched.** Hold the right mouse button (or `Ctrl` and the left one) and drag to tilt the map. The `TerrainControl` button switches terrain off and on; `elevation` is the name of the source that @versatiles/style creates in the style, which is not the same as the name of the tileset, `elevation-raster`.
 
 Both features take options instead of `true`. `light` sets where the light comes from; it shades the terrain and 3D buildings from the same side:
 
@@ -91,7 +91,7 @@ const map = new maplibregl.Map({
 map.on('load', () => {
   map.addSource('elevation', {
     type: 'raster-dem',
-    tiles: ['https://tiles.versatiles.org/tiles/elevation/{z}/{x}/{y}'],
+    tiles: ['https://tiles.versatiles.org/tiles/elevation-raster/{z}/{x}/{y}'],
     tileSize: 512,
     maxzoom: 12,
     encoding: 'terrarium',
@@ -129,17 +129,19 @@ The trade-offs: there is no 3D terrain, the light direction is fixed, and the sh
 
 ## Self-hosting
 
-The examples above use tiles.versatiles.org, our demo server without uptime guarantees ([what to expect](use_tiles_versatiles_org.md#what-to-expect)). To serve the elevation data yourself, download [`elevation.versatiles`](https://download.versatiles.org/elevation.versatiles) (407 GB) or only the region you need, see [Partial download](download_tiles.md#partial-download):
+The examples above use tiles.versatiles.org, our demo server without uptime guarantees ([what to expect](use_tiles_versatiles_org.md#what-to-expect)). To serve the elevation data yourself, download [`elevation-raster.versatiles`](https://download.versatiles.org/elevation-raster/elevation-raster.versatiles) (356 GB) or only the region you need, see [Partial download](download_tiles.md#partial-download):
 
 ```bash
-versatiles convert --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/elevation.versatiles elevation.versatiles
+versatiles convert --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/elevation-raster/elevation-raster.versatiles elevation-raster.versatiles
 ```
 
 Then serve it next to the OSM tiles, with the names that @versatiles/style expects:
 
 ```bash
-versatiles serve "[osm]osm.versatiles" "[elevation]elevation.versatiles"
+versatiles serve "[osm-vector]osm-vector.versatiles" "[elevation-raster]elevation-raster.versatiles"
 ```
+
+@versatiles/style v9 and newer expect these names. Before v9, they were `osm` and `elevation`.
 
 If your page is served from the same server, leave out `urls.base`; otherwise set it to your server's address. For a hand-written source, replace `https://tiles.versatiles.org` in the tile URL.
 

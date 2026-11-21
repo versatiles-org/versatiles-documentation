@@ -12,7 +12,7 @@ This guide explains how to generate [Shortbread](https://shortbread-tiles.org) v
 
 - [Docker](https://docs.docker.com/engine/install/)
 - Sufficient disk space - planet requires ~400 GB free
-- Sufficient RAM - at least half the size of the source `.osm.pbf` (planet: ~64 GB)
+- Sufficient RAM - in the default disk mode, half the size of the source `.osm.pbf` plus 3 GB (planet: ~48 GB). The image checks this before it starts and stops if the container has less.
 
 ## Step 1: Create a working directory
 
@@ -46,7 +46,7 @@ The `--checksum` flag writes `.md5` and `.sha256` sidecar files next to the outp
 | Germany | `germany`      |
 | Berlin  | `berlin`       |
 
-Any [Geofabrik](https://download.geofabrik.de) region path works as an area value.
+Any [Geofabrik](https://download.geofabrik.de) region works as an area value. Use the region's own name (e.g. `berlin`, `monaco`, `massachusetts`), **not** a path like `germany/berlin`. If a name is ambiguous, add a qualifier, e.g. `us georgia` for the US state.
 
 ## Step 3: Find the output
 
@@ -55,29 +55,32 @@ Once complete, the result is in `result/result/`:
 ```
 result/
 └── result/
-    ├── osm.2026-06-22.versatiles
-    ├── osm.2026-06-22.versatiles.md5
-    └── osm.2026-06-22.versatiles.sha256
+    ├── osm-vector.2026-06-22.versatiles
+    ├── osm-vector.2026-06-22.versatiles.md5
+    └── osm-vector.2026-06-22.versatiles.sha256
 ```
 
-The filename is auto-generated as `osm.<date>` for the planet, and `osm.<region>.<date>` for a sub-region — so a Berlin build becomes `osm.berlin.2026-06-22.versatiles`.
+The filename is auto-generated as `osm-vector.<date>` for the planet, and `osm-vector.<region>.<date>` for a sub-region — so a Berlin build becomes `osm-vector.berlin.2026-06-22.versatiles`.
 
 ## Optional flags
 
 Every option has an environment-variable equivalent, so the image can also be driven from a `docker-compose.yml`. Flags take precedence over the environment.
 
-| Flag                  | Environment     | Default               | Description                                                                     |
-| --------------------- | --------------- | --------------------- | ------------------------------------------------------------------------------- |
-| `--format <fmt>`      | `FORMAT`        | `versatiles`          | `versatiles` (brotli), `pmtiles` or `mbtiles`                                   |
-| `--name <basename>`   | `OUTPUT_NAME`   | see above             | Output filename, without the extension                                          |
-| `--xmx <size>`        | `XMX`           | from container memory | JVM heap for Planetiler, e.g. `20g`                                             |
-| `--torrent`           | `TORRENT=1`     | off                   | For `--area planet`: fetch the `.osm.pbf` via BitTorrent instead of HTTP        |
-| `--no-renumber`       | `RENUMBER=0`    | renumber is on        | Skip `osmium renumber` (dense IDs build faster and give slightly smaller tiles) |
-| `--checksum`          | `CHECKSUM=1`    | off                   | Write `<output>.md5` and `<output>.sha256`                                      |
-| `-i`, `--interactive` | `INTERACTIVE=1` | –                     | Force the interactive wizard                                                    |
+| Flag                    | Environment     | Default       | Description                                                                                                                        |
+| ----------------------- | --------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `--format <fmt>`        | `FORMAT`        | `versatiles`  | `versatiles` (brotli), `pmtiles` or `mbtiles`                                                                                      |
+| `--name <basename>`     | `OUTPUT_NAME`   | see above     | Output filename, without the extension                                                                                             |
+| `--mode <disk\|memory>` | `MODE`          | `disk`        | Where Planetiler keeps its temporary data: memory-mapped files, or the Java heap (faster, but needs about three times as much RAM) |
+| `--xmx <size>`          | `XMX`           | from `--mode` | Override the JVM heap that `--mode` derives, e.g. `20g`                                                                            |
+| `--torrent`             | `TORRENT=1`     | off           | For `--area planet`: fetch the `.osm.pbf` via BitTorrent instead of HTTP                                                           |
+| `--renumber`            | `RENUMBER=1`    | off           | Renumber the OSM IDs with `osmium` first: a bit faster and 2–4 % smaller tiles, but the feature IDs are no longer OSM IDs          |
+| `--checksum`            | `CHECKSUM=1`    | off           | Write `<output>.md5` and `<output>.sha256`                                                                                         |
+| `-i`, `--interactive`   | `INTERACTIVE=1` | –             | Force the interactive wizard                                                                                                       |
+
+The [image README](https://github.com/versatiles-org/versatiles-docker/tree/main/versatiles-planetiler#-memory) explains how much memory each mode needs.
 
 > [!NOTE]
-> This image only writes OSM tiles. Land cover is a separate tileset that a style draws under OSM: see [Using it with OSM](https://github.com/versatiles-org/landcover-vectors#using-it-with-osm). The `--landcover` option and `LANDCOVER=1` have been removed and now stop with an error.
+> This image only writes OSM tiles. Land cover is a separate tileset, [`landcover-vector`](../basics/tilesets.md#landcover), that a style draws under OSM: see [Using it with OSM](https://github.com/versatiles-org/landcover-vectors#using-it-with-osm). The `--landcover` option and `LANDCOVER=1` have been removed and now stop with an error.
 
 The same build as a Compose service:
 
@@ -88,7 +91,7 @@ services:
     environment:
       AREA: planet
       FORMAT: versatiles
-      XMX: 20g
+      MODE: disk
     volumes:
       - ./result:/app/data
 ```
@@ -97,7 +100,7 @@ services:
 
 The image enables **all** [Shortbread schema extensions](../compendium/specification_shortbread_extensions.md) by default (`EXPERIMENTS=all`) — 3D buildings, localized names, island labels, address details, bridge names, early street attributes and mountain peaks. Set `EXPERIMENTS=none` to switch them all off, or a comma-separated list to pick individual ones.
 
-Localized names default to `LANGUAGES=en,fr,es,de,ar,el,it,nl,pl,pt,uk`.
+Localized names default to `LANGUAGES=extended`, the [81 languages](https://github.com/versatiles-org/planetiler-shortbread#names) of the Shortbread profile. Set a comma-separated list of codes (e.g. `en,de,fr`) to limit them, or combine both (`extended,tok`).
 
 ## Next steps
 

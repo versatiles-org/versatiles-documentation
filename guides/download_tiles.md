@@ -9,21 +9,28 @@ The sections below explain the same commands, for when you would rather write th
 To download a whole file directly, use `wget`. The `-c` flag resumes an interrupted download:
 
 ```bash
-wget -c "https://download.versatiles.org/osm.versatiles"
+wget -c "https://download.versatiles.org/osm-vector/osm-vector.versatiles"
 ```
+
+Each tileset has a folder of its own, `https://download.versatiles.org/<tileset>/`, so the URL pattern is `<tileset>/<tileset>.versatiles`.
 
 Each file has `.md5` and `.sha256` companions to verify the download:
 
 ```bash
-curl -O "https://download.versatiles.org/osm.versatiles.md5"
-md5sum -c osm.versatiles.md5
+curl -O "https://download.versatiles.org/osm-vector/osm-vector.versatiles.md5"
+md5sum -c osm-vector.versatiles.md5
 ```
+
+The checksum file names the file it belongs to, so `md5sum -c` only works if you saved the download under its original name, `osm-vector.versatiles`.
 
 ### Older versions and update notifications
 
-`osm.versatiles` always points at the newest build. Previous builds stay available under a dated name — `osm.20260608.versatiles` and so on — listed behind **Show all versions**. Pin one of those if you need a reproducible dataset.
+`osm-vector.versatiles` always points at the newest build. Previous builds stay available under a dated name — `osm-vector.20260608.versatiles` and so on — listed behind **Show all versions**. Pin one of those if you need a reproducible dataset.
 
-Each tileset also publishes an RSS feed (for example [`feed-osm.xml`](https://download.versatiles.org/feed-osm.xml)) announcing new builds, and a `urllist_<tileset>.tsv` for scripted or bulk transfers.
+Each tileset also publishes an RSS feed (for example [`osm-vector/feed.xml`](https://download.versatiles.org/osm-vector/feed.xml)) announcing new builds, and a `<tileset>/urllist.tsv` for scripted or bulk transfers.
+
+> [!NOTE]
+> The tilesets were renamed in November 2026: `osm` became `osm-vector`, `satellite` became `satellite-raster`, `elevation` became `elevation-raster`, and `landcover-vectors`, `hillshade-vectors` and `bathymetry-vectors` lost their plural `s`. The old download URLs redirect to the new ones.
 
 ## Partial download
 
@@ -32,19 +39,19 @@ If you only need tiles for a specific region, like a continent or a country, you
 For example, to download only tiles for Switzerland (including 3 tiles as border):
 
 ```bash
-versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/osm.versatiles switzerland.versatiles
+versatiles convert --bbox-border 3 --bbox "5.956,45.818,10.492,47.808" https://download.versatiles.org/osm-vector/osm-vector.versatiles switzerland.versatiles
 ```
 
 Or, very similarly, how to download Germany
 
 ```bash
-versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm.versatiles germany.versatiles
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" https://download.versatiles.org/osm-vector/osm-vector.versatiles germany.versatiles
 ```
 
 You can also limit the zoom levels:
 
 ```bash
-versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" --min-zoom 10 --max-zoom 14 https://download.versatiles.org/osm.versatiles germany.versatiles
+versatiles convert --bbox-border 3 --bbox "5.988,47.302,15.017,54.983" --min-zoom 10 --max-zoom 14 https://download.versatiles.org/osm-vector/osm-vector.versatiles germany.versatiles
 ```
 
 ## Downloading to Google Cloud Storage
@@ -55,11 +62,11 @@ To store VersaTiles data on Google Cloud Storage, follow these steps:
   Follow the [Google documentation](https://cloud.google.com/storage/docs/creating-buckets) to create a new bucket.
 
 - **Copy the Latest Data**
-  Transfer "osm.versatiles" file from [download.versatiles.org](https://download.versatiles.org/) to your bucket. There are 3 ways to do that:
+  Transfer the "osm-vector.versatiles" file from [download.versatiles.org](https://download.versatiles.org/) to your bucket. There are 3 ways to do that:
   1. **Automated Transfer**
   - Navigate to "Bucket details" and click on "TRANSFER DATA", then "Transfer data in".
   - Select "Source type: URL list" and proceed to the next step.
-  - Enter "https://download.versatiles.org/urllist_osm.tsv" as the "URL of TSV file" and proceed.
+  - Enter "https://download.versatiles.org/osm-vector/urllist.tsv" as the "URL of TSV file" and proceed.
   - Specify your bucket and folder as the destination, and continue.
   - Opt for "Run once", "Starting now", and finalize by clicking "CREATE".
   - Monitor the transfer status [here](https://console.cloud.google.com/transfer/jobs).

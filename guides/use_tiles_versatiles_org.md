@@ -2,7 +2,7 @@
 
 We run [tiles.versatiles.org](https://tiles.versatiles.org) as a demo server for VersaTiles. It is free and open to everyone, but it comes without any guarantees — see [What to expect](#what-to-expect) below before you build on it.
 
-You can access tiles directly via the URL pattern `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — for example `https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}` for the OpenStreetMap vector tiles.
+You can access tiles directly via the URL pattern `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — for example `https://tiles.versatiles.org/tiles/osm-vector/{z}/{x}/{y}` for the OpenStreetMap vector tiles.
 
 The [tilesets overview](../basics/tilesets.md) describes every hosted tileset. The server itself lists them at [`tiles/index.json`](https://tiles.versatiles.org/tiles/index.json), and each tileset publishes its metadata as TileJSON at `tiles/<tileset>/tiles.json`.
 

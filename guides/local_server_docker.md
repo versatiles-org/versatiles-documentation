@@ -19,7 +19,7 @@ First, download the frontend and tile data into your current directory:
 
 ```bash
 wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/download/frontend-dev.br.tar.gz"
-wget -c "https://download.versatiles.org/osm.versatiles"
+wget -c "https://download.versatiles.org/osm-vector/osm-vector.versatiles"
 ```
 
 Then start the server (the `-s` flag accepts `.br.tar.gz` directly):
@@ -31,7 +31,7 @@ docker run --rm -it \
   versatiles/versatiles:latest \
   serve \
   -s /data/frontend-dev.br.tar.gz \
-  '/data/osm.versatiles'
+  '/data/osm-vector.versatiles'
 ```
 
 Open <http://localhost:8080/> in your browser to confirm the server is running.
@@ -45,7 +45,7 @@ See the full image documentation in the [`versatiles` directory](https://github.
 The image **`versatiles-frontend`** packages the [VersaTiles server](https://github.com/versatiles-org/versatiles-rs) together with the latest [developer frontend](https://github.com/versatiles-org/versatiles-frontend) already baked in. Only the tile data needs to be on disk:
 
 ```bash
-wget -c "https://download.versatiles.org/osm.versatiles"
+wget -c "https://download.versatiles.org/osm-vector/osm-vector.versatiles"
 ```
 
 ```bash
@@ -53,7 +53,7 @@ docker run --rm -it \
   -p 8080:8080 \
   --mount type=bind,src="$(pwd)",dst=/tiles,readonly \
   versatiles/versatiles-frontend:alpine \
-  '/tiles/osm.versatiles'
+  '/tiles/osm-vector.versatiles'
 ```
 
 The image's entrypoint already runs `versatiles serve --static /app/frontend-dev.br.tar`, so only the tile source has to be passed. Variants are tagged `alpine`, `debian` and `scratch` (`latest` points at `alpine`); the older `latest-alpine` style names still work but are deprecated aliases.

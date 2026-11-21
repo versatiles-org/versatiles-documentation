@@ -43,18 +43,21 @@ info: add tile source: /tiles/my_overlay/* <- container 'tar' ('/data/my_overlay
 Each source gets an URL based on the file name (without extension). If you want to use a different URL, you can use this special notation with square brackets:
 
 ```bash
-versatiles serve "[osm]planet.versatiles" "[satellite]satellite_imagery.mbtiles" "[heatmap]my_overlay.tar"
+versatiles serve "[osm-vector]planet.versatiles" "[satellite-raster]satellite_imagery.mbtiles" "[heatmap]my_overlay.tar"
 ```
 
 Now the URLs look like this:
 
 ```
-info: add tile source: /tiles/osm/* <- container 'versatiles' ('/data/planet.versatiles')
-info: add tile source: /tiles/satellite/* <- container 'mbtiles' ('/data/satellite_imagery.mbtiles')
+info: add tile source: /tiles/osm-vector/* <- container 'versatiles' ('/data/planet.versatiles')
+info: add tile source: /tiles/satellite-raster/* <- container 'mbtiles' ('/data/satellite_imagery.mbtiles')
 info: add tile source: /tiles/heatmap/* <- container 'tar' ('/data/my_overlay.tar')
 ```
 
-The name can also be appended instead of prefixed — `"planet.versatiles[osm]"` is equivalent to `"[osm]planet.versatiles"`. Run `versatiles help source` for the full data-source syntax.
+The name can also be appended instead of prefixed — `"planet.versatiles[osm-vector]"` is equivalent to `"[osm-vector]planet.versatiles"`. Run `versatiles help source` for the full data-source syntax.
+
+> [!TIP]
+> Use the names of the [hosted tilesets](tilesets.md) — `osm-vector`, `satellite-raster`, `elevation-raster`, `landcover-vector` and so on. [@versatiles/style](https://github.com/versatiles-org/versatiles-style) v9 and the frontend look for these names, so a style generated without extra URLs finds your tiles. The downloaded files already carry these names.
 
 ## Optional frontend
 
@@ -67,7 +70,7 @@ wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/down
 You can then add the frontend to the server by adding the tar file with a `-s` argument:
 
 ```bash
-versatiles serve -s frontend.br.tar.gz planet.versatiles
+versatiles serve -s frontend.br.tar.gz osm-vector.versatiles
 ```
 
 ## Different IP/Port
@@ -93,10 +96,10 @@ server:
   port: 8080 # default: 8080
 
 tiles:
-  - name: osm # served at /tiles/osm/...
-    src: osm.versatiles
-  - name: satellite
-    src: https://example.org/satellite.versatiles # remote container
+  - name: osm-vector # served at /tiles/osm-vector/...
+    src: osm-vector.versatiles
+  - name: satellite-raster
+    src: https://example.org/satellite-raster.versatiles # remote container
 
 static:
   - src: ./frontend.br.tar.gz # tar archive or directory

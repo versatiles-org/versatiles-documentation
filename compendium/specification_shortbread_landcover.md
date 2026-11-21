@@ -75,11 +75,11 @@ The sea is a hole for Shortbread's `ocean` layer to fill. It is masked with OSM'
 
 ### 1. Get the tiles
 
-- **Hosted:** `https://tiles.versatiles.org/tiles/landcover-vectors/tiles.json`, on our [demo server](../guides/use_tiles_versatiles_org.md).
-- **Download:** [`landcover-vectors.versatiles`](https://download.versatiles.org/#landcover-vectors), to [serve it yourself](../basics/versatiles_server.md).
+- **Hosted:** `https://tiles.versatiles.org/tiles/landcover-vector/tiles.json`, on our [demo server](../guides/use_tiles_versatiles_org.md).
+- **Download:** [`landcover-vector.versatiles`](https://download.versatiles.org/#landcover-vector), to [serve it yourself](../basics/versatiles_server.md).
 - **Build:** see [versatiles-org/landcover-vectors](https://github.com/versatiles-org/landcover-vectors#building).
 
-Use it together with plain OSM Shortbread tiles, such as the hosted `osm` tileset or `osm.versatiles`.
+Use it together with plain OSM Shortbread tiles, such as the hosted `osm-vector` tileset or `osm-vector.versatiles`.
 
 ### 2. Draw it under OSM
 
@@ -108,7 +108,7 @@ This adds the source and 9 fills, in every theme. The source defaults to the hos
 const style = osm({
   theme: 'colorful',
   features: { landcover: true },
-  urls: { landcover: '/tiles/landcover-vectors/tiles.json' },
+  urls: { landcover: '/tiles/landcover-vector/tiles.json' },
 });
 ```
 
@@ -129,7 +129,7 @@ Add the land cover as a second source:
   "sources": {
     "landcover": {
       "type": "vector",
-      "url": "https://tiles.versatiles.org/tiles/landcover-vectors/tiles.json"
+      "url": "https://tiles.versatiles.org/tiles/landcover-vector/tiles.json"
     }
   }
 }

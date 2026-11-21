@@ -46,7 +46,7 @@ docker run -d --name versatiles \
   -e DOMAIN=maps.example.com \
   -e EMAIL=admin@example.com \
   -e FRONTEND=standard \
-  -e TILE_SOURCES=osm.versatiles \
+  -e TILE_SOURCES=osm-vector.versatiles \
   -e BBOX="9.5,46.3,17.2,49.1" \
   versatiles/versatiles-nginx:latest
 ```

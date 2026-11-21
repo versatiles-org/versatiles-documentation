@@ -8,7 +8,7 @@ The profile can emit a few features that are **not part of the Shortbread schema
 
 ## Which tiles have them
 
-Experiments are chosen when the tiles are generated, with `--shortbread_experiments` (`all`, `none` or a list of tokens). They are off by default. The [published VersaTiles tiles](../basics/tilesets.md) ship **all** of them: the [versatiles-planetiler](../guides/generate_tiles_from_osm.md) image defaults to `EXPERIMENTS=all`, with `LANGUAGES=en,fr,es,de,ar,el,it,nl,pl,pt,uk`.
+Experiments are chosen when the tiles are generated, with `--shortbread_experiments` (`all`, `none` or a list of tokens). They are off by default. The [published VersaTiles tiles](../basics/tilesets.md) ship **all** of them: the [versatiles-planetiler](../guides/generate_tiles_from_osm.md) image defaults to `EXPERIMENTS=all`, with `LANGUAGES=extended` (81 languages).
 
 ## Experiments
 

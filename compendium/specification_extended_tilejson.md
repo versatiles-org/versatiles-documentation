@@ -121,7 +121,7 @@ Since TileJSON references resources on the same host under the same path prefix,
 
 ### Example
 
-The file at `https://example.org/tiles/osm/tiles.json` contains:
+The file at `https://example.org/tiles/osm-vector/tiles.json` contains:
 
 ```json
 {
@@ -130,7 +130,7 @@ The file at `https://example.org/tiles/osm/tiles.json` contains:
 }
 ```
 
-A client resolves this to `https://example.org/tiles/osm/{z}/{x}/{y}`.
+A client resolves this to `https://example.org/tiles/osm-vector/{z}/{x}/{y}`.
 
 ### Client implementation note
 
