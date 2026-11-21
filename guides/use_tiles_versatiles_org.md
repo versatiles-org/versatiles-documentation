@@ -35,6 +35,8 @@ Below is a minimal HTML example showing how to implement a map using MapLibre GL
 </html>
 ```
 
+For an address search on your map, use our public geocoder: see [How to use geocode.versatiles.org](use_geocode_versatiles_org.md).
+
 ## Attribution
 
 Our pre-built styles already contain the required attribution, and MapLibre GL JS displays it automatically.
