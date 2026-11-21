@@ -17,7 +17,7 @@ Usable enough to try, but still changing. Don't build anything load-bearing on t
 
 - **[VersaTiles Studio](https://github.com/versatiles-org/versatiles-studio)**: A cross-platform desktop application for working with map tiles — open and inspect containers, build processing pipelines, design styles and produce new tile sets, without a terminal and without a full GIS. Built on [Tauri](https://tauri.app) and [versatiles-rs](https://github.com/versatiles-org/versatiles-rs). Early implementation: it opens containers, previews a pipeline live and imports vector, tabular and raster data, but is not yet useful end to end.
 - **[Choro](https://github.com/versatiles-org/versatiles-choro)**: A modular, Docker-based workflow for building choropleth maps — maps where regions are coloured according to data values — aimed at newsrooms and data journalists. The API, UI and configuration formats will still change.
-- **[Map Animation](https://github.com/versatiles-org/versatiles-map-animation)**: A browser-based editor for composing keyframe camera animations and annotations on a VersaTiles map. Animations are shared as a URL hash, embeddable via `<iframe>`, and can be rendered to MP4 with a Docker image. A prototype: hosted, but not publicly linked.
+- **[Map Animator](https://versatiles.org/versatiles-map-animator/)**: A browser-based editor for composing keyframe camera animations and annotations on a VersaTiles map. Animations are shared as a URL hash, embeddable via `<iframe>`, and can be rendered to MP4 with a Docker image ([repository](https://github.com/versatiles-org/versatiles-map-animator)).
 
 ## Planned
 

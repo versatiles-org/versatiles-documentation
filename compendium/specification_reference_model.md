@@ -132,7 +132,7 @@ The [versatiles-style](https://github.com/versatiles-org/versatiles-style) libra
 - [node-versatiles-svelte](https://github.com/versatiles-org/node-versatiles-svelte): Reusable Svelte components (BasicMap, BBoxMap, LocatorMap, MapEditor) for embedding VersaTiles maps in web applications, with light/dark mode theming.
 - [maplibre-versatiles-styler](https://github.com/versatiles-org/maplibre-versatiles-styler): A MapLibre GL JS plugin for interactively switching and customising map styles in the browser — includes colour, language, and font controls with style export.
 - [versatiles-svg-renderer](https://github.com/versatiles-org/versatiles-svg-renderer): Renders vector maps into SVG files from MapLibre-compatible styles, usable in both Node.js and browser environments.
-- [versatiles-map-animation](https://github.com/versatiles-org/versatiles-map-animation): Browser-based editor for composing and exporting camera animations and map annotations on VersaTiles maps, with MP4 export support.
+- [versatiles-map-animator](https://github.com/versatiles-org/versatiles-map-animator): Browser-based editor for composing and exporting camera animations and map annotations on VersaTiles maps, with MP4 export support.
 
 ### Playground
 
