@@ -2,6 +2,8 @@
 
 We run [tiles.versatiles.org](https://tiles.versatiles.org) as a demo server for VersaTiles. It is free and open to everyone, but it comes without any guarantees — see [What to expect](#what-to-expect) below before you build on it.
 
+The [terms of use](https://versatiles.org/terms/) say what we ask in return. Above all: if your company uses tiles.versatiles.org instead of a commercial map service, we expect you to donate 20% of what you save.
+
 You can access tiles directly via the URL pattern `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — for example `https://tiles.versatiles.org/tiles/osm-vector/{z}/{x}/{y}` for the OpenStreetMap vector tiles.
 
 The [tilesets overview](../basics/tilesets.md) describes every hosted tileset. The server itself lists them at [`tiles/index.json`](https://tiles.versatiles.org/tiles/index.json), and each tileset publishes its metadata as TileJSON at `tiles/<tileset>/tiles.json`.
@@ -67,7 +69,7 @@ If you build your own client or cache, for example in a mobile app: tiles and al
 
 ### Logging
 
-Requests are logged in anonymized form. We use these logs only to track down issues and to detect obvious misuse.
+Requests are logged in anonymized form. We use these logs only to track down issues and to detect obvious misuse. The [terms of use](https://versatiles.org/terms/) list exactly what is logged and for how long.
 
 ### Availability
 
