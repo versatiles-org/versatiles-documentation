@@ -61,7 +61,7 @@ To pin a specific version, download the frontend release of your choice from the
 
 The server is open to everyone. If you expect high traffic, please put a CDN in front of it, so that most requests are answered from the CDN's cache instead of our server.
 
-Successful responses carry a `Cache-Control` header of six hours, which a CDN should respect. This also means that updates to tiles, styles or libraries can take up to six hours to reach your users. A tile that does not exist is answered with `404` and may be cached for five minutes; all other errors are marked `no-store`.
+Tiles and `tiles.json` carry a `Cache-Control` header of six hours, which a CDN should respect. This also means that updates to the tile data can take up to six hours to reach your users. All other files — styles, fonts, sprites and libraries — are marked `no-cache`: a browser or CDN may keep them, but asks the server each time whether they are still current, so updates reach your users with the next page load. A tile that does not exist is answered with `404` and may be cached for five minutes; all other errors are marked `no-store`.
 
 Requests are rate-limited per IP address. The limit is far above what normal map use needs; requests beyond it are answered with `429 Too Many Requests` and a `Retry-After` header. The current values are in the server's [nginx configuration](https://github.com/versatiles-org/tiles.versatiles.org/blob/main/nginx/nginx.conf).
 
