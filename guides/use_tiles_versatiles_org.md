@@ -2,7 +2,7 @@
 
 We run [tiles.versatiles.org](https://tiles.versatiles.org) as a demo server for VersaTiles. It is free and open to everyone, but it comes without any guarantees — see [What to expect](#what-to-expect) below before you build on it.
 
-The [terms of use](https://versatiles.org/terms/) say what we ask in return. Above all: if your company uses tiles.versatiles.org instead of a commercial map service, we expect you to donate 20% of what you save.
+The [terms of use](https://versatiles.org/terms/) say what we ask in return. Above all: if your company uses tiles.versatiles.org instead of a commercial map service, our recommendation is to donate 20% of what you save.
 
 You can access tiles directly via the URL pattern `https://tiles.versatiles.org/tiles/<tileset>/{z}/{x}/{y}` — for example `https://tiles.versatiles.org/tiles/osm-vector/{z}/{x}/{y}` for the OpenStreetMap vector tiles.
 
@@ -61,7 +61,7 @@ To pin a specific version, download the frontend release of your choice from the
 
 The server is open to everyone. If you expect high traffic, please put a CDN in front of it, so that most requests are answered from the CDN's cache instead of our server.
 
-Tiles and `tiles.json` carry a `Cache-Control` header of six hours, which a CDN should respect. This also means that updates to the tile data can take up to six hours to reach your users. All other files — styles, fonts, sprites and libraries — are marked `no-cache`: a browser or CDN may keep them, but asks the server each time whether they are still current, so updates reach your users with the next page load. The only exception are the copies of the libraries in folders named with their version, such as `/assets/lib/maplibre-gl@6.19.0/`, which the server's own pages load: they never change under that path and may be kept for a year. These folders change with every update of the server, so always embed the unversioned paths shown above. A tile that does not exist is answered with `404` and may be cached for five minutes; all other errors are marked `no-store`.
+Everything under `/tiles/` (tiles, `tiles.json` and `index.json`) carries a `Cache-Control` header of six hours, which a CDN should respect. This also means that updates to the tile data can take up to six hours to reach your users. All other files — styles, fonts, sprites and libraries — are marked `no-cache`: a browser or CDN may keep them, but asks the server each time whether they are still current, so updates reach your users with the next page load. The only exceptions are the copies of the libraries in folders named with their version, such as `/assets/lib/maplibre-gl@6.19.0/`, which the server's own pages load: they never change under that path and may be kept for a year. A folder disappears as soon as its library is updated, so always embed the unversioned paths shown above. A file that does not exist is answered with `404` and may be cached for five minutes; all other errors are marked `no-store`.
 
 Requests are rate-limited per IP address. The limit is far above what normal map use needs; requests beyond it are answered with `429 Too Many Requests` and a `Retry-After` header. The current values are in the server's [nginx configuration](https://github.com/versatiles-org/tiles.versatiles.org/blob/main/nginx/nginx.conf).
 

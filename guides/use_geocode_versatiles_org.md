@@ -4,7 +4,7 @@ We run [geocode.versatiles.org](https://geocode.versatiles.org/status) as a free
 
 It is a [Photon](https://github.com/komoot/photon) server, version 1.x, with the worldwide OpenStreetMap index. The address search in the VersaTiles frontend and in the [map editor](https://versatiles.org/versatiles-map-editor/) uses it. It comes without guarantees: see [What to expect](#what-to-expect) before you build on it.
 
-The [terms of use](https://versatiles.org/terms/) say what we ask in return. Above all: if your company uses geocode.versatiles.org instead of a commercial geocoder, we expect you to donate 20% of what you save.
+The [terms of use](https://versatiles.org/terms/) say what we ask in return. Above all: if your company uses geocode.versatiles.org instead of a commercial geocoder, our recommendation is to donate 20% of what you save.
 
 ## Endpoints
 
