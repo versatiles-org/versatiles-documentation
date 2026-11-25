@@ -94,6 +94,7 @@ A small but complete example:
 server:
   ip: 0.0.0.0 # default: 0.0.0.0
   port: 8080 # default: 8080
+  cache_control: public, max-age=86400, no-transform # tiles and tiles.json, default: four weeks
 
 tiles:
   - name: osm-vector # served at /tiles/osm-vector/...
@@ -104,13 +105,16 @@ tiles:
 static:
   - src: ./frontend.br.tar.gz # tar archive or directory
     prefix: / # default: /
+    immutable: ['assets/lib/*@*/**'] # versioned libraries: one year
 
 cors:
   allowed_origins: ['https://*.example.org'] # default: ["*"]
 
-extra_response_headers:
-  Cache-Control: public, max-age=86400, immutable
+extra_response_headers: # added to every response, including errors
+  X-Robots-Tag: noindex
 ```
+
+How long browsers may keep tiles and static files is explained on the [Caching](caching.md) page. Don't set `Cache-Control` in `extra_response_headers`: it would also apply to errors and replace the headers the server picks for each file.
 
 Every section and field is optional; omitted fields fall back to their defaults. A tile source can also point to a `.vpl` pipeline file — see `versatiles help pipeline`.
 
@@ -120,7 +124,7 @@ Command line arguments override values from the configuration file. For the full
 
 ## What's not included?
 
-The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. You can use a CDN or a reverse proxy such as nginx — see the [deployment guides](../guides/deploy_using_docker.md) for how to set this up.
+The VersaTiles server implements only core functionality to keep the project simple and easy to maintain. TLS certificates and caching are not included. You can use a CDN or a reverse proxy such as nginx — see the [deployment guides](../guides/deploy_using_docker.md) for how to set this up, and [Caching](caching.md#behind-a-proxy-or-cdn) for which headers to pass through.
 
 ## Scalability and performance
 

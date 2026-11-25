@@ -109,6 +109,7 @@ export default defineConfig({
 					{ text: 'Available Tilesets', link: '/basics/tilesets' },
 					{ text: 'VersaTiles Server', link: '/basics/versatiles_server' },
 					{ text: 'Frontend', link: '/basics/frontend' },
+					{ text: 'Caching', link: '/basics/caching' },
 					{ text: 'Web Maps', link: '/basics/web_maps' },
 				],
 			},
