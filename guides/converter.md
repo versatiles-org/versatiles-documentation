@@ -1,6 +1,6 @@
 # VersaTiles Converter
 
-The converter is a command in the [versatiles tool](https://github.com/versatiles-org/versatiles-rs) ([Install](https://github.com/versatiles-org/versatiles-rs?tab=readme-ov-file#installation)).
+The converter is a command in the [versatiles tool](https://github.com/versatiles-org/versatiles-rs) ([Install](install_versatiles.md)).
 
 It can convert tileset between `versatiles`, `mbtiles` and `pmtiles` containers, `tar` archives and directories.
 

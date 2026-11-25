@@ -28,6 +28,8 @@ Several variants are available to match different deployment needs:
 
 Each variant is also published without the inner Brotli compression, as plain `*.tar.gz` — useful if your server cannot serve pre-compressed files. Those are roughly 25 % larger.
 
+A third archive per variant, `*.tar.zst`, holds the same uncompressed files as `*.tar.gz` but is compressed with Zstandard, which makes it the smallest download. Unpack it with `tar --zstd -xf` or `zstd -d`.
+
 To download the standard variant:
 
 ```bash

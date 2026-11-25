@@ -106,7 +106,7 @@ HTTP requests for successive tiles are combined to download thousands of tiles a
 - [x] Generate aerial imagery / orthophotos from European national agencies ([repository](https://github.com/versatiles-org/orthophotos))
 - [x] Include metadata in container
 - [x] Support all tile formats (image and vector)
-- [x] Support all compression methods (gzip, brotli)
+- [x] Support all compression methods (gzip, brotli, zstd)
 - [x] Enable bbox downloads
 - [x] Finish the [container specification](https://github.com/versatiles-org/versatiles-spec/blob/main/v02/readme.md)
 

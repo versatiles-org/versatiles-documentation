@@ -28,7 +28,7 @@ To ensure the [four essential freedoms of Free Software](https://en.wikipedia.or
 - **Everything should be open**  
   _Every piece of code, script and data should be documented, understandable and reproducible._
 - **Minimal licences**  
-  _Use MIT and CC0, remove proprietary parts. The only required attribution should be to the data source, e.g. "© OpenStreetMap contributors"._
+  _Use MIT and the Unlicense, remove proprietary parts. The only required attribution should be to the data source, e.g. "© OpenStreetMap contributors"._
 - **Keep it simple**  
   _We focus on core functionality that everyone needs. Less features for special cases. We prefer simple solutions that allow more flexibility. Minimal dependencies._
 - **Include everyone**  
