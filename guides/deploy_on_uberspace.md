@@ -57,9 +57,11 @@ Use any port between `1024` and `65535` you like. This example uses `41241`.
 
 ```ini
 [program:versatiles]
-command=/home/<username>/.cargo/bin/versatiles serve -i 0.0.0.0 -p 41241 -s /home/<username>/frontend.br.tar.gz "[osm-vector]/home/<username>/osm-vector.versatiles"
+command=/home/<username>/.cargo/bin/versatiles serve -i 0.0.0.0 -p 41241 -s /home/<username>/frontend.br.tar.gz --immutable "assets/lib/*@*/**" "[osm-vector]/home/<username>/osm-vector.versatiles"
 startsecs=60
 ```
+
+`--immutable` lets browsers keep the frontend's versioned libraries for a year, while all other files are checked on every page load, so an updated frontend shows at once. The [Caching](../basics/caching.md) page explains it.
 
 Now you can use `supervisorctl` to start the versatiles server as a daemon:
 

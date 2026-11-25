@@ -70,8 +70,10 @@ wget "https://github.com/versatiles-org/versatiles-frontend/releases/latest/down
 You can then add the frontend to the server by adding the tar file with a `-s` argument:
 
 ```bash
-versatiles serve -s frontend.br.tar.gz osm-vector.versatiles
+versatiles serve -s frontend.br.tar.gz --immutable 'assets/lib/*@*/**' osm-vector.versatiles
 ```
+
+`--immutable` lets browsers keep the frontend's versioned libraries for a year, while all other files are checked on every page load, so an updated frontend shows at once. It needs versatiles 5.16 or later; the [Caching](caching.md) page explains it.
 
 ## Different IP/Port
 

@@ -21,7 +21,7 @@ Tiles fall between the two: their URLs are fixed, but a tileset changes rarely, 
 | Static files matching an `immutable` pattern | `public, max-age=31536000, immutable` (one year)                       |
 | Errors, such as `404` or `500`               | none                                                                   |
 
-Static files get `no-cache` since versatiles 5.14. Older versions sent them with the four weeks of the tiles, so after an update browsers could keep an outdated `index.html` for weeks. `immutable` is available since versatiles 5.15.
+Static files get `no-cache` since versatiles 5.14. Older versions sent them with the four weeks of the tiles, so after an update browsers could keep an outdated `index.html` for weeks. `immutable` is available since versatiles 5.15 in the configuration file, and since 5.16 as `--immutable` on the command line.
 
 ## How to change them
 
@@ -44,7 +44,13 @@ static:
 - **`cache_control`** on a `static` entry sets the header of all files of that source. Leave it at `no-cache` unless the URLs of the files contain a version: a longer value keeps old files in browsers after an update.
 - **`immutable`** on a `static` entry is a list of path patterns. A matching file is sent with `public, max-age=31536000, immutable` instead of `cache_control`. A pattern is matched against the path inside the source, without its `prefix`. `*` matches within one segment of the path, `**` across any number of segments.
 
-On the command line, only `--cache-control` is available: `cache_control` and `immutable` for static files need the configuration file. A server started with just `--static frontend.br.tar.gz`, as our Docker images and the [Google Cloud guide](../guides/deploy_in_google_cloud.md) do, sends all static files with `no-cache`. That is safe, but browsers then check every library on every page load instead of keeping it.
+On the command line, `--cache-control` sets the header of tiles, and `--immutable` gives the patterns for every `--static` source, as our Docker images do:
+
+```bash
+versatiles serve --static frontend.br.tar.gz --immutable 'assets/lib/*@*/**' osm.versatiles
+```
+
+Quote the pattern, so that the shell doesn't expand the `*`. `cache_control` for static files needs the configuration file. A server started with just `--static frontend.br.tar.gz` sends all static files with `no-cache`. That is safe, but browsers then check every library on every page load instead of keeping it.
 
 Don't set `Cache-Control` in `extra_response_headers`: those headers are added to every response, including errors, and they replace the headers above.
 

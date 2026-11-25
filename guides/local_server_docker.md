@@ -56,7 +56,7 @@ docker run --rm -it \
   '/tiles/osm-vector.versatiles'
 ```
 
-The image's entrypoint already runs `versatiles serve --static /app/frontend-dev.br.tar`, so only the tile source has to be passed. Variants are tagged `alpine`, `debian` and `scratch` (`latest` points at `alpine`); the older `latest-alpine` style names still work but are deprecated aliases.
+The image's entrypoint already runs `versatiles serve --static /app/frontend-dev.br.tar --immutable 'assets/lib/*@*/**'`, so only the tile source has to be passed. Variants are tagged `alpine`, `debian` and `scratch` (`latest` points at `alpine`); the older `latest-alpine` style names still work but are deprecated aliases.
 
 Then browse to <http://localhost:8080/>.
 

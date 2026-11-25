@@ -24,12 +24,14 @@ EXPOSE 8080
 #   --static serves the frontend that is baked into the image. Overriding
 #      ENTRYPOINT discards the image's own default arguments, so it has to
 #      be repeated here - without it the map tiles work but the map does not.
+#   --immutable lets browsers keep the frontend's versioned libraries for a year;
+#      all other files are checked on every page load.
 #   "[osm-vector]https://..." is the URL of the VersaTiles container in your bucket.
 #      - make sure the file is publicly accessible
 #      - "[osm-vector]" sets the name of the tile source; the frontend and @versatiles/style look for this name
 #      - append more entries to serve multiple tile sources
 ENTRYPOINT []
-CMD ["sh", "-c", "exec versatiles serve -p \"${PORT:-8080}\" --static /app/frontend-dev.br.tar '[osm-vector]https://storage.googleapis.com/bucket_name/folder_name/osm-vector.versatiles'"]
+CMD ["sh", "-c", "exec versatiles serve -p \"${PORT:-8080}\" --static /app/frontend-dev.br.tar --immutable 'assets/lib/*@*/**' '[osm-vector]https://storage.googleapis.com/bucket_name/folder_name/osm-vector.versatiles'"]
 ```
 
 - Don't forget to update the last line of `Dockerfile` to point to your Google Bucket

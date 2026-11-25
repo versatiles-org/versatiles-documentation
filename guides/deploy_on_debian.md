@@ -88,7 +88,7 @@ Type=simple
 User=versatiles
 Group=versatiles
 WorkingDirectory=/home/versatiles/versatiles
-ExecStart=/usr/local/bin/versatiles serve -i 127.0.0.1 -p 8080 -s frontend.br.tar.gz "[osm-vector]osm-vector.versatiles"
+ExecStart=/usr/local/bin/versatiles serve -i 127.0.0.1 -p 8080 -s frontend.br.tar.gz --immutable "assets/lib/*@*/**" "[osm-vector]osm-vector.versatiles"
 Restart=always
 RestartSec=5
 SyslogIdentifier=versatiles
@@ -99,6 +99,8 @@ EOF
 ```
 
 `-i 127.0.0.1` makes VersaTiles accept connections from the server itself only, so it is reachable only through nginx. Without it, VersaTiles listens on all interfaces, and port 8080 would be open to the internet, bypassing nginx.
+
+`--immutable` lets browsers keep the frontend's versioned libraries for a year, while all other files are checked on every page load, so an updated frontend shows at once. The [Caching](../basics/caching.md) page explains it.
 
 `ExecStart` must be an absolute path: systemd only searches `/usr/local/bin`, `/usr/local/sbin`, `/usr/bin` and `/usr/sbin`, and it does not use your shell's `PATH`.
 
