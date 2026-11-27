@@ -123,3 +123,25 @@ Your map is now available on port 80 of the server. To check that nginx and Vers
 ```bash
 curl http://localhost/tiles/index.json
 ```
+
+## 7. Keep it up to date
+
+nginx faces the internet. Debian publishes security fixes for it and the rest of the system; let the server install them by itself:
+
+```bash
+sudo apt -q install -y unattended-upgrades
+cat /etc/apt/apt.conf.d/20auto-upgrades
+```
+
+The file should contain `APT::Periodic::Unattended-Upgrade "1";`. If it is missing, or says `"0"`, turn it on with `sudo dpkg-reconfigure -plow unattended-upgrades`.
+
+It installs Debian's security updates daily. An update of nginx restarts nginx. An update of a library it uses, such as OpenSSL, only takes effect once nginx restarts: run `sudo systemctl restart nginx`, or reboot the server now and then, which also brings a new kernel into use.
+
+VersaTiles is updated by running the install script from step 2 again, then restarting the service:
+
+```bash
+curl -Ls "https://github.com/versatiles-org/versatiles-rs/releases/latest/download/install-unix.sh" | sudo sh
+sudo systemctl restart versatiles
+```
+
+nginx publishes its security advisories at [nginx.org/en/security_advisories.html](https://nginx.org/en/security_advisories.html).
